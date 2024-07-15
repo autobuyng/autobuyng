@@ -1,0 +1,19 @@
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run linting
+echo "Running linting..."
+npm run lint
+
+# Fix linting issues
+echo "Fixing linting..."
+npm run lint:fix
+
+
+
+# Run Prettier
+echo "Running Prettier..."
+npm run prettier
+
+
