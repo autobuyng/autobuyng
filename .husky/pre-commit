@@ -10,8 +10,6 @@ npm run lint
 echo "Fixing linting..."
 npm run lint:fix
 
-
-
 # Run Prettier
 echo "Running Prettier..."
 npm run prettier
