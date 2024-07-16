@@ -25,7 +25,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="h-20 w-full flex items-center">
+    <header className="h-[76px] w-full flex items-center">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full  ">
           <div className="flex items-center gap-8  ">

@@ -1,0 +1,13 @@
+.bg {
+  background-image: url('../../assets/Hero.svg');
+  /* background-image: url('https://www.w3schools.com/howto/img_parallax.jpg'); */
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .bg {
+    min-height: 160vh;
+  }
+}
