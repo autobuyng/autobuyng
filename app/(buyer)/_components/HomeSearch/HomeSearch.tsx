@@ -12,17 +12,17 @@ const HomeSearch = () => {
   const [price, setPrice] = useState<string>('');
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
-
+  console.log(year, brand, price);
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
     { id: 2, text: 'New', key: 'new' },
     { id: 3, text: 'Used', key: 'used' },
   ];
-
+  // sm:w-[450px]
   return (
-    <main className=" h-fit md:h-[296px] sm:w-[450px] md:w-[605px] rounded-md bg-white">
-      <div className="p-5">
-        <div className="flex w-full items-center justify-between  ">
+    <main className=" h-fit md:h-[296px]  md:w-[605px] rounded-md bg-white">
+      <div className="p-4 ">
+        <div className="flex w-full items-center justify-between">
           {CAR_CATEGORY.map((category) => {
             const isActive = activeTab === category.id;
             console.log(isActive);
@@ -56,8 +56,8 @@ const HomeSearch = () => {
           <span className="border-t-[1.5px] border-neutral-100 w-full"></span>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="flex flex-col md:flex-row items-center w-full gap-3 mt-4">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-4 ">
+          <div className="flex flex-col md:flex-row items-center w-full gap-3 ">
             <div className="w-full">
               <SelectInput
                 list={CAR_BRANDS}
@@ -89,7 +89,7 @@ const HomeSearch = () => {
             </div>
           </div>
 
-          <div className="w-full mt-4 md:mt-0 flex items-end justify-end">
+          <div className="w-full mt-4 md:mt-0 flex items-end justify-end ">
             <button className="bg-primary-700 h-14 w-full md:w-14 rounded-[100px] md:rounded-[50%] flex items-center justify-center">
               <Image src={Search} alt="Search" />
             </button>
