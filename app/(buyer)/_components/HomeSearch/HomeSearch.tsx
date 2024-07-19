@@ -12,7 +12,7 @@ const HomeSearch = () => {
   const [price, setPrice] = useState<string>('');
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
-  console.log(year, brand, price);
+
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
     { id: 2, text: 'New', key: 'new' },
@@ -25,7 +25,6 @@ const HomeSearch = () => {
         <div className="flex w-full items-center justify-between">
           {CAR_CATEGORY.map((category) => {
             const isActive = activeTab === category.id;
-            console.log(isActive);
             return (
               <div
                 onClick={() => setActiveTab(category.id)}

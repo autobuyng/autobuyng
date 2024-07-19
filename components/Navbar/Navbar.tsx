@@ -8,19 +8,21 @@ import Autobuy from '@/app/assets/Autobuy.svg';
 import Menu from '@/components/Navbar/assets/Menu.svg';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Sheet, SheetContent, SheetDescription } from '@/components/ui/sheet';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import Menucontent from '../Menucontent/Menucontent';
+import Profile from './assets/Profile.svg';
 
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isMobile);
 
   const handleMenu = () => {
+    console.log(isOpen, 'before setting');
     setIsOpen(!isOpen);
   };
+  console.log(isOpen, 'global');
 
   const NAV_ITEMS = [
     {
@@ -61,33 +63,29 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="">
-            {/* <div> */}
-            <Image
-              src={Menu}
-              alt="Autobuy"
-              className="pt-3"
-              width={40}
-              height={40}
-              priority
+          <div className=" flex items-center">
+            <div
               onClick={handleMenu}
-            />
-            {/* </div> */}
-            <Sheet open={isMobile && isOpen} onOpenChange={handleMenu}>
-              {/* <SheetTrigger>Open</SheetTrigger> */}
-              <SheetContent>
-                <SheetDescription>
-                  <Menucontent />
-                </SheetDescription>
-              </SheetContent>
-            </Sheet>
+              className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md"
+            >
+              <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
+              <Image src={Profile} alt="Profile" />
+            </div>
 
-            <Popover open={!isMobile && isOpen}>
-              <PopoverTrigger></PopoverTrigger>
-              <PopoverContent>
-                <Menucontent />
-              </PopoverContent>
-            </Popover>
+            <div className="mt-8">
+              <Sheet open={isMobile && isOpen} onOpenChange={handleMenu}>
+                <SheetContent>
+                  <Menucontent />
+                </SheetContent>
+              </Sheet>
+
+              <Popover open={!isMobile && isOpen} onOpenChange={handleMenu}>
+                <PopoverTrigger></PopoverTrigger>
+                <PopoverContent>
+                  <Menucontent />
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
         </nav>
       </MaxWidthWrapper>
