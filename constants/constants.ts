@@ -216,6 +216,7 @@ export const VEHICLE_TYPE = [
   { id: '7', name: 'Hatchback', Img: Hatchback },
   { id: '8', name: 'Pickups', Img: Pickups },
 ];
+
 export const VEHICLE_BRAND = [
   { id: '1', name: 'Toyota', Img: Toyota },
   { id: '2', name: 'Honda', Img: Honda },
@@ -242,4 +243,30 @@ export const VEHICLE_BRAND = [
   { id: '22', name: 'Tesla', Img: Tesla },
   { id: '23', name: 'Greely', Img: Greely },
   { id: '24', name: 'Porshe', Img: Porshe },
+];
+
+export const TRENDING_VEHICLE = [
+  { id: '1', text: 'Nissan Rogue SV' },
+  { id: '2', text: 'Nissan Rogue SV' },
+  { id: '3', text: 'Nissan Rogue SV' },
+  { id: '4', text: 'Nissan Rogue SV' },
+  { id: '5', text: 'Nissan Rogue SV' },
+  { id: '6', text: 'Nissan Rogue SV' },
+  { id: '7', text: 'Nissan Rogue SV' },
+  { id: '8', text: 'Nissan Rogue SV' },
+  { id: '9', text: 'Nissan Rogue SV' },
+  { id: '10', text: 'Nissan Rogue SV' },
+];
+
+export const POPULAR_MODEL = [
+  { id: '1', text: 'Mazda CX-5Grand ' },
+  { id: '2', text: 'Nissan Rogue SV' },
+  { id: '3', text: 'Nissan Rogue SV' },
+  { id: '4', text: 'Mazda VX-5 Touring' },
+  { id: '5', text: 'Nissan Rogue SV' },
+  { id: '6', text: 'Nissan Rogue SV' },
+  { id: '7', text: 'Nissan Rogue SV' },
+  { id: '8', text: 'Nissan Rogue SV' },
+  { id: '9', text: 'Nissan Rogue SV' },
+  { id: '10', text: 'Nissan Rogue SV' },
 ];

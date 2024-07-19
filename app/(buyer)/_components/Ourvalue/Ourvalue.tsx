@@ -29,8 +29,8 @@ const Ourvalue = () => {
 
   return (
     <MaxWidthWrapper>
-      <main>
-        <div className="text-center w-full">
+      <main className="mb-8">
+        <div className="text-center w-full ">
           <h1 className="font-bold text-center sm:text-2xl lg:text-4xl max-w-[45rem] mx-auto">
             We Are Committed To Delivering A Superior Customer Experience
           </h1>
