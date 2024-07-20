@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,21 +8,24 @@ import Autobuy from '@/app/assets/Autobuy.svg';
 import Menu from '@/components/Navbar/assets/Menu.svg';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import Menucontent from '../Menucontent/Menucontent';
 import Profile from './assets/Profile.svg';
+import useClickOutside from '@/hooks/useClickOutside';
 
 const Navbar = () => {
   const isMobile = useIsMobile();
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
 
-  const handleMenu = () => {
-    console.log(isOpen, 'before setting');
-    setIsOpen(!isOpen);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const handleClosePopover = () => {
+    setIsOpen(false);
   };
-  console.log(isOpen, 'global');
+
+  useClickOutside(divRef, handleClosePopover);
 
   const NAV_ITEMS = [
     {
@@ -63,29 +66,37 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className=" flex items-center">
-            <div
-              onClick={handleMenu}
-              className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md"
-            >
-              <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
-              <Image src={Profile} alt="Profile" />
-            </div>
-
-            <div className="mt-8">
-              <Sheet open={isMobile && isOpen} onOpenChange={handleMenu}>
+          <div className=" relative flex items-center">
+            {isMobile && (
+              <Sheet>
+                <SheetTrigger>
+                  <div className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md">
+                    <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
+                    <Image src={Profile} alt="Profile" />
+                  </div>
+                </SheetTrigger>
                 <SheetContent>
                   <Menucontent />
                 </SheetContent>
               </Sheet>
+            )}
 
-              <Popover open={!isMobile && isOpen} onOpenChange={handleMenu}>
-                <PopoverTrigger></PopoverTrigger>
-                <PopoverContent>
+            {!isMobile && (
+              <Popover>
+                <PopoverTrigger>
+                  <div className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md">
+                    <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
+                    <Image src={Profile} alt="Profile" />
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent
+                  onMouseLeave={() => setIsOpen(false)}
+                  className="max-w-[250px] mr-4"
+                >
                   <Menucontent />
                 </PopoverContent>
               </Popover>
-            </div>
+            )}
           </div>
         </nav>
       </MaxWidthWrapper>

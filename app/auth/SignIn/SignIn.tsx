@@ -75,12 +75,21 @@ const SignIn = ({
 
                 {type === 'signin' ? (
                   <p>
-                    Don&apos;t have an account? <span className="text-primary-500">SignUp</span>
+                    Don&apos;t have an account?{' '}
+                    <span
+                      onClick={() => setType('signup')}
+                      className="text-primary-500 cursor-pointer"
+                    >
+                      SignUp
+                    </span>
                   </p>
                 ) : (
                   <p>
                     Already have an account?{' '}
-                    <span onClick={() => setType('signup')} className="text-primary-500">
+                    <span
+                      onClick={() => setType('signin')}
+                      className="text-primary-500 cursor-pointer"
+                    >
                       Login in
                     </span>
                   </p>
