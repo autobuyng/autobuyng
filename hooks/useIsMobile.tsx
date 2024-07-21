@@ -1,8 +1,9 @@
+'use client';
 import { useState, useEffect } from 'react';
 
 const MOBILE_BREAKPOINT = 768;
 
-const useIsMobile = (): boolean => {
+const useIsMobile = (): { isMobile: boolean; width: number } => {
   const [isMobile, setIsMobile] = useState<boolean>(() => {
     return typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT;
   });
@@ -23,7 +24,7 @@ const useIsMobile = (): boolean => {
     };
   }, []);
 
-  return isMobile;
+  return { isMobile: isMobile, width: typeof window !== 'undefined' ? window.innerWidth : 0 };
 };
 
 export default useIsMobile;

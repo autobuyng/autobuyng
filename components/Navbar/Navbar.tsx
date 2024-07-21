@@ -16,7 +16,7 @@ import Profile from './assets/Profile.svg';
 import useClickOutside from '@/hooks/useClickOutside';
 
 const Navbar = () => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
 
   const divRef = useRef<HTMLDivElement>(null);
