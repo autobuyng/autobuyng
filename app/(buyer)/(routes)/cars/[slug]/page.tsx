@@ -4,16 +4,29 @@ import React, { useState } from 'react';
 import '../cars.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { suggestionList } from '@/types/types';
+import { FilterProps, suggestionList } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { SORT_LIST } from '@/constants/constants';
 import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
 import Image from 'next/image';
+import Filters from '@/app/(buyer)/_components/Filters';
+import Result from '@/app/(buyer)/_components/Result/Result';
 
 const Cars = ({ params }: { params: { slug: string } }) => {
+  const DEFAULT_FILTERS = {
+    year: {
+      min_year: '2009',
+      max_year: '2024',
+    },
+    // price: { max_price: '', min_price: '' },
+    price: 33,
+  };
+
   const [search, setSearch] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
+  const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
+
   // const [displayFormat, setDisplayFormat] = useState('row');
   console.log(params);
   return (
@@ -54,6 +67,16 @@ const Cars = ({ params }: { params: { slug: string } }) => {
                   <Image src={GridFormat} alt="Grid format" />
                 </button>
               </div>
+            </div>
+          </div>
+
+          <div className="flex w-full mt-8 gap-8">
+            <div className=" hidden lg:block w-full max-w-[296px]">
+              <Filters filters={filters} setFilters={setFilters} />
+            </div>
+
+            <div className="w-full">
+              <Result />
             </div>
           </div>
         </section>

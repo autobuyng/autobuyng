@@ -1,0 +1,134 @@
+import SelectInput from '@/components/SelectInput/SelectInput';
+import { MAX_YEAR, MILEAGE } from '@/constants/constants';
+import { FilterProps } from '@/types/types';
+import { Slider } from '@/components/ui/slider';
+import StyleType from './StyleType';
+import Performance from './Performance';
+import Features from './Features';
+
+type FilterComponentProps = {
+  filters: FilterProps;
+  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
+};
+const Filters = ({ filters, setFilters }: FilterComponentProps) => {
+  console.log(filters);
+  return (
+    <main className=" w-full ">
+      <section className="w-full shadow-lg p-8">
+        <div className="flex w-full gap-4">
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit py-[4px] ">
+            <p className="text-sm text-neutral-400 pl-3">Min year</p>
+
+            <SelectInput
+              list={MAX_YEAR}
+              title="Oldest"
+              setSelectedInput={(input) => {
+                setFilters(
+                  (prev: FilterProps): FilterProps => ({
+                    ...prev,
+                    year: {
+                      ...prev.year,
+                      min_year: input as string,
+                    },
+                  }),
+                );
+              }}
+              selectedInput={filters.year?.min_year as string}
+              width="w-full  h-4 border-none"
+            />
+          </div>
+
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit py-[4px] ">
+            <p className="text-sm text-neutral-400 pl-3">Max year</p>
+
+            <SelectInput
+              list={MAX_YEAR}
+              title="Highest"
+              setSelectedInput={(input) => {
+                setFilters(
+                  (prev: FilterProps): FilterProps => ({
+                    ...prev,
+                    year: {
+                      ...prev.year,
+                      max_year: input as string,
+                    },
+                  }),
+                );
+              }}
+              selectedInput={filters.year.max_year as string}
+              width="w-full  h-4 border-none"
+            />
+          </div>
+        </div>
+
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit py-[4px] ">
+          <p className="text-sm text-neutral-400 pl-3">Mileage</p>
+
+          <SelectInput
+            list={MILEAGE}
+            title="Any mileage"
+            setSelectedInput={(input) => {
+              setFilters(
+                (prev: FilterProps): FilterProps => ({
+                  ...prev,
+                  mileage: input as string,
+                }),
+              );
+            }}
+            selectedInput={filters.mileage as string}
+            width="max-w-full h-4 border-none"
+          />
+        </div>
+
+        <div className="mt-2">
+          <label htmlFor="UserEmail" className="block font-medium ">
+            Price range
+          </label>
+
+          <input
+            type="email"
+            value={filters.price}
+            id="UserEmail"
+            placeholder="NGN 10,000,000"
+            className="mt-1 w-full rounded-sm px-3 border border-neutral-700 outline-none text-base py-3 shadow-sm sm:text-sm"
+          />
+
+          <div className="mt-4">
+            <Slider
+              onValueChange={(input) => {
+                const [newPrice] = input;
+                setFilters(
+                  (prev: FilterProps): FilterProps => ({
+                    ...prev,
+                    price: newPrice,
+                  }),
+                );
+              }}
+              defaultValue={[33]}
+              max={100}
+              min={0}
+              step={1}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-6 space-y-2 pt-8  shadow-md ">
+        <div>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Styletype</p>
+          <StyleType />
+        </div>
+        <div>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8"> Performance</p>
+          <Performance />
+        </div>
+        <div>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Features</p>
+          <Features />
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Filters;
