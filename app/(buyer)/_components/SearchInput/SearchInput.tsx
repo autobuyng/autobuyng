@@ -44,6 +44,7 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
     <div className="flex w-full items-center">
       <div className="w-full ">
         <Select
+          id="1"
           defaultValue={search}
           onChange={handleChange}
           options={options}

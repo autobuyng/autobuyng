@@ -5,9 +5,16 @@ import '../cars.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
 import { suggestionList } from '@/types/types';
+import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
+import SelectInput from '@/components/SelectInput/SelectInput';
+import { SORT_LIST } from '@/constants/constants';
+import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
+import Image from 'next/image';
 
 const Cars = ({ params }: { params: { slug: string } }) => {
   const [search, setSearch] = useState<suggestionList | null>(null);
+  const [sortQuery, setSortQuery] = useState('');
+  // const [displayFormat, setDisplayFormat] = useState('row');
   console.log(params);
   return (
     <main>
@@ -23,6 +30,31 @@ const Cars = ({ params }: { params: { slug: string } }) => {
         <section>
           <div className="mt-8 w-full">
             <SearchInput search={search} setSearch={setSearch} />
+          </div>
+
+          <div className="flex items-start justify-between mt-6 w-full">
+            <div className="w-full">
+              <FilterDisplay />
+            </div>
+
+            <div className="flex items-center gap-4 w-[240px]">
+              <div>
+                <SelectInput
+                  list={SORT_LIST}
+                  title="Sort by"
+                  setSelectedInput={setSortQuery}
+                  selectedInput={sortQuery}
+                  width="w-full md:w-[155px]"
+                  height="h-6"
+                />
+              </div>
+
+              <div className="h-8 w-8 rounded-sm border border-neutral-500 flex items-center justify-center">
+                <button>
+                  <Image src={GridFormat} alt="Grid format" />
+                </button>
+              </div>
+            </div>
           </div>
         </section>
       </MaxWidthWrapper>

@@ -270,3 +270,14 @@ export const POPULAR_MODEL = [
   { id: '9', text: 'Nissan Rogue SV' },
   { id: '10', text: 'Nissan Rogue SV' },
 ];
+
+export const SORT_LIST = [
+  { id: '1', name: 'Best Available ' },
+  { id: '2', name: 'Lowest Price' },
+  { id: '3', name: 'Highest Price' },
+  { id: '4', name: 'Lowest Mileage' },
+  { id: '5', name: 'Highest Mileage' },
+  { id: '6', name: 'Best deals' },
+  { id: '7', name: 'Newest listed' },
+  { id: '8', name: 'Oldest listed' },
+];
