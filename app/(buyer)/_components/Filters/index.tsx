@@ -14,10 +14,10 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   console.log(filters);
   return (
     <main className=" w-full ">
-      <section className="w-full shadow-lg p-8">
+      <section className="w-full shadow-md  p-8">
         <div className="flex w-full gap-4">
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit py-[4px] ">
-            <p className="text-sm text-neutral-400 pl-3">Min year</p>
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
+            <p className="text-xs text-neutral-400 pl-3">Min year</p>
 
             <SelectInput
               list={MAX_YEAR}
@@ -38,8 +38,8 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             />
           </div>
 
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit py-[4px] ">
-            <p className="text-sm text-neutral-400 pl-3">Max year</p>
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
+            <p className="text-xs text-neutral-400 pl-3">Max year</p>
 
             <SelectInput
               list={MAX_YEAR}
@@ -61,8 +61,8 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           </div>
         </div>
 
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit py-[4px] ">
-          <p className="text-sm text-neutral-400 pl-3">Mileage</p>
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-[2px]  ">
+          <p className="text-xs text-neutral-400 pl-3">Mileage</p>
 
           <SelectInput
             list={MILEAGE}
@@ -115,8 +115,8 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
 
       <section className="mt-6 space-y-2 pt-8  shadow-md ">
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Styletype</p>
-          <StyleType />
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Style</p>
+          <StyleType filters={filters} setFilters={setFilters} />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8"> Performance</p>

@@ -8,13 +8,20 @@ export type suggestionList = {
 
 export type VEHICLE_SEARCH_RESULTS_PROPS = {
   id: string;
+  Img: StaticImageData;
   name: string;
   model: string;
-  price: string;
   mileage: string;
+  price: string;
   category: string;
-  Img: StaticImageData;
-}[];
+  mpg: string;
+  bodyStyle: string;
+  engin: string;
+  transmission: string;
+  color: string;
+  vin: string;
+  desc: string;
+};
 
 export type FilterProps = {
   year: {
@@ -25,6 +32,7 @@ export type FilterProps = {
   // price: { max_price: string; min_price: string };
   price: number;
 
+  body_style: string;
   sort?: {
     best_available?: boolean;
     lowest_price?: boolean;

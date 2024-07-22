@@ -34,6 +34,7 @@ import Audi from '@/app/(buyer)/_components/Filters/assets/audi.svg';
 import Mazda from '@/app/(buyer)/_components/Filters/assets/mazda.svg';
 
 import samlplevehicle from '@/app/(buyer)/assets/vehice1.avif';
+import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
 
 export const CAR_BRANDS = [
   {
@@ -284,7 +285,7 @@ export const SORT_LIST = [
   { id: '8', name: 'Oldest listed' },
 ];
 
-export const VEHICLE_SEARCH_RESULTS = [
+export const VEHICLE_SEARCH_RESULTS: VEHICLE_SEARCH_RESULTS_PROPS[] = [
   {
     id: '1',
     name: 'Mercedes Benz',
@@ -293,6 +294,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '2',
@@ -302,6 +310,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '3',
@@ -311,6 +326,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '4',
@@ -320,6 +342,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '5',
@@ -329,6 +358,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '6',
@@ -338,6 +374,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '7',
@@ -347,6 +390,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '8',
@@ -356,6 +406,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '9',
@@ -365,6 +422,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '10',
@@ -374,6 +438,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '11',
@@ -383,6 +454,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
   {
     id: '12',
@@ -392,6 +470,13 @@ export const VEHICLE_SEARCH_RESULTS = [
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
+    engin: '8cyl',
+    transmission: 'Automatic',
+    desc: 'lorem ipsum doll sdt some thoda ',
+    vin: '123456789',
+    bodyStyle: 'Convertible',
+    color: 'black',
+    mpg: '34',
   },
 ];
 
@@ -431,4 +516,17 @@ export const MILEAGE = [
   // { id: '14', name: '2022' },
   // { id: '15', name: '2023' },
   // { id: '16', name: '2024' },
+];
+
+export const BODY_STYLE = [
+  { id: '1', name: 'Chassis' },
+  { id: '2', name: 'Convertible' },
+  { id: '3', name: 'Coupe ' },
+  { id: '4', name: 'Hatchback' },
+  { id: '5', name: 'Minivan' },
+  { id: '6', name: 'Pickup' },
+  { id: '7', name: 'SUV' },
+  { id: '8', name: 'Sedan' },
+  { id: '9', name: 'Van' },
+  { id: '10', name: 'Wagon' },
 ];

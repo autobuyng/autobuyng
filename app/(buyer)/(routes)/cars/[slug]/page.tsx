@@ -19,7 +19,8 @@ const Cars = ({ params }: { params: { slug: string } }) => {
       min_year: '2009',
       max_year: '2024',
     },
-    // price: { max_price: '', min_price: '' },
+    body_style: '',
+
     price: 33,
   };
 
@@ -27,7 +28,7 @@ const Cars = ({ params }: { params: { slug: string } }) => {
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
 
-  // const [displayFormat, setDisplayFormat] = useState('row');
+  const [displayFormat, setDisplayFormat] = useState(true);
   console.log(params);
   return (
     <main>
@@ -63,7 +64,7 @@ const Cars = ({ params }: { params: { slug: string } }) => {
               </div>
 
               <div className="h-8 w-8 rounded-sm border border-neutral-500 flex items-center justify-center">
-                <button>
+                <button onClick={() => setDisplayFormat(!displayFormat)}>
                   <Image src={GridFormat} alt="Grid format" />
                 </button>
               </div>
@@ -76,7 +77,7 @@ const Cars = ({ params }: { params: { slug: string } }) => {
             </div>
 
             <div className="w-full">
-              <Result />
+              <Result displayFormat={displayFormat} />
             </div>
           </div>
         </section>
