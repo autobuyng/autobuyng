@@ -28,7 +28,6 @@ const SelectInput = ({
   width,
   height,
 }: SelectInputProps) => {
-  console.log(height);
   return (
     <Select value={selectedInput} onValueChange={setSelectedInput}>
       <SelectTrigger

@@ -1,5 +1,7 @@
+'use client';
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
 import Gauge from '@/app/(buyer)/assets/pressureguage.svg';
@@ -18,8 +20,9 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
+  const router = useRouter();
   return (
-    <div className="rounded-md shadow-md cursor-pointer">
+    <div className="rounded-md shadow-md ">
       <div className="relative">
         <Image src={Img} alt={name} className="rounded-md" />
 
@@ -54,8 +57,11 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
 
         <p className="text-primary-700 font-[700] my-1"> ₦ {price}</p>
 
-        <div className="w-full">
-          <button className="border-2 border-primary-700 rounded-sm py-2 px-4 text-primary-700 text-center w-full mt-2 mb-4">
+        <div className="w-full cursor-pointer">
+          <button
+            onClick={() => router.push('/vehicle/1rwerw4-r3e44udr-454')}
+            className="border-2 border-primary-700 rounded-sm py-2 px-4 text-primary-700 text-center w-full mt-2 mb-4"
+          >
             View details
           </button>
         </div>
@@ -77,6 +83,7 @@ export const ColProductCard = ({
   vin,
   desc,
 }: VEHICLE_SEARCH_RESULTS_PROPS) => {
+  const router = useRouter();
   return (
     <div className="">
       <section className="rounded-md shadow-md  px-3 ">
@@ -121,8 +128,11 @@ export const ColProductCard = ({
           </div>
         </div>
 
-        <div className="flex justify-end items-center py-3">
-          <button className="border-[2px] font-[600] border-primary-700 rounded-sm text-primary-700 px-4 py-1.5 text">
+        <div className="flex justify-end items-center py-3 cursor-pointer">
+          <button
+            onClick={() => router.push('/vehicle/1rwerw4-r3e44udr-454')}
+            className="border-[2px] font-[600] border-primary-700 rounded-sm text-primary-700 px-4 py-1.5 text"
+          >
             View details
           </button>
         </div>

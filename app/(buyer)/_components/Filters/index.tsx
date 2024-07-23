@@ -11,10 +11,10 @@ type FilterComponentProps = {
   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
 };
 const Filters = ({ filters, setFilters }: FilterComponentProps) => {
-  console.log(filters);
+  console.log(filters, 'filters');
   return (
     <main className=" w-full ">
-      <section className="w-full shadow-md  p-8">
+      <section className="w-full shadow-sm  p-8">
         <div className="flex w-full gap-4">
           <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
@@ -113,17 +113,17 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
       </section>
 
-      <section className="mt-6 space-y-2 pt-8  shadow-md ">
+      <section className="mt-6 space-y-2 pt-8  shadow-sm ">
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Style</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 px-8">Style</p>
           <StyleType filters={filters} setFilters={setFilters} />
         </div>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8"> Performance</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 px-8"> Performance</p>
           <Performance />
         </div>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-2 px-8">Features</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 px-8">Features</p>
           <Features />
         </div>
       </section>

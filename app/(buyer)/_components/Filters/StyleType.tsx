@@ -8,21 +8,23 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-import { BODY_STYLE } from '@/constants/constants';
+import { BODY_STYLE, COLORS } from '@/constants/constants';
 import { FilterProps } from '@/types/types';
 
 type StyleTypeProps = {
   filters: FilterProps;
   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
 };
+
 const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
+  console.log(filters);
   const handleCheckboxChange = (name: string) => {
     setFilters((prev) => ({
       ...prev,
-      body_style: name, // Toggle selection
+      body_style: name,
     }));
   };
-  console.log(filters);
+
   const handleCheck = (id: string): boolean | undefined => {
     const isChecked = BODY_STYLE.find((item) => item.id === id);
 
@@ -55,18 +57,18 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
           </AccordionItem>
 
           <AccordionItem value="item-2">
-            <AccordionTrigger className="py-2 px-8">Interior</AccordionTrigger>
+            <AccordionTrigger className="py-2 px-8">Interior Colour</AccordionTrigger>
             <AccordionContent className="px-8">
-              {BODY_STYLE.map((type) => {
+              {COLORS.map((color) => {
                 return (
-                  <p key={type.id} className="py-1 space-x-2 flex items-center">
+                  <p key={color.id} className="py-1 space-x-2 flex items-center">
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(type.id)}
+                      onChange={() => handleCheckboxChange(color.id)}
                       className="h-5 w-5"
                       // checked={filters.style}
                     />
-                    <span className="">{type.name}</span>
+                    <span className="">{color.name}</span>
                   </p>
                 );
               })}
@@ -76,16 +78,16 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
           <AccordionItem value="item-3">
             <AccordionTrigger className="py-2 px-8">Exterior</AccordionTrigger>
             <AccordionContent className="px-8">
-              {BODY_STYLE.map((type) => {
+              {COLORS.map((color) => {
                 return (
-                  <p key={type.id} className="py-1 space-x-2 flex items-center">
+                  <p key={color.id} className="py-1 space-x-2 flex items-center">
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(type.id)}
+                      onChange={() => handleCheckboxChange(color.id)}
                       className="h-5 w-5"
                       // checked={filters.style}
                     />
-                    <span className="">{type.name}</span>
+                    <span className="">{color.name}</span>
                   </p>
                 );
               })}

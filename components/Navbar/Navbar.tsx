@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     <header className="h-[76px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
-        <nav className="flex items-center justify-between w-full  ">
+        <nav className="flex items-center justify-between w-full ">
           <div className="flex items-center gap-8  ">
             <Image src={Autobuy} alt="Autobuy" width={77} height={56} priority />
             <div className="hidden md:flex items-center justify-between gap-8">

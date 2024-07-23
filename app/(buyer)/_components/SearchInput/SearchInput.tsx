@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import Image from 'next/image';
 import 'react-select-search/style.css';
@@ -16,6 +16,7 @@ type SearchInputProps = {
 
 const SearchInput = ({ search, setSearch }: SearchInputProps) => {
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { isMobile } = useIsMobile();
 
   const options = [
@@ -23,6 +24,10 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
   ];
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleChange = (selectedCountry: suggestionList | null) => {
     setSearch(selectedCountry);
@@ -43,33 +48,35 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
   return (
     <div className="flex w-full items-center">
       <div className="w-full ">
-        <Select
-          id="1"
-          defaultValue={search}
-          onChange={handleChange}
-          options={options}
-          menuIsOpen={openDropdown}
-          components={{
-            DropdownIndicator: () => null,
-            IndicatorSeparator: () => null,
-          }}
-          onInputChange={(input) => {
-            if (input) {
-              handleInputChange(input as any);
-              setOpenDropdown(true);
-            } else {
-              setOpenDropdown(false);
+        {isClient && (
+          <Select
+            id="react-select-2-live-region"
+            defaultValue={search}
+            onChange={handleChange}
+            options={options}
+            menuIsOpen={openDropdown}
+            components={{
+              DropdownIndicator: () => null,
+              IndicatorSeparator: () => null,
+            }}
+            onInputChange={(input) => {
+              if (input) {
+                handleInputChange(input as any);
+                setOpenDropdown(true);
+              } else {
+                setOpenDropdown(false);
+              }
+            }}
+            isClearable
+            isSearchable
+            placeholder={
+              isMobile
+                ? 'Search by make ,model, mileage '
+                : 'Search by make, model, mileage or body style'
             }
-          }}
-          isClearable
-          isSearchable
-          placeholder={
-            isMobile
-              ? 'Search by make ,model, mileage '
-              : 'Search by make, model, mileage or body style'
-          }
-          styles={customStyles}
-        />
+            styles={customStyles}
+          />
+        )}
       </div>
 
       <div className="flex items-center ">

@@ -36,6 +36,16 @@ import Mazda from '@/app/(buyer)/_components/Filters/assets/mazda.svg';
 import samlplevehicle from '@/app/(buyer)/assets/vehice1.avif';
 import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
 
+import Car1 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car2 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car3 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car4 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car5 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car6 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+import Car7 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+
+export const IMAGES = [Car1, Car2, Car3, Car4, Car5, Car6];
+
 export const CAR_BRANDS = [
   {
     id: 1,
@@ -529,4 +539,63 @@ export const BODY_STYLE = [
   { id: '8', name: 'Sedan' },
   { id: '9', name: 'Van' },
   { id: '10', name: 'Wagon' },
+];
+
+export const COLORS = [
+  { id: '1', name: 'Beige', color: '' },
+  { id: '2', name: 'Black', color: '' },
+  { id: '3', name: 'Blue ', color: '' },
+  { id: '4', name: 'Brown', color: '' },
+  { id: '5', name: 'Gold', color: '' },
+  { id: '6', name: 'Grey', color: '' },
+  { id: '7', name: 'Green', color: '' },
+  { id: '8', name: 'Orange', color: '' },
+  { id: '9', name: 'Pink', color: '' },
+  { id: '10', name: 'Purple', color: '' },
+  { id: '11', name: 'Red', color: '' },
+  { id: '12', name: 'Silver', color: '' },
+  { id: '13', name: 'White', color: '' },
+  { id: '14', name: 'Yellow', color: '' },
+];
+
+export const TRANSMISSION = [
+  { id: '1', name: 'Automamanual' },
+  { id: '2', name: 'Automatic' },
+  { id: '3', name: 'CVT' },
+  { id: '4', name: 'Manual' },
+  { id: '5', name: 'Unknown' },
+];
+
+export const DRIVE_TRAINS = [
+  { id: '1', name: 'All wheel drive' },
+  { id: '2', name: 'Four wheel drive' },
+  { id: '3', name: 'Front wheel drive' },
+  { id: '4', name: 'Rear wieel' },
+  { id: '5', name: 'unknown' },
+];
+
+export const CYLINDERS = [
+  { id: '1', name: '5 cylinders' },
+  { id: '2', name: '6 cylinders' },
+  { id: '3', name: '7 cylinders ' },
+  { id: '4', name: '8 cylinders' },
+  { id: '5', name: '10 cylinders' },
+  { id: '6', name: '12 cylinders' },
+  { id: '7', name: '16 cylinders' },
+  { id: '8', name: '17 cylinders' },
+  { id: '9', name: ' 19 cylinders' },
+  { id: '10', name: '44 cylinders' },
+  { id: '11', name: '54 cylinders' },
+  { id: '12', name: '55 cylinders' },
+  { id: '13', name: '66 cylinders' },
+  { id: '14', name: '78 cylinders' },
+];
+
+export const FUEL_TYPE = [
+  { id: '1', name: 'Compressed natural gas' },
+  { id: '2', name: 'Diesel' },
+  { id: '3', name: 'E85 flex fuel' },
+  { id: '4', name: 'Electric' },
+  { id: '5', name: 'Gasoline' },
+  { id: '6', name: 'Hybrid' },
 ];

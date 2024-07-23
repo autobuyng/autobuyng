@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 
 import Google from '@/components/Navbar/assets/Google.svg';
@@ -32,6 +33,23 @@ const SignIn = ({
           <DialogDescription className="-mt-8">
             <form action="">
               <div className="space-y-4  mx-auto">
+                {type === 'signup' && (
+                  <div>
+                    <label
+                      htmlFor="UserEmail"
+                      className="block text-left text-xs font-medium text-gray-700"
+                    >
+                      FullName
+                    </label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      placeholder="Tosin kadiri"
+                      className="mt-1 w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
+                    />
+                  </div>
+                )}
+
                 <div>
                   <label
                     htmlFor="UserEmail"
@@ -42,7 +60,7 @@ const SignIn = ({
                   <input
                     type="email"
                     id="email"
-                    placeholder="john@rhcp.com"
+                    placeholder="tosinkadiri@gmail.com"
                     className="mt-1 w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
                   />
                 </div>
@@ -61,7 +79,7 @@ const SignIn = ({
                     className="mt-1 w-full py-3 px-2 rounded-md outline-none border border-neutral-700 shadow-sm sm:text-sm"
                   />
                 </div>
-                <p>
+                <p className="text-xs">
                   {type === 'signin'
                     ? 'forgot password '
                     : "By signing up, you confirm that you've read and accepted our  and Privacy Policy."}
@@ -104,17 +122,19 @@ const SignIn = ({
                 <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
               </div>
 
-              <div className="w-full">
-                <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
-                  <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
-                </button>
-              </div>
+              <div className="flex gap-4">
+                <div className="w-full">
+                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
+                    <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
+                  </button>
+                </div>
 
-              <div className="w-full">
-                <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
-                  <Image src={Facebook} alt="Facebook" />
-                  <span> Sign up with Facebook</span>
-                </button>
+                <div className="w-full">
+                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
+                    <Image src={Facebook} alt="Facebook" />
+                    <span> Sign up with Facebook</span>
+                  </button>
+                </div>
               </div>
             </div>
           </DialogDescription>
