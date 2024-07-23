@@ -41,17 +41,17 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
         </div>
 
         <div className="grid grid-cols-3 w-full py-2">
-          <p className="flex border-r-2 border-neutral-300 text-center items-center gap-2 px-1">
+          <p className="flex border-r-2 border-neutral-300 text-center items-center gap-2 px-1 text-xs">
             <Image src={Gauge} alt="Guage" />
             <span>120cc</span>
           </p>
-          <p className="border-r-2 border-neutral-300  text-center items-center gap-2 px-1 flex">
+          <p className="border-r-2 border-neutral-300  text-center items-center gap-2 px-1 flex text-xs">
             <Image src={Engine} alt="Guage" />
-            <span>120cc</span>
+            <span>v8</span>
           </p>
-          <p className="flex text-center items-center gap-2 px-1">
+          <p className="flex text-center items-center gap-2 px-1 text-xs">
             <Image src={Transmission} alt="Guage" />
-            <span>120cc</span>
+            <span>manual</span>
           </p>
         </div>
 
