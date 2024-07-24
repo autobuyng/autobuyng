@@ -10,9 +10,9 @@ const Hero = () => {
   return (
     <section className="bg relative">
       <MaxWidthWrapper>
-        <main className="pt-8 md:pt-16">
+        <main className="pt-2 md:pt-8">
           <div className=" ">
-            <p className=" max-w-[382px] md:max-w-[605px] text-primary-700 text-3xl md:text-4xl font-[700]">
+            <p className=" max-w-[382px] md:max-w-[600px] text-primary-700 text-3xl md:text-4xl font-[700]">
               AutoBuy the Smarter Way to Buy a Car with confidence
             </p>
             <p className="text-lg  text-primary-700">

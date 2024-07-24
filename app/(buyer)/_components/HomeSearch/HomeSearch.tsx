@@ -20,7 +20,7 @@ const HomeSearch = () => {
   ];
   // sm:w-[450px]
   return (
-    <main className=" h-fit md:h-[296px]  md:w-[605px] rounded-md bg-white">
+    <main className=" h-fit md:h-fit  md:w-[605px] rounded-md bg-white">
       <div className="p-4 ">
         <div className="flex w-full items-center justify-between">
           {CAR_CATEGORY.map((category) => {
