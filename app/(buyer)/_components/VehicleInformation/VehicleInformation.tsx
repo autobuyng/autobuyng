@@ -12,7 +12,7 @@ import Vin from '@/app/(buyer)/assets/vin.svg';
 
 const VehicleInformation = () => {
   return (
-    <main className="mt-4">
+    <main className="mt-8">
       <div>
         <section>
           <h1 className="py-2 font-bold text-xl">Basic Information</h1>
