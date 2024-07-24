@@ -12,8 +12,11 @@ import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
 import Image from 'next/image';
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
+import useDetectOS from '@/hooks/useDetectOs';
 
 const Cars = ({ params }: { params: { slug: string } }) => {
+  const os = useDetectOS();
+  console.log(os);
   const DEFAULT_FILTERS = {
     year: {
       min_year: '2009',
