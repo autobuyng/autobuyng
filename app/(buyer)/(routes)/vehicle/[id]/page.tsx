@@ -12,11 +12,14 @@ import sampleVehicle from '@/app/(buyer)/assets/vehice1.avif';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import SignIn from '@/app/auth/SignIn/SignIn';
+import useDetectOS from '@/hooks/useDetectOs';
+import { cn } from '@/lib/utils';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
+  const os = useDetectOS();
   const user = false;
 
   const handleSignInClick = () => {
@@ -77,13 +80,17 @@ const VehicledetailsPage = () => {
         <MaxWidthWrapper>
           <section className=" w-full flex flex-col md:flex-row justify-center gap-4">
             <div>
-              <div className=" max-w-[700px] max-h-[510px]">
+              <div
+                className={cn(' max-w-[700px] max-h-[510px]', {
+                  'max-w-[800px] h-[530px]': os === 'macOS',
+                })}
+              >
                 <ImageSlider ImageUrls={IMAGES} />
               </div>
               {isMobile ? null : <VehicleInformation />}
             </div>
 
-            <div className=" h-fit pb-4 shadow-md px-2">
+            <div className="h-fit pb-4 shadow-md px-2">
               <p className="whitespace-nowrap text-primary-700 text-2xl font-bold py-2.5">
                 Get this Vehicle
               </p>

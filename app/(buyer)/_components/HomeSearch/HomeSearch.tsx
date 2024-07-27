@@ -21,7 +21,7 @@ const HomeSearch = () => {
   // sm:w-[450px]
   return (
     <main className=" h-fit md:h-fit  md:w-[605px] rounded-md bg-white">
-      <div className="p-4 ">
+      <div className="px-4 pt-4 pb-8 ">
         <div className="flex w-full items-center justify-between">
           {CAR_CATEGORY.map((category) => {
             const isActive = activeTab === category.id;

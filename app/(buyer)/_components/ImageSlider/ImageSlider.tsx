@@ -162,70 +162,69 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
               {/* <DialogClose asChild>cancel</DialogClose> */}
             </div>
           </DialogTitle>
-          <DialogDescription>
-            <div className="px-10">
-              <div className="overflow-hidden relative">
-                <div
-                  style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                  className="flex transition-transform duration-500 ease-in-out "
+          <DialogDescription></DialogDescription>
+          <div className="px-10">
+            <div className="overflow-hidden relative">
+              <div
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                className="flex transition-transform duration-500 ease-in-out "
+              >
+                {ImageUrls.map((image, index) => (
+                  <Image
+                    src={image}
+                    alt="image slider"
+                    key={index}
+                    height={333}
+                    width={470}
+                    className="cursor-pointer"
+                  />
+                ))}
+              </div>
+              <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
+                <button
+                  onClick={showPrevImage}
+                  disabled={disableLeftButton}
+                  className={cn(
+                    'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
+                    {
+                      'cursor-not-allowed': disableLeftButton,
+                    },
+                  )}
                 >
-                  {ImageUrls.map((image, index) => (
-                    <Image
-                      src={image}
-                      alt="image slider"
-                      key={index}
-                      height={333}
-                      width={470}
-                      className="cursor-pointer"
-                    />
-                  ))}
-                </div>
-                <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
-                  <button
-                    onClick={showPrevImage}
-                    disabled={disableLeftButton}
-                    className={cn(
-                      'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
-                      {
-                        'cursor-not-allowed': disableLeftButton,
-                      },
-                    )}
-                  >
-                    <Image src={ArrowLeft} alt="Arrow left" />
-                  </button>
-                </div>
+                  <Image src={ArrowLeft} alt="Arrow left" />
+                </button>
+              </div>
 
-                <div className="absolute h-full top-0 right-0 flex items-center pr-4 ">
-                  <button
-                    onClick={showNextImage}
-                    disabled={disableRightButton}
-                    className={cn(
-                      'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
-                      {
-                        'cursor-not-allowed': disableRightButton,
-                      },
-                    )}
-                  >
-                    <Image src={ArrowRight} alt="Arrow Right" />
-                  </button>
-                </div>
+              <div className="absolute h-full top-0 right-0 flex items-center pr-4 ">
+                <button
+                  onClick={showNextImage}
+                  disabled={disableRightButton}
+                  className={cn(
+                    'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
+                    {
+                      'cursor-not-allowed': disableRightButton,
+                    },
+                  )}
+                >
+                  <Image src={ArrowRight} alt="Arrow Right" />
+                </button>
               </div>
             </div>
+          </div>
 
-            <div className="grid grid-cols-4 mt-4 gap-4 w-full">
-              {ImageUrls.map((image, index) => (
-                <div
-                  key={index}
-                  className={cn(' w-[100px]', {
-                    'border-2 border-black': currentIndex === index,
-                  })}
-                  onClick={() => setCurrentIndex(index)}
-                >
-                  <Image src={image} alt="image slider" key={index} className="cursor-pointer" />
-                </div>
-              ))}
-            </div>
-          </DialogDescription>
+          <div className="grid grid-cols-4 mt-4 gap-4 w-full">
+            {ImageUrls.map((image, index) => (
+              <div
+                key={index}
+                className={cn(' w-[100px]', {
+                  'border-2 border-black': currentIndex === index,
+                })}
+                onClick={() => setCurrentIndex(index)}
+              >
+                <Image src={image} alt="image slider" key={index} className="cursor-pointer" />
+              </div>
+            ))}
+          </div>
         </DialogContent>
       </Dialog>
     </div>

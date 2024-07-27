@@ -5,6 +5,9 @@ import Google from '@/components/Navbar/assets/Google.svg';
 import Facebook from '@/components/Navbar/assets/Facebook.svg';
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import useDetectOS from '@/hooks/useDetectOs';
+import { cn } from '@/lib/utils';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const SignIn = ({
   isOpen,
@@ -17,22 +20,25 @@ const SignIn = ({
   type: string;
   setType: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const os = useDetectOS();
+  const { isMobile } = useIsMobile();
+
   return (
     <main>
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         {/* <DialogTrigger>Open</DialogTrigger> */}
-        <DialogContent className="w-[90%]  sm:max-w-[552px] ">
-          <DialogTitle>
-            <div className="text-center">
-              {/* <Image src={Autobuy} alt="Autobuy" height={40} width={108} className="mx-auto" /> */}
-              <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
-                {type === 'signin' ? 'Log in' : 'Create your Account'}
-              </h1>
-            </div>
+        <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
+          <DialogTitle className="text-center">
+            {/* <div className="text-center"> */}
+            {/* <Image src={Autobuy} alt="Autobuy" height={40} width={108} className="mx-auto" /> */}
+            <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
+              {type === 'signin' ? 'Log in' : 'Create your Account'}
+            </h1>
+            {/* </div> */}
           </DialogTitle>
-          <DialogDescription className="-mt-8">
+          <DialogDescription className="-mt-8 w-full">
             <form action="">
-              <div className="space-y-4  mx-auto">
+              <div className="space-y-4 w-full mx-auto">
                 {type === 'signup' && (
                   <div>
                     <label
@@ -45,7 +51,7 @@ const SignIn = ({
                       type="text"
                       id="fullName"
                       placeholder="Tosin kadiri"
-                      className="mt-1 w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
+                      className="mt-1 block w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
                     />
                   </div>
                 )}
@@ -122,7 +128,12 @@ const SignIn = ({
                 <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
               </div>
 
-              <div className="flex gap-4">
+              <div
+                className={cn('flex  gap-4', {
+                  'sm:flex-col': os === 'macOS',
+                  'flex-col': isMobile,
+                })}
+              >
                 <div className="w-full">
                   <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
                     <Image src={Google} alt="Google" /> <span>Sign up with Google</span>

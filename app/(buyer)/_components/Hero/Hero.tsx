@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import './hero.css';
@@ -5,14 +6,32 @@ import './hero.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import HomeSearch from '../HomeSearch/HomeSearch';
 import FingerPrint from '../../assets/Fingerprint.svg';
+import useDetectOS from '@/hooks/useDetectOs';
+import { cn } from '@/lib/utils';
 
 const Hero = () => {
+  const os = useDetectOS();
   return (
-    <section className="bg relative">
+    <section
+      className={cn('bg relative md:h-[calc(120vh_-_76px)]', {
+        'h-[100vh]': os === 'macOS',
+      })}
+    >
       <MaxWidthWrapper>
-        <main className="pt-2 md:pt-8">
+        <main
+          className={cn('pt-2 md:pt-8', {
+            'pt-16': os === 'macOS',
+          })}
+        >
           <div className=" ">
-            <p className=" max-w-[382px] md:max-w-[600px] text-primary-700 text-3xl md:text-4xl font-[700]">
+            <p
+              className={cn(
+                ' max-w-[382px] md:max-w-[600px] text-primary-700 text-3xl md:text-4xl font-[700]',
+                {
+                  'text-xl md:text-3xl ': os === 'windows',
+                },
+              )}
+            >
               AutoBuy the Smarter Way to Buy a Car with confidence
             </p>
             <p className="text-lg  text-primary-700">
@@ -32,5 +51,5 @@ const Hero = () => {
     </section>
   );
 };
-
+//https://vapi.verifyme.ng/v1/verifications/identities/nin/:ref
 export default Hero;

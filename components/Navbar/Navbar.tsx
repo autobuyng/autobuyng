@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
@@ -18,6 +19,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 const Navbar = () => {
   const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +52,15 @@ const Navbar = () => {
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
           <div className="flex items-center gap-8  ">
-            <Image src={Autobuy} alt="Autobuy" width={77} height={56} priority />
+            <Image
+              src={Autobuy}
+              alt="Autobuy"
+              width={77}
+              height={56}
+              priority
+              className="cursor-pointer"
+              onClick={() => router.push('/')}
+            />
             <div className="hidden md:flex items-center justify-between gap-8">
               {NAV_ITEMS.map(({ id, text, path }) => (
                 <span key={id}>
