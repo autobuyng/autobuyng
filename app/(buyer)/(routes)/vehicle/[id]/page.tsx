@@ -82,7 +82,7 @@ const VehicledetailsPage = () => {
             <div>
               <div
                 className={cn(' max-w-[700px] max-h-[510px]', {
-                  'max-w-[800px] h-[530px]': os === 'macOS',
+                  'max-w-[900px] h-[530px]': os === 'macOS',
                 })}
               >
                 <ImageSlider ImageUrls={IMAGES} />
@@ -123,7 +123,7 @@ const VehicledetailsPage = () => {
               </div>
             </div>
 
-            {isMobile ? <VehicleInformation /> : null}
+            {/* {isMobile ? <VehicleInformation /> : null} */}
           </section>
 
           <section className="mt-20">

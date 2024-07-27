@@ -4,6 +4,15 @@ import React, { useState } from 'react';
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+
 import ArrowRight from '@/app/(buyer)/assets/ArrowRight.svg';
 import ArrowLeft from '@/app/(buyer)/assets/ArrowLeft.svg';
 import Save from '@/app/(buyer)/assets/save.svg';
@@ -11,6 +20,7 @@ import Photo from '@/app/(buyer)/assets/Photo.svg';
 import { cn } from '@/lib/utils';
 import Autobuy from '@/app/assets/Autobuy.svg';
 import useIsMobile from '@/hooks/useIsMobile';
+import useDetectOS from '@/hooks/useDetectOs';
 
 type ImageSliderProp = {
   ImageUrls: StaticImageData[];
@@ -129,6 +139,7 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { isMobile } = useIsMobile();
+  const os = useDetectOS();
 
   const showNextImage = () => {
     setDisableLeftButton(false);
@@ -152,7 +163,11 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
     <div>
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         {/* <DialogTrigger>Open</DialogTrigger> */}
-        <DialogContent className=" overflow-auto">
+        <DialogContent
+          className={cn('overflow-auto max-w-[560px]', {
+            'max-w-2xl': os === 'macOS',
+          })}
+        >
           <DialogTitle className="-mt-4 w-1/2">
             <div className="flex items-center justify-between bg-white">
               <Image src={Autobuy} alt="Autobuy" />
@@ -174,8 +189,8 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
                     src={image}
                     alt="image slider"
                     key={index}
-                    height={333}
-                    width={470}
+                    // height={333}
+                    // width={470}
                     className="cursor-pointer"
                   />
                 ))}
@@ -227,6 +242,33 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
           </div>
         </DialogContent>
       </Dialog>
+
+      <AlertDialog open={isOpen && isMobile} onOpenChange={() => setIsOpen(false)}>
+        {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
+        <AlertDialogContent className="max-w-full p-0 border-none">
+          <AlertDialogTitle></AlertDialogTitle>
+          <AlertDialogHeader className="relative">
+            <AlertDialogCancel className="absolute top-8 right-8 outline-none border-none bg-[#D9D9D9] rounded-[50%]">
+              X
+            </AlertDialogCancel>
+
+            <AlertDialogDescription className="h-[100vh] overflow-y-auto">
+              <span className="flex flex-col gap-2 transition-transform duration-500 ease-in-out ">
+                {ImageUrls.map((image, index) => (
+                  <Image
+                    src={image}
+                    alt="image slider"
+                    key={index}
+                    // height={333}
+                    // width={470}
+                    className="cursor-pointer"
+                  />
+                ))}
+              </span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

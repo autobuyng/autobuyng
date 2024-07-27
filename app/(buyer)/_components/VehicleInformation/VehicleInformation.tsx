@@ -14,14 +14,14 @@ const VehicleInformation = () => {
   return (
     <main className="mt-8">
       <div>
-        <section>
+        <div>
           <h1 className="py-2 font-bold text-xl">Basic Information</h1>
 
-          <article className="w-full grid grid-cols-1 md:grid-cols-2  gap-6">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="w-full space-y-3">
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Interior} alt="Interior" />
+                  <Image src={Interior} alt="Interior" width={30} height={30} />
                   <span className="text-primary-700 font-[600] whitespace-nowrap">
                     Interior Color:
                   </span>
@@ -31,7 +31,7 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Exterior} alt="Interior" />
+                  <Image src={Exterior} alt="Exterior" width={30} height={30} />
                   <span className="text-primary-700 font-[600] whitespace-nowrap">
                     Exterior color:
                   </span>
@@ -41,7 +41,7 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Drivetrain} alt="Interior" />
+                  <Image src={Drivetrain} alt="Drivetrain" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Drivetrain:</span>
                 </p>
                 <span>content</span>
@@ -49,7 +49,7 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Fueltype} alt="Interior" />
+                  <Image src={Fueltype} alt="Fuel type" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Fuel type:</span>
                 </p>
                 <span>content</span>
@@ -59,7 +59,7 @@ const VehicleInformation = () => {
             <div className="w-full space-y-3">
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Transmit} alt="Interior" />
+                  <Image src={Transmit} alt="Transmission" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Transmission:</span>
                 </p>
                 <span>content</span>
@@ -67,7 +67,7 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Mpg} alt="Interior" />
+                  <Image src={Mpg} alt="MPG" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">MPG:</span>
                 </p>
                 <span>content</span>
@@ -75,7 +75,7 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Engine} alt="Interior" />
+                  <Image src={Engine} alt="Engine type" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Engine type:</span>
                 </p>
                 <span>content</span>
@@ -83,14 +83,14 @@ const VehicleInformation = () => {
 
               <div className="flex gap-3 w-full">
                 <p className="flex gap-1.5">
-                  <Image src={Vin} alt="Interior" />
+                  <Image src={Vin} alt="Vin" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Vin:</span>
                 </p>
                 <span>content</span>
               </div>
             </div>
-          </article>
-        </section>
+          </div>
+        </div>
 
         <div className="mt-8">
           <h1 className="py-2 font-bold text-xl">Features</h1>
@@ -122,15 +122,15 @@ const VehicleInformation = () => {
             professional guidance from our staffs.
           </p>
 
-          <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Contact agent </button>
+          <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Contact agent</button>
         </div>
 
         <div className="mt-8">
           <h1 className="py-2 font-bold text-xl">Made your decision?</h1>
           <div className="flex gap-4">
             <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Buy this car</button>
-            <button className="border-2 border-primary-700 ronded-sm px-3 py-1 rounded-sm text-primary-700">
-              save to inventory
+            <button className="border-2 border-primary-700 rounded-sm px-3 py-1 text-primary-700">
+              Save to inventory
             </button>
           </div>
         </div>
