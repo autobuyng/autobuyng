@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import SelectInput from '@/components/SelectInput/SelectInput';
@@ -12,6 +13,7 @@ const HomeSearch = () => {
   const [price, setPrice] = useState<string>('');
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
+  const router = useRouter();
 
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
@@ -89,7 +91,10 @@ const HomeSearch = () => {
           </div>
 
           <div className="w-full mt-4 md:mt-0 flex items-end justify-end ">
-            <button className="bg-primary-700 h-14 w-full md:w-14 rounded-[100px] md:rounded-[50%] flex items-center justify-center">
+            <button
+              onClick={() => router.push('results/make-BMW?mileage=2-598899')}
+              className="bg-primary-700 h-14 w-full md:w-14 rounded-[100px] md:rounded-[50%] flex items-center justify-center"
+            >
               <Image src={Search} alt="Search" />
             </button>
           </div>

@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import useIsMobile from '@/hooks/useIsMobile';
+import { USER } from '@/constants/constants';
 
 const SignIn = ({
   isOpen,
@@ -25,16 +26,12 @@ const SignIn = ({
 
   return (
     <main>
-      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        {/* <DialogTrigger>Open</DialogTrigger> */}
+      <Dialog open={isOpen && !USER} onOpenChange={handleOpenChange}>
         <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
           <DialogTitle className="text-center">
-            {/* <div className="text-center"> */}
-            {/* <Image src={Autobuy} alt="Autobuy" height={40} width={108} className="mx-auto" /> */}
             <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
               {type === 'signin' ? 'Log in' : 'Create your Account'}
             </h1>
-            {/* </div> */}
           </DialogTitle>
           <DialogDescription className="-mt-8 w-full">
             <form action="">

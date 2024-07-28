@@ -14,17 +14,15 @@ import useIsMobile from '@/hooks/useIsMobile';
 import SignIn from '@/app/auth/SignIn/SignIn';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
+import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const os = useDetectOS();
-  const user = false;
 
   const handleSignInClick = () => {
-    if (user) return;
-    //TODO
     setType('signin');
     setIsOpen(true);
   };
@@ -105,13 +103,13 @@ const VehicledetailsPage = () => {
               <div className="w-full space-y-4 mt-2">
                 <button
                   onClick={handleSignInClick}
-                  className="w-full text-white bg-primary-500 rounded-sm py-1.5 whitespace-nowrap "
+                  className="w-full text-white bg-primary-500 rounded-sm py-4 whitespace-nowrap "
                 >
                   Get vehicle Appraisal
                 </button>
                 <button
                   onClick={handleSignInClick}
-                  className="w-full py-1.5 rounded-sm border-2 border-primary-700"
+                  className="w-full py-4 rounded-sm border-2 border-primary-700"
                 >
                   Buy Now
                 </button>
@@ -123,7 +121,7 @@ const VehicledetailsPage = () => {
               </div>
             </div>
 
-            {/* {isMobile ? <VehicleInformation /> : null} */}
+            {isMobile ? <VehicleInformation /> : null}
           </section>
 
           <section className="mt-20">
@@ -152,6 +150,8 @@ const VehicledetailsPage = () => {
       </div>
 
       <SignIn isOpen={isOpen} handleOpenChange={handleOpenChange} type={type} setType={setType} />
+
+      <AppraisalForm isOpen={isOpen} setIsOpen={setIsOpen} />
     </main>
   );
 };

@@ -46,6 +46,8 @@ import Car7 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 
 export const IMAGES = [Car1, Car2, Car3, Car4, Car5, Car6];
 
+export const USER = true;
+
 export const CAR_BRANDS = [
   {
     id: 1,
