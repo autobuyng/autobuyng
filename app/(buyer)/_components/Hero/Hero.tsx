@@ -14,16 +14,16 @@ const Hero = () => {
   return (
     <section
       className={cn('bg relative md:h-[calc(120vh_-_76px)]', {
-        'h-[100vh]': os === 'macOS',
+        'h-[calc(100vh_-_76px)]': os === 'macOS',
       })}
     >
       <MaxWidthWrapper>
         <main
-          className={cn('pt-2 md:pt-8', {
-            'pt-16': os === 'macOS',
+          className={cn('pt-2 md:pt-16', {
+            'sm:pt-24': os === 'macOS',
           })}
         >
-          <div className=" ">
+          <div className="">
             <p
               className={cn(
                 ' max-w-[382px] md:max-w-[600px] text-primary-700 text-3xl md:text-4xl font-[700]',
