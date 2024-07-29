@@ -11,9 +11,11 @@ import { cn } from '@/lib/utils';
 
 const Hero = () => {
   const os = useDetectOS();
+  console.log(os);
   return (
     <section
-      className={cn('bg relative md:h-[calc(120vh_-_76px)]', {
+      className={cn('bg bg-primary-500 relative ', {
+        'md:h-[calc(140vh_-_76px)]': os === 'windows',
         'h-[calc(100vh_-_76px)]': os === 'macOS',
       })}
     >
@@ -23,12 +25,12 @@ const Hero = () => {
             'sm:pt-24': os === 'macOS',
           })}
         >
-          <div className="">
+          <div className={cn({ 'mt-10': os === 'macOS' })}>
             <p
               className={cn(
-                ' max-w-[382px] md:max-w-[600px] text-primary-700 text-3xl md:text-4xl font-[700]',
+                ' max-w-[382px] md:max-w-[600px] text-primary-700  text-3xl md:text-4xl font-[700]',
                 {
-                  'text-xl md:text-3xl ': os === 'windows',
+                  'mt-4 sm:mt-0 text-xl md:text-3xl ': os === 'windows',
                 },
               )}
             >
