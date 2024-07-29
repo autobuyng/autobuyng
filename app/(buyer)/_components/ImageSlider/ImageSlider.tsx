@@ -165,7 +165,8 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
         {/* <DialogTrigger>Open</DialogTrigger> */}
         <DialogContent
           className={cn('overflow-auto max-w-[560px]', {
-            'max-w-2xl': os === 'macOS',
+            'max-w-2xl': os === 'macOs',
+            'max-w-[560px]': os === 'windows',
           })}
         >
           <DialogTitle className="-mt-4 w-1/2">
