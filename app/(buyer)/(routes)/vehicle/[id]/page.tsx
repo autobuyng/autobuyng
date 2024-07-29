@@ -79,13 +79,14 @@ const VehicledetailsPage = () => {
           <section className=" w-full flex flex-col md:flex-row justify-center gap-4">
             <div>
               <div
-                className={cn(' max-w-[700px] max-h-[510px]', {
-                  'max-w-[900px] h-[530px]': os === 'macOS',
+                className={cn(' max-w-[900px] h-fit', {
+                  'max-w-[900px] h-fit  ': os === 'macOS',
                 })}
               >
                 <ImageSlider ImageUrls={IMAGES} />
               </div>
-              {isMobile ? null : <VehicleInformation />}
+
+              <div>{isMobile ? null : <VehicleInformation />}</div>
             </div>
 
             <div className="h-fit pb-4 shadow-md px-2">
