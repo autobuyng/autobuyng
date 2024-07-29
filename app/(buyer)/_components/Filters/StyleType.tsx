@@ -36,8 +36,8 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="py-2 px-8">Body Type</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className="py-2 ">Body Type</AccordionTrigger>
+            <AccordionContent className="">
               {BODY_STYLE.map((type) => {
                 return (
                   <p key={type.id} className="py-1 space-x-2 flex items-center">
@@ -57,8 +57,8 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
           </AccordionItem>
 
           <AccordionItem value="item-2">
-            <AccordionTrigger className="py-2 px-8">Interior Colour</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className="py-2 ">Interior Colour</AccordionTrigger>
+            <AccordionContent className="">
               {COLORS.map((color) => {
                 return (
                   <p key={color.id} className="py-1 space-x-2 flex items-center">
@@ -76,8 +76,8 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
           </AccordionItem>
 
           <AccordionItem value="item-3">
-            <AccordionTrigger className="py-2 px-8">Exterior</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className="py-2 ">Exterior</AccordionTrigger>
+            <AccordionContent className="">
               {COLORS.map((color) => {
                 return (
                   <p key={color.id} className="py-1 space-x-2 flex items-center">

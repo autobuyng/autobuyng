@@ -1,3 +1,5 @@
+'use client';
+
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { MAX_YEAR, MILEAGE } from '@/constants/constants';
 import { FilterProps } from '@/types/types';
@@ -5,16 +7,19 @@ import { Slider } from '@/components/ui/slider';
 import StyleType from './StyleType';
 import Performance from './Performance';
 import Features from './Features';
+import useIsMobile from '@/hooks/useIsMobile';
+import { cn } from '@/lib/utils';
 
 type FilterComponentProps = {
   filters: FilterProps;
   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
 };
 const Filters = ({ filters, setFilters }: FilterComponentProps) => {
+  const { isMobile } = useIsMobile();
   console.log(filters, 'filters');
   return (
     <main className=" w-full ">
-      <section className="w-full shadow-sm  p-8">
+      <section className={cn('w-full shadow-sm p-8 ', { 'pt-4 px-0': isMobile })}>
         <div className="flex w-full gap-4">
           <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
@@ -113,17 +118,17 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
       </section>
 
-      <section className="mt-6 space-y-2 pt-8  shadow-sm ">
+      <section className={cn('mt-6 space-y-2 pt-8  shadow-sm px-8 ', { 'px-0': isMobile })}>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 px-8">Style</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
           <StyleType filters={filters} setFilters={setFilters} />
         </div>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 px-8"> Performance</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
           <Performance />
         </div>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 px-8">Features</p>
+          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 ">Features</p>
           <Features />
         </div>
       </section>

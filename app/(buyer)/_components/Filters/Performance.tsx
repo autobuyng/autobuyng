@@ -14,8 +14,8 @@ const Performance = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Transmission</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Transmission</AccordionTrigger>
+            <AccordionContent className="">
               {TRANSMISSION.map((color) => {
                 return (
                   <p key={color.id} className="py-1 space-x-2 flex items-center">
@@ -37,8 +37,8 @@ const Performance = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Drivetrain</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Drivetrain</AccordionTrigger>
+            <AccordionContent className="">
               {DRIVE_TRAINS.map((train) => {
                 return (
                   <p key={train.id} className="py-1 space-x-2 flex items-center">
@@ -60,8 +60,8 @@ const Performance = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Cylinders</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Cylinders</AccordionTrigger>
+            <AccordionContent className="">
               {CYLINDERS.map((cylinder) => {
                 return (
                   <p key={cylinder.id} className="py-1 space-x-2 flex items-center">
@@ -83,8 +83,8 @@ const Performance = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" px-8">Fueltype</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" ">Fueltype</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>

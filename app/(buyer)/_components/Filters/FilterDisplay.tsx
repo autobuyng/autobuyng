@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import Filter from './assets/filter.svg';
+import Cancel from '@/app/(buyer)/assets/cancel.svg';
 
-const FilterDisplay = () => {
+type FilterDisplayProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const FilterDisplay = ({ setIsOpen }: FilterDisplayProps) => {
   const [filterQuery, setFilterQuery] = useState<string[]>([
     'Toyota',
     'Silveerado',
@@ -23,12 +28,15 @@ const FilterDisplay = () => {
 
   return (
     <main className="flex items-start md:gap-8 lg:gap-6">
-      <div className="flex items-center gap-2  w-[80px]">
+      <div
+        onClick={() => setIsOpen(true)}
+        className="flex items-center gap-2 w-fit cursor-pointer lg:cursor-default px-2 border border-neutral-700 rounded-sm"
+      >
         <Image src={Filter} alt="filter" />
         <h1 className="font-md text-xl">Filters</h1>
       </div>
 
-      <div className="hidden md:flex items-center gap-2 flex-wrap">
+      <div className="hidden lg:flex items-center gap-2 flex-wrap">
         {filterQuery.map((query) => (
           <div
             key={query}
@@ -36,7 +44,7 @@ const FilterDisplay = () => {
           >
             <span>{query}</span>
             <button onClick={() => handleQuery(query)} className="text-xl">
-              x
+              <Image src={Cancel} alt="Cancel" />
             </button>
           </div>
         ))}

@@ -21,7 +21,7 @@ const Hero = () => {
     >
       <MaxWidthWrapper>
         <main
-          className={cn('pt-2 md:pt-16', {
+          className={cn('pt-8 md:pt-16', {
             'sm:pt-24': os === 'macOS',
           })}
         >

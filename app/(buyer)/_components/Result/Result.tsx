@@ -4,11 +4,13 @@ import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
+import { SkeletonCard } from '@/components/Loader/SkeletonCard';
 
 type ResultProps = {
   displayFormat: boolean;
+  isLoading: boolean;
 };
-const Result = ({ displayFormat }: ResultProps) => {
+const Result = ({ displayFormat, isLoading }: ResultProps) => {
   const { isMobile } = useIsMobile();
   const os = useDetectOS();
   return (
@@ -23,6 +25,9 @@ const Result = ({ displayFormat }: ResultProps) => {
           )}
         >
           {VEHICLE_SEARCH_RESULTS.map((result) => {
+            if (isLoading) {
+              return <SkeletonCard key={result.id} />;
+            }
             return (
               <ProductCard
                 key={result.id}

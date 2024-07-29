@@ -13,8 +13,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Convenience</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Convenience</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
@@ -24,8 +24,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Entertainment</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Entertainment</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
@@ -35,8 +35,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" py-2 px-8">Exterior</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" py-2 ">Exterior</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
@@ -46,8 +46,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" px-8">Safety</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" ">Safety</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
@@ -57,8 +57,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" px-8">Seating</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" ">Seating</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
@@ -68,8 +68,8 @@ const Features = () => {
       <div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger className=" px-8">Door count</AccordionTrigger>
-            <AccordionContent className="px-8">
+            <AccordionTrigger className=" ">Door count</AccordionTrigger>
+            <AccordionContent className="">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
