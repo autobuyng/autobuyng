@@ -68,7 +68,7 @@ const CustomerVerification = ({
           <div>
             <p>For company</p>
             <label htmlFor="UserEmail" className="block text-sm  py-1 font-medium text-neutral-500">
-              CAC number
+              Coperate Affairs Commission (CAC number)
             </label>
 
             <input
@@ -82,7 +82,7 @@ const CustomerVerification = ({
           <div className="w-full">
             <button
               onClick={handleVerifyClick}
-              className="w-full bg-primary-700 text-white rounded-sm py-2 px-4 text-center"
+              className="w-full bg-primary-700 text-white rounded-sm py-4 px-4 text-center"
             >
               Proceed
             </button>

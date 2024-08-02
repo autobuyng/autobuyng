@@ -9,6 +9,7 @@ import Engine from '@/app/(buyer)/assets/engine.svg';
 import Fueltype from '@/app/(buyer)/assets/Fueltype.svg';
 import Mpg from '@/app/(buyer)/assets/Mpg.svg';
 import Vin from '@/app/(buyer)/assets/vin.svg';
+import Love from '@/app/(buyer)/assets/love.svg';
 
 const VehicleInformation = () => {
   return (
@@ -122,15 +123,18 @@ const VehicleInformation = () => {
             professional guidance from our staffs.
           </p>
 
-          <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Contact agent</button>
+          <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Chat with us</button>
         </div>
 
         <div className="mt-8">
           <h1 className="py-2 font-bold text-xl">Made your decision?</h1>
           <div className="flex gap-4">
-            <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Buy this car</button>
-            <button className="border-2 border-primary-700 rounded-sm px-3 py-1 text-primary-700">
-              Save to inventory
+            <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">
+              Buy this car Now!
+            </button>
+            <button className="border-2 flex items-center gap-2 border-primary-700 rounded-sm px-3 py-1 text-primary-700">
+              <span>Save to Inventory</span>
+              <Image src={Love} alt="Love" />
             </button>
           </div>
         </div>

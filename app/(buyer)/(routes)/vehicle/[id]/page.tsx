@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import '../vehicle.css';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
@@ -21,6 +22,7 @@ const VehicledetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const os = useDetectOS();
+  const router = useRouter();
 
   const handleSignInClick = () => {
     setType('signin');
@@ -109,7 +111,7 @@ const VehicledetailsPage = () => {
                   Get vehicle Appraisal
                 </button>
                 <button
-                  onClick={handleSignInClick}
+                  onClick={() => router.push('/payment/adste-te34at-4eafd')}
                   className="w-full py-4 rounded-sm border-2 border-primary-700"
                 >
                   Buy Now
@@ -118,7 +120,7 @@ const VehicledetailsPage = () => {
 
               <div className="flex items-center gap-2 mt-2 text-sm">
                 <input type="checkbox" />
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, quidem?</p>
+                <p>Lorem ipsum dolor sit amet consectetur </p>
               </div>
             </div>
 

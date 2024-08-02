@@ -67,7 +67,7 @@ const Navbar = () => {
                   <Link
                     className="text-primary-700"
                     target={path === '/sell' ? '_blank' : '_self'}
-                    href={path === '/sell' ? 'http://localhost:3000/sell' : `/${path}`}
+                    href={path === '/sell' ? `${process.env.HOME_URL}/sell` : `/${path}`}
                   >
                     {text}
                   </Link>

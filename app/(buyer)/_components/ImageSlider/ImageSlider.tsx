@@ -98,7 +98,7 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
 
         <button className="absolute bottom-0 right-4  text-white rounded-[4px] bg-black/55 p-1 flex items-center justify-center gap-1.5">
           <span>
-            {currentIndex} / {25}
+            {currentIndex + 1} / {25}
           </span>
           <Image src={Photo} alt="Photo" />
         </button>
