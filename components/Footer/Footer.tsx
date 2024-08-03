@@ -7,7 +7,7 @@ import PaymentCard from '@/app/assets/payentcard.svg';
 
 const Footer = () => {
   return (
-    <main className="bg-primary-900 text-white h-fit mt-8 py-8">
+    <main className="bg-primary-900 text-white h-fit  py-8">
       <MaxWidthWrapper>
         <main className="flex flex-col sm:flex-row  justify-between w-full gap-10 ">
           <section className="flex flex-col sm:flex-row w-fit lg:w-1/2 gap-6">
