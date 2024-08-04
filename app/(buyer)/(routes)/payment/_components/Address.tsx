@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type AddressProps = {
-  firstname: '';
-  lastname: '';
-  phonenumber: '';
-  phonenumber2: '';
-  city: '';
-  region: '';
-  deliveryAddress: '';
-  additionalInformation: '';
+  firstname: string;
+  lastname: string;
+  phonenumber: string;
+  phonenumber2: string;
+  city: string;
+  region: string;
+  deliveryAddress: string;
+  additionalInformation: string;
 };
 
 const Address = () => {
