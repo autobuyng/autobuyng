@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { CAR_BRANDS, PRICE_RANGE, YEAR } from '@/constants/constants';
 import Search from '../../assets/search.svg';
+import useDetectOS from '@/hooks/useDetectOs';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -14,6 +15,7 @@ const HomeSearch = () => {
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
   const router = useRouter();
+  const os = useDetectOS();
 
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
@@ -22,7 +24,12 @@ const HomeSearch = () => {
   ];
   // sm:w-[450px]
   return (
-    <main className=" h-fit md:h-fit  md:w-[605px] rounded-md bg-white">
+    <main
+      className={cn(' h-fit   rounded-md bg-white', {
+        ' py-3 md:w-[620px]': os === 'macOS',
+        ' md:w-[600px]': os === 'Windows',
+      })}
+    >
       <div className="px-4 pt-4 pb-8 ">
         <div className="flex w-full items-center justify-between">
           {CAR_CATEGORY.map((category) => {

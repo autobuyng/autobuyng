@@ -15,14 +15,15 @@ const Hero = () => {
   return (
     <section
       className={cn('bg bg-primary-500 relative ', {
-        'md:h-[calc(140vh_-_76px)]': os === 'windows',
+        'md:h-[calc(120vh_-_76px)]': os === 'Windows',
         'h-[calc(100vh_-_76px)]': os === 'macOS',
       })}
     >
       <MaxWidthWrapper>
         <main
-          className={cn('pt-8 md:pt-16', {
+          className={cn({
             'sm:pt-24': os === 'macOS',
+            'pt-8 md:pt-10': os === 'Windows',
           })}
         >
           <div className={cn({ 'mt-10': os === 'macOS' })}>
@@ -30,7 +31,7 @@ const Hero = () => {
               className={cn(
                 ' max-w-[382px] md:max-w-[600px] text-primary-700  text-3xl md:text-4xl font-[700]',
                 {
-                  'mt-4 sm:mt-0 text-xl md:text-3xl ': os === 'windows',
+                  'mt-4 sm:mt-0 text-lg md:text-xl ': os === 'windows',
                 },
               )}
             >

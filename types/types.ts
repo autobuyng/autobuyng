@@ -43,3 +43,10 @@ export type FilterProps = {
     oldest_listed: boolean;
   };
 };
+
+export type SIDEBAR_ITEMS_TYPES = {
+  id: string;
+  text: string;
+  path: string;
+  Icon: StaticImageData;
+}[];
