@@ -3,11 +3,14 @@
 import React, { useState } from 'react';
 
 import SignIn from '@/app/auth/SignIn/SignIn';
+import { useRouter } from 'next/navigation';
 
 const Menucontent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
+  const router = useRouter();
   const user = true;
+
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -22,11 +25,16 @@ const Menucontent = () => {
     setIsOpen(true);
   };
 
+  const handleMenuClick = (path: string) => {
+    router.push(`/${path}`);
+    setIsOpen(false);
+  };
+
   const MENU_ITEMS = [
-    { id: '1', text: 'messages' },
-    { id: '2', text: 'Notifications' },
-    { id: '3', text: 'Orders' },
-    { id: '4', text: 'Favorites' },
+    { id: '1', text: 'messages', path: 'messages' },
+    { id: '2', text: 'Notifications', path: 'notification' },
+    { id: '3', text: 'Orders', path: 'orders' },
+    { id: '4', text: 'Favorites', path: 'favorites' },
   ];
   return (
     <div className="mt-8 md:mt-0">
@@ -57,7 +65,9 @@ const Menucontent = () => {
           <div className="flex flex-col gap-3 border-b border-neutral-100 pb-2">
             {MENU_ITEMS.map((item) => (
               <div key={item.id} className="w-full">
-                <button className="flex">{item.text}</button>
+                <button onClick={() => handleMenuClick(item.path)} className="flex">
+                  {item.text}
+                </button>
               </div>
             ))}
           </div>

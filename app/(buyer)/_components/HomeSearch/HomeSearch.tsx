@@ -25,9 +25,9 @@ const HomeSearch = () => {
   // sm:w-[450px]
   return (
     <main
-      className={cn(' h-fit   rounded-md bg-white', {
+      className={cn(' h-fit  md:w-[600px]   rounded-md bg-white', {
         ' py-3 md:w-[620px]': os === 'macOS',
-        ' md:w-[600px]': os === 'Windows',
+        // ' md:w-[600px]': os === 'Windows',
       })}
     >
       <div className="px-4 pt-4 pb-8 ">

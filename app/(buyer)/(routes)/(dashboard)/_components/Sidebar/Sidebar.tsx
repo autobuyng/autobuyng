@@ -20,7 +20,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <main className="w-[270px]  min-h-screen hidden md:block  ">
+    <main className="w-[270px]  min-h-screen hidden md:block border-r border-neutral-100  ">
       <div className="flex flex-col gap-4 mt-4 mx-2  ">
         {SIDEBAR_ITEMS.map((item) => {
           return (

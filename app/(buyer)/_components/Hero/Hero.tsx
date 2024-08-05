@@ -14,16 +14,15 @@ const Hero = () => {
   console.log(os);
   return (
     <section
-      className={cn('bg bg-primary-500 relative ', {
+      className={cn('bg min-h-screen bg-primary-500 relative ', {
         'md:h-[calc(120vh_-_76px)]': os === 'Windows',
         'h-[calc(100vh_-_76px)]': os === 'macOS',
       })}
     >
       <MaxWidthWrapper>
         <main
-          className={cn({
+          className={cn('pt-8 md:pt-10', {
             'sm:pt-24': os === 'macOS',
-            'pt-8 md:pt-10': os === 'Windows',
           })}
         >
           <div className={cn({ 'mt-10': os === 'macOS' })}>
