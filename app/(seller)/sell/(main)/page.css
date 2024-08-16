@@ -1,5 +1,5 @@
 .seller-bcg {
-  background-image: url('../../../assets/sellerbcg.svg');
+  background-image: url('../../assets/sellerbcg.svg');
   background-position: center;
   background-size: cover;
   /* min-height: calc(100vh - 76px); */

@@ -10,7 +10,10 @@ import InspectionProcess from '@/app/(seller)/assets/inspectionprocess.svg';
 import SalesProcess from '@/app/(seller)/assets/salesprocess.svg';
 import NextStep from '@/app/(seller)/assets/nextstep.svg';
 import Next from '@/app/(seller)/assets/next.svg';
-// import Review from '@/app/(seller)/assets/topreview.svg';
+import Payment from '@/app/(seller)/assets/payment.svg';
+import SellVehicle from '@/app/(seller)/assets/sellvehicle.svg';
+import Schedule from '@/app/(seller)/assets/shedule.svg';
+import VehicleInspection from '@/app/(seller)/assets/vehicleinspection.svg';
 
 export const metadata = {
   title: 'Autobuy',
@@ -18,6 +21,33 @@ export const metadata = {
 };
 
 const Seller = () => {
+  const PROCESS = [
+    {
+      id: '1',
+      heading: 'Create a schedule',
+      desc: 'FLorem ipsum dolor sit amet consectetur. Aliquam habitasse facilisis sagittis eget tristique sit parturient.',
+      Icon: Schedule,
+    },
+    {
+      id: '2',
+      heading: 'Free vehlcle inspection',
+      desc: 'FLorem ipsum dolor sit amet consectetur. Aliquam habitasse facilisis sagittis eget tristique sit parturient.',
+      Icon: VehicleInspection,
+    },
+    {
+      id: '3',
+      heading: 'Sell your vehicle',
+      desc: 'FLorem ipsum dolor sit amet consectetur. Aliquam habitasse facilisis sagittis eget tristique sit parturient.',
+      Icon: SellVehicle,
+    },
+    {
+      id: '4',
+      heading: 'Secured payment',
+      desc: 'FLorem ipsum dolor sit amet consectetur. Aliquam habitasse facilisis sagittis eget tristique sit parturient.',
+      Icon: Payment,
+    },
+  ];
+
   return (
     <main>
       <section className="relative w-full h-full">
@@ -134,7 +164,44 @@ const Seller = () => {
         </div>
       </MaxWidthWrapper>
 
-      <section></section>
+      <section className="max-w-[960px] px-6 mx-auto mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            {PROCESS.map((item) => (
+              <div key={item.id} className="flex items-center gap-6 justify-center">
+                <Image src={item.Icon} alt={item.heading} />
+
+                <div className="">
+                  <h1 className="font-bold md:text-xl py-1">{item.heading}</h1>
+                  <p className="text-sm">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-[372px] space-y-12">
+            <h1 className=" font-bold text-center md:text-3xl">
+              Schedule a Vehicle Inspection in
+              <span className="text-secondary-500">10 Minutes</span>
+            </h1>
+
+            <form action="">
+              <div>
+                <label className="block text-xs font-medium text-gray-700 py-1"> VIN</label>
+
+                <input
+                  type="text"
+                  placeholder=""
+                  className="mt-1 w-full outline-none  py-2 px-2 rounded-md border border-neutral-700 sm:text-sm"
+                />
+              </div>
+              <button className="w-full bg-secondary-700 text-white py-2 rounded-md mt-4">
+                Get Started
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };

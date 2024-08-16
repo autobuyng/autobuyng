@@ -2,17 +2,19 @@ import React from 'react';
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
 
-import Autobuy from '@/app/assets/Autobuy2.svg';
+import Autobuy2 from '@/app/assets/Autobuy2.svg';
+import Autobuy1 from '@/app/assets/Autobuy.svg';
 import PaymentCard from '@/app/assets/payentcard.svg';
+import { cn } from '@/lib/utils';
 
-const Footer = () => {
+const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) => {
   return (
-    <main className="bg-primary-900 text-white h-fit  py-8">
+    <main className={cn(' h-fit  py-8', bgColor ? 'bg-[#F7F7F7]' : 'bg-primary-900 text-white')}>
       <MaxWidthWrapper>
         <main className="flex flex-col sm:flex-row  justify-between w-full gap-10 ">
           <section className="flex flex-col sm:flex-row w-fit lg:w-1/2 gap-6">
             <div>
-              <Image src={Autobuy} alt="Autobuy" />
+              <Image src={bgColor ? Autobuy1 : Autobuy2} alt="Autobuy" />
             </div>
 
             <div className="w-full flex flex-col sm:flex-row justify-between">
@@ -45,7 +47,12 @@ const Footer = () => {
                   placeholder="Enter your email address"
                   className="mt-1 w-full outline-none py-2 text-black border-gray-200 shadow-sm sm:text-sm"
                 />
-                <button className="bg-primary-500 px-4 py-3 h-full text-sm whitespace-nowrap rounded-tr-sm rounded-br-sm">
+                <button
+                  className={cn(
+                    '  px-4 py-3 h-full text-sm whitespace-nowrap rounded-tr-sm rounded-br-sm',
+                    btnColor ? btnColor : 'bg-primary-500',
+                  )}
+                >
                   Sign up
                 </button>
               </div>

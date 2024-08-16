@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer/Footer';
 import Navbar from '@/components/Navbar/SelllerNavbar';
 import type { Metadata } from 'next';
 
@@ -15,7 +16,10 @@ export default function RootLayout({
     <main>
       <Navbar />
       <div className="min-h-screen">{children}</div>
-      {/* <Footer /> */}
+
+      <div className="mt-8">
+        <Footer bgColor="#F7F7F7" btnColor="bg-secondary-500" />
+      </div>
     </main>
   );
 }
