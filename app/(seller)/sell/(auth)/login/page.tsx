@@ -31,7 +31,7 @@ const Login = () => {
               >
                 Email
               </label>
-              <div className="w-full  ">
+              <div className="w-full">
                 <input
                   type="email"
                   id="email"

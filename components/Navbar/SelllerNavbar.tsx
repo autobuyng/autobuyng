@@ -12,9 +12,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 import useIsMobile from '@/hooks/useIsMobile';
-import Menucontent from '../Menucontent/Menucontent';
+// import Menucontent from '../Menucontent/Menucontent';
 import Profile from './assets/sellerProfile.svg';
 import useClickOutside from '@/hooks/useClickOutside';
+import Menucontent from '@/app/(seller)/_components/MenuContent/MenuContent';
 
 const Navbar = () => {
   const { isMobile } = useIsMobile();
