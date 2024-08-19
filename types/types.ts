@@ -48,5 +48,5 @@ export type SIDEBAR_ITEMS_TYPES = {
   id: string;
   text: string;
   path: string;
-  Icon: StaticImageData;
+  Icon: (color: any) => JSX.Element;
 }[];

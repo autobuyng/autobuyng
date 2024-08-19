@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Sidebar from './_components/Sidebar';
+import Navbar from '@/components/Navbar/SelllerNavbar';
 
 export const metadata: Metadata = {
   title: 'Autobuy',
@@ -13,6 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
+      <Navbar />
       <main className="flex min-h-[90vh] w-full">
         <Sidebar />
         <div className="w-full h-full">{children}</div>
