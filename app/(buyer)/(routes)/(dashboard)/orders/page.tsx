@@ -23,6 +23,12 @@ const Orders = () => {
       status: 'Deliverd',
       desc: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ',
     },
+    {
+      id: '4',
+      name: 'Mercedes Benz',
+      status: 'Deliverd',
+      desc: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ',
+    },
   ];
 
   return (

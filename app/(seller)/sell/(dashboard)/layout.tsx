@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Sidebar from './_components/Sidebar/Sidebar';
+import Sidebar from './_components/Sidebar';
 
 export const metadata: Metadata = {
   title: 'Autobuy',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <main className="relative flex min-h-[90vh] w-full">
+      <main className="flex min-h-[90vh] w-full">
         <Sidebar />
         <div className="w-full h-full">{children}</div>
       </main>

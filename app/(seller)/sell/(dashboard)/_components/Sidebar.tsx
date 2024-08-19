@@ -18,7 +18,7 @@ const Sidebar = () => {
     { id: '4', text: 'settings', path: '/settings', Icon: Settings },
     { id: '5', text: 'support', path: '/support', Icon: Support },
   ];
-  // max-h-[calc(100vh_-_76px)]
+
   return (
     <main className="w-[270px] z-50  sticky top-[76px] left-0 max-h-[calc(100vh_-_76px)] hidden md:flex flex-col  border-r border-neutral-100  ">
       <div className="flex flex-col h-full  gap-4 mt-4 mx-2  ">
@@ -36,8 +36,8 @@ const Sidebar = () => {
         })}
       </div>
 
-      <div className="w-[90%] mx-2 relative ">
-        <button className="bottom-0 flex items-center w-44 rounded-[50px] py-2 px-4 justify-center bg-primary-700 text-white">
+      <div className="w-[90%] mx-2 mt-20">
+        <button className="flex items-center w-44 rounded-[50px] py-2 px-4 justify-center bg-primary-700 text-white">
           <Image src={Logout} alt="Logout" />
           <span>Log out</span>
         </button>
