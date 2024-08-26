@@ -1,0 +1,7 @@
+.bg-img {
+  background-image: url('../../assets/Resultbcg.svg');
+  /* background-image: url('https://www.w3schools.com/howto/img_parallax.jpg'); */
+  background-position: center;
+  background-size: cover;
+  height: 210px;
+}
