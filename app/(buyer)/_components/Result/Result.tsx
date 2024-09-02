@@ -14,11 +14,11 @@ const Result = ({ displayFormat, isLoading }: ResultProps) => {
   const { isMobile } = useIsMobile();
   const os = useDetectOS();
   return (
-    <main>
+    <main className="mb-8">
       {displayFormat || isMobile ? (
         <div
           className={cn(
-            'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-4 ',
+            'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
             {
               'xl:grid-cols-4': os === 'macOS',
             },

@@ -28,7 +28,8 @@ const Results = ({ params }: { params: { slug: string } }) => {
       max_year: '2024',
     },
     body_style: '',
-
+    interior_color: '',
+    exterior_color: '',
     price: 33,
   };
 

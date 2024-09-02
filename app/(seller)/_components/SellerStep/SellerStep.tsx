@@ -36,7 +36,7 @@ const SellerStep = () => {
     <section className="mt-8">
       <div className="text-center space-y-2">
         <h1 className="font-bold text-2xl capitalize">
-          Sell with 4 <span className="text-secondary-500">Working Step</span>
+          Sell with 4 <span className="text-secondary-500">Working Steps</span>
         </h1>
         <p className="text-neutral-700 font-bold">
           Experience a seamless sale of your vehicle and inventory with Autobuy
@@ -46,7 +46,7 @@ const SellerStep = () => {
       <MaxWidthWrapper>
         <div className=" mt-5 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 ">
           {SELLER_STEP?.map((step) => (
-            <div key={step.id} className="flex bg-red">
+            <div key={step.id} className="flex bg-red gap-2">
               <div className=" text-center w-full">
                 <Image src={step.Icon} alt={step.text} className="mx-auto" />
                 <div className="space-y-2 w-52 mx-auto">

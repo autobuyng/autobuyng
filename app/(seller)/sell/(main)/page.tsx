@@ -54,7 +54,7 @@ const Seller = () => {
         <div className="seller-bcg grid place-items-center h-[calc(100vh_-_76px)] bg-black/45">
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-45"></div>
 
-          <div className=" h-full flex flex-col items-center justify-center z-10 space-y-2">
+          <div className=" h-full flex flex-col items-center justify-center z-10 space-y-4">
             <h1 className="text-xl  text-white sm:text-3xl font-bold md:text-[40px]">
               Unlock EffortlessTransitions
             </h1>
@@ -145,7 +145,11 @@ const Seller = () => {
           {[1, 2, 3, 4, 5, 6, 7].map((item) => (
             <div key={item} className="min-w-[400px] shadow-sm p-4 space-y-4">
               <div className="flex items-center justify-start gap-2">
-                <Image src={''} alt="Avatar" className="w-16 h-16 rounded-full bg-zinc-400" />
+                <Image
+                  src={SalesProcess}
+                  alt="Avatar"
+                  className="w-16 h-16 rounded-full bg-zinc-400"
+                />
                 <div>
                   <p>name</p>
                   <p>Date of commet</p>

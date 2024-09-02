@@ -86,7 +86,7 @@ const Navbar = () => {
             {isMobile && (
               <Sheet>
                 <SheetTrigger>
-                  <div className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md">
+                  <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
                     <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
                     <Image src={Profile} alt="Profile" />
                   </div>
@@ -100,7 +100,7 @@ const Navbar = () => {
             {!isMobile && (
               <Popover>
                 <PopoverTrigger>
-                  <div className="flex items-center gap-3 rounded-[80px] border border-primary-700 px-2 py-1 hover:shadow-md">
+                  <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
                     <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
                     <Image src={Profile} alt="Profile" />
                   </div>

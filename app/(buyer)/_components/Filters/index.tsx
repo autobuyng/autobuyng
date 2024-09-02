@@ -1,5 +1,8 @@
 'use client';
 
+import { useCallback } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { MAX_YEAR, MILEAGE } from '@/constants/constants';
 import { FilterProps } from '@/types/types';
@@ -17,6 +20,23 @@ type FilterComponentProps = {
 const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   const { isMobile } = useIsMobile();
   console.log(filters, 'filters');
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <main className=" w-full ">
       <section className={cn('w-full shadow-sm p-8 ', { 'pt-4 px-0': isMobile })}>
@@ -28,6 +48,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
               list={MAX_YEAR}
               title="Oldest"
               setSelectedInput={(input) => {
+                router.push(pathname + '?' + createQueryString('max_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -50,6 +71,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
               list={MAX_YEAR}
               title="Highest"
               setSelectedInput={(input) => {
+                router.push(pathname + '?' + createQueryString('min_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -73,6 +95,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             list={MILEAGE}
             title="Any mileage"
             setSelectedInput={(input) => {
+              router.push(pathname + '?' + createQueryString('mileage', input as string));
               setFilters(
                 (prev: FilterProps): FilterProps => ({
                   ...prev,
@@ -102,6 +125,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             <Slider
               onValueChange={(input) => {
                 const [newPrice] = input;
+                router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,

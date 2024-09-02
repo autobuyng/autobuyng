@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   return (
     <main>
-      <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+      <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-8 lg:grid-cols-4">
         {STATS.map((stat) => (
           <StartCard key={stat.id} {...stat} />
         ))}
