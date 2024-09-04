@@ -159,7 +159,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="mt-14 shadow-md min-w-full max-w-[60rem] overflow-auto">
+      <div className="mt-14 shadow-md bg-red-400 mx-auto  overflow-auto">
         <DataTable columns={columns} data={payments} />
       </div>
     </main>

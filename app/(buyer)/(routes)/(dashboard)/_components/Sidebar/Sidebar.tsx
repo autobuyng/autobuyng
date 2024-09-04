@@ -8,10 +8,9 @@ import Saved from '@/app/(buyer)/(routes)/(dashboard)/assets/saved.svg';
 import Settings from '@/app/(buyer)/(routes)/(dashboard)/assets/settings.svg';
 import Support from '@/app/(buyer)/(routes)/(dashboard)/assets/support.svg';
 import Logout from '@/app/(buyer)/(routes)/(dashboard)/assets/logout.svg';
-import { SIDEBAR_ITEMS_TYPES } from '@/types/types';
 
 const Sidebar = () => {
-  const SIDEBAR_ITEMS: SIDEBAR_ITEMS_TYPES = [
+  const SIDEBAR_ITEMS = [
     { id: '1', text: 'orders', path: '/orders', Icon: Orders },
     { id: '2', text: 'message', path: '/messages', Icon: Messages },
     { id: '3', text: 'saved', path: '/saved', Icon: Saved },
