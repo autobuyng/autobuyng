@@ -15,10 +15,12 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      <main className="flex min-h-[90vh] w-full">
-        <Sidebar />
-        <div className="w-full h-full mx-2 mt-4">{children}</div>
-      </main>
+      <section className="w-full">
+        <main className="flex min-h-[90vh]  max-w-[1336px] mx-auto">
+          <Sidebar />
+          <div className="w-full h-full mx-4 mt-4">{children}</div>
+        </main>
+      </section>
     </>
   );
 }

@@ -1,9 +1,8 @@
 .bg {
   background-image: url('https://ik.imagekit.io/autobuyng/Autobuyimages/Autobuy%20Landing%20Page%203.jpg');
-  
+
   background-position: center;
   background-size: cover;
   /* min-height: 100%; */
   /* height: calc(100vh - 76px); */
 }
-
