@@ -17,10 +17,10 @@ const Dashboard = () => {
   const [selectedChart, setSelectedChart] = useState('bar');
 
   const STATS = [
-    { id: '1', value: '0', text: 'Total Upload', percent: '0%', icon: Uploads },
-    { id: '2', value: '0', text: 'Total Sale', percent: '0%', icon: Sales },
-    { id: '3', value: '0', text: 'Total Approved', percent: '0%', icon: Pending },
-    { id: '4', value: '0', text: 'Total Amount Traded', percent: '0%', icon: Amount },
+    { id: '1', value: '500', text: 'Total Upload', percent: '0%', icon: Uploads },
+    { id: '2', value: '500', text: 'Total Sale', percent: '0%', icon: Sales },
+    { id: '3', value: '500', text: 'Total Approved', percent: '0%', icon: Pending },
+    { id: '4', value: '500', text: 'Total Amount Traded', percent: '0%', icon: Amount },
   ];
 
   const chartToRender = (key: string) => {
@@ -131,7 +131,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-14 w-full">
-        <div className="max-w-full col-span-2 relative shadow-md">
+        <div className="max-w-full col-span-2 relative shadow-[1px_1px_16px_4px_#1F1F1F1A]">
           {chartToRender(selectedChart)}
 
           <select
@@ -154,13 +154,13 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="w-full col-span-1  shadow-md">
+        <div className="w-full col-span-1  shadow-[1px_1px_16px_4px_#1F1F1F1A] p-2">
           <DonoughtChart />
         </div>
       </div>
 
       <div className="w-full">
-        <div className="mt-14 shadow-md max-w-full   overflow-x-auto">
+        <div className="mt-14 shadow-[1px_1px_16px_4px_#1F1F1F1A] max-w-full   overflow-x-auto">
           <DataTable columns={columns} data={payments} />
         </div>
       </div>
@@ -169,3 +169,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+//box-shadow: 1px 1px 16px 4px #1F1F1F1A;

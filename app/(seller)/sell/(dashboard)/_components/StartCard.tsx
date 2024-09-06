@@ -11,7 +11,7 @@ interface StartCardProps {
 
 const StartCard: React.FC<StartCardProps> = ({ value, text, percent, icon }) => {
   return (
-    <section className="shadow-md rounded-md p-2 space-2-3">
+    <section className="shadow-[1px_1px_16px_4px_#1F1F1F1A] rounded-md p-2 space-2-3">
       <div className="flex justify-between items-center">
         <p className="font-bold text-xs uppercase">{text}</p>
         <Image src={icon} alt={text} width={40} height={40} layout="fixed" />

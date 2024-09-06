@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import Logout from '@/app/(buyer)/(routes)/(dashboard)/assets/logout.svg';
-import {
-  Dashboard,
+import Dashboard, {
   Messages,
   Settings,
   Support,
