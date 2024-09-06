@@ -123,7 +123,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <main>
+    <main className="mx-4">
       <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-8 lg:grid-cols-4">
         {STATS.map((stat) => (
           <StartCard key={stat.id} {...stat} />
@@ -159,8 +159,10 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="mt-14 shadow-md bg-red-400 mx-auto  overflow-auto">
-        <DataTable columns={columns} data={payments} />
+      <div className="w-full">
+        <div className="mt-14 shadow-md max-w-full   overflow-x-auto">
+          <DataTable columns={columns} data={payments} />
+        </div>
       </div>
     </main>
   );
