@@ -1,5 +1,4 @@
-const Dashboard = ({ classname }: any) => {
-  console.log(classname, 'color');
+export default function Dashboard({ classname }: any) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect
@@ -44,9 +43,7 @@ const Dashboard = ({ classname }: any) => {
       />
     </svg>
   );
-};
-
-export default Dashboard;
+}
 
 export const Upload = ({ classname }: any) => {
   return (
@@ -80,6 +77,13 @@ export const Messages = ({ classname }: any) => {
     </svg>
   );
 };
+
+// export default const Dashboard = ({ classname }: any) => {
+//   console.log(classname, 'color');
+//   return (
+
+//   );
+// };
 export const Settings = ({ classname }: any) => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
