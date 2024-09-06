@@ -45,7 +45,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="h-[76px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
+    <header className="h-[76px] w-full flex items-center sticky top-0 z-10 right-0 bg-white shadow-sm">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
           <div className="flex items-center justify-between gap-8 w-full  ">
@@ -68,8 +68,8 @@ const Navbar = () => {
                     href={
                       path === '/buy'
                         ? process.env.NODE_ENV === 'development'
-                          ? `${process.env.DEV_BASE_URL}/buy`
-                          : `${process.env.HOME_BASE_URL}/buy`
+                          ? `${process.env.DEV_BASE_URL}`
+                          : `${process.env.HOME_BASE_URL}`
                         : `/${path}`
                     }
                   >

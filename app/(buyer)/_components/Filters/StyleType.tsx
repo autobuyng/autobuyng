@@ -25,12 +25,6 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
     }));
   };
 
-  const handleCheck = (id: string): boolean | undefined => {
-    const isChecked = BODY_STYLE.find((item) => item.id === id);
-
-    return isChecked ? true : false;
-  };
-
   return (
     <main>
       <div>
@@ -46,8 +40,8 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                       name={type.name}
                       onChange={() => handleCheckboxChange(type.name)}
                       className="h-5 w-5"
-                      disabled={false}
-                      checked={handleCheck(type.id)}
+                      // disabled={false}
+                      // checked={type.id === String(index)}
                     />
                     <span className="">{type.name}</span>
                   </p>

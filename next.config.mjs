@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www.w3schools.com',
+        hostname: 'ik.imagekit.io',
         port: '',
         // pathname: '/account123/**',
       },
