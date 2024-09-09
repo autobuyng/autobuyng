@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { ColumnDef } from '@tanstack/react-table';
-import Image from 'next/image';
+
 
 import Uploads from '@/app/(seller)/sell/(dashboard)/assets/dashboardupload.svg';
 import Sales from '@/app/(seller)/sell/(dashboard)/assets/dashboardsales.svg';
@@ -12,6 +11,7 @@ import LineChart from '@/app/(seller)/_components/Charts/LineChart';
 import BarChart from '@/app/(seller)/_components/Charts/BarChart';
 import DonoughtChart from '@/app/(seller)/_components/Charts/DonoughtChart';
 import { DataTable } from '../../_components/DataTable';
+import { columns, payments } from '@/constants/TableData';
 
 const Dashboard = () => {
   const [selectedChart, setSelectedChart] = useState('bar');
@@ -34,93 +34,6 @@ const Dashboard = () => {
         return null;
     }
   };
-
-  type Payment = {
-    id: string;
-    image?: string;
-    amount: number;
-    status: 'PENDING' | 'APPROVED' | 'DISAPPROVED';
-    email: string;
-  };
-
-  const payments: Payment[] = [
-    {
-      id: '728ed52f',
-      image: 'https://ik.imagekit.io/0xy9wqmrh/tableimage',
-      amount: 100,
-      status: 'APPROVED',
-      email: 'm@example.com',
-    },
-    {
-      id: '489e1d42',
-      image: 'https://ik.imagekit.io/0xy9wqmrh/tableimage',
-      amount: 125,
-      status: 'PENDING',
-      email: 'example@gmail.com',
-    },
-    {
-      id: '489e1d42',
-      image: 'https://ik.imagekit.io/0xy9wqmrh/tableimage',
-      amount: 125,
-      status: 'DISAPPROVED',
-      email: 'example@gmail.com',
-    },
-    {
-      id: '489e1d42',
-      image: 'https://ik.imagekit.io/0xy9wqmrh/tableimage',
-      amount: 125,
-      status: 'APPROVED',
-      email: 'example@gmail.com',
-    },
-    {
-      id: '489e1d42',
-      image: 'https://ik.imagekit.io/0xy9wqmrh/tableimage',
-      amount: 125,
-      status: 'PENDING',
-      email: 'example@gmail.com',
-    },
-    // ...
-  ];
-
-  const columns: ColumnDef<Payment>[] = [
-    {
-      accessorKey: 'image',
-      header: 'IMAGE',
-      cell: ({ row }) => {
-        const imageUrl = row.getValue('image');
-        console.log(row.getValue('image'));
-        return (
-          <div className="text-right font-medium">
-            <Image src={imageUrl as string} width={70} height={70} alt="image" />
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: 'status',
-
-      header: () => <div className="whitespace-nowrap">VEHICLE NAME </div>,
-      cell: ({ row }) => {
-        return <div className="font-medium whitespace-nowrap">{row.getValue('status')}</div>;
-      },
-    },
-    {
-      accessorKey: 'email',
-      header: 'VIN',
-    },
-    {
-      accessorKey: 'amount',
-      header: () => <div className="whitespace-nowrap">VEHICLE ID </div>,
-    },
-    {
-      accessorKey: 'id',
-      header: 'DESCRIPTION',
-    },
-    {
-      accessorKey: 'status',
-      header: 'STATUS',
-    },
-  ];
 
   return (
     <main className="mx-4">
@@ -160,7 +73,8 @@ const Dashboard = () => {
       </div>
 
       <div className="w-full">
-        <div className="mt-14 shadow-[1px_1px_16px_4px_#1F1F1F1A] max-w-full   overflow-x-auto">
+        <div className="mt-14 shadow-[1px_1px_16px_4px_#1F1F1F1A] max-w-full  rounded-md border-2 overflow-x-auto">
+          <h1 className="font-bold md:text-2xl my-4 pl-3 border-b">Activities</h1>
           <DataTable columns={columns} data={payments} />
         </div>
       </div>
