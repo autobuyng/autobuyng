@@ -10,6 +10,7 @@ import arrow from '@/app/(seller)/assets/arrow.svg';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
 import useIsMobile from '@/hooks/useIsMobile';
+import { cn } from '@/lib/utils';
 
 const SellerStep = () => {
   const { isTablet } = useIsMobile();
@@ -46,7 +47,12 @@ const SellerStep = () => {
       <MaxWidthWrapper>
         <div className=" mt-5 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 ">
           {SELLER_STEP?.map((step) => (
-            <div key={step.id} className="flex bg-red gap-2">
+            <div
+              key={step.id}
+              className={cn('flex bg-red gap-2 ml-4', {
+                'mr-10': step.id === '4',
+              })}
+            >
               <div className=" text-center w-full">
                 <Image src={step.Icon} alt={step.text} className="mx-auto" />
                 <div className="space-y-2 w-52 mx-auto">
