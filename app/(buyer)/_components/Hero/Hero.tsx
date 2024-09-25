@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils';
 
 const Hero = () => {
   const os = useDetectOS();
-  console.log(os);
   return (
     <section
       className={cn('bg min-h-screen bg-primary-500 relative ', {

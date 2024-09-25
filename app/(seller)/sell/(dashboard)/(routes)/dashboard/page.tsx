@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 
-
 import Uploads from '@/app/(seller)/sell/(dashboard)/assets/dashboardupload.svg';
 import Sales from '@/app/(seller)/sell/(dashboard)/assets/dashboardsales.svg';
 import Pending from '@/app/(seller)/sell/(dashboard)/assets/totalpendings.svg';
