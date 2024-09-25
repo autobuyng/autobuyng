@@ -14,7 +14,7 @@ const Upload = () => {
         </button>
       </div>
 
-      <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A] max-w-full  rounded-md border-2 ">
+      <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A]   rounded-md border ">
         <DataTable columns={columns} data={payments} />
       </div>
     </main>

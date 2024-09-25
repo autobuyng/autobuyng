@@ -52,7 +52,7 @@ const Login = () => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
-                  placeholder="********"
+                  placeholder=""
                   className="mt-1 w-full py-2 outline-none sm:text-sm"
                 />
                 {showPassword ? (

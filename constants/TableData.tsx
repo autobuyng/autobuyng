@@ -51,39 +51,48 @@ export const payments: Payment[] = [
 export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'image',
-    header: 'IMAGE',
+    header: () => <div className="whitespace-nowrap text-center">IMAGE </div>,
     cell: ({ row }) => {
       const imageUrl = row.getValue('image');
       console.log(row.getValue('image'));
       return (
-        <div className="text-right font-medium">
-          <Image src={imageUrl as string} width={70} height={70} alt="image" />
+        <div className="text-center font-medium">
+          <Image src={imageUrl as string} width={70} height={70} alt="image" className="mx-auto" />
         </div>
       );
     },
   },
   {
     accessorKey: 'status',
-
-    header: () => <div className="whitespace-nowrap">VEHICLE NAME </div>,
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE NAME </div>,
     cell: ({ row }) => {
-      return <div className="font-medium whitespace-nowrap">{row.getValue('status')}</div>;
+      return (
+        <div className="font-medium text-center whitespace-nowrap">{row.getValue('status')}</div>
+      );
     },
   },
   {
     accessorKey: 'email',
-    header: 'VIN',
+    header: () => <div className="whitespace-nowrap text-center">VIN </div>,
   },
   {
     accessorKey: 'amount',
-    header: () => <div className="whitespace-nowrap">VEHICLE ID </div>,
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE ID </div>,
   },
   {
     accessorKey: 'id',
-    header: 'DESCRIPTION',
+    header: () => <div className="whitespace-nowrap text-center">DESCRIPTION </div>,
   },
   {
     accessorKey: 'status',
-    header: 'STATUS',
+    header: () => <div className="whitespace-nowrap text-center">STATUS </div>,
+
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap border-2 border-green-900 text-green-500 px-2 py-3 ">
+          {row.getValue('status')}
+        </div>
+      );
+    },
   },
 ];

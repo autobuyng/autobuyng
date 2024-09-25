@@ -24,8 +24,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="  ">
-      <Table className="-z-10 relative">
+    <div className="">
+      <Table className=" relative">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
