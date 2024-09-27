@@ -42,15 +42,6 @@ const Topselling = () => {
       category: 'new',
       Img: samlplevehicle,
     },
-    {
-      id: '5',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
   ];
 
   return (
@@ -65,7 +56,7 @@ const Topselling = () => {
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 sm:gap-4 ">
+        <div className="mt-6 w-full  grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-8 sm:gap-4">
           {TOP_SELLING_VEHICLE.map((vehicle) => {
             return (
               <ProductCard

@@ -1,8 +1,23 @@
-.bg {
+/* .bg {
   background-image: url('https://ik.imagekit.io/autobuyng/Autobuyimages/Autobuy%20Landing%20Page%203.jpg');
 
   background-position: center;
   background-size: cover;
-  /* min-height: 100%; */
-  /* height: calc(100vh - 76px); */
+  min-height: 100%;
+  height: calc(100vh - 76px);
+} */
+
+.banner {
+  clip-path: polygon(0% 0%, 61.6% 0%, 30.17% 50.25%, 0% 98.5%);
+  background-color: #e1ebf4;
+  height: 90vh;
+}
+
+.gif {
+  background-image: url('https://ik.imagekit.io/0xy9wqmrh/Autobuy/autobuygif.mp4?updatedAt=1727266609367');
+   /* background-image: url('https://ik.imagekit.io/autobuyng/Autobuyimages/Autobuy%20Landing%20Page%203.jpg'); */
+  height: 80vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="w-full">
       <Hero />
       <VehicleTypeFilters />
       <Stats />

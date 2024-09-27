@@ -32,7 +32,7 @@ const SelectInput = ({
     <Select value={selectedInput} onValueChange={setSelectedInput}>
       <SelectTrigger
         className={cn(
-          `focus:outline-none h-14  border rounded-sm border-neutral-900`,
+          `focus:outline-none h-[44px]  border rounded-sm border-neutral-900`,
           height ? height : '',
           width ? width : '',
         )}

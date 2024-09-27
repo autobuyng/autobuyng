@@ -5,11 +5,12 @@ import React from 'react';
 const PopularVehicle = () => {
   return (
     <MaxWidthWrapper>
-      <main className=" mt-14 mb-8 w-full flex items-center justify-between min-[450px]:gap-2 md:gap-6 lg:gap-10">
+      <main className=" mt-14 mb-8 w-full flex flex-col min-[360px]:flex-row items-center justify-between min-[450px]:gap-2 md:gap-6 lg:gap-10">
         <section className="w-full px-4">
           <h1 className="font-bold capitalize py-2 text-lg md:text-2xl border-b-2 whitespace-nowrap border-primary-500">
             trending Vehicle
           </h1>
+
           <div className="flex items-center justify-between py-2">
             <div>
               {TRENDING_VEHICLE.map((vehicle) => (
@@ -18,6 +19,7 @@ const PopularVehicle = () => {
                 </p>
               ))}
             </div>
+
             <div>
               {TRENDING_VEHICLE.map((vehicle) => (
                 <p
@@ -43,6 +45,7 @@ const PopularVehicle = () => {
                 </p>
               ))}
             </div>
+
             <div>
               {POPULAR_MODEL.map((vehicle) => (
                 <p

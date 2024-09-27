@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 test('has title', async ({ page }) => {
-  await page.goto('https://google.com/');
+  await page.goto('https://autobuyng.netlify.app/');
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Google/);
+  await expect(page).toHaveTitle(/Autobuy/);
 });
 
 test('get started link', async ({ page }) => {

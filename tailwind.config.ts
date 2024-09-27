@@ -30,12 +30,12 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          900: '#053550',
-          700: '#084F76',
-          500: '#265B79',
-          300: '#7AAECA',
-          100: '#BEDEF0',
-          50: '#F8F8F8',
+          900: '#0066CC',
+          700: '#3385FF',
+          500: '#66A3FF',
+          300: '#99C2FF',
+          100: '#CCE0FF',
+          50: '#EDF4FF',
           hover: '#BEDEF0',
         },
         secondary: {

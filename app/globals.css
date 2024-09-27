@@ -69,5 +69,10 @@
 }
 
 .t {
-  box-shadow: 1px 1px 16px 4px #1f1f1f1a;
+ clip-path: polygon(0 0, 0% 100%, 100% 0);
+}
+
+body{
+  background-color:#F7F7F7;
+;
 }
