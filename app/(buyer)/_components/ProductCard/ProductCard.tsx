@@ -24,7 +24,7 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
   return (
     <div className="rounded-md shadow-md ">
       <div className="relative">
-        <Image src={Img} alt={name} className="rounded-md" />
+        <Image src={Img} alt={name} className="rounded-md " />
 
         <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-white p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
@@ -34,18 +34,19 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
           25 photos
         </button>
       </div>
+
       <div className=" px-2 ">
-        <div className="flex items-center justify-between py-2 border-b-2 border-neutral-300">
+        <div className="flex items-center justify-between py-2  border-neutral-300">
           <p className="font-[600] text-lg">{name}</p>
           <p>{model}</p>
         </div>
 
-        <div className="grid grid-cols-3 w-full py-2">
-          <p className="flex border-r-2 border-neutral-300 text-center items-center gap-2 px-1 text-xs">
+        <div className="grid grid-cols-3 w-full  border border-neutral-300">
+          <p className="flex border-r-2  border-neutral-300 text-center items-center gap-2 px-1 text-xs">
             <Image src={Gauge} alt="Guage" />
             <span>120cc</span>
           </p>
-          <p className="border-r-2 border-neutral-300  text-center items-center gap-2 px-1 flex text-xs">
+          <p className="border-r-2 border-neutral-300  py-1.5 text-center items-center gap-2 px-1 flex text-xs">
             <Image src={Engine} alt="Guage" />
             <span>v8</span>
           </p>
@@ -55,14 +56,14 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
           </p>
         </div>
 
-        <p className="text-primary-700 font-[700] my-1"> ₦ {price}</p>
+        <p className=" font-[700] my-1"> ₦ {price}</p>
 
         <div className="w-full cursor-pointer">
           <button
             onClick={() => router.push('/vehicle/1rwerw4-r3e44udr-454')}
-            className="border-2 border-primary-700 rounded-sm py-2 px-4 text-primary-700 text-center w-full mt-2 mb-4"
+            className="border-2 text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full mt-2 mb-4"
           >
-            View details
+            View Details
           </button>
         </div>
       </div>
