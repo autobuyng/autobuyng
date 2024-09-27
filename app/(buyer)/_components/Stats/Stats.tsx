@@ -10,12 +10,12 @@ const Stats = () => {
 
   return (
     <main className="w-full min-w-full max-w-[70rem] overflow-auto ">
-      <div className="flex w-full items-center justify-between bg-primary-900 h-24 px-16 text-white text-center ">
+      <div className="flex w-full items-center justify-between bg-[#E1EBF4] h-24 px-16 text-white text-center ">
         {STATS.map((data) => {
           return (
             <div key={data.id}>
-              <p className="text-2xl">{data.value}</p>
-              <p>{data.text}</p>
+              <p className="text-2xl font-bold text-primary-900">{data.value}</p>
+              <p className="text-primary-900">{data.text}</p>
             </div>
           );
         })}

@@ -17,9 +17,7 @@ export default function RootLayout({
   const pathname = usePathname();
   const routes = ['/reset-password', '/forgot-password'];
   const dashboardRoutes = ['/orders', '/messages', '/saved', '/settings'];
-  console.log(pathname);
   const shouldShow = routes.includes(pathname);
-  console.log(shouldShow);
   return (
     <main>
       {!shouldShow && <Navbar />}

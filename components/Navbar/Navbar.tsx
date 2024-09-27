@@ -1,33 +1,33 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
-import Menu from '@/components/Navbar/assets/Menu.svg';
 
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-
-import useIsMobile from '@/hooks/useIsMobile';
-import Menucontent from '../Menucontent/Menucontent';
-import Profile from './assets/Profile.svg';
-import useClickOutside from '@/hooks/useClickOutside';
+import SignIn from '@/app/auth/SignIn/SignIn';
 
 const Navbar = () => {
-  const { isMobile } = useIsMobile();
-  const [, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [, setType] = useState('signin');
+
   const router = useRouter();
 
-  const divRef = useRef<HTMLDivElement>(null);
-
-  const handleClosePopover = () => {
+  const handleOpenChange = () => {
     setIsOpen(false);
   };
 
-  useClickOutside(divRef, handleClosePopover);
+  const handleLoginClick = () => {
+    setIsOpen(true);
+    setType('signin');
+  };
+
+  const handleSignInClick = () => {
+    setIsOpen(true);
+    setType('signin');
+  };
 
   const NAV_ITEMS = [
     {
@@ -48,9 +48,9 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="h-[76px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
+    <header className="h-[60px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
-        <nav className="flex items-center justify-between w-full">
+        <nav className="flex items-center justify-between w-full ">
           <div className="flex items-center gap-8">
             <Image
               src={Autobuy}
@@ -61,28 +61,41 @@ const Navbar = () => {
               className="cursor-pointer"
               onClick={() => router.push('/')}
             />
-            <div className="hidden md:flex items-center justify-between gap-8">
-              {NAV_ITEMS.map(({ id, text, path }) => (
-                <span key={id}>
-                  <Link
-                    className="text-primary-700"
-                    target={path === '/sell' ? '_blank' : '_self'}
-                    href={
-                      path === '/sell'
-                        ? process.env.NODE_ENV === 'development'
-                          ? `${process.env.DEV_BASE_URL}/sell`
-                          : `${process.env.HOME_BASE_URL}/sell`
-                        : `/${path}`
-                    }
-                  >
-                    {text}
-                  </Link>
-                </span>
-              ))}
-            </div>
           </div>
 
-          <div className=" relative flex items-center">
+          <div className="hidden md:flex items-center justify-between gap-8">
+            {NAV_ITEMS.map(({ id, text, path }) => (
+              <span key={id}>
+                <Link
+                  className="text-primary-700 text-[14px]"
+                  target={path === '/sell' ? '_blank' : '_self'}
+                  href={
+                    path === '/sell'
+                      ? process.env.NODE_ENV === 'development'
+                        ? `${process.env.DEV_BASE_URL}/sell`
+                        : `${process.env.HOME_BASE_URL}/sell`
+                      : `/${path}`
+                  }
+                >
+                  {text}
+                </Link>
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-8">
+            <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
+              Login
+            </button>
+            <button
+              onClick={handleSignInClick}
+              className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+            >
+              Create Account
+            </button>
+          </div>
+
+          {/* <div className=" relative flex items-center">
             {isMobile && (
               <Sheet>
                 <SheetTrigger>
@@ -113,8 +126,15 @@ const Navbar = () => {
                 </PopoverContent>
               </Popover>
             )}
-          </div>
+          </div> */}
         </nav>
+
+        <SignIn
+          isOpen={isOpen}
+          handleOpenChange={handleOpenChange}
+          type={'signin'}
+          setType={setType}
+        />
       </MaxWidthWrapper>
     </header>
   );
