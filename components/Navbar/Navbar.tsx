@@ -72,8 +72,8 @@ const Navbar = () => {
                   href={
                     path === '/sell'
                       ? process.env.NODE_ENV === 'development'
-                        ? `${process.env.DEV_BASE_URL}/sell`
-                        : `${process.env.HOME_BASE_URL}/sell`
+                        ? `${process.env.nEXT_DEV_BASE_URL}/sell`
+                        : `${process.env.nEXT_HOME_BASE_URL}/sell`
                       : `/${path}`
                   }
                 >

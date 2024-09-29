@@ -1,12 +1,12 @@
-import Image from 'next/image';
-
 import Hero from '@/app/(buyer)/_components/Hero/Hero';
 import VehicleTypeFilters from '../_components/Filters/VehicleTypeFilters';
 import Stats from '../_components/Stats/Stats';
 import Topselling from '../_components/TopSelling/Topselling';
 import Ourvalue from '../_components/Ourvalue/Ourvalue';
-import Seller from '../assets/sellerphoto.svg';
 import PopularVehicle from '../_components/PopularVehicle/PopularVehicle';
+import Footer from '@/components/Footer/Footer';
+import HowitWorks from '../_components/HowitWorks/HowitWorks';
+import SellNow from '../_components/SellNow/SellNow';
 
 export const metadata = {
   title: 'Autobuy',
@@ -21,10 +21,10 @@ export default function Home() {
       <Stats />
       <Topselling />
       <Ourvalue />
-      <div>
-        <Image src={Seller} alt="sell your vehicle" />
-      </div>
+      <HowitWorks />
+      <SellNow />
       <PopularVehicle />
+      <Footer />
     </main>
   );
 }
