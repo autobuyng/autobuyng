@@ -75,3 +75,25 @@
 body {
   background-color: #f7f7f7;
 }
+.custom-pagination {
+  display: flex;
+  justify-content: start;
+  margin-top: 50px;
+  height: 100%;
+}
+
+.custom-pagination .custom-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: white !important;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.custom-pagination .custom-bullet-active {
+  background-color: white !important;
+  width: 25px !important;
+  height: 10px !important;
+  border-radius: 20px;
+}
