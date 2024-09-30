@@ -237,7 +237,7 @@ export const VEHICLE_BRAND = [
   { id: '2', name: 'Honda', Img: Honda },
   { id: '3', name: 'Lexus', Img: Lexus },
   { id: '4', name: 'Mercedes-Benz', Img: Mercedes },
-  { id: '5', name: 'Kia', Img: Kia },
+  // { id: '5', name: 'Kia', Img: Kia },
   { id: '6', name: 'Hyundai', Img: Hyundai },
   { id: '7', name: 'Bmw', Img: Bmw },
   { id: '8', name: 'Nissan', Img: Nissan },
