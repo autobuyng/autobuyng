@@ -25,10 +25,10 @@ const SellNow = () => {
 
         <div className="absolute top-0 md:static flex-[1] flex w-full h-full items-center justify-center">
           <div className="space-y-3 md:space-y-5 w-full h-full text-center flex flex-col items-center justify-center">
-            <h1 className="text-white  md:text-black md:text-[28px] lg:text-[36px] capitalize md:max-w-[400px] font-bold">
+            <h1 className="text-white  md:text-black md:text-[28px] lg:text-[36px] capitalize max-w-[380px] md:max-w-[400px] font-bold">
               Out with the old, in with the new!
             </h1>
-            <p className="text-[18px] font-medium text-white md:text-[#484747]">
+            <p className=" text-sm md:text-[18px] font-medium text-white md:text-[#484747]">
               Sell your Vehicle with Autobuy in <span className="text-[#E16045]">NO TIME!</span>
             </p>
             <button className="w-[150px] px-2 py-2 text-white text-center mx-auto bg-secondary-500 rounded-md flex items-center justify-center gasp-6">
