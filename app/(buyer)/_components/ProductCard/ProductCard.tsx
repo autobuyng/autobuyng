@@ -8,6 +8,7 @@ import Gauge from '@/app/(buyer)/assets/pressureguage.svg';
 import Transmission from '@/app/(buyer)/assets/transmission.svg';
 import Engine from '@/app/(buyer)/assets/engine.svg';
 import Save from '@/app/(buyer)/assets/save.svg';
+import Photo from '@/app/(buyer)/assets/photos.svg';
 
 type ProductCardProps = {
   id: string;
@@ -22,16 +23,16 @@ type ProductCardProps = {
 export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
   const router = useRouter();
   return (
-    <div className="rounded-md shadow-md ">
+    <div className="rounded-[12px] shadow-md">
       <div className="relative">
-        <Image src={Img} alt={name} className="rounded-md " />
+        <Image src={Img} alt={name} className=" rounded-tl-[12px] rounded-tr-[12px]" />
 
-        <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-white p-1 flex items-center justify-center">
+        <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
         </button>
 
-        <button className="absolute bottom-0 right-4  text-white rounded-[4px] bg-[#808080] p-1 flex items-center justify-center">
-          25 photos
+        <button className="absolute bottom-0 right-0  text-white rounded-tl-[4px] rounded-tr-[4px] bg-black/55 p-1 flex items-center text-sm justify-center">
+          <span className="px-3">25</span> <Image src={Photo} alt="Photo" />
         </button>
       </div>
 
@@ -41,22 +42,22 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
           <p>{model}</p>
         </div>
 
-        <div className="grid grid-cols-3 w-full  border border-neutral-300">
-          <p className="flex border-r-2  border-neutral-300 text-center items-center gap-2 px-1 text-xs">
+        <div className="grid grid-cols-3 w-full  border border-primary-700">
+          <p className="flex border-r  border-primary-700 text-center justify-center items-center gap-2 px-1 text-xs">
             <Image src={Gauge} alt="Guage" />
-            <span>120cc</span>
+            <span className="uppercase">120cc</span>
           </p>
-          <p className="border-r-2 border-neutral-300  py-1.5 text-center items-center gap-2 px-1 flex text-xs">
+          <p className="border-r border-primary-700  py-1.5 text-center items-center justify-center gap-2 px-1 flex text-xs">
             <Image src={Engine} alt="Guage" />
-            <span>v8</span>
+            <span className="uppercase">v8</span>
           </p>
-          <p className="flex text-center items-center gap-2 px-1 text-xs">
+          <p className="flex text-center items-center justify-center gap-2 px-1 text-xs">
             <Image src={Transmission} alt="Guage" />
-            <span>manual</span>
+            <span className="uppercase">manual</span>
           </p>
         </div>
 
-        <p className=" font-[700] my-1"> ₦ {price}</p>
+        <p className=" font-[700] my-1 text-lg"> ₦ {price}</p>
 
         <div className="w-full cursor-pointer">
           <button

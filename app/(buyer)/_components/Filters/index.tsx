@@ -39,7 +39,11 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
 
   return (
     <main className=" w-full ">
-      <section className={cn('w-full shadow-sm p-8 ', { 'pt-4 px-0': isMobile })}>
+      <section
+        className={cn('w-full  p-8  bg-white', {
+          'pt-4 px-0': isMobile,
+        })}
+      >
         <div className="flex w-full gap-4">
           <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
@@ -142,7 +146,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
       </section>
 
-      <section className={cn('mt-6 space-y-2 pt-8  shadow-sm px-8 ', { 'px-0': isMobile })}>
+      <section className={cn('mt-6 space-y-2 pt-8 bg-white shadow-sm px-8 ', { 'px-0': isMobile })}>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
           <StyleType filters={filters} setFilters={setFilters} />

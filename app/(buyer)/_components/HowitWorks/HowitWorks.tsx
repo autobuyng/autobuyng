@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
@@ -16,7 +16,7 @@ const HowitWorks = () => {
     <MaxWidthWrapper>
       <main className="my-20 w-full h-full">
         <div className="w-full flex flex-col items-center justify-center">
-          <h1 className="max-w-[643px] font-medium text-center  md:text-[32px]">
+          <h1 className="max-w-[643px] font-bold text-center  md:text-[32px]">
             Accurate Vehicle Appraisals You Can Trust
           </h1>
           <p className="max-w-[721px] text-center text-xs">
@@ -31,13 +31,12 @@ const HowitWorks = () => {
             <Swiper
               className="w-full  flex flex-col items-stretch justify-center"
               autoplay={{
-                delay: 2500,
+                delay: 10000,
                 disableOnInteraction: false,
               }}
-              modules={[Navigation, Pagination, Autoplay]}
+              modules={[Pagination, Autoplay]}
               spaceBetween={50}
               slidesPerView={1}
-              navigation
               pagination={{
                 el: '.custom-pagination', // Custom class
                 clickable: true, // Enables clicking
@@ -51,10 +50,10 @@ const HowitWorks = () => {
               <div className="">
                 <SwiperSlide className=" ">
                   <div>
-                    <h1 className="font-bold text-2xl border-b-2 mb-3 border-white w-fit">
+                    <h1 className="font-bold text-2xl border-b-2 mb-6 border-white w-fit">
                       How it works
                     </h1>
-                    <div className="space-y-1.5">
+                    <div className="space-y-4">
                       <div>
                         <h2 className="font-semibold">Detailed Vehicle Information Collection</h2>
                         <p className="text-xs">
@@ -81,12 +80,13 @@ const HowitWorks = () => {
                     </div>
                   </div>
                 </SwiperSlide>
+
                 <SwiperSlide>
                   <div>
-                    <h1 className="font-bold text-2xl border-b-2 mb-3 border-white w-fit">
+                    <h1 className="font-bold text-2xl border-b-2 mb-6 border-white w-fit">
                       How it works
                     </h1>
-                    <div className="space-y-1.5">
+                    <div className="space-y-4">
                       <div>
                         <h2 className="font-semibold">Detailed Vehicle Information Collection</h2>
                         <p className="text-xs">
