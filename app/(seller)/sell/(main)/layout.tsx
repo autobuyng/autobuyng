@@ -15,11 +15,11 @@ export default function RootLayout({
   return (
     <main>
       <Navbar />
-      <div className="min-h-screen">{children}</div>
+      <main className="min-h-screen">{children}</main>
 
-      <div className="mt-8">
+      <main className="mt-8">
         <Footer bgColor="#F7F7F7" btnColor="bg-secondary-500" />
-      </div>
+      </main>
     </main>
   );
 }

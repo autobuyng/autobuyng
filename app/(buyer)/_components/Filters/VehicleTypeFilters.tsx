@@ -32,7 +32,7 @@ const VehicleTypeFilters = () => {
 
   return (
     <MaxWidthWrapper>
-      <main className="mt-8">
+      <div className="mt-8">
         <div className="text-center">
           <h1 className=" font-bold ext-neutral-900 textlg sm:text-3xl">Save more time!</h1>
           <p className="text-[10px] sm:text-sm text-neutral-700">
@@ -83,7 +83,7 @@ const VehicleTypeFilters = () => {
             </button>
           </div>
         </section>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

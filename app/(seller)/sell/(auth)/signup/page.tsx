@@ -50,7 +50,7 @@ const Signup = () => {
 
   return (
     <MaxWidthWrapper>
-      <main className="grid place-items-center min-h-screen ">
+      <div className="grid place-items-center min-h-screen ">
         <div lang="w-full h-full">
           <h1 className="text-center font-bold text-lg md:text-2xl mb-8 mt-4 md:mt-8 ">
             {REGISTRATION_STEPS[step - 1].desc}
@@ -90,7 +90,7 @@ const Signup = () => {
             <div>{stepToRender(step)}</div>
           </div>
         </div>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

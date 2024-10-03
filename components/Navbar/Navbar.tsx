@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,9 +11,18 @@ import SignIn from '@/app/auth/SignIn/SignIn';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const [, setType] = useState('signin');
 
   const router = useRouter();
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -64,23 +73,22 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center justify-between gap-8">
-            {NAV_ITEMS.map(({ id, text, path }) => (
-              <span key={id}>
-                <Link
-                  className="text-primary-700 text-[14px]"
-                  target={path === '/sell' ? '_blank' : '_self'}
-                  href={
-                    path === '/sell'
-                      ? process.env.NODE_ENV === 'development'
-                        ? `${process.env.nEXT_DEV_BASE_URL}/sell`
-                        : `${process.env.nEXT_HOME_BASE_URL}/sell`
-                      : `/${path}`
-                  }
-                >
-                  {text}
-                </Link>
-              </span>
-            ))}
+            {NAV_ITEMS.map(({ id, text, path }) => {
+              const isSellPath = path === 'sell';
+              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+              const href = isSellPath ? `${baseUrl}/sell` : `/${path}`;
+              return (
+                <span key={id}>
+                  <Link
+                    className="text-primary-700 text-[14px]"
+                    target={isSellPath ? '_blank' : '_self'}
+                    href={href}
+                  >
+                    {text}
+                  </Link>
+                </span>
+              );
+            })}
           </div>
 
           <div className="flex gap-8">

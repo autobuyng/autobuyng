@@ -10,7 +10,7 @@
 .banner {
   clip-path: polygon(0% 0%, 61.6% 0%, 30.17% 50.25%, 0% 98.5%);
   background-color: #e1ebf4;
-  height: 90vh;
+  min-height: 100vh;
 }
 
 .gif {

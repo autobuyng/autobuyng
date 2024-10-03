@@ -36,7 +36,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
   const [search, setSearch] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
-  const { isMobile } = useIsMobile();
+  const { isTablet } = useIsMobile();
   const [isLoading, setIsLoading] = useState(true);
   const [filterQuery, setFilterQuery] = useState<string[]>([
     'Toyota',
@@ -105,7 +105,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
             <div className=" hidden lg:block w-full max-w-[296px]">
               <Filters filters={filters} setFilters={setFilters} />
 
-              <Sheet open={isMobile && isOpen} onOpenChange={setIsOpen}>
+              <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent side={'top'} className="max-w-full h-screen overflow-y-auto">
                   <h1 className="font-bold t  border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">

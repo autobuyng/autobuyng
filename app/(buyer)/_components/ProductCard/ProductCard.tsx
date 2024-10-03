@@ -11,6 +11,7 @@ import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
 
 type ProductCardProps = {
+  index?: number;
   id: string;
   Img: StaticImageData;
   name: string;
@@ -22,6 +23,12 @@ type ProductCardProps = {
 
 export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
   const router = useRouter();
+  // const { setVehicleId } = useContext(AppContext);
+
+  const handleOnViewDetails = () => {
+    // setVehicleId(id);
+    router.push('/vehicle/1rwerw4-r3e44udr-454');
+  };
   return (
     <div className="rounded-[12px] shadow-md">
       <div className="relative">
@@ -61,7 +68,7 @@ export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
 
         <div className="w-full cursor-pointer">
           <button
-            onClick={() => router.push('/vehicle/1rwerw4-r3e44udr-454')}
+            onClick={handleOnViewDetails}
             className="border-2 text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full mt-2 mb-4"
           >
             View Details
@@ -86,6 +93,10 @@ export const ColProductCard = ({
   desc,
 }: VEHICLE_SEARCH_RESULTS_PROPS) => {
   const router = useRouter();
+  // const handleOnViewDetails = () => {
+  //   router.push('/vehicle/1rwerw4-r3e44udr-454');
+  // };
+
   return (
     <div className="">
       <section className="rounded-md shadow-md  px-3 ">

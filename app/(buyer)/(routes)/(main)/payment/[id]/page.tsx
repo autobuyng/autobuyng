@@ -1,8 +1,8 @@
 import React from 'react';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-import OrderSummary from '../_components/OrderSummary';
 import PaymentDetails from '../_components/PaymentDetails';
+import OrderSummary from '../_components/OrderSummary';
 
 const Payment = () => {
   return (

@@ -51,7 +51,7 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
   };
 
   return (
-    <main>
+    <div>
       <div className="relative overflow-hidden">
         <div
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -120,7 +120,7 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
         ImageUrls={ImageUrls}
         setCurrentIndex={setCurrentIndex}
       />
-    </main>
+    </div>
   );
 };
 

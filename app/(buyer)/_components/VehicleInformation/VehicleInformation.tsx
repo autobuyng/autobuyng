@@ -9,85 +9,87 @@ import Engine from '@/app/(buyer)/assets/engine.svg';
 import Fueltype from '@/app/(buyer)/assets/Fueltype.svg';
 import Mpg from '@/app/(buyer)/assets/Mpg.svg';
 import Vin from '@/app/(buyer)/assets/vin.svg';
-import Love from '@/app/(buyer)/assets/love.svg';
+// import Love from '@/app/(buyer)/assets/love.svg';
 
 const VehicleInformation = () => {
   return (
-    <main className="mt-8">
+    <div className="mt-8">
       <div>
         <div>
           <h1 className="py-2 font-bold text-xl">Basic Information</h1>
 
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="w-full grid grid-cols-1  gap-6">
             <div className="w-full space-y-3">
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Interior} alt="Interior" width={30} height={30} />
                   <span className="text-primary-700 font-[600] whitespace-nowrap">
                     Interior Color:
                   </span>
                 </p>
-                <span>content</span>
+                <span>Navy Blue</span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Exterior} alt="Exterior" width={30} height={30} />
                   <span className="text-primary-700 font-[600] whitespace-nowrap">
                     Exterior color:
                   </span>
                 </p>
-                <span>content</span>
+                <span>Black</span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Drivetrain} alt="Drivetrain" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Drivetrain:</span>
                 </p>
-                <span>content</span>
+                <span>4 wheel drive</span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Fueltype} alt="Fuel type" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Fuel type:</span>
                 </p>
-                <span>content</span>
+                <span>PMS</span>
               </div>
-            </div>
 
-            <div className="w-full space-y-3">
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Transmit} alt="Transmission" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Transmission:</span>
                 </p>
-                <span>content</span>
+                <span>AUTOMATIC</span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Mpg} alt="MPG" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">MPG:</span>
                 </p>
-                <span>content</span>
+                <span>35 - 40</span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3  items-start justify-start w-full">
+                <p className="flex gap-1.5 items-center justify-center ">
                   <Image src={Engine} alt="Engine type" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">Engine type:</span>
+                  <span className="text-primary-700 font-[600] whitespace-nowrap">
+                    Engine type:
+                  </span>
                 </p>
-                <span>content</span>
+                <span className="">
+                  1.8L I-4 i-VTEC variable valve control, regular unleaded, engine
+                </span>
               </div>
 
-              <div className="flex gap-3 w-full">
-                <p className="flex gap-1.5">
+              <div className="flex gap-3 items-center w-full">
+                <p className="flex gap-1.5 items-center justify-center">
                   <Image src={Vin} alt="Vin" width={30} height={30} />
                   <span className="text-primary-700 font-[600]">Vin:</span>
                 </p>
-                <span>content</span>
+                <span>14DAETDEITYDDJTAOTE</span>
               </div>
             </div>
           </div>
@@ -95,17 +97,28 @@ const VehicleInformation = () => {
 
         <div className="mt-8">
           <h1 className="py-2 font-bold text-xl">Features</h1>
-          <p>
-            <span className="text-primary-700 font-[600]">Convenience:</span>
-          </p>
+          <div className="space-y-3">
+            <div className="flex items-start gap-2">
+              <p className="text-primary-700 font-[600]">Convenience:</p>
+              <p>
+                Heated and ventilated seats, Power Liftgate or Trunk, Remote Start, Power Adjustable
+                Seats, 360-Degree Camera System, Wireless Charging
+              </p>
+            </div>
 
-          <p>
-            <span className="text-primary-700 font-[600]">Entertainment:</span>
-          </p>
+            <div className="flex items-start gap-2">
+              <p className="text-primary-700 font-[600]">Entertainment:</p>
+              <p>Bluetooth®, Apple CarPlay/Android Auto, </p>
+            </div>
 
-          <p>
-            <span className="text-primary-700 font-[600]">Safety:</span>
-          </p>
+            <div className="flex items-start gap-2">
+              <p className="text-primary-700 font-[600]">Safety:</p>
+              <p>
+                Automatic Emergency Braking, Backup Camera, Blind Spot Monitor, Brake Assist,
+                Stability Control
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="mt-8">
@@ -134,12 +147,12 @@ const VehicleInformation = () => {
             </button>
             <button className="border-2 flex items-center gap-2 border-primary-700 rounded-sm px-3 py-1 text-primary-700">
               <span>Save to Inventory</span>
-              <Image src={Love} alt="Love" />
+              {/* <Image src={Love} alt="Love" /> */}
             </button>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

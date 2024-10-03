@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -16,6 +16,7 @@ import SignIn from '@/app/auth/SignIn/SignIn';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
+import { AppContext } from '@/context/AppContext';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
@@ -23,6 +24,9 @@ const VehicledetailsPage = () => {
   const [type, setType] = useState('signin');
   const os = useDetectOS();
   const router = useRouter();
+
+  const { name } = useContext(AppContext);
+  console.log(name);
 
   const handleSignInClick = () => {
     setType('signin');
@@ -73,12 +77,14 @@ const VehicledetailsPage = () => {
   ];
 
   return (
-    <main className="w-full">
-      <div className="bg-img"></div>
+    <div className="w-full">
+      <div className="bg-[#EDF4FF80] mt-8 h-[195px]">
+        <MaxWidthWrapper>{name}</MaxWidthWrapper>
+      </div>
 
       <div className="mt-8">
         <MaxWidthWrapper>
-          <section className=" w-full flex flex-col md:flex-row justify-center gap-4">
+          <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
             <div>
               <div
                 className={cn(' max-w-[900px] h-fit', {
@@ -125,9 +131,9 @@ const VehicledetailsPage = () => {
             </div>
 
             {isMobile ? <VehicleInformation /> : null}
-          </section>
+          </div>
 
-          <section className="mt-20">
+          <div className="mt-20">
             <div>
               <h1 className="py-2 font-bold text-xl">Similar cars at Autobuy</h1>
 
@@ -148,14 +154,14 @@ const VehicledetailsPage = () => {
                 })}
               </div>
             </div>
-          </section>
+          </div>
         </MaxWidthWrapper>
       </div>
 
       <SignIn isOpen={isOpen} handleOpenChange={handleOpenChange} type={type} setType={setType} />
 
       <AppraisalForm isOpen={isOpen} setIsOpen={setIsOpen} />
-    </main>
+    </div>
   );
 };
 

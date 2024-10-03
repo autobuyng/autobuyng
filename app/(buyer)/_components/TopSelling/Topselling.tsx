@@ -46,7 +46,7 @@ const Topselling = () => {
 
   return (
     <MaxWidthWrapper>
-      <main className="mt-14 mb-10">
+      <div className="mt-14 mb-10">
         <div className="text-center">
           <h1 className=" font-bold text-neutral-900 textlg sm:text-3xl">
             Our Top Selling Vehicle
@@ -72,7 +72,7 @@ const Topselling = () => {
             );
           })}
         </div>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

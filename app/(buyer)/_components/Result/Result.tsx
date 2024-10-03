@@ -1,3 +1,4 @@
+'use client';
 import { VEHICLE_SEARCH_RESULTS } from '@/constants/constants';
 import React from 'react';
 import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
@@ -19,21 +20,24 @@ const Result = ({ displayFormat, isLoading }: ResultProps) => {
             'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
           )}
         >
-          {VEHICLE_SEARCH_RESULTS.map((result) => {
+          {VEHICLE_SEARCH_RESULTS.map((result, index) => {
             if (isLoading) {
               return <SkeletonCard key={result.id} />;
             }
             return (
-              <ProductCard
-                key={result.id}
-                id={result.id}
-                name={result.name}
-                Img={result.Img}
-                model={result.model}
-                mileage={result.mileage}
-                category={result.category}
-                price={result.price}
-              />
+              <div key={result.id}>
+                <ProductCard
+                  index={index}
+                  // key={result.id}
+                  id={result.id}
+                  name={result.name}
+                  Img={result.Img}
+                  model={result.model}
+                  mileage={result.mileage}
+                  category={result.category}
+                  price={result.price}
+                />
+              </div>
             );
           })}
         </div>

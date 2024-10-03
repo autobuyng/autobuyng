@@ -14,7 +14,7 @@ type BasicInfoProps = {
 const BasicInfo = ({ step, setStep }: BasicInfoProps) => {
   return (
     <MaxWidthWrapper>
-      <main className=" w-full grid place-items-center ">
+      <div className=" w-full grid place-items-center ">
         {/* <h1 className="text-center font-bold text-2xl mt-8">
           Welcome! Create your account to sell a vehicle.
         </h1> */}
@@ -157,7 +157,7 @@ const BasicInfo = ({ step, setStep }: BasicInfoProps) => {
             </div>
           </form>
         </div>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

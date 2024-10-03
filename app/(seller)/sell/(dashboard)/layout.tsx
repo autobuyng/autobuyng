@@ -18,7 +18,7 @@ export default function RootLayout({
       <section className="w-full">
         <main className="flex min-h-[90vh] w-full  max-w-[1336px] mx-auto">
           <Sidebar />
-          <div className="w-full h-full mt-4">{children}</div>
+          <main className="w-full h-full mt-4">{children}</main>
         </main>
       </section>
     </>

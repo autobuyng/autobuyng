@@ -25,7 +25,7 @@ const SignIn = ({
   const { isMobile } = useIsMobile();
 
   return (
-    <main>
+    <div>
       <Dialog open={isOpen && !USER} onOpenChange={handleOpenChange}>
         <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
           <DialogTitle className="text-center">
@@ -148,7 +148,7 @@ const SignIn = ({
           </DialogDescription>
         </DialogContent>
       </Dialog>
-    </main>
+    </div>
   );
 };
 

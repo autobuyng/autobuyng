@@ -49,7 +49,7 @@ const Seller = () => {
   ];
 
   return (
-    <main>
+    <div>
       <section className="relative w-full h-full">
         <div className="seller-bcg grid place-items-center h-[calc(100vh_-_76px)] bg-black/45">
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-45"></div>
@@ -206,7 +206,7 @@ const Seller = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

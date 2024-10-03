@@ -18,11 +18,10 @@ const HomeSearch = () => {
     { id: 2, text: 'New', key: 'new' },
     { id: 3, text: 'Used', key: 'used' },
   ];
-  // sm:w-[450px]
   return (
     <main
       className={cn(
-        'w-full min-[350px]:w-[90%] sm:w-[335px] mx-auto px-4  rounded-[20px] bg-white',
+        'w-full min-[350px]:w-[90%] sm:w-[400px] mx-auto px-4  h-fit rounded-[20px] bg-white',
         {
           // 'h-[400px] px-0 ': os === 'Windows',
         },

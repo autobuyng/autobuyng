@@ -14,7 +14,7 @@ import Accuracy from '@/app/(buyer)/assets/acuracy.svg';
 const HowitWorks = () => {
   return (
     <MaxWidthWrapper>
-      <main className="my-20 w-full h-full">
+      <div className="my-20 w-full h-full">
         <div className="w-full flex flex-col items-center justify-center">
           <h1 className="max-w-[643px] font-bold text-center  md:text-[32px]">
             Accurate Vehicle Appraisals You Can Trust
@@ -136,7 +136,7 @@ const HowitWorks = () => {
             />
           </div>
         </div>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

@@ -11,7 +11,7 @@ const AccountInfo = ({ step, setStep }: AccountInfoProp) => {
   console.log(step, setStep);
   return (
     <MaxWidthWrapper>
-      <main className=" w-full grid place-items-center ">
+      <div className=" w-full grid place-items-center ">
         <div className="w-full space-y-2 pb-2">
           <form action="" className="space-y-4">
             <section className=" space-y-4">
@@ -93,7 +93,7 @@ const AccountInfo = ({ step, setStep }: AccountInfoProp) => {
             </div>
           </form>
         </div>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };

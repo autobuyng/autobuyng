@@ -5,7 +5,7 @@ import React from 'react';
 const PopularVehicle = () => {
   return (
     <MaxWidthWrapper>
-      <main className=" mt-14 mb-8 w-full flex flex-col min-[360px]:flex-row items-center justify-between min-[450px]:gap-2 md:gap-6 lg:gap-10">
+      <div className=" mt-14 mb-8 w-full flex flex-col min-[360px]:flex-row items-center justify-between min-[450px]:gap-2 md:gap-6 lg:gap-10">
         <section className="w-full px-4">
           <h1 className="font-bold capitalize py-2 text-lg md:text-2xl border-b-2 whitespace-nowrap border-primary-500">
             trending Vehicle
@@ -58,7 +58,7 @@ const PopularVehicle = () => {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </MaxWidthWrapper>
   );
 };
