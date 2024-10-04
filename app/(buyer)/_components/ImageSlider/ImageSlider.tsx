@@ -92,7 +92,7 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
           </button>
         </div>
 
-        <button className="absolute top-4 right-5 h-8 w-8 rounded-[50%] bg-white p-1 flex items-center justify-center">
+        <button className="absolute top-4 right-5 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
         </button>
 
@@ -104,14 +104,16 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
         </button>
       </div>
 
-      <div className="mt-4 space-y-1">
+      {/* <div className="mt-4 space-y-2">
         <div className="flex items-center justify-between">
           <p className="font-[600] text-2xl">Mercedes Benz</p>
-          <p className="text-white bg-primary-700 px-1 py-1">Foreign used</p>
+          <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+            Foreign used
+          </p>
         </div>
-        <p className="text-neutral-700">2700mil</p>
-        <p className="text-xl font-bold">NGN13000</p>
-      </div>
+        <p className="text-neutral-700 font-semibold">2700mil</p>
+        <p className="text-xl font-bold tracking-wide">NGN13,000,000</p>
+      </div> */}
 
       <ImageSliderModal
         isOpen={showSliderModal}

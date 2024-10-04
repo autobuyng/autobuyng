@@ -120,6 +120,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           <input
             type="email"
             value={filters.price}
+            onChange={() => {}}
             id="UserEmail"
             placeholder="NGN 10,000,000"
             className="mt-1 w-full rounded-sm px-3 border border-neutral-700 outline-none text-base py-3 shadow-sm sm:text-sm"

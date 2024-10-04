@@ -1,7 +1,8 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
 import Gauge from '@/app/(buyer)/assets/pressureguage.svg';
@@ -9,6 +10,7 @@ import Transmission from '@/app/(buyer)/assets/transmission.svg';
 import Engine from '@/app/(buyer)/assets/engine.svg';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
+import { AppContext } from '@/context/AppContext';
 
 type ProductCardProps = {
   index?: number;
@@ -21,13 +23,14 @@ type ProductCardProps = {
   category: string;
 };
 
-export const ProductCard = ({ Img, name, model, price }: ProductCardProps) => {
+export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) => {
   const router = useRouter();
-  // const { setVehicleId } = useContext(AppContext);
+  const { setVehicleId } = useContext(AppContext);
 
   const handleOnViewDetails = () => {
-    // setVehicleId(id);
-    router.push('/vehicle/1rwerw4-r3e44udr-454');
+    setVehicleId(id);
+
+    router.push(`/vehicle/${uuidv4()}`);
   };
   return (
     <div className="rounded-[12px] shadow-md">
@@ -143,7 +146,7 @@ export const ColProductCard = ({
 
         <div className="flex justify-end items-center py-3 cursor-pointer">
           <button
-            onClick={() => router.push('/vehicle/1rwerw4-r3e44udr-454')}
+            onClick={() => router.push(`/vehicle/${uuidv4()}`)}
             className="border-[2px] font-[600] border-primary-700 rounded-sm text-primary-700 px-4 py-1.5 text"
           >
             View details

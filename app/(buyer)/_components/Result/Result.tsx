@@ -5,6 +5,7 @@ import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { SkeletonCard } from '@/components/Loader/SkeletonCard';
+import { StaticImageData } from 'next/image';
 
 type ResultProps = {
   displayFormat: boolean;
@@ -31,7 +32,7 @@ const Result = ({ displayFormat, isLoading }: ResultProps) => {
                   // key={result.id}
                   id={result.id}
                   name={result.name}
-                  Img={result.Img}
+                  Img={result.Img as StaticImageData}
                   model={result.model}
                   mileage={result.mileage}
                   category={result.category}

@@ -12,6 +12,7 @@ import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { SORT_LIST } from '@/constants/constants';
 import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
+import Flex from '@/app/(buyer)/assets/FlexFormat.svg';
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
 import useDetectOS from '@/hooks/useDetectOs';
@@ -36,6 +37,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
   const [search, setSearch] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
+  const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet } = useIsMobile();
   const [isLoading, setIsLoading] = useState(true);
   const [filterQuery, setFilterQuery] = useState<string[]>([
@@ -58,7 +60,6 @@ const Results = ({ params }: { params: { slug: string } }) => {
     setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
   };
 
-  const [displayFormat, setDisplayFormat] = useState(true);
   console.log(params);
   return (
     <main>
@@ -95,7 +96,11 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
               <div className="h-8 w-8 rounded-sm border border-neutral-500 flex items-center justify-center">
                 <button onClick={() => setDisplayFormat(!displayFormat)}>
-                  <Image src={GridFormat} alt="Grid format" />
+                  {displayFormat ? (
+                    <Image src={Flex} alt="Flex format" />
+                  ) : (
+                    <Image src={GridFormat} alt="Grid format" />
+                  )}
                 </button>
               </div>
             </div>

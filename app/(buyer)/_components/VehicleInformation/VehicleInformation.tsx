@@ -15,6 +15,17 @@ const VehicleInformation = () => {
   return (
     <div className="mt-8">
       <div>
+        <div className="my-4 space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="font-[600] text-2xl">Mercedes Benz</p>
+            <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+              Foreign used
+            </p>
+          </div>
+          <p className="text-neutral-700 font-semibold">2700mil</p>
+          <p className="text-xl font-bold tracking-wide">NGN13,000,000</p>
+        </div>
+
         <div>
           <h1 className="py-2 font-bold text-xl">Basic Information</h1>
 
@@ -98,7 +109,7 @@ const VehicleInformation = () => {
         <div className="mt-8">
           <h1 className="py-2 font-bold text-xl">Features</h1>
           <div className="space-y-3">
-            <div className="flex items-start gap-2">
+            <div className="flex items-start flex-wrap  gap-2">
               <p className="text-primary-700 font-[600]">Convenience:</p>
               <p>
                 Heated and ventilated seats, Power Liftgate or Trunk, Remote Start, Power Adjustable
@@ -106,12 +117,12 @@ const VehicleInformation = () => {
               </p>
             </div>
 
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-2 flex-wrap">
               <p className="text-primary-700 font-[600]">Entertainment:</p>
               <p>Bluetooth®, Apple CarPlay/Android Auto, </p>
             </div>
 
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-2 flex-wrap">
               <p className="text-primary-700 font-[600]">Safety:</p>
               <p>
                 Automatic Emergency Braking, Backup Camera, Blind Spot Monitor, Brake Assist,

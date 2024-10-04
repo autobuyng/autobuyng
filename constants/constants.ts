@@ -44,6 +44,8 @@ import Car5 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import Car6 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import Car7 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 
+const TeslaModel = 'https://ik.imagekit.io/0xy9wqmrh/Autobuy/Tesla.jpeg';
+
 export const IMAGES = [Car1, Car2, Car3, Car4, Car5, Car6];
 
 export const USER = false;
@@ -316,9 +318,9 @@ export const VEHICLE_SEARCH_RESULTS: VEHICLE_SEARCH_RESULTS_PROPS[] = [
   },
   {
     id: '2',
-    name: 'Mercedes Benz',
+    name: 'Mercedes ',
     model: 'C 63',
-    price: '35,000,000',
+    price: '34,000,000',
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
@@ -334,7 +336,7 @@ export const VEHICLE_SEARCH_RESULTS: VEHICLE_SEARCH_RESULTS_PROPS[] = [
     id: '3',
     name: 'Tesla',
     model: 'C 63',
-    price: '35,000,000',
+    price: '15,000,000',
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
@@ -348,9 +350,9 @@ export const VEHICLE_SEARCH_RESULTS: VEHICLE_SEARCH_RESULTS_PROPS[] = [
   },
   {
     id: '4',
-    name: 'Mercedes Benz',
+    name: 'Toyota',
     model: 'C 63',
-    price: '35,000,000',
+    price: '25,000,000',
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
@@ -364,9 +366,9 @@ export const VEHICLE_SEARCH_RESULTS: VEHICLE_SEARCH_RESULTS_PROPS[] = [
   },
   {
     id: '5',
-    name: 'Mercedes Benz',
+    name: 'Kia',
     model: 'C 63',
-    price: '35,000,000',
+    price: '65,000,000',
     mileage: '400',
     category: 'new',
     Img: samlplevehicle,
