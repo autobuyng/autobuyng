@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, useContext, useEffect, useState } from 'react';
+import React, { Suspense, useContext, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,7 +18,6 @@ import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
 import { AppContext } from '@/context/AppContext';
-import { Arrow } from '@radix-ui/react-select';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const VehicledetailsPage = () => {
