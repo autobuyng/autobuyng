@@ -6,8 +6,14 @@ import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
+import Profile from '@/components/Navbar/assets/Profile.svg';
 
 import SignIn from '@/app/auth/SignIn/SignIn';
+import { Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import Menucontent from '../Menucontent/Menucontent';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +21,9 @@ const Navbar = () => {
   const [, setType] = useState('signin');
 
   const router = useRouter();
+  const { isMobile } = useIsMobile();
 
+  const user = true;
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -91,50 +99,57 @@ const Navbar = () => {
             })}
           </div>
 
-          <div className="flex gap-8">
-            <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
-              Login
-            </button>
-            <button
-              onClick={handleSignInClick}
-              className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
-            >
-              Create Account
-            </button>
-          </div>
+          <div>
+            {user ? (
+              <div className="flex items-center justify-center">
+                <p className="text-primary-700">Hi Jonathan</p>
+                <Image src={Profile} alt="Profile" />
 
-          {/* <div className=" relative flex items-center">
-            {isMobile && (
-              <Sheet>
-                <SheetTrigger>
-                  <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
-                    <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
-                    <Image src={Profile} alt="Profile" />
-                  </div>
-                </SheetTrigger>
-                <SheetContent>
-                  <Menucontent />
-                </SheetContent>
-              </Sheet>
-            )}
+                <div className=" relative flex items-center">
+                  {isMobile && (
+                    <Sheet>
+                      <SheetTrigger>
+                        <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
+                          <Menu className="text-primary-900" />
+                        </div>
+                      </SheetTrigger>
+                      <SheetContent>
+                        <Menucontent />
+                      </SheetContent>
+                    </Sheet>
+                  )}
 
-            {!isMobile && (
-              <Popover>
-                <PopoverTrigger>
-                  <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
-                    <Image src={Menu} alt="Autobuy" className="" width={40} height={40} priority />
-                    <Image src={Profile} alt="Profile" />
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent
-                  onMouseLeave={() => setIsOpen(false)}
-                  className="max-w-[250px] mr-4 "
+                  {!isMobile && (
+                    <Popover>
+                      <PopoverTrigger>
+                        <div className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 hover:shadow-md">
+                          <Menu className="text-primary-900" />
+                        </div>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        onMouseLeave={() => setIsOpen(false)}
+                        className="max-w-[250px] mr-4 "
+                      >
+                        <Menucontent />
+                      </PopoverContent>
+                    </Popover>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="flex gap-8">
+                <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
+                  Login
+                </button>
+                <button
+                  onClick={handleSignInClick}
+                  className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
                 >
-                  <Menucontent />
-                </PopoverContent>
-              </Popover>
+                  Create Account
+                </button>
+              </div>
             )}
-          </div> */}
+          </div>
         </nav>
 
         <SignIn

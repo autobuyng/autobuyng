@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import SignIn from '@/app/auth/SignIn/SignIn';
-import { useRouter } from 'next/navigation';
+import Profile from '@/components/Navbar/assets/Profile.svg';
 
 const Menucontent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,15 +33,14 @@ const Menucontent = () => {
   };
 
   const MENU_ITEMS = [
-    { id: '1', text: 'messages', path: 'messages' },
-    { id: '2', text: 'Notifications', path: 'notification' },
-    { id: '3', text: 'Orders', path: 'orders' },
-    { id: '4', text: 'Favorites', path: 'favorites' },
+    { id: '1', text: 'orders', path: 'orders' },
+    { id: '2', text: 'saved', path: 'saved' },
   ];
+
   return (
     <div className="mt-8 md:mt-0">
       <div>
-        <h1 className="font-[600] text-lg text-primary-700">Get Started with Autobuy</h1>
+        <h1 className="font-semibold text-lg text-primary-700">Hi Jonathan</h1>
       </div>
 
       <div className="flex flex-col gap-3 mt-4">
@@ -76,20 +77,16 @@ const Menucontent = () => {
         {user && (
           <div className="flex flex-col gap-3 border-b border-neutral-100 pb-2">
             <div className="w-full">
-              <button onClick={handleSignUpClick} className="flex">
-                My Account
+              <button
+                onClick={handleSignUpClick}
+                className="flex items-center gap-2 justify-between"
+              >
+                <Image src={Profile} alt="Profile" />
+                <span> My Account</span>
               </button>
             </div>
           </div>
         )}
-
-        <div className="w-full">
-          <button className="flex">Terms and condition</button>
-        </div>
-
-        <div className="w-full">
-          <button className="flex">Help Center</button>
-        </div>
       </div>
 
       <SignIn isOpen={isOpen} handleOpenChange={handleOpenChange} type={type} setType={setType} />
