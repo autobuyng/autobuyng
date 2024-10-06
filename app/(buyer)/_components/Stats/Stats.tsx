@@ -40,12 +40,10 @@ const Stats = () => {
           }}
           spaceBetween={50}
           slidesPerView={1}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
         >
-          {STATS.map((data) => {
+          {STATS.map((data, index) => {
             return (
-              <Fragment key={data.id}>
+              <Fragment key={index * 3}>
                 <main>
                   <SwiperSlide className="hidden">
                     <p className="text-[32px] md:text-[40px] font-bold text-primary-900">

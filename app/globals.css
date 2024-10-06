@@ -72,9 +72,9 @@
   clip-path: polygon(0 0, 0% 100%, 100% 0);
 }
 
-body {
+/* body {
   background-color: #f7f7f7;
-}
+} */
 .custom-pagination {
   display: flex;
   justify-content: start;

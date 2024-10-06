@@ -43,9 +43,7 @@ const HowitWorks = () => {
                 bulletClass: 'custom-bullet', // Class for custom bullets
                 bulletActiveClass: 'custom-bullet-active', // Active state for bullet
               }}
-              scrollbar={{ draggable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}
+              // scrollbar={{ draggable: true }}
             >
               <div className="">
                 <SwiperSlide className=" ">
@@ -115,7 +113,7 @@ const HowitWorks = () => {
                 </SwiperSlide>
               </div>
 
-              <div className="custom-pagination w-full h-full mt-10  "></div>
+              <div className="custom-pagination w-full h-full mt-10"></div>
             </Swiper>
           </div>
 

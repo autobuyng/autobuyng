@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,23 +14,26 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import Menucontent from '../Menucontent/Menucontent';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
+import { AppContext } from '@/context/AppContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
+  // const [hasMounted, setHasMounted] = useState(false);
   const [, setType] = useState('signin');
 
   const router = useRouter();
   const { isMobile } = useIsMobile();
 
-  const user = true;
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  const { user } = useContext(AppContext);
+  console.log(user, 'user');
 
-  if (!hasMounted) {
-    return null;
-  }
+  // useEffect(() => {
+  //   setHasMounted(true);
+  // }, []);
+
+  // if (!hasMounted) {
+  //   return null;
+  // }
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -101,7 +104,7 @@ const Navbar = () => {
 
           <div>
             {user ? (
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center gap-2">
                 <p className="text-primary-700">Hi Jonathan</p>
                 <Image src={Profile} alt="Profile" />
 
@@ -109,9 +112,9 @@ const Navbar = () => {
                   {isMobile && (
                     <Sheet>
                       <SheetTrigger>
-                        <div className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 hover:shadow-md">
+                        <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
                           <Menu className="text-primary-900" />
-                        </div>
+                        </p>
                       </SheetTrigger>
                       <SheetContent>
                         <Menucontent />
@@ -122,9 +125,9 @@ const Navbar = () => {
                   {!isMobile && (
                     <Popover>
                       <PopoverTrigger>
-                        <div className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 hover:shadow-md">
+                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 hover:shadow-md">
                           <Menu className="text-primary-900" />
-                        </div>
+                        </p>
                       </PopoverTrigger>
                       <PopoverContent
                         onMouseLeave={() => setIsOpen(false)}

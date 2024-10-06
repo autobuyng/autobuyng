@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 import Google from '@/components/Navbar/assets/Google.svg';
 import Facebook from '@/components/Navbar/assets/Facebook.svg';
@@ -8,7 +9,8 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import useIsMobile from '@/hooks/useIsMobile';
-import { USER } from '@/constants/constants';
+import { AppContext } from '@/context/AppContext';
+// import { USER } from '@/constants/constants';
 
 const SignIn = ({
   isOpen,
@@ -23,10 +25,11 @@ const SignIn = ({
 }) => {
   const os = useDetectOS();
   const { isMobile } = useIsMobile();
+  const { setUser, user } = useContext(AppContext);
 
   return (
     <div>
-      <Dialog open={isOpen && !USER} onOpenChange={handleOpenChange}>
+      <Dialog open={isOpen && !user} onOpenChange={handleOpenChange}>
         <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
           <DialogTitle className="text-center">
             <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
@@ -89,7 +92,10 @@ const SignIn = ({
                 </p>
 
                 <div className="w-full">
-                  <button className="w-full bg-primary-700 rounded-md py-3 text-white">
+                  <button
+                    onClick={() => setUser(true)}
+                    className="w-full bg-primary-700 rounded-md py-3 text-white"
+                  >
                     {type === 'signin' ? 'Log in' : 'Create Account'}
                   </button>
                 </div>
