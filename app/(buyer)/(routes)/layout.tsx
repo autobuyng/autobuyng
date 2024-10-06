@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <main>
       <Navbar />
-      <main>
+      <main className="bg-[#f7f7f7]">
         <AppProvider>{children}</AppProvider>
       </main>
     </main>
