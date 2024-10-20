@@ -5,9 +5,6 @@ import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
 import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
-import Gauge from '@/app/(buyer)/assets/pressureguage.svg';
-import Transmission from '@/app/(buyer)/assets/transmission.svg';
-import Engine from '@/app/(buyer)/assets/engine.svg';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
 import { AppContext } from '@/context/AppContext';
@@ -47,32 +44,28 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
       </div>
 
       <div className=" px-2 ">
-        <div className="flex items-center justify-between py-2  border-neutral-300">
+        <div className="flex items-center justify-between   border-neutral-300">
           <p className="font-[600] text-lg">{name}</p>
           <p>{model}</p>
         </div>
 
-        <div className="grid grid-cols-3 w-full  border border-primary-700">
-          <p className="flex border-r  border-primary-700 text-center justify-center items-center gap-2 px-1 text-xs">
-            <Image src={Gauge} alt="Guage" />
-            <span className="uppercase">120cc</span>
+        <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
+          <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex text-xs">
+            {/* <Image src={Engine} alt="Guage" /> */}
+            <span className="capitalize text-primary-900 font[600]">Brand New</span>
           </p>
-          <p className="border-r border-primary-700  py-1.5 text-center items-center justify-center gap-2 px-1 flex text-xs">
-            <Image src={Engine} alt="Guage" />
-            <span className="uppercase">v8</span>
-          </p>
-          <p className="flex text-center items-center justify-center gap-2 px-1 text-xs">
-            <Image src={Transmission} alt="Guage" />
-            <span className="uppercase">manual</span>
+          <p className="flex text-center items-center justify-start gap-2  text-xs">
+            {/* <Image src={Transmission} alt="Guage" /> */}
+            <span className="capitalize text-primary-900 font[600] pl-2 ">8k miles</span>
           </p>
         </div>
 
-        <p className=" font-[700] my-1 text-lg"> ₦ {price}</p>
+        <p className=" font-[700]  text-lg"> ₦ {price}</p>
 
         <div className="w-full cursor-pointer">
           <button
             onClick={handleOnViewDetails}
-            className="border-2 text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full mt-2 mb-4"
+            className="border-2 text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
           >
             View Details
           </button>

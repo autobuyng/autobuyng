@@ -22,6 +22,7 @@ import Cancel from '@/app/(buyer)/assets/cancel.svg';
 const Results = ({ params }: { params: { slug: string } }) => {
   const os = useDetectOS();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
   console.log(os);
   const DEFAULT_FILTERS = {
     year: {
@@ -38,7 +39,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
-  const { isTablet } = useIsMobile();
+  const { isTablet,isMobile } = useIsMobile();
   const [isLoading, setIsLoading] = useState(true);
   const [filterQuery, setFilterQuery] = useState<string[]>([
     'Toyota',
@@ -73,16 +74,10 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
       <MaxWidthWrapper>
         <section>
-          <div className="mt-8 w-full">
+          <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={search} setSearch={setSearch} />
-          </div>
 
-          <div className="flex items-start justify-between mt-6 w-full">
-            <div className="w-full">
-              <FilterDisplay isOpen={isOpen} setIsOpen={setIsOpen} />
-            </div>
-
-            <div className="flex items-center gap-4 w-[240px]">
+            <div className="hidden md:flex items-center gap-4 w-[240px]">
               <div>
                 <SelectInput
                   list={SORT_LIST}
@@ -90,7 +85,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
                   setSelectedInput={setSortQuery}
                   selectedInput={sortQuery}
                   width="w-full md:w-[155px]"
-                  height="h-6"
+                  height="h-10"
                 />
               </div>
 
@@ -103,6 +98,12 @@ const Results = ({ params }: { params: { slug: string } }) => {
                   )}
                 </button>
               </div>
+            </div>
+          </div>
+
+          <div className="flex items-start justify-between mt-6 w-full">
+            <div className="w-full">
+              <FilterDisplay isOpen={isOpen} setIsOpen={setIsOpen} setIsSortOpen={setIsSortOpen} />
             </div>
           </div>
 
@@ -127,6 +128,21 @@ const Results = ({ params }: { params: { slug: string } }) => {
                     ))}
                   </div>
                   <Filters filters={filters} setFilters={setFilters} />
+                </SheetContent>
+              </Sheet>
+
+              <Sheet open={isMobile && isSortOpen} onOpenChange={setIsSortOpen}>
+                <SheetContent side={'top'} className="max-w-full h-screen overflow-y-auto">
+                  <div>
+                    <SelectInput
+                      list={SORT_LIST}
+                      title="Sort by"
+                      setSelectedInput={setSortQuery}
+                      selectedInput={sortQuery}
+                      width="w-full md:w-[155px]"
+                      height="h-10"
+                    />
+                  </div>
                 </SheetContent>
               </Sheet>
             </div>

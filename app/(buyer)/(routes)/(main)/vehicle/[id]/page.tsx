@@ -3,10 +3,11 @@ import React, { Suspense, useContext, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 import '../vehicle.css';
+import { AppContext } from '@/context/AppContext';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
-import Appraisal from '@/app/(buyer)/assets/appraisal.svg';
 import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/VehicleInformation';
@@ -17,8 +18,16 @@ import SignIn from '@/app/auth/SignIn/SignIn';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
-import { AppContext } from '@/context/AppContext';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import SemiCircleProgressBar, {
+  ProgressBar,
+} from '@/app/(buyer)/_components/ProgressBar/ProgressBar';
+
+// import Appraisal from '@/app/(buyer)/assets/appraisal.svg';
+import Info from '../assets/info.svg';
+import Car from '../assets/car.svg';
+import Engine from '../assets/engine.svg';
+import Accessories from '../assets/accessories.svg';
+import Wheels from '../assets/wheels.svg';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
@@ -91,11 +100,29 @@ const VehicledetailsPage = () => {
       category: 'new',
       Img: sampleVehicle,
     },
+    {
+      id: '5',
+      name: 'Mercedes Benz',
+      model: 'C 63',
+      price: '35,000,000',
+      mileage: '400',
+      category: 'new',
+      Img: sampleVehicle,
+    },
+    {
+      id: '6',
+      name: 'Mercedes Benz',
+      model: 'C 63',
+      price: '35,000,000',
+      mileage: '400',
+      category: 'new',
+      Img: sampleVehicle,
+    },
   ];
 
   return (
     <div className="w-full">
-      <div className="hidden  md:flex items-center bg-[#EDF4FF80] mt-8 h-[180px]">
+      <div className="hidden  min-[1124px]:flex items-center bg-[#EDF4FF80]  h-[180px]">
         <MaxWidthWrapper>
           <div>
             <h1>
@@ -157,59 +184,138 @@ const VehicledetailsPage = () => {
       <div className="mt-8">
         <MaxWidthWrapper>
           <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
-            <div>
+            <div className="bg-white p-4 flex-[3]">
               <div
-                className={cn(' max-w-[900px] h-fit', {
+                className={cn(' max-w-[800px] h-fit ', {
                   'max-w-[900px] h-fit  ': os === 'macOS',
                 })}
               >
                 <ImageSlider ImageUrls={IMAGES} />
               </div>
 
-              <div>{isMobile ? null : <VehicleInformation />}</div>
+              <div className="w-full ">{isMobile ? null : <VehicleInformation />}</div>
             </div>
 
-            <div className="h-fit pb-4 shadow-md px-2">
-              <p className="whitespace-nowrap text-primary-700 text-2xl font-bold py-2.5">
-                Get this Vehicle
-              </p>
-              <Image
-                src={Appraisal}
-                alt="Appraisal"
-                width={500}
-                height={500}
-                className="flex-shrink-0 mx-auto"
-              />
+            <div className="h-fit  shadow-md   flex-[2] ">
+              <div className="shadow-md bg-white px-6 pb-4 pt-12">
+                <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
+                  Autobuy Reliability Score{' '}
+                </h1>
 
-              <div className="w-full space-y-4 mt-2">
-                <button
-                  onClick={handleSignInClick}
-                  className="w-full text-white bg-primary-500 rounded-sm py-2 whitespace-nowrap "
-                >
-                  Get vehicle Appraisal
-                </button>
-                <button
-                  onClick={() => router.push('/payment/adste-te34at-4eafd')}
-                  className="w-full py-2 rounded-sm border-2 border-primary-700"
-                >
-                  Buy Now
-                </button>
+                <div className="space-y-8">
+                  <div className="flex items-center justify-between">
+                    <SemiCircleProgressBar
+                      percentage={75}
+                      size={200}
+                      strokeWidth={10}
+                      color="#3385FF"
+                    />
+
+                    <span className="text-[#3385FF] text-[40px] font-bold">{`${Math.round(80)}%`}</span>
+                  </div>
+
+                  <div className="flex items-start justify-between gap-2">
+                    <Image src={Engine} alt="Engine" className="mx-auto" />
+                    <div className="w-full">
+                      <p className="flex items-start justify-between pb-2 ">
+                        <span className="flex items-center gap-1">
+                          Engine <Image src={Info} alt="Info" />
+                        </span>
+                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                          4.0/10
+                        </span>
+                      </p>
+                      <ProgressBar progress="40" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-start justify-between gap-2">
+                    <Image src={Car} alt="Car" className="mx-auto" />
+                    <div className="w-full">
+                      <p className="flex items-start justify-between pb-2 ">
+                        <span className="flex items-center gap-1">
+                          Body <Image src={Info} alt="Info" />
+                        </span>
+                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                          6.8/10
+                        </span>
+                      </p>
+                      <ProgressBar progress="80" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-start justify-between gap-2">
+                    <Image src={Wheels} alt="Wheels" className="mx-auto" />
+                    <div className="w-full">
+                      <p className="flex items-start justify-between pb-2 ">
+                        <span className="flex items-center gap-1">
+                          Wheels <Image src={Info} alt="Info" />
+                        </span>
+                        <span className="w-[64px] h-[28px] text-[#EFD80F] text-xs font-bold flex items-center justify-center bg-[#FFFEF0] border border-[#F2E572] rounded-[50px] text-center">
+                          6.6/10
+                        </span>
+                      </p>
+                      <ProgressBar progress="66" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-start justify-between gap-2">
+                    <Image src={Accessories} alt="Accessories" className="mx-auto" />
+                    <div className="w-full">
+                      <p className="flex items-start justify-between pb-2 ">
+                        <span className="flex items-center gap-1">
+                          Accessories <Image src={Info} alt="Info" />
+                        </span>
+                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                          6.6/10
+                        </span>
+                      </p>
+                      <ProgressBar progress="66" />
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleSignInClick}
+                    className="w-full text-white bg-primary-900 rounded-sm py-2 whitespace-nowrap "
+                  >
+                    Download Appraisal
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 mt-2 text-sm">
-                <input type="checkbox" />
-                <p>Lorem ipsum dolor sit amet consectetur </p>
+              <div className="bg-white shadow-md mt-6 py-4 px-6">
+                <div className="w-full space-y-4 mt-2 ">
+                  <p
+                    onClick={handleSignInClick}
+                    className="w-full text-xs leading-[18px] max-w-full text-wrap border-2 border-primary-900 rounded-sm py-2 px-6 whitespace-nowrap "
+                  >
+                    Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
+                    Autobuy registered outlets
+                  </p>
+                  <button
+                    max-
+                    onClick={() => router.push('/payment/adste-te34at-4eafd')}
+                    className="w-full py-2 text-white rounded-sm border-2 bg-primary-900"
+                  >
+                    Continue
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2 mt-2 text-sm">
+                  <input type="checkbox" />
+                  <p>Lorem ipsum dolor sit amet consectetur </p>
+                </div>
               </div>
             </div>
 
-            {isMobile ? <VehicleInformation /> : null}
+            <div className="">{isMobile ? <VehicleInformation /> : null}</div>
           </div>
 
           <div className="mt-20">
             <div>
-              <h1 className="py-2 font-bold text-xl">Similar cars at Autobuy</h1>
+              <h1 className="py-2 font-bold text-2xl">Similar cars at Autobuy</h1>
 
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  gap-8 sm:gap-4 ">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3  gap-y-10 gap-x-8 sm:gap-4 ">
                 {SIMILAR_VEHICLE.map((vehicle) => {
                   return (
                     <ProductCard

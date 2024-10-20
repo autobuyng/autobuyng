@@ -80,8 +80,8 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
       </div>
 
       <div className="flex items-center ">
-        <button className=" w-[121px] bg-primary-700 py-2 px-4 rounded-sm text-white text-center flex space-x-2 ">
-          <span>Search </span> <Image src={Search} alt="Search" className="" />
+        <button className="  bg-primary-700 py-2 px-4 rounded-sm text-white text-center flex space-x-2 ">
+          <Image src={Search} alt="Search" className="" />
         </button>
       </div>
     </div>

@@ -1,11 +1,16 @@
 import React from 'react';
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Autobuy2 from '@/app/assets/Autobuy2.svg';
 import Autobuy1 from '@/app/assets/Autobuy.svg';
 import PaymentCard from '@/app/assets/payentcard.svg';
 import { cn } from '@/lib/utils';
+// import { Facebook, Instagram, Twitter } from 'lucide-react';
+import Facbook from './assets/facebook.svg';
+import Twitter from './assets/x.svg';
+import Instagram from './assets/instagram.svg';
 
 const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) => {
   return (
@@ -66,6 +71,31 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
             </div>
           </section>
         </main>
+
+        <main className="flex flex-col md:flex-row justify-between mt-10 items-start  text-sm">
+          <div className="py-2 md:py-0">
+            <p className="flex flex-col md:flex-row items-start gap-2 md:gap-6 ">
+              <Link href={'/terms-and-condition'}> Terms and condition</Link>
+              <Link href={'/terms-and-condition'}> Responsible Disclosure</Link>
+              <Link href={'/terms-and-condition'}> Provacy Policy</Link>
+            </p>
+            {/* <p>© 2024 Autobuy. All rights reserved</p> */}
+          </div>
+
+          <div className=" flex gap-4 py-3 md:py-0 items-start">
+            <Link href={'/facebook'}>
+              <Image src={Facbook} alt="facebook" />
+            </Link>
+            <Link href={'/facebook'}>
+              <Image src={Instagram} alt="facebook" />
+            </Link>
+            <Link href={'/facebook'}>
+              <Image src={Twitter} alt="facebook" />
+            </Link>
+          </div>
+        </main>
+
+        <p>© 2024 Autobuy. All rights reserved</p>
       </MaxWidthWrapper>
     </main>
   );

@@ -12,14 +12,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const pathname = usePathname();
-  // const routes = ['/reset-password', '/forgot-password'];
-  // const dashboardRoutes = ['/orders', '/messages', '/saved', '/settings'];
-  // const shouldShow = routes.includes(pathname);
   return (
     <main>
       <Navbar />
-      <main className="bg-[#f7f7f7]">
+      <main>
         <AppProvider>{children}</AppProvider>
       </main>
     </main>

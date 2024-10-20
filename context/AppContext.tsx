@@ -34,7 +34,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const vehicleIndex = VEHICLE_SEARCH_RESULTS.findIndex((vehicle) => vehicle.id === vehicleId);
-    const NextFive = VEHICLE_SEARCH_RESULTS.slice(vehicleIndex, vehicleIndex + 7);
+    const NextFive = VEHICLE_SEARCH_RESULTS.slice(vehicleIndex, vehicleIndex + 8);
     setVehicleList(NextFive);
     console.log(NextFive, 'NextFive');
     console.log(vehicleIndex, 'vehicleIndex');
