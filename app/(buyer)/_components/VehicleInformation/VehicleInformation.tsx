@@ -92,80 +92,6 @@ const VehicleInformation = () => {
                 Engine
               </p>
             </div>
-
-            {/* <div className="w-full space-y-3">
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Interior} alt="Interior" width={30} height={30} />
-                  <span className="text-primary-700 font-[600] whitespace-nowrap">
-                    Interior Color:
-                  </span>
-                </p>
-                <span>Navy Blue</span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Exterior} alt="Exterior" width={30} height={30} />
-                  <span className="text-primary-700 font-[600] whitespace-nowrap">
-                    Exterior color:
-                  </span>
-                </p>
-                <span>Black</span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Drivetrain} alt="Drivetrain" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">Drivetrain:</span>
-                </p>
-                <span>4 wheel drive</span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Fueltype} alt="Fuel type" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">Fuel type:</span>
-                </p>
-                <span>PMS</span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Transmit} alt="Transmission" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">Transmission:</span>
-                </p>
-                <span>AUTOMATIC</span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Mpg} alt="MPG" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">MPG:</span>
-                </p>
-                <span>35 - 40</span>
-              </div>
-
-              <div className="flex gap-3  items-start justify-start w-full">
-                <p className="flex gap-1.5 items-center justify-center ">
-                  <Image src={Engine} alt="Engine type" width={30} height={30} />
-                  <span className="text-primary-700 font-[600] whitespace-nowrap">
-                    Engine type:
-                  </span>
-                </p>
-                <span className="">
-                  1.8L I-4 i-VTEC variable valve control, regular unleaded, engine
-                </span>
-              </div>
-
-              <div className="flex gap-3 items-center w-full">
-                <p className="flex gap-1.5 items-center justify-center">
-                  <Image src={Vin} alt="Vin" width={30} height={30} />
-                  <span className="text-primary-700 font-[600]">Vin:</span>
-                </p>
-                <span>14DAETDEITYDDJTAOTE</span>
-              </div>
-            </div> */}
           </div>
 
           <p className="underline text-sm text-primary-900 cursor-pointer mt-8 capitalize">
@@ -198,23 +124,6 @@ const VehicleInformation = () => {
           <button className="border-2 mt-8 border-primary-900 text-primary-900 font-bold w-[265px] h-[48px] rounded-sm uppercase">
             View All Features & Specs
           </button>
-        </div>
-
-        <div className="mt-8">
-          <div className="w-full  h-[148px] bg-primary-700 flex items-center justify-between rounded-[15px] px-6">
-            <p className="text-white flex-[4]">
-              Our vehicle inspection is conducted using advanced AI diagnostics, providing an
-              accurate, data-driven analysis of its condition and performance. This ensures a
-              reliable and transparent report for informed decision-making.
-            </p>
-            <p className="w-[100px] h-[100px] rounded-[50%] bg-[#D9D9D9] "></p>
-          </div>
-
-          {/* <h1 className="py-2 font-bold text-xl">Additional Features</h1>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit quisquam quis
-            perspiciatis officia, nesciunt explicabo voluptatem temporibus est adipisci ratione.
-          </p> */}
         </div>
 
         {/* <div className="mt-8">

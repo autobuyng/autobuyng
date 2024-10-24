@@ -39,7 +39,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
-  const { isTablet,isMobile } = useIsMobile();
+  const { isTablet, isMobile } = useIsMobile();
   const [isLoading, setIsLoading] = useState(true);
   const [filterQuery, setFilterQuery] = useState<string[]>([
     'Toyota',

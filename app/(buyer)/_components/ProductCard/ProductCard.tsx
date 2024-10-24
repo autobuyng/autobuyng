@@ -38,29 +38,33 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
           <Image src={Save} alt="Save" />
         </button>
 
-        <button className="absolute bottom-0 right-0  text-white rounded-tl-[4px] rounded-tr-[4px] bg-black/55 p-1 flex items-center text-sm justify-center">
-          <span className="px-3">25</span> <Image src={Photo} alt="Photo" />
+        <button className="absolute bottom-2 right-2  text-white rounded-[30px] bg-black/55 p-1 flex items-center text-sm justify-center">
+          <span className="px-2">25</span> <Image src={Photo} alt="Photo" className="px-1 w-auto" />
         </button>
       </div>
 
       <div className=" px-2 ">
         <div className="flex items-center justify-between   border-neutral-300">
-          <p className="font-[600] text-lg">{name}</p>
+          <p className="font-[600] text-[20px] py-1">{name}</p>
           <p>{model}</p>
         </div>
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
-          <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex text-xs">
+          <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
             {/* <Image src={Engine} alt="Guage" /> */}
-            <span className="capitalize text-primary-900 font[600]">Brand New</span>
+            <span className="capitalize text-primary-900 font[600] font-semibold leading-6">
+              Brand New
+            </span>
           </p>
-          <p className="flex text-center items-center justify-start gap-2  text-xs">
+          <p className="flex text-center items-center justify-start gap-2  ">
             {/* <Image src={Transmission} alt="Guage" /> */}
-            <span className="capitalize text-primary-900 font[600] pl-2 ">8k miles</span>
+            <span className="capitalize text-primary-900 font[600] pl-2  font-semibold leading-6">
+              8k miles
+            </span>
           </p>
         </div>
 
-        <p className=" font-[700]  text-lg"> ₦ {price}</p>
+        <p className=" font-[700]  text-lg my-1"> ₦ {price}</p>
 
         <div className="w-full cursor-pointer">
           <button
