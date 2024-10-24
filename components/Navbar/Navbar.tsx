@@ -75,7 +75,7 @@ const Navbar = () => {
             <Image
               src={Autobuy}
               alt="Autobuy"
-              width={77}
+              width={168}
               height={56}
               priority
               className="cursor-pointer"

@@ -92,11 +92,11 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
           </button>
         </div>
 
-        <button className="absolute top-4 right-5 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
+        <button className="absolute top-4 right-5 h-8 w-8  rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
         </button>
 
-        <button className="absolute bottom-0 right-4  text-white rounded-[4px] bg-black/55 p-1 flex items-center justify-center gap-1.5">
+        <button className="absolute bottom-2 right-4  text-white rounded-[30px] bg-[#00000073] p-1 flex items-center justify-center gap-1.5">
           <span>
             {currentIndex + 1} / {25}
           </span>

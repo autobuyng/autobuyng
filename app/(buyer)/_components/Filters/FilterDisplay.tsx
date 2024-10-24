@@ -8,8 +8,9 @@ import Cancel from '@/app/(buyer)/assets/cancel.svg';
 type FilterDisplayProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSortOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const FilterDisplay = ({ setIsOpen }: FilterDisplayProps) => {
+const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
   const [filterQuery, setFilterQuery] = useState<string[]>([
     'Toyota',
     'Silveerado',
@@ -27,7 +28,7 @@ const FilterDisplay = ({ setIsOpen }: FilterDisplayProps) => {
   };
 
   return (
-    <main className="flex items-start md:gap-8 lg:gap-6">
+    <main className="flex items-start justify-between md:gap-8 lg:gap-6">
       <div
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 w-fit cursor-pointer lg:cursor-default px-2 border border-neutral-700 rounded-sm"
@@ -48,6 +49,12 @@ const FilterDisplay = ({ setIsOpen }: FilterDisplayProps) => {
             </button>
           </div>
         ))}
+      </div>
+
+      <div className="md:hidden">
+        <p onClick={() => setIsSortOpen(true)} className="underline cursor-pointer">
+          Sort
+        </p>
       </div>
     </main>
   );

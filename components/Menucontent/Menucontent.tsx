@@ -25,7 +25,6 @@ const Menucontent = () => {
     setType('signup');
   };
 
-
   const handleMenuClick = (path: string) => {
     router.push(`/${path}`);
     setIsOpen(false);
