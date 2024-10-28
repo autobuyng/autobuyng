@@ -249,17 +249,17 @@ export const VEHICLE_BRAND = [
   { id: '12', name: 'Isuzu', Img: Isuzu },
   { id: '13', name: 'Chevrolet', Img: Chevrolet },
   { id: '14', name: 'Volkswagon', Img: Volkswagen },
-  { id: '0', name: 'Mazda', Img: Mazda },
+  { id: '24', name: 'Porshe', Img: Porshe },
   { id: '15', name: 'Ford', Img: Ford },
   { id: '16', name: 'Innoson', Img: Innoson },
   { id: '17', name: 'LandRover', Img: LandRover },
   { id: '18', name: 'Volve', Img: Volvo },
   { id: '19', name: 'Infiniti', Img: Infiniti },
   { id: '20', name: 'Audi', Img: Audi },
-  { id: '21', name: 'Sabaru', Img: Sabaru },
-  { id: '22', name: 'Tesla', Img: Tesla },
-  { id: '23', name: 'Greely', Img: Greely },
-  { id: '24', name: 'Porshe', Img: Porshe },
+  // { id: '21', name: 'Sabaru', Img: Sabaru },
+  // { id: '22', name: 'Tesla', Img: Tesla },
+  // { id: '23', name: 'Greely', Img: Greely },
+  // { id: '24', name: 'Porshe', Img: Porshe },
 ];
 
 export const TRENDING_VEHICLE = [
@@ -271,8 +271,8 @@ export const TRENDING_VEHICLE = [
   { id: '6', text: 'Nissan Rogue SV' },
   { id: '7', text: 'Nissan Rogue SV' },
   { id: '8', text: 'Nissan Rogue SV' },
-  { id: '9', text: 'Nissan Rogue SV' },
-  { id: '10', text: 'Nissan Rogue SV' },
+  // { id: '9', text: 'Nissan Rogue SV' },
+  // { id: '10', text: 'Nissan Rogue SV' },
 ];
 
 export const POPULAR_MODEL = [
@@ -284,8 +284,8 @@ export const POPULAR_MODEL = [
   { id: '6', text: 'Nissan Rogue SV' },
   { id: '7', text: 'Nissan Rogue SV' },
   { id: '8', text: 'Nissan Rogue SV' },
-  { id: '9', text: 'Nissan Rogue SV' },
-  { id: '10', text: 'Nissan Rogue SV' },
+  // { id: '9', text: 'Nissan Rogue SV' },
+  // { id: '10', text: 'Nissan Rogue SV' },
 ];
 
 export const SORT_LIST = [

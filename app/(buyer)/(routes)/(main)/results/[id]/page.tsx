@@ -102,7 +102,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
           </div>
 
           <div className="flex items-start justify-between mt-6 w-full">
-            <div className="w-full">
+            <div className="w-full ">
               <FilterDisplay isOpen={isOpen} setIsOpen={setIsOpen} setIsSortOpen={setIsSortOpen} />
             </div>
           </div>

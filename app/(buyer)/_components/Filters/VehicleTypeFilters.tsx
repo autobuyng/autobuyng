@@ -7,13 +7,13 @@ import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
 
 const VehicleTypeFilters = () => {
   const [, setVehicleType] = useState<string>('');
-  const [visibleCards, setVisibleCards] = useState<number>(12);
+  const [visibleCards, setVisibleCards] = useState<number>(10);
 
   const showMoreCards = () => {
     setVisibleCards(Number(VEHICLE_BRAND.length));
   };
   const showLessCards = () => {
-    setVisibleCards(12);
+    setVisibleCards(10);
   };
 
   const renderCarBrands = useCallback(
@@ -70,7 +70,7 @@ const VehicleTypeFilters = () => {
             </p>
           </div>
 
-          <div className="my-4 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 sm:gap-4 transition-all duration-150">
+          <div className="my-4 grid grid-cols-4 md:grid-cols-5 lg:grid-cols-10 gap-4 sm:gap-4 transition-all duration-150">
             {renderCarBrands()}
           </div>
 

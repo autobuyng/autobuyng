@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { CAR_BRANDS, PRICE_RANGE, YEAR } from '@/constants/constants';
+import useDetectOS from '@/hooks/useDetectOs';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -12,6 +13,7 @@ const HomeSearch = () => {
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
   const router = useRouter();
+  const os = useDetectOS();
 
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
@@ -27,11 +29,11 @@ const HomeSearch = () => {
         },
       )}
     >
-      <div className="px-4 pt-4 pb-8">
+      <div className="px-4 pt-4 pb-4">
         <div className="text-center  md:text-xl">
           <h1
-            className={cn('font-bold text-primary-700 tracking-wide ', {
-              // 'py-0': os === 'Windows',
+            className={cn('font-bold text-primary-700 tracking-wide py-2', {
+              'py-0': os === 'Windows',
             })}
           >
             Find Your Next Vehicle
@@ -62,7 +64,7 @@ const HomeSearch = () => {
           <input
             type="text"
             placeholder="Search by make, model or body style"
-            className="block w-full py-2 px-5 border border-neutral-700 outline-none rounded-md"
+            className="block w-full h-[56px] px-5 border border-neutral-700 outline-none rounded-md placeholder:text-xs"
           />
         </div>
 
@@ -73,14 +75,15 @@ const HomeSearch = () => {
         </div>
 
         <div className="flex flex-col gap-4 items-center justify-between mt-4">
-          <div className="flex flex-col items-center w-full gap-3 ">
+          <div className="flex flex-col items-center w-full gap-4 ">
             <div className="w-full">
               <SelectInput
                 list={CAR_BRANDS}
                 title="Brand/Model"
                 setSelectedInput={setBrand}
                 selectedInput={brand}
-                width="w-full "
+                width="w-full"
+                height="h-12"
               />
             </div>
             {/* <div className="flex w-full gap-3"> */}
@@ -91,6 +94,7 @@ const HomeSearch = () => {
                 setSelectedInput={setPrice}
                 selectedInput={price}
                 width="w-full "
+                height="h-12"
               />
             </div>
             <div className="w-full">
@@ -100,6 +104,7 @@ const HomeSearch = () => {
                 setSelectedInput={setYear}
                 selectedInput={year}
                 width="w-full "
+                height="h-12"
               />
             </div>
             {/* </div> */}

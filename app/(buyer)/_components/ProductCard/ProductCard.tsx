@@ -44,7 +44,7 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
       </div>
 
       <div className=" px-2 ">
-        <div className="flex items-center justify-between   border-neutral-300">
+        <div className="flex items-center gap-2   border-neutral-300">
           <p className="font-[600] text-[20px] py-1">{name}</p>
           <p>{model}</p>
         </div>
@@ -52,13 +52,11 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
           <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
             {/* <Image src={Engine} alt="Guage" /> */}
-            <span className="capitalize text-primary-900 font[600] font-semibold leading-6">
-              Brand New
-            </span>
+            <span className="capitalize text-primary-900 font-[500] leading-6">Brand New</span>
           </p>
           <p className="flex text-center items-center justify-start gap-2  ">
             {/* <Image src={Transmission} alt="Guage" /> */}
-            <span className="capitalize text-primary-900 font[600] pl-2  font-semibold leading-6">
+            <span className="capitalize text-primary-900  pl-2  font-[500] leading-6">
               8k miles
             </span>
           </p>
@@ -69,7 +67,7 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
         <div className="w-full cursor-pointer">
           <button
             onClick={handleOnViewDetails}
-            className="border-2 text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
+            className=" text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
           >
             View Details
           </button>

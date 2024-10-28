@@ -10,6 +10,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
+
 const Stats = () => {
   const STATS = [
     { id: '1', value: '10k+', text: 'New cars' },
@@ -19,16 +21,22 @@ const Stats = () => {
   ];
 
   return (
-    <main className="w-full min-w-full max-w-[70rem] overflow-auto my-16 ">
-      <div className="hidden  md:flex w-full items-center justify-between bg-[#E1EBF4]  px-16 py-6 text-white text-center ">
-        {STATS.map((data) => {
-          return (
-            <div className="" key={data.id}>
-              <p className="text-[32px] md:text-[40px] font-bold text-primary-900">{data.value}</p>
-              <p className="text-primary-900 md:text-lg">{data.text}</p>
-            </div>
-          );
-        })}
+    <main className="w-full min-w-full overflow-auto my-16 ">
+      <div className="bg-[#E1EBF4] ">
+        <MaxWidthWrapper>
+          <div className="hidden  md:flex w-full items-center justify-between  px-16 py-6 text-white text-center ">
+            {STATS.map((data) => {
+              return (
+                <div className="" key={data.id}>
+                  <p className="text-[32px] md:text-[40px] font-bold text-primary-900">
+                    {data.value}
+                  </p>
+                  <p className="text-primary-900 md:text-lg">{data.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </MaxWidthWrapper>
       </div>
 
       <div className="flex md:hidden w-full items-center justify-between bg-[#E1EBF4]  px-16 py-6 text-white text-center ">

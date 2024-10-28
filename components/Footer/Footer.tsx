@@ -3,8 +3,6 @@ import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Autobuy2 from '@/app/assets/Autobuy2.svg';
-import Autobuy1 from '@/app/assets/Autobuy.svg';
 import PaymentCard from '@/app/assets/payentcard.svg';
 import { cn } from '@/lib/utils';
 // import { Facebook, Instagram, Twitter } from 'lucide-react';
@@ -18,9 +16,9 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
       <MaxWidthWrapper>
         <main className="flex flex-col sm:flex-row  justify-between w-full gap-10 ">
           <section className="flex flex-col sm:flex-row w-fit lg:w-1/2 gap-6">
-            <div>
+            {/* <div>
               <Image src={bgColor ? Autobuy1 : Autobuy2} alt="Autobuy" />
-            </div>
+            </div> */}
 
             <div className="w-full flex flex-col sm:flex-row justify-between">
               <div className="space-y-4">

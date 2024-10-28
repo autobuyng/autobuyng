@@ -38,14 +38,57 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   );
 
   return (
-    <main className=" w-full ">
+    <main className=" w-full  ">
       <section
-        className={cn('w-full  p-8  bg-white', {
+        className={cn('w-full  p-8 space-y-4  bg-white shadow-[0px_2px_14px_0px_#0000001A]', {
           'pt-4 px-0': isMobile,
         })}
       >
-        <div className="flex w-full gap-4">
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit  ">
+          <p className="text-xs text-neutral-400 pl-3">Vehicle Condition</p>
+
+          <SelectInput
+            list={[
+              { id: '1', name: 'Brand new' },
+              { id: '2', name: 'Used' },
+            ]}
+            title="Vehicle Condition"
+            setSelectedInput={(input) => {
+              router.push(pathname + '?' + createQueryString('vehicle_condition', input as string));
+              setFilters(
+                (prev: FilterProps): FilterProps => ({
+                  ...prev,
+                  vehicle_condition: input as string,
+                }),
+              );
+            }}
+            selectedInput={filters.mileage as string}
+            width="max-w-full h-4 border-none"
+          />
+        </div>
+
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit   ">
+          <p className="text-xs text-neutral-400 pl-3">Mileage</p>
+
+          <SelectInput
+            list={MILEAGE}
+            title="Any mileage"
+            setSelectedInput={(input) => {
+              router.push(pathname + '?' + createQueryString('mileage', input as string));
+              setFilters(
+                (prev: FilterProps): FilterProps => ({
+                  ...prev,
+                  mileage: input as string,
+                }),
+              );
+            }}
+            selectedInput={filters.mileage as string}
+            width="max-w-full h-4 border-none"
+          />
+        </div>
+
+        <div className="flex w-full gap-4 ">
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit  ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
 
             <SelectInput
@@ -92,33 +135,13 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           </div>
         </div>
 
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-[2px]  ">
-          <p className="text-xs text-neutral-400 pl-3">Mileage</p>
-
-          <SelectInput
-            list={MILEAGE}
-            title="Any mileage"
-            setSelectedInput={(input) => {
-              router.push(pathname + '?' + createQueryString('mileage', input as string));
-              setFilters(
-                (prev: FilterProps): FilterProps => ({
-                  ...prev,
-                  mileage: input as string,
-                }),
-              );
-            }}
-            selectedInput={filters.mileage as string}
-            width="max-w-full h-4 border-none"
-          />
-        </div>
-
-        <div className="mt-2">
+        <div className="">
           <label htmlFor="UserEmail" className="block font-medium ">
             Price range
           </label>
 
           <input
-            type="email"
+            type="text"
             value={filters.price}
             onChange={() => {}}
             id="UserEmail"
@@ -147,7 +170,11 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
       </section>
 
-      <section className={cn('mt-6 space-y-2 pt-8 bg-white shadow-sm px-8 ', { 'px-0': isMobile })}>
+      <section
+        className={cn('mt-6 space-y-2 pt-8 bg-white  px-8 shadow-[0px_2px_14px_0px_#0000001A]', {
+          'px-0': isMobile,
+        })}
+      >
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
           <StyleType filters={filters} setFilters={setFilters} />

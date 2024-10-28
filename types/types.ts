@@ -33,6 +33,7 @@ export type FilterProps = {
   price: number;
 
   body_style: string;
+  vehicle_condition?: string;
   sort?: {
     best_available?: boolean;
     lowest_price?: boolean;

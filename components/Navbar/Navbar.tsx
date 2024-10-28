@@ -91,7 +91,7 @@ const Navbar = () => {
               return (
                 <span key={id}>
                   <Link
-                    className="text-primary-700 text-[14px]"
+                    className=" text-[14px]"
                     target={isSellPath ? '_blank' : '_self'}
                     href={href}
                   >
@@ -105,7 +105,7 @@ const Navbar = () => {
           <div>
             {user ? (
               <div className="flex items-center justify-center gap-2">
-                <p className="text-primary-700">Hi Jonathan</p>
+                <p className="">Hi Jonathan</p>
                 <Image src={Profile} alt="Profile" />
 
                 <div className=" relative flex items-center">
