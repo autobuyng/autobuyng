@@ -162,10 +162,6 @@ const VehicledetailsPage = () => {
                             height={96}
                             className="mx-auto w-full h-full object-cover"
                           />
-
-                          <p className="absolute bottom-0 bg-primary-900 text-white w-full text-center">
-                            {vehicle.price}
-                          </p>
                         </div>
                       </div>
                     );
