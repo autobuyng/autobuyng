@@ -39,7 +39,7 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
 
           <section className="w-fit lg:w-1/2 flex flex-col sm:flex-row  justify-between items-start gap-4">
             <div>
-              <label htmlFor="email" className="block  font-bold text-sm text-white pb-3">
+              <label htmlFor="email" className={cn('block  font-bold text-sm  pb-3')}>
                 NEWSLETTER
               </label>
 

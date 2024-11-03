@@ -1,0 +1,13 @@
+.seller-bcg {
+  background-image: url('https://ik.imagekit.io/0xy9wqmrh/Autobuy/sellerbcg');
+  background-position: center;
+  background-size: cover;
+  max-height: 736px;
+  /* min-height: calc(100vh - 76px); */
+}
+
+@media (max-width: 767px) {
+  .seller-bcg {
+    min-height: 100vh
+  }
+}

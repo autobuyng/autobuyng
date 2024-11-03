@@ -43,7 +43,7 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
         </button>
       </div>
 
-      <div className=" px-2 ">
+      <div className=" px-2">
         <div className="flex items-center gap-2   border-neutral-300">
           <p className="font-[600] text-[20px] py-1">{name}</p>
           <p>{model}</p>
@@ -51,11 +51,9 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
           <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
-            {/* <Image src={Engine} alt="Guage" /> */}
             <span className="capitalize text-primary-900 font-[500] leading-6">Brand New</span>
           </p>
-          <p className="flex text-center items-center justify-start gap-2  ">
-            {/* <Image src={Transmission} alt="Guage" /> */}
+          <p className="flex text-center items-center justify-start gap-2">
             <span className="capitalize text-primary-900  pl-2  font-[500] leading-6">
               8k miles
             </span>
@@ -83,12 +81,9 @@ export const ColProductCard = ({
   price,
   mileage,
   mpg,
-  bodyStyle,
   engin,
   transmission,
-  color,
   vin,
-  desc,
 }: VEHICLE_SEARCH_RESULTS_PROPS) => {
   const router = useRouter();
   // const handleOnViewDetails = () => {
@@ -98,54 +93,69 @@ export const ColProductCard = ({
   return (
     <div className="">
       <section className="rounded-md shadow-md  px-3 ">
-        <p className="font-[600] text-2xl pb-2">{name}</p>
         <div className="flex gap-6  cursor-pointer pb-4 ">
-          <div>
-            <Image src={Img} alt={name} height={400} width={400} className="rounded-md" />
+          <div className="w-full relative">
+            <Image src={Img} alt={name} height={450} width={400} className="rounded-md w-full" />
+
+            <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
+              <Image src={Save} alt="Save" />
+            </button>
+
+            <button className="absolute bottom-2 right-2  text-white rounded-[30px] bg-black/55 p-1 flex items-center text-sm justify-center">
+              <span className="px-2">25</span>{' '}
+              <Image src={Photo} alt="Photo" className="px-1 w-auto" />
+            </button>
           </div>
-          <div className="px-1.5 pt-3  flex flex-col gap-1 text-sm">
-            <p className="font-[700]"> ₦ {price}</p>
+          <div className="px-1.5  flex flex-col gap-2 text-sm w-full">
+            <div className="flex items-center justify-between w-full">
+              <p className="font-[600] text-2xl ">{name}</p>
+              <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+                Foreign used
+              </p>
+            </div>
+
+            <p className="font-[700] text-2xl"> ₦ {price}</p>
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Mileage:</span> {mileage}
+              <span className="text-primary-900 pr-1 font-[600] ">Mileage:</span> {mileage}
             </p>
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">MPG:</span>
+              <span className="text-primary-900 pr-1 font-[600] ">MPG:</span>
               {mpg}
             </p>
-            <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Bodystyle:</span>
+            {/* <p>
+              <span className="text-primary-900 pr-1 font-[600] ">Bodystyle:</span>
               {bodyStyle}
-            </p>
+            </p> */}
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Engin:</span>
+              <span className="text-primary-900 pr-1 font-[600] ">Engin:</span>
               {engin}
             </p>
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Transmission:</span>
+              <span className="text-primary-900 pr-1 font-[600] ">Transmission:</span>
               {transmission}
             </p>
-            <p>
-              <span className="text-primary-700  pr-1 font-[600]">Color:</span>
+            {/* <p>
+              <span className="text-primary-900  pr-1 font-[600]">Color:</span>
               {color}
-            </p>
+            </p> */}
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Vin:</span>
+              <span className="text-primary-900 pr-1 font-[600] ">Vin:</span>
               {vin}
             </p>
-            <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Desc:</span>
+            {/* <p>
+              <span className="text-primary-900 pr-1 font-[600] ">Desc:</span>
               {desc}
-            </p>
-          </div>
-        </div>
+            </p> */}
 
-        <div className="flex justify-end items-center py-3 cursor-pointer">
-          <button
-            onClick={() => router.push(`/vehicle/${uuidv4()}`)}
-            className="border-[2px] font-[600] border-primary-700 rounded-sm text-primary-700 px-4 py-1.5 text"
-          >
-            View details
-          </button>
+            <div className="cursor-pointer">
+              <button
+                onClick={() => router.push(`/vehicle/${uuidv4()}`)}
+                className=" text-primary-900 underline font-[600]"
+              >
+                View vehicle details
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </div>

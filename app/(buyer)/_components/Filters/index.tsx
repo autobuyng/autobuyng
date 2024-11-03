@@ -44,7 +44,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           'pt-4 px-0': isMobile,
         })}
       >
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit  ">
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2  ">
           <p className="text-xs text-neutral-400 pl-3">Vehicle Condition</p>
 
           <SelectInput
@@ -67,7 +67,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           />
         </div>
 
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit   ">
+        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2   ">
           <p className="text-xs text-neutral-400 pl-3">Mileage</p>
 
           <SelectInput
@@ -88,7 +88,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
 
         <div className="flex w-full gap-4 ">
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit  ">
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-2  ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
 
             <SelectInput
@@ -111,7 +111,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             />
           </div>
 
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-[2px] ">
+          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-2 ">
             <p className="text-xs text-neutral-400 pl-3">Max year</p>
 
             <SelectInput

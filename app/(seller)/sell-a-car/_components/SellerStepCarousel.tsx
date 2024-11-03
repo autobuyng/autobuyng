@@ -1,6 +1,14 @@
-'use client';
 import React from 'react';
 import Image from 'next/image';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 import Register from '@/app/(seller)/assets/register.svg';
 import Upload from '@/app/(seller)/assets/upload.svg';
@@ -8,11 +16,7 @@ import Inspect from '@/app/(seller)/assets/inspect.svg';
 import Sell from '@/app/(seller)/assets/wesell.svg';
 import arrow from '@/app/(seller)/assets/arrow.svg';
 
-import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-import { cn } from '@/lib/utils';
-import SellerStepCarousel from '../../sell-a-car/_components/SellerStepCarousel';
-
-const SellerStep = () => {
+const SellerStepCarousel = () => {
   const SELLER_STEP = [
     {
       id: '1',
@@ -42,42 +46,34 @@ const SellerStep = () => {
       Icon: Sell,
     },
   ];
-
   return (
-    <section className="mt-8">
-      <div className="text-center space-y-2">
-        <h1 className="font-bold text-2xl capitalize">
-          Sell with 4 <span className="text-secondary-500">Working Steps</span>
-        </h1>
-        <p className="text-neutral-700 font-bold">
-          Experience a seamless sale of your vehicle and inventory with Autobuy
-        </p>
-      </div>
-
-      <MaxWidthWrapper>
-        <div className=" hidden md:grid mt-5 w-full  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 place-items-center ">
-          {SELLER_STEP?.map((step) => (
-            <div
-              key={step.id}
-              className={cn('flex bg-red gap-2 ml-4', {
-                'mr-10': step.id === '4',
-              })}
-            >
-              <div className="  w-full">
-                <Image src={step.Icon} alt={step.text} className="" />
-                <div className="space-y-2 w-52 ">
+    <div className="flex md:hidden w-full items-center justify-center mt-6  text-center ">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay, Scrollbar, A11y]}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        spaceBetween={50}
+        slidesPerView={1}
+      >
+        {SELLER_STEP.map((step, index) => {
+          return (
+            <SwiperSlide className="md:hidden w-full flex items-center " key={index}>
+              <div className="max-w-[300px] mx-auto">
+                <Image src={step.Icon} alt={step.text} className="mx-auto" />
+                <div className="space-y-2  ">
                   <h1 className="font-bold text-xl">{step.text}</h1>
                   <p className="text-neutral-700 text-sm ">{step.desc}</p>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <SellerStepCarousel />
-      </MaxWidthWrapper>
-    </section>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
   );
 };
 
-export default SellerStep;
+export default SellerStepCarousel;

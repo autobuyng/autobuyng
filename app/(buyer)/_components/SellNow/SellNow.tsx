@@ -10,7 +10,7 @@ const SellNow = () => {
   const { isMobile } = useIsMobile();
   return (
     <MaxWidthWrapper>
-      <div className=" relative  w-full h-[360px] justify-between gap-8">
+      <div className=" relative rounded-[30px]  w-full h-[360px] justify-between gap-8">
         <Image
           src={
             isMobile
@@ -20,13 +20,13 @@ const SellNow = () => {
           width={600}
           height={360}
           alt="sell your vehicle"
-          className="rounded-lg w-full h-full  object-cover"
+          className="rounded-[30px] w-full h-full  object-cover"
         />
 
         <div className="absolute  top-0   flex w-full h-full items-center gap-8 justify-center">
           <div className="w-full hidden md:block">
             <Image
-              src="https://ik.imagekit.io/0xy9wqmrh/Autobuy/Frame%209369.png"
+              src="https://ik.imagekit.io/0xy9wqmrh/Autobuy/Frame%209369%20(1).png"
               alt="Sellers Frame"
               height={289}
               width={420}

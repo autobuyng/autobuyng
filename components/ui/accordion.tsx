@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, CircleMinus, CirclePlus } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -35,6 +35,26 @@ const AccordionTrigger = React.forwardRef<
   </AccordionPrimitive.Header>
 ));
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+
+interface CustomAccordionTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof AccordionTrigger> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const CustomAccordionTrigger = React.forwardRef<HTMLButtonElement, CustomAccordionTriggerProps>(
+  ({ children, className, ...props }, ref) => (
+    <AccordionTrigger ref={ref} className={className} {...props}>
+      {children}
+      <div className="shrink-0">
+        <CirclePlus className="h-4 w-4 transition-all group-data-[state=closed]:block group-data-[state=open]:hidden" />
+        <CircleMinus className="h-4 w-4 transition-all group-data-[state=closed]:hidden group-data-[state=open]:block" />
+      </div>
+    </AccordionTrigger>
+  ),
+);
+
+CustomAccordionTrigger.displayName = 'CustomAccordionTrigger';
 
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
