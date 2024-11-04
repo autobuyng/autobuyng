@@ -58,7 +58,7 @@ const Navbar = () => {
     {
       id: '2',
       text: 'Sell a Vehicle',
-      path: '/sell',
+      path: '/sell-a-car',
     },
     {
       id: '3',
@@ -85,15 +85,15 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center justify-between gap-8">
             {NAV_ITEMS.map(({ id, text, path }) => {
-              const isSellPath = path === 'sell';
-              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-              const href = isSellPath ? `${baseUrl}/sell` : `/${path}`;
+              // const isSellPath = path === 'sell';
+              // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+              // const href = isSellPath ? `${baseUrl}/sell` : `/${path}`;
               return (
                 <span key={id}>
                   <Link
                     className=" text-[14px]"
-                    target={isSellPath ? '_blank' : '_self'}
-                    href={href}
+                    // target={isSellPath ? '_blank' : '_self'}
+                    href={path}
                   >
                     {text}
                   </Link>

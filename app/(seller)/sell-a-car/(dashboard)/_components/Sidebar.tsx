@@ -11,7 +11,7 @@ import {
   Settings,
   Support,
   Upload,
-} from '@/app/(seller)/sell/(dashboard)/_components/Icons/icon';
+} from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 import { SIDEBAR_ITEMS_TYPES } from '@/types/types';
 import { cn } from '@/lib/utils';
 

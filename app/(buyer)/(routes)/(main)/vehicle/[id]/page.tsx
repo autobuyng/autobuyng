@@ -38,17 +38,6 @@ const VehicledetailsPage = () => {
 
   const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
 
-  // const handleSetId = () => {
-  //   setTimeout(() => {
-  //     setVehicleId('1');
-  //   }, 5000);
-  // };
-
-  // useEffect(() => {
-  //   // setVehicleId(router.query.id as string)
-  //   setVehicleId('1');
-  // }, []);
-
   const handleSignInClick = () => {
     setType('signin');
     setIsOpen(true);
@@ -162,10 +151,6 @@ const VehicledetailsPage = () => {
                             height={96}
                             className="mx-auto w-full h-full object-cover"
                           />
-
-                          <p className="absolute bottom-0 bg-primary-900 text-white w-full text-center">
-                            {vehicle.price}
-                          </p>
                         </div>
                       </div>
                     );
@@ -196,8 +181,8 @@ const VehicledetailsPage = () => {
               <div className="w-full ">{isMobile ? null : <VehicleInformation />}</div>
             </div>
 
-            <div className="h-fit  shadow-md   flex-[2] ">
-              <div className="shadow-md bg-white px-6 pb-4 pt-12">
+            <div className="h-fit  space-y-10  flex-[2] ">
+              <div className="shadow-[0px_2px_14px_0px_#0000001A] bg-white px-6 pb-4 pt-12">
                 <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
                   Autobuy Reliability Score{' '}
                 </h1>
@@ -283,11 +268,12 @@ const VehicledetailsPage = () => {
                 </div>
               </div>
 
-              <div className="bg-white shadow-md mt-6 py-4 px-6">
-                <div className="w-full space-y-4 mt-2 ">
+              <div className="bg-white shadow-[0px_2px_14px_0px_#0000001A] mt-6 py-4 px-6">
+                <div className="w-full space-y-2 mt-2 ">
+                  <h1 className="text-2xl font-bold">Proceed with your purchase</h1>
                   <p
                     onClick={handleSignInClick}
-                    className="w-full text-xs leading-[18px] max-w-full text-wrap border-2 border-primary-900 rounded-sm py-2 px-6 whitespace-nowrap "
+                    className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap "
                   >
                     Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
                     Autobuy registered outlets
@@ -295,7 +281,7 @@ const VehicledetailsPage = () => {
                   <button
                     max-
                     onClick={() => router.push('/payment/adste-te34at-4eafd')}
-                    className="w-full py-2 text-white rounded-sm border-2 bg-primary-900"
+                    className="w-full py-2 text-white rounded-sm  bg-primary-900"
                   >
                     Continue
                   </button>

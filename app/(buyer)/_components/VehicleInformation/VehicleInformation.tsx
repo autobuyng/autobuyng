@@ -1,15 +1,26 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-// import Interior from '@/app/(buyer)/assets/interior.svg';
-// import Exterior from '@/app/(buyer)/assets/exterior.svg';
-// import Drivetrain from '@/app/(buyer)/assets/Drivetrain.svg';
-// import Transmit from '@/app/(buyer)/assets/tramit.svg';
-// import Engine from '@/app/(buyer)/assets/engine.svg';
-// import Fueltype from '@/app/(buyer)/assets/Fueltype.svg';
-// import Mpg from '@/app/(buyer)/assets/Mpg.svg';
-// import Vin from '@/app/(buyer)/assets/vin.svg';
-// import Love from '@/app/(buyer)/assets/love.svg';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+
+import link from './assets/link.svg';
+import { X } from 'lucide-react';
 
 const VehicleInformation = () => {
   return (
@@ -29,8 +40,21 @@ const VehicleInformation = () => {
             <span className="text-xl font-bold tracking-wide">NGN13,000,000</span>
           </div>
 
-          <div className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
-            <span className="text-primary-900">VIN</span> <span>19XFB2F71FE246463</span>
+          <div className="flex items-center justify-between">
+            <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
+              <span className="text-primary-900">VIN</span>
+              <span>19XFB2F71FE246463</span>
+            </p>
+
+            <p className="underline text-sm text-primary-900 cursor-pointer  capitalize flex items-center ">
+              <Link
+                className="flex items-center gap-1"
+                href="/vehicle-history/45174d0d-7906-4cef-a617-904cf2a580eb"
+              >
+                view vehicle history
+                <Image src={link} alt="Link" />
+              </Link>
+            </p>
           </div>
         </div>
 
@@ -94,11 +118,11 @@ const VehicleInformation = () => {
             </div>
           </div>
 
-          <p className="underline text-sm text-primary-900 cursor-pointer mt-8 capitalize">
+          {/* <p className="underline text-sm text-primary-900 cursor-pointer mt-8 capitalize">
             <Link href="/vehicle-history/45174d0d-7906-4cef-a617-904cf2a580eb">
               view vehicle history
             </Link>
-          </p>
+          </p> */}
         </div>
 
         <div className="mt-8">
@@ -121,33 +145,85 @@ const VehicleInformation = () => {
             </div>
           </div>
 
-          <button className="border-2 mt-8 border-primary-900 text-primary-900 font-bold w-[265px] h-[48px] rounded-sm uppercase">
-            View All Features & Specs
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="border-2 mt-8 border-primary-900 text-primary-900 font-bold w-[265px] h-[48px] rounded-sm uppercase">
+                View All Features & Specs
+              </button>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent className="max-w-lg ">
+              <div className="flex items-end justify-between h-full">
+                <AlertDialogTitle className="font-bold text-primary-900">
+                  Full Features
+                </AlertDialogTitle>
+                <AlertDialogCancel className="border-none outline-none m-0">
+                  <X size={15} />
+                </AlertDialogCancel>
+              </div>
+              <p className="text-sm text-neutral-700">
+                We make every effort to provide accurate information but please verify included
+                features and equipment prior to purchase.
+              </p>
+              <div>
+                <Command>
+                  <CommandInput placeholder="Type a command or search..." />
+                  <CommandList className="max-h-[300px]">
+                    <CommandEmpty>No results found.</CommandEmpty>
+                    <CommandGroup heading="Installed Upgrades">
+                      <CommandItem>Automated Cruise Control</CommandItem>
+                      <CommandItem>Auxiliary Audio Iinputs</CommandItem>
+                      <CommandItem>Cloth Seats</CommandItem>
+                      <CommandItem>Driver Adjustable Lumbar</CommandItem>
+                      <CommandItem>Front Heat Seaters</CommandItem>
+                    </CommandGroup>
+
+                    {/* <CommandSeparator /> */}
+
+                    <CommandGroup heading="Tech">
+                      <CommandItem>Automatic Highbeams</CommandItem>
+                      <CommandItem>Blindspot Monitor</CommandItem>
+                      <CommandItem>Bluetooth Technology</CommandItem>
+                      <CommandItem>Parking Sensors</CommandItem>
+                      <CommandItem>Rear View Camera</CommandItem>
+                      <CommandItem>Remote Start</CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Interior">
+                      <CommandItem>Overhead Airbags</CommandItem>
+                      <CommandItem>Power Locks</CommandItem>
+                      <CommandItem>Power Mirror</CommandItem>
+                      <CommandItem>Power Seats</CommandItem>
+                      <CommandItem>Power Windows</CommandItem>
+                      <CommandItem>Side Airbags</CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Exterior & Mechanical">
+                      <CommandItem>ABS Brakes</CommandItem>
+                      <CommandItem>Allow Wheels</CommandItem>
+                      <CommandItem>Daytime Running Light</CommandItem>
+                      <CommandItem>Traction Control</CommandItem>
+                      <CommandItem>Automatic Transsmission</CommandItem>
+                      <CommandItem>Side Airbags</CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Conforts">
+                      <CommandItem>Air Conditoning</CommandItem>
+                      <CommandItem>Auxilliary Audio input</CommandItem>
+                    </CommandGroup>
+
+                    <CommandGroup heading="Entertainment">
+                      <CommandItem>AM/FM Stereo</CommandItem>
+                      <CommandItem>Android Auto </CommandItem>
+                      <CommandItem>Apple CarPlay</CommandItem>
+                      <CommandItem>Satellite Radio</CommandItem>
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </div>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
-
-        {/* <div className="mt-8">
-          <h1 className="py-2 font-bold text-xl">Have any question</h1>
-          <p>
-            Get answers to questions about the car, request for a detailed explanation and seek
-            professional guidance from our staffs.
-          </p>
-
-          <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">Chat with us</button>
-        </div> */}
-
-        {/* <div className="mt-8">
-          <h1 className="py-2 font-bold text-xl">Made your decision?</h1>
-          <div className="flex gap-4">
-            <button className="bg-primary-700 text-white px-3 py-1 rounded-sm">
-              Buy this car Now!
-            </button>
-            <button className="border-2 flex items-center gap-2 border-primary-700 rounded-sm px-3 py-1 text-primary-700">
-              <span>Save to Inventory</span>
-              <Image src={Love} alt="Love" />
-            </button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

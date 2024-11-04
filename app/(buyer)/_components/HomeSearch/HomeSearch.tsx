@@ -32,7 +32,7 @@ const HomeSearch = () => {
       <div className="px-4 pt-4 pb-4">
         <div className="text-center  md:text-xl">
           <h1
-            className={cn('font-bold text-primary-700 tracking-wide py-2', {
+            className={cn('font-medium text-primary-700 tracking-wide py-2', {
               'py-0': os === 'Windows',
             })}
           >
@@ -47,7 +47,7 @@ const HomeSearch = () => {
               <div
                 onClick={() => setActiveTab(category.id)}
                 className={cn(
-                  'w-full font-bold text-sm text-center py-2 cursor-pointer transition-all duration-150',
+                  'w-full font-semibold text-sm text-center py-2 cursor-pointer transition-all duration-150',
                   {
                     'border-b-[3px]  border-primary-700': isActive,
                   },
