@@ -73,7 +73,7 @@
 }
 
 .b {
-    @apply shadow-[1px_1px_16px_4px_#1F1F1F1A];
+  @apply shadow-[1px_1px_16px_4px_#1F1F1F1A];
 }
 .custom-pagination {
   display: flex;

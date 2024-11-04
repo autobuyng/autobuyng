@@ -110,7 +110,7 @@ const Seller = () => {
 
       <section className="bg-[#FFF6F0] py-10">
         <MaxWidthWrapper>
-          <h1 className=" font-bold text-2xl text-center  md:text-[42px] mt-8">
+          <h1 className=" font-bold text-2xl text-center md:text-left mb-3  md:text-[42px] mt-8">
             What Our Customers Are Saying
           </h1>
           <p className="font-medium text-center md:text-left">
@@ -141,7 +141,9 @@ const Seller = () => {
       <section className=" mt-16">
         <MaxWidthWrapper>
           <div className="text-center">
-            <h1 className=" font-bold text-2xl  md:text-[42px] mt-8">Frequently Asked Questions</h1>
+            <h1 className=" font-bold text-2xl  md:text-[42px] mt-8 mb-3">
+              Frequently Asked Questions
+            </h1>
             <p className="font-medium">Have questions? Were here to help</p>
           </div>
 
