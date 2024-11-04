@@ -114,9 +114,12 @@ const Navbar = () => {
             ) : (
               <div className="flex gap-8">
                 <button className=" text-[14px]">Login</button>
-                <button className="w-[140px] h-[42px] text-white bg-secondary-700 rounded-[8px] text-[14px]">
+                <Link
+                  href="/sell-a-car/signup"
+                  className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
+                >
                   Create Account
-                </button>
+                </Link>
               </div>
             )}
           </div>

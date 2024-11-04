@@ -1,10 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 
-import Uploads from '@/app/(seller)/sell/(dashboard)/assets/dashboardupload.svg';
-import Sales from '@/app/(seller)/sell/(dashboard)/assets/dashboardsales.svg';
-import Pending from '@/app/(seller)/sell/(dashboard)/assets/totalpendings.svg';
-import Amount from '@/app/(seller)/sell/(dashboard)/assets/dashboardtraded.svg';
+import Uploads from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardupload.svg';
+import Sales from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardsales.svg';
+import Pending from '@/app/(seller)/sell-a-car/(dashboard)/assets/totalpendings.svg';
+import Amount from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardtraded.svg';
 import StartCard from '../../_components/StartCard';
 import LineChart from '@/app/(seller)/_components/Charts/LineChart';
 import BarChart from '@/app/(seller)/_components/Charts/BarChart';
