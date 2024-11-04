@@ -32,7 +32,7 @@ const Navbar = () => {
     {
       id: '1',
       text: 'Buy a vehicle',
-      path: '/buy',
+      path: '/',
     },
     {
       id: '2',
@@ -59,7 +59,7 @@ const Navbar = () => {
               height={56}
               priority
               className="cursor-pointer"
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/sell-a-car')}
             />
           </div>
 
