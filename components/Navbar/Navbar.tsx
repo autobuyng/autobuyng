@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
-import Profile from '@/components/Navbar/assets/Profile.svg';
 
 import SignIn from '@/app/auth/SignIn/SignIn';
 import { Menu } from 'lucide-react';
