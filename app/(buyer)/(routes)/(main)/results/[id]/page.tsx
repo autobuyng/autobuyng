@@ -63,7 +63,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
   console.log(params);
   return (
-    <main>
+    <main className="mb-24">
       <div className="bg-img">
         <MaxWidthWrapper>
           <div className="text-white font-bold text-lg md:text-2xl pt-16 max-w-[275px] text-center">

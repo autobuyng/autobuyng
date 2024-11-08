@@ -85,14 +85,18 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center justify-between gap-8">
             {NAV_ITEMS.map(({ id, text, path }) => {
-              // const isSellPath = path === 'sell';
-              // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-              // const href = isSellPath ? `${baseUrl}/sell` : `/${path}`;
+              const isSellPath = path === '/sell-a-car';
+              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+              console.log(isSellPath, 'isSellPath');
+              const href = isSellPath
+                ? `${baseUrl}` // Remove the leading slash when using baseUrl
+                : `/${path}`; // Keep the leading slash for regular paths
+              console.log(href, 'href');
               return (
                 <span key={id}>
                   <Link
-                    className=" text-[14px]"
-                    // target={isSellPath ? '_blank' : '_self'}
+                    className="text-[14px]"
+                    target={isSellPath ? '_blank' : '_self'}
                     href={path}
                   >
                     {text}
@@ -106,7 +110,6 @@ const Navbar = () => {
             {user ? (
               <div className="flex items-center justify-center gap-2">
                 <p className="">Hi Jonathan</p>
-                <Image src={Profile} alt="Profile" />
 
                 <div className=" relative flex items-center">
                   {isMobile && (
@@ -125,7 +128,7 @@ const Navbar = () => {
                   {!isMobile && (
                     <Popover>
                       <PopoverTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 hover:shadow-md">
+                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
                           <Menu className="text-primary-900" />
                         </p>
                       </PopoverTrigger>

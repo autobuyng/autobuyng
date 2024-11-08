@@ -110,7 +110,7 @@ const VehicledetailsPage = () => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-32">
       <div className="hidden  min-[1124px]:flex items-center bg-[#EDF4FF80]  h-[180px]">
         <MaxWidthWrapper>
           <div>
