@@ -19,7 +19,7 @@ const Navbar = () => {
   const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
   const router = useRouter();
-  const user = false;
+  const user = true;
   const divRef = useRef<HTMLDivElement>(null);
 
   const handleClosePopover = () => {
@@ -37,7 +37,7 @@ const Navbar = () => {
     {
       id: '2',
       text: 'sell a vehicle',
-      path: '/sell',
+      path: '/sell-a-car',
     },
 
     {
@@ -66,10 +66,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center justify-between gap-8">
             {NAV_ITEMS.map(({ id, text, path }) => (
               <span key={id}>
-                <Link
-                  // target={path === '/sell' ? '_blank' : '_self'}
-                  href={path}
-                >
+                <Link target={path === '/' ? '_blank' : '_self'} href={path}>
                   {text}
                 </Link>
               </span>

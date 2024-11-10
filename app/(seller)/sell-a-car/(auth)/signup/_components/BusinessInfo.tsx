@@ -1,97 +1,217 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import Link from 'next/link';
 
 type BusinessInfoProp = {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
+  step: string;
+  selectedOption: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
 };
-const BusinessInfo = ({ step, setStep }: BusinessInfoProp) => {
+const BusinessInfo = ({ selectedOption }: BusinessInfoProp) => {
+  const passwordSchema = z.object({
+    password: z
+      .string()
+      .min(8, { message: 'Minimum 8 characters' })
+      .regex(/[A-Z]/, { message: 'At least one uppercase letter' })
+      .regex(/[a-z]/, { message: 'At least one lowercase letter' })
+      .regex(/[0-9]/, { message: 'At least one number' })
+      .regex(/^[A-Za-z0-9!@#$%^]+$/, { message: 'Only !@#$%^ special characters allowed' }),
+  });
+
+  const {
+    register,
+    watch,
+    // formState: { errors },
+  } = useForm({
+    resolver: zodResolver(passwordSchema),
+  });
+
+  const passwordValue: string = watch('password') || '';
+
+  const conditionsMet = {
+    minLength: passwordValue.length >= 8,
+    hasUppercase: /[A-Z]/.test(passwordValue),
+    hasLowercase: /[a-z]/.test(passwordValue),
+    hasNumber: /[0-9]/.test(passwordValue),
+    allowedSpecialChars: /^[A-Za-z0-9!@#$%^]+$/.test(passwordValue),
+  };
+
   return (
     <MaxWidthWrapper>
-      <div className=" w-full grid place-items-center ">
-        <div className="w-full space-y-2 pb-2">
-          <form action="" className="space-y-4">
-            <section className=" space-y-4">
-              <div>
-                <label
-                  htmlFor="businessname"
-                  className="block text-left py-1 text-sm font-medium text-neutral-500"
-                >
-                  Selected preferred option
-                </label>
-                <select
-                  className="px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
-                  name=""
-                  id=""
-                >
-                  <option value="1">First Bank</option>
-                  <option value="2">Access Bank</option>
-                </select>
-              </div>
+      {selectedOption === 'INDIVIDUAL' && (
+        <div className=" max-w-[458px] mx-auto w-full grid place-items-center ">
+          <form action="" className="w-full space-y-4 mt-4">
+            <h1 className="font-bold text-2xl text-center mb-4">Create An Account</h1>
+            <div className="w-full space-y-4">
+              <section className="flex items-center gap-4 w-full">
+                <div className="w-full  ">
+                  <label htmlFor="firstname" className="block  text-xs font-medium text-gray-700">
+                    Firstname
+                  </label>
 
-              <div>
-                <label
-                  htmlFor="businessname"
-                  className="block text-left py-1 text-sm font-medium text-neutral-500"
-                >
-                  Business Name
-                </label>
-                <div className="w-full">
                   <input
-                    type="businessname"
-                    id="businessname"
-                    placeholder="Emmanuel"
-                    className="  px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
+                    type="text"
+                    id="firstname"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label
-                  htmlFor="cac"
-                  className="block text-left py-1 text-sm font-medium text-red-500"
-                >
-                  Corporate Affairs Commission (CAC)
-                </label>
                 <div className="w-full">
+                  <label htmlFor="lastname" className="block text-xs font-medium text-gray-700">
+                    Lastname
+                  </label>
+
                   <input
-                    type="cac"
-                    id="cac"
-                    placeholder="Emmanuel"
-                    className="  px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
+                    type="text"
+                    id="lastname"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
                 </div>
-              </div>
-            </section>
+              </section>
 
-            <div className="w-full mt-4">
-              <button
-                onClick={() => setStep(step + 1)}
-                className="w-full bg-secondary-500 text-white py-2 px-4 rounded-sm"
-              >
-                Proceed
-              </button>
+              {/* <section className="flex items-center gap-4 w-full">
+                <div className="w-full">
+                  <label htmlFor="phonenumber" className="block text-xs font-medium text-gray-700">
+                    Phone number
+                  </label>
+
+                  <input
+                    type="text"
+                    id="phonenumber"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+
+                <div className="w-full">
+                  <label htmlFor="phonenumber2" className="block text-xs font-medium text-gray-700">
+                    Additional phone number
+                  </label>
+
+                  <input
+                    type="text"
+                    id="phonenumber2"
+                    placeholder=""
+                    className="mt-1 w-full  rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+              </section> */}
+
+              <section className="flex flex-col  gap-4 w-full">
+                <div className="w-full">
+                  <label htmlFor="email" className="block text-xs font-medium text-gray-700">
+                    Email Address
+                  </label>
+
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+
+                <div className="w-full">
+                  <label htmlFor="phonenumber" className="block text-xs font-medium text-gray-700">
+                    Phone number
+                  </label>
+
+                  <input
+                    type="text"
+                    id="phonenumber"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+              </section>
+
+              <section className="flex flex-col items-center gap-4 w-full">
+                <div className="w-full">
+                  <label htmlFor="phonenumber" className="block text-xs font-medium text-gray-700">
+                    NIN
+                  </label>
+
+                  <input
+                    type="text"
+                    id="phonenumber"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+
+                <div className="w-full">
+                  <label htmlFor="city" className="block text-xs font-medium text-gray-700">
+                    Password
+                  </label>
+
+                  <input
+                    type="password"
+                    {...register('password')}
+                    id="password"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
+                </div>
+              </section>
+
+              <section className="space-y-4">
+                <div className=" grid grid-cols-5 gap-2 items-center w-full">
+                  <div
+                    className={`h-1 w-full ${conditionsMet.minLength ? 'bg-red-500' : 'bg-gray-300'}`}
+                  ></div>
+                  <div
+                    className={`h-1 w-full ${conditionsMet.hasUppercase ? 'bg-red-500' : 'bg-gray-300'}`}
+                  ></div>
+                  <div
+                    className={`h-1 w-full ${conditionsMet.hasLowercase ? 'bg-red-500' : 'bg-gray-300'}`}
+                  ></div>
+                  <div
+                    className={`h-1 w-full ${conditionsMet.hasNumber ? 'bg-red-500' : 'bg-gray-300'}`}
+                  ></div>
+                  <div
+                    className={`h-1 w-full ${conditionsMet.allowedSpecialChars ? 'bg-red-500' : 'bg-gray-300'}`}
+                  ></div>
+                </div>
+                <p className="text-red-500 text-xs">
+                  Min. 8 characters, 1 uppercase, 1 lowercase, 1 number. ONLY the following
+                  characters are allowed: !@#$%^
+                </p>
+              </section>
             </div>
 
-            <div className="text-sm">
-              <p className="text-center">
-                Signing up for an Autobuy sellers account means you agree to the{' '}
-                <span className="text-secondary-700">Privacy Policy</span> and
-                <span className="text-secondary-700"> Terms of Service</span>
-              </p>
+            <div className="w-full ">
+              <div className="flex items-center  gap-4 h-full w-full">
+                <button
+                  type="submit"
+                  className="bg-secondary-500 w-full text-white rounded-sm text-center px-4 py-2"
+                >
+                  Proceed
+                </button>
+              </div>
 
-              <p className="text-center py-2">
-                Already signed up?{' '}
-                <Link href={'login'} className="text-secondary-700">
-                  <span>Log in</span>
-                </Link>
-              </p>
+              <div>
+                <p className="text-center text-sm mt-4">
+                  Signing up for an Autobuy sellers account means you agree to the{' '}
+                  <span className="text-secondary-500">Privacy Policy</span>
+                  and <span className="text-secondary-500">Terms of Service</span>
+                </p>
+                <p className="text-center text-sm mt-4">
+                  Already signed up?
+                  <Link className="text-secondary-500" href="/sell-a-car/login">
+                    Login
+                  </Link>
+                </p>
+              </div>
             </div>
           </form>
         </div>
-      </div>
+      )}
     </MaxWidthWrapper>
   );
 };

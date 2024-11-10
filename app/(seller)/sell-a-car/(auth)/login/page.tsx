@@ -1,25 +1,17 @@
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-import useDetectOS from '@/hooks/useDetectOs';
-import Google from '@/components/Navbar/assets/Google.svg';
-import Facebook from '@/components/Navbar/assets/Facebook.svg';
-import useIsMobile from '@/hooks/useIsMobile';
-import { cn } from '@/lib/utils';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const os = useDetectOS();
-  const { isMobile } = useIsMobile();
   return (
     <MaxWidthWrapper>
       <div className="w-full grid place-items-center h-full space-y-4 mt-16">
         <form action="w-full h-full border border-primary-500">
-          <div className="w-[80vw] sm:w-[510px] space-y-4 pb-2">
+          <div className="w-[80vw] sm:max-w-[458px] space-y-4 pb-2">
             <div>
               <h1 className="font-bold text-2xl py-2 text-center">Login to Autobuy</h1>
             </div>
@@ -63,7 +55,10 @@ const Login = () => {
               </div>
             </div>
 
-            <Link className="text-secondary-700 inline-block my-4" href={'/sell/forget-password'}>
+            <Link
+              className="text-secondary-700 inline-block my-4"
+              href={'/sell-a-car/forget-password'}
+            >
               Forget Password
             </Link>
 
@@ -75,7 +70,7 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="flex flex-col gap-4 w-[80vw] sm:w-[510px]">
+        {/* <div className="flex flex-col gap-4 w-[80vw] sm:w-[510px]">
           <div className="w-full flex justify-between items-center gap-[5px]">
             <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
             <span className="text-lg">or</span>
@@ -101,15 +96,15 @@ const Login = () => {
               </button>
             </div>
           </div>
+        </div> */}
 
-          <div>
-            <p className="text-center mt-2">
-              Don&apos;t have an account?{' '}
-              <Link className="text-secondary-700" href="/sell/signup">
-                signup
-              </Link>
-            </p>
-          </div>
+        <div>
+          <p className="text-center mt-2">
+            Don&apos;t have an account?{' '}
+            <Link className="text-secondary-700" href="/sell-a-car/signup">
+              signup
+            </Link>
+          </p>
         </div>
       </div>
     </MaxWidthWrapper>
