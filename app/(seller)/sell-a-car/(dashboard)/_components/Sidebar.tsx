@@ -3,8 +3,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logout from '@/app/(seller)/sell-a-car/(dashboard)/assets/logout.svg';
 
-import Logout from '@/app/(buyer)/(routes)/(dashboard)/assets/logout.svg';
 import {
   Dashboard,
   Settings,
@@ -57,10 +57,13 @@ const Sidebar = () => {
         })}
       </div>
 
-      <div className="w-[90%] mx-2  mb-2">
-        <button className="flex items-center w-44 rounded-[50px] py-2 px-4 justify-center bg-secondary-500 text-white">
+      <div className=" mb-2 p-[10px] bg-gradient-to-r from-[#E6583D] to-[#AD2910] rounded-[10px]">
+        <p className="text-xs text-white mb-3">
+          Are you done? you can take your leave through button below!
+        </p>
+        <button className="flex gap-2 items-center rounded-[6px] py-2 px-4 justify-center bg-white text-secondary-700">
           <Image src={Logout} alt="Logout" />
-          <span>Log out</span>
+          <span className="text-sm">LOG OUT</span>
         </button>
       </div>
     </main>
