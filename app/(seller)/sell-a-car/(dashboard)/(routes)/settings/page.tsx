@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import EditAddress from './_component/EditAddress';
 import EditPersonalInfo from './_component/EditPersonalInfo';
 import EditBankInfo from './_component/EditBankInfo';
-import EditPassword from './change-password/page';
 
 const Settings = () => {
   const [editPersonalInfoModal, setEditPersonalInfoModal] = useState(false);
@@ -94,8 +93,6 @@ const Settings = () => {
           editBankInfoModal={editBankInfoModal}
           setEditBankInfoModal={setEditBankInfoModal}
         />
-
-        <EditPassword />
       </main>
     </>
   );

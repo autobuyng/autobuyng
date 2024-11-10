@@ -15,7 +15,7 @@ const EditPassword = () => {
     <main>
       <div className="flex gap-2 cursor-pointer w-fit">
         <Image src={Backarrow} alt="back" width={24} height={24} />
-        <p className="text-secondary-700 font-medium text-lg">Go Back</p>
+        <p className="text-secondary-700 font-medium sm:text-lg">Go Back</p>
       </div>
 
       <MaxWidthWrapper>
@@ -23,7 +23,7 @@ const EditPassword = () => {
           <form action="w-full h-full">
             <div className="w-[80vw] sm:w-[510px] space-y-4 pb-5">
               <div className="pb-8">
-                <h1 className="font-bold text-[32px] py-2 text-secondary-700">
+                <h1 className="font-bold text-2xl sm:text-[32px] py-2 text-secondary-700">
                   Change your password
                 </h1>
                 <p className="text-neutral-700 text-sm">
