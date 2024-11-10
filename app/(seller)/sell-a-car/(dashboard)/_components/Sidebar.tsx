@@ -38,8 +38,15 @@ const Sidebar = () => {
               href={`/sell-a-car/${item.path}`}
               className="flex items-center py-2  pl-5 xl:pl-9 gap-3 hover:bg-neutral-200 w-full"
             >
-              <item.Icon classname={isActive ? '#E16045' : '#808080'} />
-              <span className={cn('capitalize font-medium', { 'text-secondary-500': isActive })}>
+              <div
+                className={cn(
+                  'h-10 w-10 flex items-center justify-center rounded-[50%] bg-secondary-100',
+                  { 'bg-white': isActive },
+                )}
+              >
+                <item.Icon classname={'#E16045'} />
+              </div>
+              <span className={cn('capitalize font-medium', { 'text-white': isActive })}>
                 {item.text}
               </span>
             </Link>
