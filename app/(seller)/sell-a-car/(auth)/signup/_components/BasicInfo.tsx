@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 
-
 import { cn } from '@/lib/utils';
 
 type BasicInfoProps = {
