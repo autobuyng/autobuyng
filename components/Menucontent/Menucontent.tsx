@@ -62,7 +62,7 @@ const Menucontent = () => {
         )} */}
 
         {user && (
-          <div className="flex flex-col gap-3 border-b border-neutral-100 pb-2">
+          <div className="flex flex-col gap-3  pb-2">
             {MENU_ITEMS.map((item) => (
               <div key={item.id} className="w-full">
                 <button

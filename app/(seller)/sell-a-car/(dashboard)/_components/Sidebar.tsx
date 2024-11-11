@@ -35,11 +35,8 @@ const Sidebar = () => {
             <Link
               prefetch={true}
               key={item.id}
-              href={item.path}
-              className={cn(
-                `flex items-center py-2  pl-5 xl:pl-9 gap-3 hover:bg-secondary-700 w-full rounded-[8px]`,
-                { 'bg-secondary-700': isActive },
-              )}
+              href={`/sell-a-car/${item.path}`}
+              className="flex items-center py-2  pl-5 xl:pl-9 gap-3 hover:bg-neutral-200 w-full"
             >
               <div
                 className={cn(
