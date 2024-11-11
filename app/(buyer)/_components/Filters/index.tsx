@@ -50,7 +50,8 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           <SelectInput
             list={[
               { id: '1', name: 'Brand new' },
-              { id: '2', name: 'Used' },
+              { id: '2', name: 'Nigerian Used' },
+              { id: '3', name: 'Foreign Used' },
             ]}
             title="Vehicle Condition"
             setSelectedInput={(input) => {
