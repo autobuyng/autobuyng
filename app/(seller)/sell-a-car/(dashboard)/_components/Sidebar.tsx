@@ -36,7 +36,9 @@ const Sidebar = () => {
               prefetch={true}
               key={item.id}
               href={`/sell-a-car/${item.path}`}
-              className="flex items-center py-2  pl-5 xl:pl-9 gap-3 hover:bg-neutral-200 w-full"
+              className={cn('flex items-center py-2  pl-2 xl:pl-5 gap-3 rounded-md  w-full', {
+                'bg-secondary-500 text-white': isActive,
+              })}
             >
               <div
                 className={cn(
@@ -54,10 +56,13 @@ const Sidebar = () => {
         })}
       </div>
 
-      <div className="w-[90%] mx-2  mb-2">
-        <button className="flex items-center w-44 rounded-[50px] py-2 px-4 justify-center bg-secondary-500 text-white">
+      <div className=" mb-2 p-[10px] bg-gradient-to-r from-[#E6583D] to-[#AD2910] rounded-[10px]">
+        <p className="text-xs text-white mb-3">
+          Are you done? you can take your leave through button below!
+        </p>
+        <button className="flex gap-2 items-center rounded-[6px] py-2 px-4 justify-center bg-white text-secondary-700">
           <Image src={Logout} alt="Logout" />
-          <span>Log out</span>
+          <span className="text-sm">LOG OUT</span>
         </button>
       </div>
     </main>
