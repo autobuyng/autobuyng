@@ -16,7 +16,6 @@ export default function RootLayout({
     <main>
       <Navbar />
       <main className="min-h-screen">{children}</main>
-
       <main className="mt-8">
         <Footer bgColor="#F7F7F7" btnColor="bg-secondary-500" />
       </main>

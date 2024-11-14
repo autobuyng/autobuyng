@@ -1,10 +1,13 @@
 name: Autobuy Tests
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+
 jobs:
+
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -25,3 +28,28 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Run linting
+      run: npm run lint
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Build application
+      run: npm run build

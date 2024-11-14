@@ -1,8 +1,13 @@
+'use client';
 import React from 'react';
+import { ArrowLeft } from 'lucide-react';
 
 const MulitipleVehicle = () => {
   return (
     <div className="mx-auto">
+      <div>
+        <ArrowLeft className=" ml-4 cursor-pointer" onClick={() => window.history.back()} />
+      </div>
       <div className=" max-w-[458px] mx-auto w-full grid place-items-center ">
         <form action="" className="w-full space-y-4 mt-4">
           <h1 className="font-bold text-2xl text-center mb-4">Book an inspection</h1>

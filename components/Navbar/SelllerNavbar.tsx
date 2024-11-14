@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
 
-import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -14,12 +13,13 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import useIsMobile from '@/hooks/useIsMobile';
 import useClickOutside from '@/hooks/useClickOutside';
 import Menucontent from '@/app/(seller)/_components/MenuContent/MenuContent';
+import { cn } from '@/lib/utils';
 
-const Navbar = () => {
+const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
   const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
   const router = useRouter();
-  const user = true;
+  const user = false;
   const divRef = useRef<HTMLDivElement>(null);
 
   const handleClosePopover = () => {
@@ -48,9 +48,13 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="h-[76px] w-full flex  items-center sticky top-0 z-20 right-0 bg-white shadow-sm">
-      <MaxWidthWrapper>
-        <nav className="flex items-center justify-between w-full ">
+    <header className="h-[76px] w-full flex bg-white items-center justify-center sticky top-0 z-20 right-0  shadow-sm">
+      <div
+        className={cn('max-w-[1244px] w-full h-full mx-auto px-4  md:px-6', {
+          'max-w-full w-full h-full': isFullWidth,
+        })}
+      >
+        <nav className="flex items-center mt-4  justify-between w-full ">
           <div className="flex items-center gap-8">
             <Image
               src={Autobuy}
@@ -109,8 +113,10 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex gap-8">
-                <button className=" text-[14px]">Login</button>
+              <div className="flex items-center gap-8">
+                <Link href="/sell-a-car/login" className=" text-[14px]">
+                  Login
+                </Link>
                 <Link
                   href="/sell-a-car/signup"
                   className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
@@ -121,7 +127,7 @@ const Navbar = () => {
             )}
           </div>
         </nav>
-      </MaxWidthWrapper>
+      </div>
     </header>
   );
 };

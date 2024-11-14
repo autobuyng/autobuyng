@@ -34,9 +34,9 @@ const SingleVehicle = () => {
       description: 'Upload your vehicle quantity',
       component: <BrandNew />,
     },
-    nigerianUsed: {
-      id: 'nigeriaused',
-      title: 'nigeriaused',
+    localUsed: {
+      id: 'localused',
+      title: 'localused',
       description: 'Upload your vehicle quantity',
       component: <NigeriaUsed />,
     },
@@ -118,7 +118,7 @@ const SingleVehicle = () => {
                   </option> */}
                   <option value="brandNew">Brand New</option>
                   <option value="foreignUsed">Foreign Used</option>
-                  <option value="nigerianUsed">Nigerian Used</option>
+                  <option value="localUsed">Local Used</option>
                 </select>
               </div>
             </section>
