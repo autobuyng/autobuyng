@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import Link from 'next/link';
@@ -12,6 +13,7 @@ type BusinessInfoProp = {
   setStep: React.Dispatch<React.SetStateAction<string>>;
 };
 const BusinessInfo = ({ selectedOption }: BusinessInfoProp) => {
+  const router = useRouter();
   const passwordSchema = z.object({
     password: z
       .string()
@@ -188,7 +190,8 @@ const BusinessInfo = ({ selectedOption }: BusinessInfoProp) => {
             <div className="w-full ">
               <div className="flex items-center  gap-4 h-full w-full">
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={() => router.push('/sell-a-car/dashboard')}
                   className="bg-secondary-500 w-full text-white rounded-sm text-center px-4 py-2"
                 >
                   Proceed

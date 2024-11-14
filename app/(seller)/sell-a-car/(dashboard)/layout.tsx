@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Navbar />
+      <Navbar isFullWidth={true} />
       <section className="w-full">
-        <main className="flex min-h-[90vh] w-full  max-w-[1336px] mx-auto">
+        <main className="flex min-h-[90vh] w-full  max-w-full mx-auto">
           <Sidebar />
           <main className="w-full h-full mt-4">{children}</main>
         </main>

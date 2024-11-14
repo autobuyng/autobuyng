@@ -13,6 +13,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
+import { BANK_LIST } from '@/lib/BankList';
 
 const EditBankInfo = ({
   editBankInfoModal,
@@ -91,16 +92,19 @@ const EditBankInfo = ({
             <h1 className="font-bold text-2xl">Add New Account</h1>
             <div className="w-full space-y-4">
               <section className="flex items-center gap-4 w-full">
-                <div className="w-full  ">
-                  <label htmlFor="bankname" className="block  text-xs font-medium text-gray-700">
-                    Bank Name
+                <div className="w-full">
+                  <label
+                    htmlFor="accountnumber"
+                    className="block text-xs font-medium text-gray-700"
+                  >
+                    Account Number
                   </label>
 
                   <input
                     type="text"
-                    id="bankname"
+                    id="accountnumber"
                     placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
               </section>
@@ -121,20 +125,23 @@ const EditBankInfo = ({
               </section>
 
               <section className="flex flex-col  gap-4 w-full">
-                <div className="w-full">
-                  <label
-                    htmlFor="accountnumber"
-                    className="block text-xs font-medium text-gray-700"
-                  >
-                    Account Number
+                <div className="w-full  ">
+                  <label htmlFor="accountname" className="block text-xs font-medium text-gray-700">
+                    Bank Name
                   </label>
-
-                  <input
-                    type="text"
-                    id="accountnumber"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
+                  <select
+                    id="bank_name"
+                    className="w-full px-1  outline-none border  border-neutral-700 sm:px-5 py-2 mb-3   rounded"
+                  >
+                    <option value="" disabled selected>
+                      Select Bank Name
+                    </option>
+                    {BANK_LIST.map((bank) => (
+                      <option key={bank.bankCode} value={bank.bankName}>
+                        {bank.bankName}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </section>
             </div>
