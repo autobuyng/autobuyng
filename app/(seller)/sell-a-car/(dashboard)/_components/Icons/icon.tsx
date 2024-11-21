@@ -108,3 +108,25 @@ export const Support = ({ classname }: any) => {
     </svg>
   );
 };
+
+export const ArrowRight = ({ classname }: any) => {
+  return (
+    <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M13 5L13.7071 4.29289L14.4142 5L13.7071 5.70711L13 5ZM1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4V6ZM9.70711 0.292893L13.7071 4.29289L12.2929 5.70711L8.29289 1.70711L9.70711 0.292893ZM13.7071 5.70711L9.70711 9.70711L8.29289 8.29289L12.2929 4.29289L13.7071 5.70711ZM13 6H1V4H13V6Z"
+        fill={classname}
+      />
+    </svg>
+  );
+};
+
+export const ArrowLeft = ({ classname }: any) => {
+  return (
+    <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2 5L1.29289 5.70711L0.585786 5L1.29289 4.29289L2 5ZM14 4C14.5523 4 15 4.44772 15 5C15 5.55228 14.5523 6 14 6L14 4ZM5.29289 9.70711L1.29289 5.70711L2.70711 4.29289L6.70711 8.29289L5.29289 9.70711ZM1.29289 4.29289L5.29289 0.292893L6.70711 1.70711L2.70711 5.70711L1.29289 4.29289ZM2 4L14 4L14 6L2 6L2 4Z"
+        fill={classname}
+      />
+    </svg>
+  );
+};

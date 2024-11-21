@@ -1,30 +1,23 @@
 'use client';
 import React, { useState } from 'react';
-
-import { DataTable } from '../../_components/DataTable';
-import { Plus } from 'lucide-react';
-import { columns, payments } from '@/constants/TableData';
 import VehicleQuantity from './_components/VehicleQuantity';
+import VehicleInventory from './_components/VehicleInventory';
 
 const Upload = () => {
   const [noVehicle] = useState<string>('2');
+  const [selectedComponent, setSelectedComponent] = useState(1);
 
   return (
     <main className="mx-4  ">
-      {noVehicle === '2' ? (
+      {noVehicle === '3' ? (
         <VehicleQuantity />
       ) : (
-        <>
-          <div className="flex items-center justify-between">
-            <h1 className="font-bold md:text-2xl">Upload</h1>
-            <button className="bg-secondary-500 text-white px-3 py-2 rounded-md whitespace-nowrap flex items-center">
-              <Plus /> <span>Add Vehicle</span>
-            </button>
-          </div>
-          <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A]   rounded-md border ">
-            <DataTable columns={columns} data={payments} />
-          </div>
-        </>
+        <div>
+          {selectedComponent === 1 && (
+            <VehicleInventory addVehicle={() => setSelectedComponent(2)} />
+          )}
+          {selectedComponent === 2 && <VehicleQuantity />}
+        </div>
       )}
     </main>
   );
