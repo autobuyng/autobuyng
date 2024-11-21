@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react';
-
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import Carouselitem from '../_components/Carousel';
