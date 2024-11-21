@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 type Payment = {
   id: string;
-  image?: string;
+  image?: string | any;
   amount: number;
   status: 'PENDING' | 'APPROVED' | 'DISAPPROVED';
   email: string;

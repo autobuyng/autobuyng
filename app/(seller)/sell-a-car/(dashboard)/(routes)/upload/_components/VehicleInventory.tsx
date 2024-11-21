@@ -23,7 +23,7 @@ const VehicleInventory = ({ addVehicle }: Props) => {
       </div>
       <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A]  rounded-md border ">
         {/* <Link href={`upload/${id}`}> */}
-        <DataTable columns={columns} data={payments} detailPage="/sell-a-car/upload" />
+        <DataTable columns={columns} data={payments} />
         {/* </Link>{' '} */}
       </div>
     </>

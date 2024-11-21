@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
@@ -26,18 +27,18 @@ const page = () => {
         <ArrowLeft className="cursor-pointer" />
         <p className="text-lg sm:text-2xl font-medium">Back</p>
       </div>
-      <section className="">
-        <div className="gap-6 cursor-pointer mb-8 ">
+      <section className="max-w-[470px]">
+        <div className="gap-6 mb-8 ">
           <div>
             <Image src={image} alt="car" height={230} width={464} className="h-[260px]" />
           </div>
 
-          <div className="max-w-[464px] pt-5 pb-1">
+          <div className="max-w-[464px] py-5">
             <Carouselitem />
           </div>
 
-          <div className="px-1.5 space-y-2 text-sm pt-2">
-            <p className="font-[700] text-2xl"> {name}</p>
+          <div className="space-y-2 text-sm pt-2">
+            <p className="font-[700] text-2xl mb-5"> {name}</p>
 
             <p>
               <span className="pr-1 font-[600] ">Exterior Color:</span> {exterior}
@@ -47,15 +48,15 @@ const page = () => {
               {interior}
             </p>
             <p>
-              <span className="pr-1 font-[600] ">Engine Type::</span>
+              <span className="pr-1 font-[600] ">Engine Type:</span>
               {engine}
             </p>
             <p>
-              <span className="pr-1 font-[600] ">Drive Train::</span>
+              <span className="pr-1 font-[600] ">Drive Train:</span>
               {drive}
             </p>
             <p>
-              <span className="pr-1 font-[600] ">Fuel Type::</span>
+              <span className="pr-1 font-[600] ">Fuel Type:</span>
               {fuel}
             </p>
             <p>
