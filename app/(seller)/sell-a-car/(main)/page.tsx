@@ -74,11 +74,41 @@ const Seller = () => {
               laoreet ultricies eget.
             </p>
           </div>
-          <div className="flex">
-            <div>
-              <Image src={Track} alt="track" width={713} height={360} />
+          <div className="flex flex-col lg:flex-row lg:h-[360px]">
+            <div className="h-full w-full lg:w-[713px]">
+              <Image
+                src={Track}
+                alt="track"
+                width={713}
+                height={360}
+                className="h-full w-full rounded-tr-[30px] lg:rounded-tr-[0px] lg:rounded-bl-[30px] rounded-bl-[0px] "
+              />
             </div>
-            <div></div>
+            <div className="bg-[#E6583D] py-6 px-10 rounded-bl-[30px] lg:rounded-bl-[0px] lg:rounded-tr-[30px] rounded-br-[30px] h-full w-full lg:max-w-[480px]">
+              <ul className="list-disc pl-1 sm:pl-5 flex flex-col gap-2 text-white">
+                <li className="">
+                  <p className="font-bold text-lg">Comprehensive Management: </p>
+                  <span className="">
+                    Beyond just selling, track every sale and expense in one streamlined platform
+                    for total control
+                  </span>
+                </li>
+                <li className="text-[#F17F5A]">
+                  <p className="font-bold text-lg"> Seamless Experience:</p>
+                  <span>
+                    Simplify vehicle sales and expense tracking with user-friendly tools designed to
+                    save you time and effort.
+                  </span>
+                </li>
+                <li className="text-[#F17F5A]">
+                  <p className="font-bold text-lg">Stay Organized: </p>
+                  <span>
+                    Keep all your sales data accessible in one place, helping you stay organized and
+                    focused on growth.
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </MaxWidthWrapper>
         <Image
