@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown, CircleMinus, CirclePlus } from 'lucide-react';
+import { ChevronDown, CircleMinus, CirclePlus, Plus } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -56,6 +56,26 @@ const CustomAccordionTrigger = React.forwardRef<HTMLButtonElement, CustomAccordi
 
 CustomAccordionTrigger.displayName = 'CustomAccordionTrigger';
 
+const AccordionTriggerTwo = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        'flex flex-1 items-center justify-between py-4 font-bold transition-all hover:underline [&[data-state=open]>svg]:rotate-45',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      <Plus className="h-4 w-4 shrink-0 transition-transform duration-200" />
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
+));
+AccordionTriggerTwo.displayName = AccordionPrimitive.Trigger.displayName;
+
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
@@ -71,4 +91,4 @@ const AccordionContent = React.forwardRef<
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionItem, AccordionTrigger, AccordionTriggerTwo, AccordionContent };

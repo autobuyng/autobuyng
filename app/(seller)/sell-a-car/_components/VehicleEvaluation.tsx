@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 import SelectInput from '@/components/SelectInput/SelectInput';
@@ -8,23 +7,30 @@ import { CAR_BRANDS, MAX_YEAR, PRICE_RANGE, YEAR } from '@/constants/constants';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 
-const VehicleEvaluation = () => {
+type Props = {
+  vehicleEvaluation: () => void;
+};
+
+const VehicleEvaluation = ({ vehicleEvaluation }: Props) => {
   const [price, setPrice] = useState<string>('');
   const [brand, setBrand] = useState<string>('');
   const [year, setYear] = useState<string>('');
-  const router = useRouter();
+  //   const router = useRouter();
   const os = useDetectOS();
 
   return (
     <div
-      className={cn('w-full min-[350px]:w-[90%] sm:w-[340px] mx-auto px-4  h-fit  bg-white', {
-        // 'h-[400px] px-0 ': os === 'Windows',
-      })}
+      className={cn(
+        'w-full min-[350px]:w-[90%] sm:w-[340px] mx-auto px-4  h-fit bg-white shadow-[1px_1px_16px_4px_#1F1F1F1A]',
+        {
+          // 'h-[400px] px-0 ': os === 'Windows',
+        },
+      )}
     >
       <div className="px-4 pt-4 pb-4">
         <div className="text-center  md:text-xl">
           <h1
-            className={cn('font-medium  tracking-wide mt-4 py-2', {
+            className={cn('font-semibold tracking-wide mt-4 py-2 text-secondary-700', {
               'py-0': os === 'Windows',
             })}
           >
@@ -113,7 +119,7 @@ const VehicleEvaluation = () => {
 
           <div className="w-full  flex items-end justify-end ">
             <button
-              onClick={() => router.push('results/make-BMW?mileage=2-598899')}
+              onClick={vehicleEvaluation}
               className={cn(
                 'bg-secondary-500 text-white font-semibold h-12 w-full rounded-[10px] flex items-center justify-center',
                 // {

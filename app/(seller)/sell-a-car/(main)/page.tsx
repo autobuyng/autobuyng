@@ -4,18 +4,18 @@ import './page.css';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SellerStep from '@/app/(seller)/_components/SellerStep/SellerStep';
-import RegistrationProcess from '@/app/(seller)/assets/registrationprocess.svg';
-import InspectionProcess from '@/app/(seller)/assets/inspectionprocess.svg';
-import SalesProcess from '@/app/(seller)/assets/salesprocess.svg';
-
-import VehicleEvaluation from '../_components/VehicleEvaluation';
+import HeroImg from '@/app/(seller)/assets/sellerimg.svg';
+import SVector from '@/app/(seller)/assets/seamlessvector.svg';
+import Track from '@/app/(seller)/assets/track.svg';
+import BgVector from '@/app/(seller)/assets/backgroundvector.svg';
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTriggerTwo,
 } from '@/components/ui/accordion';
+import ModalStepper from '../_components/ModalStepper';
 
 export const metadata = {
   title: 'Autobuy',
@@ -26,24 +26,35 @@ const Seller = () => {
   return (
     <div>
       <section className="relative w-full h-full">
-        <div className="seller-bcg grid w-full place-items-center h-[calc(100vh_-_76px)] bg-black/45">
-          <div className="absolute top-0  left-0 w-full h-full bg-black bg-opacity-45"></div>
-
+        <div className="grid w-full place-items-center h-auto md:h-[calc(100vh_-_76px)] bg-gradient-to-b from-[#FC816940] via-[#F199892D] t0-[#FFFFFF1A]">
           <MaxWidthWrapper>
-            <div className="flex z-10 relative w-full gap-4 md:gap-0 flex-col md:flex-row items-center justify-between">
-              <div className="max-w-[666px] text-center md:text-left">
-                <h1 className="font-bold text-white  min-[380px]:text-[30px]  lg:text-[60px]">
-                  Experience <span className="text-secondary-500"> Seamless</span> and
-                  <span className="text-secondary-500">Effortless</span> Transitions
-                </h1>
-                <p className="text-white md:max-w-[380px] text-sm min-[380px]:text-xl font-medium">
-                  Where Your Vehicle Finds Its Next Adventure!
-                </p>
+            <div className="flex py-6 z-10 relative w-full gap-4 flex-col md:flex-row items-center justify-around">
+              <div className="flex flex-col gap-6">
+                <div className="flex justify-center md:justify-start ">
+                  <Image src={HeroImg} alt="Image" height={200} width={200} />
+                </div>
+                <div className="max-w-[658px] text-black text-center md:text-start">
+                  <h1 className="font-bold text-3xl md:text-[40px] lg:text-[54px] leading-[40px] md:leading-[70px]">
+                    Experience a{' '}
+                    <span className="px-3 md:px-[15px] relative inline-block">
+                      seamless
+                      <Image
+                        src={SVector}
+                        alt="vector"
+                        width={275}
+                        height={100}
+                        className="absolute -top-[25%] md:-top-[4%] lg:-top-[22%] right-0 w-[98%] md:w-auto"
+                      />
+                    </span>{' '}
+                    way to showcase and sell your car.
+                  </h1>
+                  <p className="min-[380px]:text-lg mt-2">
+                    Where Your Vehicle Finds Its Next Adventure!
+                  </p>
+                </div>
               </div>
 
-              <div className="">
-                <VehicleEvaluation />
-              </div>
+              <ModalStepper />
             </div>
           </MaxWidthWrapper>
         </div>
@@ -51,61 +62,32 @@ const Seller = () => {
 
       <SellerStep />
 
-      <section className="mt-20 max-w-5xl mx-auto px-14  flex items-center justify-center">
-        <div>
-          <div className="text-center">
-            <h1 className="text-2xl md:text-3xl font-bold">How it works?</h1>
-            <p className="md:text-lg">
-              Transform your vehicle into cash with our seamless selling process!
+      <section className="my-24 relative ">
+        <MaxWidthWrapper>
+          <div className="text-center md:text-start w-full md:w-[70%] mb-12">
+            <h1 className="font-bold text-3xl md:text-[42px] md:leading-[52px] text-[#1A1A1A] mb-2">
+              You don’t just sell, we help you track and manage every sale in one place!
+            </h1>
+            <p className="text-sm md:text-base">
+              Lorem ipsum dolor sit amet consectetur. Sagittis ac nibh faucibus turpis adipiscing
+              ultricies massa. Gravida viverra nibh bibendum tortor. Non elementum ipsum etiam
+              laoreet ultricies eget.
             </p>
           </div>
-
-          <div className=" mt-5 grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 place-items-center">
-            <div className=" flex items-center justify-center">
-              <Image src={RegistrationProcess} alt="Registraiton Process" />
+          <div className="flex">
+            <div>
+              <Image src={Track} alt="track" width={713} height={360} />
             </div>
-
-            <div className=" space-y-2  ">
-              <h1 className="text-xl md:test-2xl font-bold my-2 w-full">Registration Process</h1>
-              <p className="text-sm w-full ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde cumque asperiores
-                reiciendis corrupti aliquam vitae iusto recusandae non expedita omnis.
-              </p>
-            </div>
+            <div></div>
           </div>
-
-          <div className=" mt-5 grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 place-items-center">
-            <div className=" space-y-2 max-w-[616px] order-2 md:order-1">
-              <h1 className="text-xl md:test-2xl font-bold my-2 w-full">Our Inspection Process</h1>
-              <p className="text-sm w-full ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde cumque asperiores
-                reiciendis corrupti aliquam vitae iusto recusandae non expedita omnis.
-              </p>
-              <p className="text-sm w-full">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates sit cumque
-                consequatur magnam eius ut quo distinctio architecto alias earum!
-              </p>
-            </div>
-            <div className=" flex items-center justify-center order-1 md:order-2">
-              <Image src={InspectionProcess} alt="Registraiton Process" className="w-full " />
-            </div>
-          </div>
-
-          <div className=" mt-5 grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:space-x-4 place-items-center">
-            <div className=" flex items-center justify-center">
-              <Image src={SalesProcess} alt="Registraiton Process" />
-            </div>
-            <div className=" space-y-2 max-w-[616px] ">
-              <h1 className="text-xl md:test-2xl font-bold my-2 w-full">Our sales Process</h1>
-              <p className="text-sm w-full ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam sapiente, libero
-                consectetur sit corrupti placeat iste cumque tempore laboriosam esse sequi aperiam,
-                quod optio fuga. Numquam itaque dicta ad, provident ea fuga nam ab neque consequatur
-                quos. Soluta, dignissimos dicta.
-              </p>
-            </div>
-          </div>
-        </div>
+        </MaxWidthWrapper>
+        <Image
+          src={BgVector}
+          alt="background vector"
+          height={1000}
+          width={500}
+          className="absolute -top-[40%] right-0 -z-10 hidden sm:block"
+        />
       </section>
 
       <section className="bg-[#FFF6F0] py-10">
@@ -135,80 +117,93 @@ const Seller = () => {
               </div>
             ))}
           </div>
+          <p className="underline text-secondary-700 text-lg cursor-pointer mt-3">
+            See All Reviews
+          </p>
         </MaxWidthWrapper>
       </section>
 
       <section className=" mt-16">
         <MaxWidthWrapper>
-          <div className="text-center">
-            <h1 className=" font-bold text-2xl  md:text-[42px] mt-8 mb-3">
-              Frequently Asked Questions
-            </h1>
-            <p className="font-medium">Have questions? Were here to help</p>
-          </div>
+          <div className="flex flex-col md:flex-row gap-6 md:gap-16">
+            <div className="flex justify-center">
+              <div className="text-center md:text-start max-w-[600px]">
+                <h1 className=" font-bold text-3xl md:text-[42px] md:leading-[50px] mb-3">
+                  Frequently Asked Questions
+                </h1>
+                <p className="font-medium mb-6">Have questions? Were here to help</p>
+                <button
+                  type="button"
+                  className="text-secondary-700 font-medium border border-secondary-700 rounded-[50px] px-4 py-3 w-[186px]"
+                >
+                  View All FAQs
+                </button>
+              </div>
+            </div>
 
-          <div className=" my-16">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1" className="border-secondary-500">
-                <AccordionTrigger className="hover:no-underline text-left md:text-center">
-                  How does the car inspection process work?
-                </AccordionTrigger>
-                <AccordionContent className="w-full">
-                  Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam. Nunc
-                  erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac risus
-                  dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et iaculis
-                  integer faucibus sed.
-                </AccordionContent>
-              </AccordionItem>
+            <div className="mb-16 w-full">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1" className="border-secondary-500">
+                  <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
+                    How does the car inspection process work?
+                  </AccordionTriggerTwo>
+                  <AccordionContent className="w-full">
+                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
+                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
+                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
+                    iaculis integer faucibus sed.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem className="border-secondary-500" value="item-2">
-                <AccordionTrigger className="hover:no-underline text-left md:text-center">
-                  How long does the inspection take?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam. Nunc
-                  erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac risus
-                  dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et iaculis
-                  integer faucibus sed.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem className="border-secondary-500" value="item-2">
+                  <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
+                    How long does the inspection take?
+                  </AccordionTriggerTwo>
+                  <AccordionContent>
+                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
+                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
+                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
+                    iaculis integer faucibus sed.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem className="border-secondary-500" value="item-3">
-                <AccordionTrigger className="hover:no-underline text-left md:text-center">
-                  Can I sell my car without an inspection?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam. Nunc
-                  erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac risus
-                  dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et iaculis
-                  integer faucibus sed.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem className="border-secondary-500" value="item-3">
+                  <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
+                    Can I sell my car without an inspection?
+                  </AccordionTriggerTwo>
+                  <AccordionContent>
+                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
+                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
+                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
+                    iaculis integer faucibus sed.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem className="border-secondary-500" value="item-4">
-                <AccordionTrigger className="hover:no-underline text-left md:text-center">
-                  How does the AI-generated vehicle appraisal work?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam. Nunc
-                  erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac risus
-                  dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et iaculis
-                  integer faucibus sed.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem className="border-secondary-500" value="item-4">
+                  <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
+                    How does the AI-generated vehicle appraisal work?
+                  </AccordionTriggerTwo>
+                  <AccordionContent>
+                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
+                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
+                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
+                    iaculis integer faucibus sed.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem className="border-secondary-500" value="item-5">
-                <AccordionTrigger className="hover:no-underline text-left md:text-center">
-                  What do I need to bring to the inspection appointment?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam. Nunc
-                  erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac risus
-                  dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et iaculis
-                  integer faucibus sed.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                <AccordionItem className="border-secondary-500" value="item-5">
+                  <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
+                    What do I need to bring to the inspection appointment?
+                  </AccordionTriggerTwo>
+                  <AccordionContent>
+                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
+                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
+                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
+                    iaculis integer faucibus sed.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
           </div>
         </MaxWidthWrapper>
       </section>
