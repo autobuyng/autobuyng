@@ -14,7 +14,6 @@ import {
 import { SIDEBAR_ITEMS_TYPES } from '@/types/types';
 import { cn } from '@/lib/utils';
 
-
 const Sidebar = () => {
   const SIDEBAR_ITEMS: SIDEBAR_ITEMS_TYPES = [
     { id: '1', text: 'Dashboard', path: 'dashboard', Icon: Dashboard },

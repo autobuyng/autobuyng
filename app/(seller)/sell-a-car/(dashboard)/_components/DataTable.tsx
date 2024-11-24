@@ -1,6 +1,6 @@
 'use client';
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from '@tanstack/react-table';
 
 import {
   Table,
@@ -10,10 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useRouter } from 'next/navigation';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  linkRow?: keyof TData;
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
@@ -22,6 +24,13 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const router = useRouter();
+
+  const handleClick = (row: Row<TData>) => {
+    router.push(`/sell-a-car/upload/${row.id}`);
+    console.log(row);
+  };
 
   return (
     <div className="">
@@ -46,8 +55,10 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} onClick={() => handleClick(row)}>
+                    {/* <Link href={`/sell-a-car/upload/${row.id}`}> */}
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {/* </Link> */}
                   </TableCell>
                 ))}
               </TableRow>

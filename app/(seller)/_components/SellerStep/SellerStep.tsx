@@ -6,76 +6,89 @@ import Register from '@/app/(seller)/assets/register.svg';
 import Upload from '@/app/(seller)/assets/upload.svg';
 import Inspect from '@/app/(seller)/assets/inspect.svg';
 import Sell from '@/app/(seller)/assets/wesell.svg';
-import arrow from '@/app/(seller)/assets/arrow.svg';
-
-import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-import { cn } from '@/lib/utils';
-import SellerStepCarousel from '../../sell-a-car/_components/SellerStepCarousel';
+import Itworks from '@/app/(seller)/assets/itworks.svg';
+import Itworkswide from '@/app/(seller)/assets/itworkswide.png';
 
 const SellerStep = () => {
-  const SELLER_STEP = [
-    {
-      id: '1',
-      text: 'You Register',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Suspendisse auctor volutpat sit pellentesque aliquam vitae urna.',
-      Icon: Register,
-      Icon2: arrow,
-    },
-    {
-      id: '2',
-      text: 'Your upload',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Nisl turpis nulla leo cursus lorem felis odio dolor. .',
-      Icon: Upload,
-      Icon2: arrow,
-    },
-    {
-      id: '3',
-      text: 'We inspect',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Mauris diam id tortor id nisl diam. Nisl lorem nullam adipiscing ac vulputate tortor facilisis viverra varius.',
-      Icon: Inspect,
-      Icon2: arrow,
-    },
-    {
-      id: '4',
-      text: 'We sell',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Gravida tempor semper arcu et.',
-      Icon: Sell,
-    },
-  ];
-
   return (
-    <section className="mt-8">
-      <div className="text-center space-y-2">
-        <h1 className="font-bold text-2xl capitalize">
-          Sell with 4 <span className="text-secondary-500">Working Steps</span>
-        </h1>
-        <p className="text-neutral-700 font-bold">
-          Experience a seamless sale of your vehicle and inventory with Autobuy
-        </p>
-      </div>
-
-      <MaxWidthWrapper>
-        <div className=" hidden md:grid mt-5 w-full  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 place-items-center ">
-          {SELLER_STEP?.map((step) => (
-            <div
-              key={step.id}
-              className={cn('flex bg-red gap-2 ml-4', {
-                'mr-10': step.id === '4',
-              })}
-            >
-              <div className="  w-full">
-                <Image src={step.Icon} alt={step.text} className="" />
-                <div className="space-y-2 w-52 ">
-                  <h1 className="font-bold text-xl">{step.text}</h1>
-                  <p className="text-neutral-700 text-sm ">{step.desc}</p>
+    <section className="mt-10 w-[90%] mx-auto">
+      <div className="flex justify-center w-full ">
+        <div className="max-w-[1086px]">
+          <div className="text-center mb-10">
+            <h1 className="text-3xl sm:text-[42px] font-bold mb-2 sm:mb-3">HOW IT WORKS?</h1>
+            <p className="sm:text-lg text-[#808080]">
+              Transform your vehicle into cash with our seamless selling process!
+            </p>
+          </div>
+          <div className="lg:hidden flex justify-center items-center mb-5">
+            <Image
+              src={Itworkswide}
+              alt="image"
+              width={500}
+              height={200}
+              className="hidden sm:block"
+            />
+            <Image src={Itworks} alt="image" width={350} height={438} className="block sm:hidden" />
+          </div>
+          <div className="flex sm:flex-row flex-col gap-6">
+            <div className="flex flex-col gap-10">
+              <div className="p-6 bg-white border border-[#CACACA] rounded-[15px] w-full sm:max-w-80 ">
+                <Image src={Register} alt="register" width={56} height={32} className="" />
+                <div className="space-y-2 ">
+                  <h1 className="font-bold text-lg border-l-4 border-l-secondary-700 pl-2 pt-[1.5px] my-2">
+                    Register
+                  </h1>
+                  <p className="text-neutral-700">
+                    Lorem ipsum dolor sit amet consectetur. Suspendisse auctor volutpat sit
+                    pellentesque.
+                  </p>
+                </div>
+              </div>
+              <div className="p-6 bg-white border border-[#CACACA] rounded-[15px] w-full sm:max-w-80">
+                <Image src={Inspect} alt="inspect" width={56} height={32} className="" />
+                <div className="space-y-2 ">
+                  <h1 className="font-bold text-lg border-l-4 border-l-secondary-700 pl-2 pt-[1.5px] my-2">
+                    We Inspect
+                  </h1>
+                  <p className="text-neutral-700">
+                    Lorem ipsum dolor sit amet consectetur. Suspendisse auctor volutpat sit
+                    pellentesque.
+                  </p>
                 </div>
               </div>
             </div>
-          ))}
+            <div className="hidden lg:flex justify-center items-center">
+              <Image src={Itworks} alt="image" width={350} height={438} className="" />
+            </div>
+            <div className="flex flex-col gap-10">
+              <div className="p-6 bg-white border border-[#CACACA] rounded-[15px] w-full sm:max-w-80">
+                <Image src={Upload} alt="upload" width={56} height={32} className="mb-2" />
+                <div className="space-y-2 ">
+                  <h1 className="font-bold text-lg border-l-4 border-l-secondary-700 pl-2 pt-[1.5px] my-2">
+                    Book Inspection
+                  </h1>
+                  <p className="text-neutral-700">
+                    Lorem ipsum dolor sit amet consectetur. Suspendisse auctor volutpat sit
+                    pellentesque.
+                  </p>
+                </div>
+              </div>
+              <div className="p-6 bg-white border border-[#CACACA] rounded-[15px] w-full sm:max-w-80">
+                <Image src={Sell} alt="sell" width={56} height={32} className="mb-2" />
+                <div className="space-y-2 ">
+                  <h1 className="font-bold text-lg border-l-4 border-l-secondary-700 pl-2 pt-[1.5px] my-2">
+                    Get Paid
+                  </h1>
+                  <p className="text-neutral-700">
+                    Lorem ipsum dolor sit amet consectetur. Suspendisse auctor volutpat sit
+                    pellentesque.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <SellerStepCarousel />
-      </MaxWidthWrapper>
+      </div>
     </section>
   );
 };
