@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 import {
@@ -19,14 +17,14 @@ import {
   CommandList,
 } from '@/components/ui/command';
 
-import link from './assets/link.svg';
+// import link from './assets/link.svg';
 import { X } from 'lucide-react';
 
 const VehicleInformation = () => {
   return (
     <div className="mt-4">
       <div>
-        <div className="my-2 space-y-2">
+        {/* <div className="my-2 space-y-2">
           <div className="flex items-center justify-between">
             <p className="font-[600] text-2xl">Mercedes Benz</p>
             <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
@@ -56,7 +54,7 @@ const VehicleInformation = () => {
               </Link>
             </p>
           </div>
-        </div>
+        </div> */}
 
         <div>
           <h1 className="py-2 font-bold text-xl">Overview</h1>

@@ -112,7 +112,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
               <Filters filters={filters} setFilters={setFilters} />
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
-                <SheetContent side={'top'} className="max-w-full h-screen overflow-y-auto">
+                <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <h1 className="font-bold t  border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">
                     {filterQuery.map((query) => (
@@ -132,7 +132,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
               </Sheet>
 
               <Sheet open={isMobile && isSortOpen} onOpenChange={setIsSortOpen}>
-                <SheetContent side={'top'} className="max-w-full h-screen overflow-y-auto">
+                <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <div>
                     <SelectInput
                       list={SORT_LIST}

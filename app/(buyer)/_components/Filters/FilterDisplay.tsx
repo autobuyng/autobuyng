@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import Filter from './assets/filter.svg';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
+import Sort from '@/app/(buyer)/_components/Filters/assets/sort.svg';
 
 type FilterDisplayProps = {
   isOpen: boolean;
@@ -35,7 +36,7 @@ const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
           className="flex items-center gap-2 w-fit cursor-pointer lg:cursor-default px-2 border border-neutral-700 rounded-sm"
         >
           <Image src={Filter} alt="filter" />
-          <h1 className="font-md text-xl">Filters</h1>
+          <h1 className="font-md text-sm md:text-xl">Filters</h1>
         </div>
 
         <div className="hidden md:flex items-center gap-2 flex-wrap">
@@ -59,10 +60,9 @@ const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
         </p>
       </div>
 
-      <div className="md:hidden">
-        <p onClick={() => setIsSortOpen(true)} className="underline cursor-pointer">
-          Sort
-        </p>
+      <div onClick={() => setIsSortOpen(true)} className="md:hidden flex items-center gap-1">
+        <Image src={Sort} alt="Sort" />
+        <p className="underline cursor-pointer">Sort</p>
       </div>
     </main>
   );

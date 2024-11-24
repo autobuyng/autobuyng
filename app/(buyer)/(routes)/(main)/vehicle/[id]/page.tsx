@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 import '../vehicle.css';
 import { AppContext } from '@/context/AppContext';
@@ -28,6 +29,7 @@ import Car from '../assets/car.svg';
 import Engine from '../assets/engine.svg';
 import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
+import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
@@ -176,6 +178,38 @@ const VehicledetailsPage = () => {
                 })}
               >
                 <ImageSlider ImageUrls={IMAGES} />
+              </div>
+              <div className="my-2 space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="font-[600] text-2xl">Mercedes Benz</p>
+                  <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+                    Foreign used
+                  </p>
+                </div>
+
+                <div className="space-x-1 flex items-center">
+                  <span className="text-neutral-700 font-semibold">9k miles</span>
+                  <span>|</span>
+                  <span className="text-xl font-bold tracking-wide">NGN13,000,000</span>
+                </div>
+
+                <div className="   min-[480px]:flex space-y-2 items-center justify-between">
+                  <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
+                    <span className="text-primary-900">VIN</span>
+                    <span>19XFB2F71FE246463</span>
+                  </p>
+
+                  <p className="underline text-sm text-primary-900 cursor-pointer  capitalize flex items-center ">
+                    <Link
+                      className="flex items-center gap-1"
+                      target="_blank"
+                      href="/vehicle-history/45174d0d-7906-4cef-a617-904cf2a580eb"
+                    >
+                      view vehicle history
+                      <Image src={link} alt="Link" />
+                    </Link>
+                  </p>
+                </div>
               </div>
 
               <div className="w-full ">{isMobile ? null : <VehicleInformation />}</div>

@@ -26,12 +26,12 @@ const Seller = () => {
   return (
     <div>
       <section className="relative w-full h-full">
-        <div className="grid w-full place-items-center h-auto md:h-[calc(100vh_-_76px)] bg-gradient-to-b from-[#FC816940] via-[#F199892D] t0-[#FFFFFF1A]">
+        <div className="grid w-full place-items-center h-auto md:h-[calc(100vh_-_76px)] md:max-h-[738px] bg-gradient-to-b from-[#FC816940] via-[#F199892D] t0-[#FFFFFF1A]">
           <MaxWidthWrapper>
             <div className="flex py-6 z-10 relative w-full gap-4 flex-col md:flex-row items-center justify-around">
               <div className="flex flex-col gap-6">
                 <div className="flex justify-center md:justify-start ">
-                  <Image src={HeroImg} alt="Image" height={200} width={200} />
+                  <Image src={HeroImg} alt="Image" height={150} width={150} />
                 </div>
                 <div className="max-w-[658px] text-black text-center md:text-start">
                   <h1 className="font-bold text-3xl md:text-[40px] lg:text-[54px] leading-[40px] md:leading-[70px]">

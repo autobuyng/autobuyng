@@ -45,8 +45,7 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
 
       <div className=" px-2">
         <div className="flex items-center gap-2   border-neutral-300">
-          <p className="font-[600] text-[20px] py-1">{name}</p>
-          <p>{model}</p>
+          <p className="font-[600] text-[20px] py-1">{`${name} ${model}`}</p>
         </div>
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
