@@ -6,8 +6,6 @@ import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 
-import Link from 'next/link';
-
 const AccountInfo = () => {
   const router = useRouter();
 
