@@ -71,32 +71,34 @@ const ForgotPassword = () => {
           </div>
         </MaxWidthWrapper>
       </div>
-      <div className="md:flex-[1] hidden md:block h-full">
-        <div className="flex justify-center items-center bg-secondary-700 relative min-h-[calc(100vh_-_76px)]">
-          <div className="flex flex-col items-center gap-10 z-10 relative px-10">
-            <Image src={Dashboard} alt="dashboard" width={512} height={300} className="" />
-            <div className="max-w-[600px] text-center text-white">
-              <h1 className="text-3xl font-bold">Turn your car into cash!</h1>
-              <p className="text-sm font-medium">
-                Lorem ipsum dolor sit amet consectetur. Blandit elit egestas nam dictum enim.
-                Ultrices id molestie facilisis consectetur risus massa.
-              </p>
+      <div className="md:flex-[1] hidden md:block relative h-[calc(100vh_-_76px)]">
+        <div className="fixed right-0 w-[50%] bottom-0 top-[76px] bg-secondary-700">
+          <div className="flex justify-center items-center relative h-full">
+            <div className="flex flex-col items-center gap-10 z-10 relative px-10">
+              <Image src={Dashboard} alt="dashboard" width={512} height={300} className="" />
+              <div className="max-w-[600px] text-center text-white">
+                <h1 className="text-3xl font-bold">Turn your car into cash!</h1>
+                <p className="text-sm font-medium">
+                  Lorem ipsum dolor sit amet consectetur. Blandit elit egestas nam dictum enim.
+                  Ultrices id molestie facilisis consectetur risus massa.
+                </p>
+              </div>
             </div>
+            <Image
+              src={Steptop}
+              alt="step"
+              width={260}
+              height={260}
+              className="absolute top-0 left-0"
+            />
+            <Image
+              src={Stepbottom}
+              alt="step"
+              width={260}
+              height={260}
+              className="absolute bottom-0 right-0"
+            />
           </div>
-          <Image
-            src={Steptop}
-            alt="step"
-            width={260}
-            height={260}
-            className="absolute top-0 left-0"
-          />
-          <Image
-            src={Stepbottom}
-            alt="step"
-            width={260}
-            height={260}
-            className="absolute bottom-0 right-0"
-          />
         </div>
       </div>
     </div>
