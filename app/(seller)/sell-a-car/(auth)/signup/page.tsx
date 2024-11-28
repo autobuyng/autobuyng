@@ -75,7 +75,6 @@ const Signup = () => {
                   <section>{SELECT_CONDITION[condition]?.component}</section>
                 </div>
                 <div>
-                  {' '}
                   <p className="text-center text-sm mt-4">
                     Signing up for an Autobuy sellers account means you agree to the{' '}
                     <span className="text-secondary-500">Privacy Policy</span>
