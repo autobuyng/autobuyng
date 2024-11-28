@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import Email from '@/app/(seller)/assets/email.svg';
-
 import Image from 'next/image';
 
 const EmailVerification = () => {
