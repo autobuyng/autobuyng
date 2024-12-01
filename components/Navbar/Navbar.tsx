@@ -20,6 +20,8 @@ const Navbar = () => {
   // const [hasMounted, setHasMounted] = useState(false);
   const [, setType] = useState('signin');
 
+  //   const pathname = usePathname();
+
   const router = useRouter();
   const { isMobile } = useIsMobile();
 
@@ -80,6 +82,7 @@ const Navbar = () => {
               className="cursor-pointer"
               onClick={() => router.push('/')}
             />
+            {/* <p className="text-blue-400">{pathname}</p> */}
           </div>
 
           <div className="hidden md:flex items-center justify-between gap-8">
