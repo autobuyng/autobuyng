@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import Dashboard from '@/app/(seller)/assets/dashboard.svg';
 import Steptop from '@/app/(seller)/assets/vectortop.svg';
 import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
 
@@ -72,10 +71,16 @@ const ForgotPassword = () => {
         </MaxWidthWrapper>
       </div>
       <div className="md:flex-[1] hidden md:block relative h-[calc(100vh_-_76px)]">
-        <div className="fixed right-0 w-[50%] bottom-0 top-[76px] bg-secondary-700">
+        <div className="fixed right-0 w-[50%] bottom-0 top-0 z-30 bg-secondary-700">
           <div className="flex justify-center items-center relative h-full">
             <div className="flex flex-col items-center gap-10 z-10 relative px-10">
-              <Image src={Dashboard} alt="dashboard" width={512} height={300} className="" />
+              <Image
+                src="https://ik.imagekit.io/wy2wtykti/Autobuy/image.png"
+                alt="dashboard"
+                width={512}
+                height={300}
+                className=""
+              />
               <div className="max-w-[600px] text-center text-white">
                 <h1 className="text-3xl font-bold">Turn your car into cash!</h1>
                 <p className="text-sm font-medium">
