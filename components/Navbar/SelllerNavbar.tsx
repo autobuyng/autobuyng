@@ -48,13 +48,6 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
     },
   ];
 
-  const routes = [
-    '/sell-a-car/dashboard',
-    '/sell-a-car/upload',
-    '/sell-a-car/settings',
-    '/sell-a-car/support',
-  ];
-
   return (
     <header className="h-[76px] w-full flex bg-white items-center justify-center sticky top-0 z-20 right-0  shadow-sm">
       <div
@@ -75,7 +68,7 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
             />
           </div>
           <div>
-            {routes.includes(pathname) ? null : (
+            {pathname === '/sell-a-car' ? (
               <div className="hidden md:flex items-center justify-between gap-8">
                 {NAV_ITEMS.map(({ id, text, path }) => (
                   <span key={id}>
@@ -85,28 +78,11 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
                   </span>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
 
           <div>
-            {routes.includes(pathname) ? (
-              <div className="flex gap-6">
-                <Image
-                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/Frame%209273.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className="w-[30px] sm:w-auto cursor-pointer"
-                />
-                <Image
-                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/notification.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className="w-[30px] sm:w-auto cursor-pointer"
-                />
-              </div>
-            ) : (
+            {pathname === '/sell-a-car' ? (
               <div>
                 {user ? (
                   <div className="flex items-center justify-center gap-2">
@@ -155,6 +131,23 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
                     </Link>
                   </div>
                 )}
+              </div>
+            ) : (
+              <div className="flex gap-6">
+                <Image
+                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/Frame%209273.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-[30px] sm:w-auto cursor-pointer"
+                />
+                <Image
+                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/notification.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-[30px] sm:w-auto cursor-pointer"
+                />
               </div>
             )}
           </div>
