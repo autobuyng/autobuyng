@@ -8,6 +8,7 @@ import HeroImg from '@/app/(seller)/assets/sellerimg.svg';
 import SVector from '@/app/(seller)/assets/seamlessvector.svg';
 import Track from '@/app/(seller)/assets/track.svg';
 import BgVector from '@/app/(seller)/assets/backgroundvector.svg';
+import MobilAnalytic from '@/app/(seller)/assets/mobileanalytics.svg';
 
 import {
   Accordion,
@@ -16,6 +17,7 @@ import {
   AccordionTriggerTwo,
 } from '@/components/ui/accordion';
 import ModalStepper from '../_components/ModalStepper';
+import DynamicImage from '@/components/DynamicImage/DynamicImage';
 
 export const metadata = {
   title: 'Autobuy',
@@ -33,7 +35,7 @@ const Seller = () => {
                 <div className="flex justify-center md:justify-start ">
                   <Image src={HeroImg} alt="Image" height={150} width={150} />
                 </div>
-                <div className="max-w-[658px] text-black text-center md:text-start">
+                <div className=" max-w-[398px]   min-[430px]:max-w-[658px] text-black text-center md:text-start">
                   <h1 className="font-bold text-3xl md:text-[40px] lg:text-[54px] leading-[40px] md:leading-[70px]">
                     Experience a{' '}
                     <span className="px-3 md:px-[15px] relative inline-block">
@@ -76,13 +78,18 @@ const Seller = () => {
           </div>
           <div className="flex flex-col lg:flex-row lg:h-[360px]">
             <div className="h-full w-full lg:w-[713px]">
-              <Image
+              <DynamicImage
+                desktopImg={Track}
+                mobileImg={MobilAnalytic}
+                className="h-full w-full rounded-tr-[30px] lg:rounded-tr-[0px] lg:rounded-bl-[30px] rounded-bl-[0px] "
+              />
+              {/* <Image
                 src={Track}
                 alt="track"
                 width={713}
                 height={360}
                 className="h-full w-full rounded-tr-[30px] lg:rounded-tr-[0px] lg:rounded-bl-[30px] rounded-bl-[0px] "
-              />
+              /> */}
             </div>
             <div className="bg-[#E6583D] py-6 px-10 rounded-bl-[30px] lg:rounded-bl-[0px] lg:rounded-tr-[30px] rounded-br-[30px] h-full w-full lg:max-w-[480px]">
               <ul className="list-disc pl-1 sm:pl-5 flex flex-col gap-2 text-white">
@@ -173,7 +180,7 @@ const Seller = () => {
 
             <div className="mb-16 w-full">
               <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1" className="border-secondary-500">
+                <AccordionItem value="item-1" className="border-[#E6583D66]">
                   <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
                     How does the car inspection process work?
                   </AccordionTriggerTwo>
@@ -185,7 +192,7 @@ const Seller = () => {
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem className="border-secondary-500" value="item-2">
+                <AccordionItem className="border-[#E6583D66]" value="item-2">
                   <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
                     How long does the inspection take?
                   </AccordionTriggerTwo>
@@ -197,7 +204,7 @@ const Seller = () => {
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem className="border-secondary-500" value="item-3">
+                <AccordionItem className="border-[#E6583D66]" value="item-3">
                   <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
                     Can I sell my car without an inspection?
                   </AccordionTriggerTwo>
@@ -209,7 +216,7 @@ const Seller = () => {
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem className="border-secondary-500" value="item-4">
+                <AccordionItem className="border-[#E6583D66]" value="item-4">
                   <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
                     How does the AI-generated vehicle appraisal work?
                   </AccordionTriggerTwo>
@@ -221,7 +228,7 @@ const Seller = () => {
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem className="border-secondary-500" value="item-5">
+                <AccordionItem className="border-[#E6583D66]" value="item-5">
                   <AccordionTriggerTwo className="hover:no-underline text-left md:text-center">
                     What do I need to bring to the inspection appointment?
                   </AccordionTriggerTwo>
