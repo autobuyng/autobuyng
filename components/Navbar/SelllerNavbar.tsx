@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
 
 import Autobuy from '@/app/assets/Autobuy.svg';
@@ -21,6 +21,7 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
   const router = useRouter();
   const user = false;
   const divRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const handleClosePopover = () => {
     setIsOpen(false);
@@ -47,6 +48,13 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
     },
   ];
 
+  const routes = [
+    '/sell-a-car/dashboard',
+    '/sell-a-car/upload',
+    '/sell-a-car/settings',
+    '/sell-a-car/support',
+  ];
+
   return (
     <header className="h-[76px] w-full flex bg-white items-center justify-center sticky top-0 z-20 right-0  shadow-sm">
       <div
@@ -66,63 +74,87 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
               onClick={() => router.push('/sell-a-car')}
             />
           </div>
-
-          <div className="hidden md:flex items-center justify-between gap-8">
-            {NAV_ITEMS.map(({ id, text, path }) => (
-              <span key={id}>
-                <Link target={path === '/' ? '_blank' : '_self'} href={path}>
-                  {text}
-                </Link>
-              </span>
-            ))}
+          <div>
+            {routes.includes(pathname) ? null : (
+              <div className="hidden md:flex items-center justify-between gap-8">
+                {NAV_ITEMS.map(({ id, text, path }) => (
+                  <span key={id}>
+                    <Link target={path === '/' ? '_blank' : '_self'} href={path}>
+                      {text}
+                    </Link>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
-            {user ? (
-              <div className="flex items-center justify-center gap-2">
-                <p className="">Hi Jonathan</p>
-                <div className=" relative flex items-center">
-                  {isMobile && (
-                    <Sheet>
-                      <SheetTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
-                          <Menu className="text-primary-900" />
-                        </p>
-                      </SheetTrigger>
-                      <SheetContent>
-                        <Menucontent />
-                      </SheetContent>
-                    </Sheet>
-                  )}
-
-                  {!isMobile && (
-                    <Popover>
-                      <PopoverTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
-                          <Menu className="text-primary-900" />
-                        </p>
-                      </PopoverTrigger>
-                      <PopoverContent
-                        onMouseLeave={() => setIsOpen(false)}
-                        className="max-w-[250px] mr-4 "
-                      >
-                        <Menucontent />
-                      </PopoverContent>
-                    </Popover>
-                  )}
-                </div>
+            {routes.includes(pathname) ? (
+              <div className="flex gap-6">
+                <Image
+                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/Frame%209273.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-[30px] sm:w-auto cursor-pointer"
+                />
+                <Image
+                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/notification.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="w-[30px] sm:w-auto cursor-pointer"
+                />
               </div>
             ) : (
-              <div className="flex items-center gap-8">
-                <Link href="/sell-a-car/login" className=" text-[14px]">
-                  Login
-                </Link>
-                <Link
-                  href="/sell-a-car/signup"
-                  className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
-                >
-                  Create Account
-                </Link>
+              <div>
+                {user ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <p className="">Hi Jonathan</p>
+                    <div className=" relative flex items-center">
+                      {isMobile && (
+                        <Sheet>
+                          <SheetTrigger>
+                            <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
+                              <Menu className="text-primary-900" />
+                            </p>
+                          </SheetTrigger>
+                          <SheetContent>
+                            <Menucontent />
+                          </SheetContent>
+                        </Sheet>
+                      )}
+
+                      {!isMobile && (
+                        <Popover>
+                          <PopoverTrigger>
+                            <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
+                              <Menu className="text-primary-900" />
+                            </p>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            onMouseLeave={() => setIsOpen(false)}
+                            className="max-w-[250px] mr-4 "
+                          >
+                            <Menucontent />
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-8">
+                    <Link href="/sell-a-car/login" className=" text-[14px]">
+                      Login
+                    </Link>
+                    <Link
+                      href="/sell-a-car/signup"
+                      className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
+                    >
+                      Create Account
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
           </div>
