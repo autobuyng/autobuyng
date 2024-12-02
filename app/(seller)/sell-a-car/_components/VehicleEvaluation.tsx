@@ -21,7 +21,7 @@ const VehicleEvaluation = ({ vehicleEvaluation }: Props) => {
   return (
     <div
       className={cn(
-        'w-full min-[350px]:w-[90%] sm:w-[340px] mx-auto px-4  h-fit bg-white shadow-[1px_1px_16px_4px_#1F1F1F1A]',
+        'w-full min-[350px]:w-full sm:w-[340px] mx-auto   h-fit bg-white shadow-[1px_1px_16px_4px_#1F1F1F1A]',
         {
           // 'h-[400px] px-0 ': os === 'Windows',
         },
