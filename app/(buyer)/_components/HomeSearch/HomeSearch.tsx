@@ -23,7 +23,7 @@ const HomeSearch = () => {
   return (
     <main
       className={cn(
-        'w-full min-[350px]:w-[90%] sm:w-[340px] mx-auto px-4  h-fit rounded-[20px] bg-white',
+        'w-[90%] sm:w-[340px] mx-auto px-4  h-fit rounded-[20px] bg-white relative z-10',
         {
           // 'h-[400px] px-0 ': os === 'Windows',
         },

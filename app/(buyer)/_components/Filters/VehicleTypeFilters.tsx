@@ -7,13 +7,13 @@ import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
 
 const VehicleTypeFilters = () => {
   const [, setVehicleType] = useState<string>('');
-  const [visibleCards, setVisibleCards] = useState<number>(10);
+  const [visibleCards, setVisibleCards] = useState<number>(14);
 
   const showMoreCards = () => {
     setVisibleCards(Number(VEHICLE_BRAND.length));
   };
   const showLessCards = () => {
-    setVisibleCards(10);
+    setVisibleCards(14);
   };
 
   const renderCarBrands = useCallback(
@@ -62,7 +62,7 @@ const VehicleTypeFilters = () => {
           })}
         </div>
 
-        <section className="mt-16 mb-8">
+        <section className="mt-16 mb-8 py-3">
           <div className="">
             <p className=" sm:text-[18px] text-primary-700 font-bold">CHOOSE YOUR FAVORITE BRAND</p>
             <p className="text-[10px] sm:text-sm text-neutral-700">
@@ -70,7 +70,7 @@ const VehicleTypeFilters = () => {
             </p>
           </div>
 
-          <div className="my-4 grid grid-cols-4 md:grid-cols-5 lg:grid-cols-10 gap-4 sm:gap-4 transition-all duration-150">
+          <div className="my-4 grid grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 sm:gap-4 transition-all duration-150">
             {renderCarBrands()}
           </div>
 
