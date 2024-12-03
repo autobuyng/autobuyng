@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import samlplevehicle from '@/app/(buyer)/assets/vehice1.avif';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
@@ -15,80 +15,82 @@ const Topselling = () => {
     setVisibleCar(4);
   };
 
-  const TOP_SELLING_VEHICLE = [
-    {
-      id: '1',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '2',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '3',
-      name: 'Tesla',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '4',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '5',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '6',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '7',
-      name: 'Tesla',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-    {
-      id: '8',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: samlplevehicle,
-    },
-  ];
+  const TOP_SELLING_VEHICLE = useMemo(() => {
+    return [
+      {
+        id: '1',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '2',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '3',
+        name: 'Tesla',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '4',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '5',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '6',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '7',
+        name: 'Tesla',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+      {
+        id: '8',
+        name: 'Mercedes Benz',
+        model: 'C 63',
+        price: '35,000,000',
+        mileage: '400',
+        category: 'new',
+        Img: samlplevehicle,
+      },
+    ];
+  }, []);
 
   const renderTopCars = useCallback(
     () =>
