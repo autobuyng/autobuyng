@@ -11,7 +11,7 @@ import Toyota from '@/app/(buyer)/_components/Filters/assets/toyota.svg';
 import Honda from '@/app/(buyer)/_components/Filters/assets/honda.svg';
 import Lexus from '@/app/(buyer)/_components/Filters/assets/lexus.svg';
 import Mercedes from '@/app/(buyer)/_components/Filters/assets/benz.svg';
-import Kia from '@/app/(buyer)/_components/Filters/assets/benz.svg';
+import Kia from '@/app/(buyer)/_components/Filters/assets/kia.svg';
 import Hyundai from '@/app/(buyer)/_components/Filters/assets/hyundia.svg';
 import Bmw from '@/app/(buyer)/_components/Filters/assets/bmw.svg';
 import Nissan from '@/app/(buyer)/_components/Filters/assets/nissan.svg';
@@ -239,7 +239,7 @@ export const VEHICLE_BRAND = [
   { id: '2', name: 'Honda', Img: Honda },
   { id: '3', name: 'Lexus', Img: Lexus },
   { id: '4', name: 'Mercedes-Benz', Img: Mercedes },
-  // { id: '5', name: 'Kia', Img: Kia },
+  { id: '5', name: 'Kia', Img: Kia },
   { id: '6', name: 'Hyundai', Img: Hyundai },
   { id: '7', name: 'Bmw', Img: Bmw },
   { id: '8', name: 'Nissan', Img: Nissan },

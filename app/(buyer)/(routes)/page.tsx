@@ -1,6 +1,5 @@
 import Hero from '@/app/(buyer)/_components/Hero/Hero';
 import VehicleTypeFilters from '../_components/Filters/VehicleTypeFilters';
-import Stats from '../_components/Stats/Stats';
 import Topselling from '../_components/TopSelling/Topselling';
 import Ourvalue from '../_components/Ourvalue/Ourvalue';
 import PopularVehicle from '../_components/PopularVehicle/PopularVehicle';
@@ -18,7 +17,7 @@ export default function Home() {
     <main className="w-full">
       <Hero />
       <VehicleTypeFilters />
-      <Stats />
+      {/* <Stats /> */}
       <Topselling />
       <Ourvalue />
       <HowitWorks />

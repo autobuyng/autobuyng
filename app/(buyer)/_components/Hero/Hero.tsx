@@ -2,41 +2,66 @@ import React from 'react';
 
 import './hero.css';
 import HomeSearch from '../HomeSearch/HomeSearch';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
+import Image from 'next/image';
 
 const Hero = () => {
   return (
     <main className="relative w-full min-h-full">
-      <section className="banner "></section>
-      <div className="w-full h-full sm:min-h-[90vh] md:min-h-full absolute top-0 md:top-8 z-10 bg-black/50 md:bg-transparent ">
-        <div className=" w-full sm:max-w-[1336px] md:px-6 mx-auto h-screen md:h-[83vh] relative flex items-start md:items-center justify-center ">
-          <div className=" w-full h-full md:max-h-[720px] md:h-full relative md:rounded-[30px] bg-black/55">
-            <video
-              src={
-                'https://ik.imagekit.io/0xy9wqmrh/Autobuy/autobuygif.mp4?updatedAt=1727266609367'
-              }
-              autoPlay
-              loop
-              muted
-              color="bg-black/50"
-              className=" absolute top-0 w-full h-[35vh] md:h-full object-cover md:rounded-[30px] bg-opacity-50 z-[-1]"
-            />
-          </div>
+      <div className="w-full h-full">
+        <MaxWidthWrapper>
+          <div className="w-full h-auto md:h-[90vh] md:max-h-[700px] flex flex-col md:flex-row gap-6 md:gap-0">
+            <div className="flex-[1] relative w-full h-full mt-16 md:mt-5 flex items-center">
+              <div className="flex flex-col gap-12 sm:gap-16">
+                <div className="text-center md:text-start">
+                  <h1 className="text-2xl min-[375px]:text-3xl sm:text-[42px] lg:text-[52px] font-bold text-black w-full md:max-w-[587px] sm:leading-[52px] lg:leading-[66px] sm:tracking-wide">
+                    The <span className="text-primary-900">Smartest </span>way to buy a car with{' '}
+                    <span className="text-primary-900">Confidence.</span>
+                  </h1>
+                  <p className="text-[#1A1A1ACC] text-sm min-[375px]:text-base sm:text-lg mt-1">
+                    Lorem ipsum dolor sit amet consectetur. Auctor sed adipiscing aliquet porttitor.
+                    Tempus enim egestas in arcu neque massa morbi augue gravida.
+                  </p>
+                </div>
+                <div className="flex gap-8 sm:gap-10 mx-auto md:mx-0">
+                  <div className="">
+                    <h1 className="text-[32px] sm:text-5xl lg:text-[60px] lg:leading-[80px] font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#0073E6] via-[#0661BC] to-[#0E4984]">
+                      99.9%
+                    </h1>
+                    <p className="text-sm min-[375px]:text-base sm:text-lg">
+                      Client Satisfaction rate
+                    </p>
+                  </div>
+                  <div className="">
+                    <h1 className="text-[32px] sm:text-5xl lg:text-[60px] lg:leading-[80px] font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#0073E6] via-[#0661BC] to-[#0E4984]">
+                      200+
+                    </h1>
+                    <p className="text-sm min-[375px]:text-base sm:text-lg">Our Inventory</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute top-0 right-0 bottom-0 flex items-center ">
+                <Image
+                  src="https://ik.imagekit.io/wy2wtykti/Autobuy/car_vector?updatedAt=1733177744876"
+                  alt="car-vector"
+                  width={449}
+                  height={334}
+                />
+              </div>
+            </div>
 
-          <div className=" absolute left-0 top-0 flex flex-col md:flex-row items-center justify-center w-full h-full sm:gap-8">
-            <div className=" flex-[3] md:flex-[1]  w-full md:w-fit h-full sm:static  md:ml-12 sm:mr-0 flex  md:items-center justify-center md:justify-start order-2 md:order-1">
+            <div className="flex-[1] h-full flex items-center justify-center relative py-5 bg-cyan-300">
               <HomeSearch />
-            </div>
-
-            <div className=" flex-[1] md:flex-[3]  flex flex-col items-center justify-start sm:justify-center w-full text-center order-1 md:order-2  h-full">
-              <h1 className=" mt-8 sm:mt-0  min-[375px]:text-xl sm:text-2xl  md:text-[36px]  lg:text-[48px] font-bold text-white max-w-[300px] sm:max-w-[400px] md:max-w-[700px] sm:leading-[3rem] sm:tracking-wide  py-2 ">
-                AutoBuy the Smarter Way to Buy a Car with confidence
-              </h1>
-              <p className="text-white font-semibold text-lg">
-                Buy or <span className="text-secondary-500">Sell</span> with us in minutes!
-              </p>
+              <Image
+                src="https://ik.imagekit.io/wy2wtykti/Autobuy/Frame%201261156761"
+                alt="background"
+                width={1000}
+                height={700}
+                className="absolute top-0 h-full"
+              />
             </div>
           </div>
-        </div>
+        </MaxWidthWrapper>
       </div>
     </main>
   );
