@@ -113,7 +113,7 @@ const Topselling = () => {
     <MaxWidthWrapper>
       <div className="mt-14 mb-10 py-3">
         <div className="text-center">
-          <h1 className=" font-bold text-neutral-900 textlg sm:text-3xl">
+          <h1 className=" font-bold text-neutral-900 text-2xl sm:text-3xl">
             Our Top Selling Vehicle
           </h1>
           <p className="text-[10px] sm:text-sm text-neutral-700">
