@@ -47,7 +47,7 @@ const Ourvalue = () => {
     <MaxWidthWrapper>
       <div className="mb-8 relative">
         <div className="text-center w-full md:absolute  md:top-8  ">
-          <h1 className="font-semibold text-center sm:text-2xl lg:text-4xl max-w-[45rem] mx-auto">
+          <h1 className="font-semibold text-center text-2xl lg:text-4xl max-w-[45rem] mx-auto">
             We Are Committed To Delivering A Superior Customer Experience
           </h1>
         </div>
