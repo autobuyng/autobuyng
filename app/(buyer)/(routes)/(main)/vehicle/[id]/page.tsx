@@ -356,7 +356,13 @@ const VehicledetailsPage = () => {
         </MaxWidthWrapper>
       </div>
 
-      <SignIn isOpen={isOpen} handleOpenChange={handleOpenChange} type={type} setType={setType} />
+      <SignIn
+        isOpen={isOpen}
+        handleOpenChange={handleOpenChange}
+        setIsOpen={setIsOpen}
+        type={type}
+        setType={setType}
+      />
 
       <AppraisalForm isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
