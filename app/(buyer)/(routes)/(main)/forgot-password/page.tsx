@@ -1,11 +1,40 @@
+'use client';
+import { useForgotPassword } from '@/app/(buyer)/api/auth';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
+import { useToast } from '@/hooks/use-toast';
+
+import { Loader } from 'lucide-react';
 import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const ForgotPassword = () => {
+  const { toast } = useToast();
+  const { register, handleSubmit } = useForm<{ email: string }>();
+
+  const { forgotPassword, isPending } = useForgotPassword();
+
+  const handleForgotPassword: SubmitHandler<{ email: string }> = async (data) => {
+    try {
+      const response = await forgotPassword(data);
+      toast({
+        title: 'Success',
+        description: response.data.message,
+      });
+
+      console.log(response);
+    } catch (error) {
+      toast({
+        title: 'failed',
+        description: 'Something went wrong',
+      });
+      console.log(error);
+    }
+  };
+
   return (
     <MaxWidthWrapper>
-      <div className="w-full grid place-items-center min-h-[80vh]">
-        <form action="">
+      <div className="w-full grid place-items-center min-h-[95vh]">
+        <form onSubmit={handleSubmit(handleForgotPassword)}>
           <div className="max-w-[510px] space-y-4 pb-5 border-b-2 border-neutral-300">
             <div>
               <h1 className="font-bold text-2xl py-2">Forgot your password?</h1>
@@ -23,6 +52,7 @@ const ForgotPassword = () => {
                 Email
               </label>
               <input
+                {...register('email')}
                 type="email"
                 id="email"
                 placeholder="abc@gmail.com"
@@ -32,7 +62,7 @@ const ForgotPassword = () => {
 
             <div className="w-full ">
               <button className="w-full bg-primary-700 mt-2 text-white px-3 py-3 rounded-sm font-bold">
-                Proceed
+                {isPending ? <Loader className="animate-spin mx-auto" /> : 'Proceed'}
               </button>
             </div>
           </div>

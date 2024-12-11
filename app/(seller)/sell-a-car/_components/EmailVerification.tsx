@@ -6,6 +6,7 @@ import Email from '@/app/(seller)/assets/email.svg';
 import Image from 'next/image';
 
 const EmailVerification = () => {
+
   return (
     <Dialog>
       <DialogTrigger asChild>

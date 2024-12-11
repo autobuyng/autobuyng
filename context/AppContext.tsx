@@ -26,7 +26,7 @@ const initialAppState: AppContextTypes = {
 export const AppContext = createContext<AppContextTypes>(initialAppState);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const [moreVehicle, setMoreVehicles] = useState('');
   const [vehicleId, setVehicleId] = useState('');
   const [vehicleList, setVehicleList] = useState<VEHICLE_SEARCH_RESULTS_PROPS[]>([]);

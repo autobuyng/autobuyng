@@ -1,15 +1,22 @@
 'use client';
-import Image from 'next/image';
-import { useContext } from 'react';
+// import { useContext } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import Google from '@/components/Navbar/assets/Google.svg';
-import Facebook from '@/components/Navbar/assets/Facebook.svg';
+// import Google from '@/components/Navbar/assets/Google.svg';
+// import Facebook from '@/components/Navbar/assets/Facebook.svg';
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import useDetectOS from '@/hooks/useDetectOs';
+// import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
-import useIsMobile from '@/hooks/useIsMobile';
+// import useIsMobile from '@/hooks/useIsMobile';
 import { AppContext } from '@/context/AppContext';
+import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
+import { useLogin } from '@/app/(buyer)/api/auth';
+import { Loader } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
 // import { USER } from '@/constants/constants';
 
 const SignIn = ({
@@ -17,90 +24,124 @@ const SignIn = ({
   handleOpenChange,
   type,
   setType,
+  setIsOpen,
 }: {
   isOpen: boolean;
   handleOpenChange: () => void;
   type: string;
   setType: React.Dispatch<React.SetStateAction<string>>;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const os = useDetectOS();
-  const { isMobile } = useIsMobile();
-  const { setUser, user } = useContext(AppContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginPayload>({
+    resolver: zodResolver(LoginSchema),
+  });
+
+  const { toast } = useToast();
+  console.log(errors, 'errors');
+  // const os = useDetectOS();
+  // const { isMobile } = useIsMobile();
+  const { user } = useContext(AppContext);
+  const router = useRouter();
+
+  const { login, isLoggingIn } = useLogin();
+
+  console.log(type, 'type');
+
+  const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
+    console.log('signin');
+
+    try {
+      const response = await login(data);
+      if (response.status === true) {
+        toast({
+          title: 'Success',
+          description: response.data.message,
+        });
+      }
+      setIsOpen(false);
+    } catch (error: any) {
+      toast({
+        title: 'Failed',
+        description: error.message,
+      });
+    }
+    console.log(data);
+    // Implement your registration logic here
+  };
 
   return (
     <div>
-      <Dialog open={isOpen && !user} onOpenChange={handleOpenChange}>
-        <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
-          <DialogTitle className="text-center">
-            <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
-              {type === 'signin' ? 'Log in' : 'Create your Account'}
-            </h1>
-          </DialogTitle>
-          <DialogDescription className="-mt-8 w-full">
-            <form action="">
-              <div className="space-y-4 w-full mx-auto">
-                {type === 'signup' && (
+      {type === 'signin' && (
+        <Dialog open={isOpen && !user} onOpenChange={handleOpenChange}>
+          <DialogContent className=" max-w-[90%] mx-auto sm:max-w-[552px] ">
+            <DialogTitle className="text-center">
+              <h1 className="text-2xl md:text-3xl text-primary-700 py-4">
+                {type === 'signin' ? 'Log in' : 'Create your Account'}
+              </h1>
+            </DialogTitle>
+            <DialogDescription className="-mt-8 w-full">
+              <form onSubmit={handleSubmit(handleLoginUser)}>
+                <div className="space-y-4 w-full mx-auto">
                   <div>
                     <label
-                      htmlFor="UserEmail"
+                      // htmlFor="UserEmail"
                       className="block text-left text-xs font-medium text-gray-700"
                     >
-                      FullName
+                      Email
                     </label>
                     <input
-                      type="text"
-                      id="fullName"
-                      placeholder="Tosin kadiri"
-                      className="mt-1 block w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
+                      {...register('email')}
+                      type="email"
+                      id="email"
+                      placeholder="tosinkadiri@gmail.com"
+                      className={cn(
+                        'mt-1 w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                        { 'border border-red-500': errors.email },
+                      )}
                     />
                   </div>
-                )}
 
-                <div>
-                  <label
-                    htmlFor="UserEmail"
-                    className="block text-left text-xs font-medium text-gray-700"
+                  <div>
+                    <label
+                      // htmlFor="password"
+                      className="block text-left text-xs font-medium text-gray-700"
+                    >
+                      Password
+                    </label>
+                    <input
+                      {...register('password')}
+                      type="password"
+                      id="password"
+                      placeholder="******"
+                      className={cn(
+                        'mt-1 w-full py-1.5 px-2 rounded-md outline-none border border-neutral-700 shadow-sm sm:text-sm',
+                        { 'border border-red-500': errors.password },
+                      )}
+                    />
+                    {errors.password && (
+                      <p className="text-xs text-red-500">{errors.password.message}</p>
+                    )}
+                  </div>
+                  <p
+                    onClick={() => {
+                      router.push('/forgot-password');
+                      setIsOpen(false);
+                    }}
+                    className="text-xs text-primary-700 cursor-pointer"
                   >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="tosinkadiri@gmail.com"
-                    className="mt-1 w-full py-3 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm"
-                  />
-                </div>
+                    Forgot password
+                  </p>
 
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-left text-xs font-medium text-gray-700"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="******"
-                    className="mt-1 w-full py-3 px-2 rounded-md outline-none border border-neutral-700 shadow-sm sm:text-sm"
-                  />
-                </div>
-                <p className="text-xs">
-                  {type === 'signin'
-                    ? 'forgot password '
-                    : "By signing up, you confirm that you've read and accepted our  and Privacy Policy."}
-                </p>
+                  <div className="w-full">
+                    <button className="w-full bg-primary-700 rounded-md py-3 text-white">
+                      {isLoggingIn ? <Loader className="animate-spin mx-auto w" /> : 'Log in'}
+                    </button>
+                  </div>
 
-                <div className="w-full">
-                  <button
-                    onClick={() => setUser(true)}
-                    className="w-full bg-primary-700 rounded-md py-3 text-white"
-                  >
-                    {type === 'signin' ? 'Log in' : 'Create Account'}
-                  </button>
-                </div>
-
-                {type === 'signin' ? (
                   <p>
                     Don&apos;t have an account?{' '}
                     <span
@@ -110,21 +151,10 @@ const SignIn = ({
                       SignUp
                     </span>
                   </p>
-                ) : (
-                  <p>
-                    Already have an account?{' '}
-                    <span
-                      onClick={() => setType('signin')}
-                      className="text-primary-500 cursor-pointer"
-                    >
-                      Login in
-                    </span>
-                  </p>
-                )}
-              </div>
-            </form>
+                </div>
+              </form>
 
-            <div className="flex flex-col gap-4">
+              {/* <div className="flex flex-col gap-4">
               <div className="w-full flex justify-between items-center gap-[5px]">
                 <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
                 <span className="text-lg">or</span>
@@ -150,10 +180,11 @@ const SignIn = ({
                   </button>
                 </div>
               </div>
-            </div>
-          </DialogDescription>
-        </DialogContent>
-      </Dialog>
+            </div> */}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };

@@ -14,11 +14,12 @@ import Menucontent from '../Menucontent/Menucontent';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
 import { AppContext } from '@/context/AppContext';
+import SignUp from '@/app/auth/SignUp/SignUp';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const [hasMounted, setHasMounted] = useState(false);
-  const [, setType] = useState('signin');
+  const [type, setType] = useState('');
 
   const router = useRouter();
   const { isMobile } = useIsMobile();
@@ -43,10 +44,11 @@ const Navbar = () => {
     setType('signin');
   };
 
-  const handleSignInClick = () => {
-    setIsOpen(true);
-    setType('signin');
-  };
+  // const handleSignInClick = () => {
+  //   console.log('click');
+  //   setIsOpen(true);
+  //   setType('signin');
+  // };
 
   const NAV_ITEMS = [
     {
@@ -147,7 +149,10 @@ const Navbar = () => {
                   Login
                 </button>
                 <button
-                  onClick={handleSignInClick}
+                  onClick={() => {
+                    setType('signup');
+                    setIsOpen(true);
+                  }}
                   className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
                 >
                   Create Account
@@ -160,8 +165,16 @@ const Navbar = () => {
         <SignIn
           isOpen={isOpen}
           handleOpenChange={handleOpenChange}
-          type={'signin'}
+          type={type}
           setType={setType}
+          setIsOpen={setIsOpen}
+        />
+        <SignUp
+          isOpen={isOpen}
+          handleOpenChange={handleOpenChange}
+          type={type}
+          setType={setType}
+          setIsOpen={setIsOpen}
         />
       </MaxWidthWrapper>
     </header>

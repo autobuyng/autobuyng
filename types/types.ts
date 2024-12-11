@@ -51,3 +51,18 @@ export type SIDEBAR_ITEMS_TYPES = {
   path: string;
   Icon: (color: any) => JSX.Element;
 }[];
+
+
+export type ILoginPayload = {
+  email: string;
+  password: string;
+};
+
+export type IAccountCreationResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    message: string;
+  };
+};
+
