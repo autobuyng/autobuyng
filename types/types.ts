@@ -52,7 +52,6 @@ export type SIDEBAR_ITEMS_TYPES = {
   Icon: (color: any) => JSX.Element;
 }[];
 
-
 export type ILoginPayload = {
   email: string;
   password: string;
@@ -65,4 +64,3 @@ export type IAccountCreationResponse = {
     message: string;
   };
 };
-
