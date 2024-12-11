@@ -148,16 +148,16 @@ const AccountInfo = () => {
             <section className="space-y-4">
               <div className=" grid grid-cols-5 gap-2 items-center w-full">
                 <div
-                  className={`h-1 w-full ${conditionsMet.minLength ? 'bg-red-500' : 'bg-gray-300'}`}
+                  className={`h-1 w-full ${conditionsMet.minLength ? 'bg-green-500' : 'bg-gray-300'}`}
                 ></div>
                 <div
-                  className={`h-1 w-full ${conditionsMet.hasUppercase ? 'bg-red-500' : 'bg-gray-300'}`}
+                  className={`h-1 w-full ${conditionsMet.hasUppercase ? 'bg-green-500' : 'bg-gray-300'}`}
                 ></div>
                 <div
-                  className={`h-1 w-full ${conditionsMet.hasLowercase ? 'bg-red-500' : 'bg-gray-300'}`}
+                  className={`h-1 w-full ${conditionsMet.hasLowercase ? 'bg-green-500' : 'bg-gray-300'}`}
                 ></div>
                 <div
-                  className={`h-1 w-full ${conditionsMet.hasNumber ? 'bg-red-500' : 'bg-gray-300'}`}
+                  className={`h-1 w-full ${conditionsMet.hasNumber ? 'bg-green-500' : 'bg-gray-300'}`}
                 ></div>
                 <div
                   className={`h-1 w-full ${conditionsMet.allowedSpecialChars ? 'bg-red-500' : 'bg-gray-300'}`}
