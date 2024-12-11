@@ -98,7 +98,13 @@ const Menucontent = () => {
         )}
       </div>
 
-      <SignIn isOpen={isOpen} handleOpenChange={handleOpenChange} type={type} setType={setType} />
+      <SignIn
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        handleOpenChange={handleOpenChange}
+        type={type}
+        setType={setType}
+      />
     </div>
   );
 };
