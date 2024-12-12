@@ -15,7 +15,6 @@ import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/Veh
 import sampleVehicle from '@/app/(buyer)/assets/vehice1.avif';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
-import SignIn from '@/app/auth/SignIn/SignIn';
 import useDetectOS from '@/hooks/useDetectOs';
 import { cn } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
@@ -30,6 +29,7 @@ import Engine from '../assets/engine.svg';
 import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
+import AuthDialog from '@/app/auth';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
@@ -356,7 +356,7 @@ const VehicledetailsPage = () => {
         </MaxWidthWrapper>
       </div>
 
-      <SignIn
+      <AuthDialog
         isOpen={isOpen}
         handleOpenChange={handleOpenChange}
         setIsOpen={setIsOpen}
