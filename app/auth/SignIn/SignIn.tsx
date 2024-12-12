@@ -13,7 +13,13 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-const SignIn = ({ setType }: { setType: React.Dispatch<React.SetStateAction<string>> }) => {
+const SignIn = ({
+  setType,
+  setIsOpen,
+}: {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setType: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const {
     register,
     handleSubmit,
@@ -43,7 +49,7 @@ const SignIn = ({ setType }: { setType: React.Dispatch<React.SetStateAction<stri
           description: response.data.message,
         });
       }
-      // setIsOpen(false);
+      setIsOpen(false);
     } catch (error: any) {
       toast({
         title: 'Failed',

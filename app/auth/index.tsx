@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-import Verification from './verification/page';
+import Verification from './Verification/Verification';
 import { IRegistrationPayload } from '@/Schema/authSchema';
 
 export default function AuthDialog({
@@ -19,6 +19,7 @@ export default function AuthDialog({
   handleOpenChange,
   type,
   setType,
+  setIsOpen,
 }: {
   isOpen: boolean;
   handleOpenChange: () => void;
@@ -30,7 +31,7 @@ export default function AuthDialog({
   const renderContent = () => {
     switch (type) {
       case 'signin':
-        return <SignIn setType={setType} />;
+        return <SignIn setType={setType} setIsOpen={setIsOpen} />;
       case 'signup':
         return <SignUp setType={setType} setSignupData={setSignupData} />;
       case 'verification':
