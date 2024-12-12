@@ -31,8 +31,7 @@ export default function VerifyEmailPage() {
     } catch (error: any) {
       setData(error);
       toast({
-        title: 'Success',
-        description: error.message,
+        description: error.message || 'Something went wrong',
       });
     }
   };

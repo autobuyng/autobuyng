@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation';
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
 
-import SignIn from '@/app/auth/SignIn/SignIn';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import Menucontent from '../Menucontent/Menucontent';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
 import { AppContext } from '@/context/AppContext';
-import SignUp from '@/app/auth/SignUp/SignUp';
+
+import AuthDialog from '@/app/auth';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,14 +26,6 @@ const Navbar = () => {
 
   const { user } = useContext(AppContext);
   console.log(user, 'user');
-
-  // useEffect(() => {
-  //   setHasMounted(true);
-  // }, []);
-
-  // if (!hasMounted) {
-  //   return null;
-  // }
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -162,7 +154,15 @@ const Navbar = () => {
           </div>
         </nav>
 
-        <SignIn
+        <AuthDialog
+          isOpen={isOpen}
+          handleOpenChange={handleOpenChange}
+          type={type}
+          setType={setType}
+          setIsOpen={setIsOpen}
+        />
+
+        {/* <SignIn
           isOpen={isOpen}
           handleOpenChange={handleOpenChange}
           type={type}
@@ -176,6 +176,14 @@ const Navbar = () => {
           setType={setType}
           setIsOpen={setIsOpen}
         />
+
+        <Verification
+          isOpen={isOpen}
+          handleOpenChange={handleOpenChange}
+          type={type}
+          setType={setType}
+          setIsOpen={setIsOpen}
+        /> */}
       </MaxWidthWrapper>
     </header>
   );

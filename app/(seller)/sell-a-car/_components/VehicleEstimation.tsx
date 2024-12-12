@@ -10,7 +10,7 @@ type Props = {
 
 const VehicleEstimation = ({ vehicleEstimate }: Props) => {
   return (
-    <div className="w-full min-[350px]:w-[90%] sm:w-[340px] mx-auto  py-8 h-fit text-black bg-white shadow-[1px_1px_16px_4px_#1F1F1F1A] text-sm">
+    <div className="w-full min-[370px]:w-[90%] sm:w-[340px] mx-auto  py-8 h-fit text-black bg-white shadow-[1px_1px_16px_4px_#1F1F1F1A] text-sm px-8">
       <h1 className="font-semibold mb-1 text-2xl text-center">Your estimated price</h1>
       <div className="flex justify-center">
         <Image src={Frame} alt="vector" width={147} height={28} className="h-6" />
