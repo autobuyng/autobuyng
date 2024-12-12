@@ -4,11 +4,11 @@ import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-import SignIn from '@/app/auth/SignIn/SignIn';
 import Profile from '@/components/Navbar/assets/Profile.svg';
 import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
 import { AppContext } from '@/context/AppContext';
+import AuthDialog from '@/app/auth';
 
 const Menucontent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +98,7 @@ const Menucontent = () => {
         )}
       </div>
 
-      <SignIn
+      <AuthDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         handleOpenChange={handleOpenChange}
