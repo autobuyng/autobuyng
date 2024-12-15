@@ -48,45 +48,45 @@ const Signup = () => {
         <MaxWidthWrapper>
           <section className="min-h-[calc(100vh_-_76px)] w-full">
             <div className="max-w-[458px] mx-auto w-full my-8">
-              <form action="" className="w-full space-y-4 mt-4">
-                <h1 className="font-bold text-2xl text-center mb-4">Create An Account</h1>
-                <div className="w-full space-y-4">
-                  <section className="w-full mt-10 px-3 sm:px-5">
-                    <label htmlFor="condition" className="text-sm text-[#4D4C4C]">
-                      Select your preferred option
-                    </label>
-                    <select
-                      id="condition"
-                      name="condition"
-                      value={condition}
-                      onChange={handleChange}
-                      className="block w-full rounded px-4 py-[9px] mt-1 bg-white border border-black outline-none shadow-none"
-                    >
-                      <option value="" className="text-neutral-300">
-                        Are you an Individual or Business owner
-                      </option>
-                      <option value="individual">Individual</option>
-                      <option value="business">Business Owner</option>
-                    </select>
-                  </section>
-                  <Separator />
+              {/* <form action="" className="w-full space-y-4 mt-4"> */}
+              <h1 className="font-bold text-2xl text-center mb-4">Create An Account</h1>
+              <div className="w-full space-y-4">
+                <section className="w-full mt-10 px-3 sm:px-5">
+                  <label htmlFor="condition" className="text-sm text-[#4D4C4C]">
+                    Select your preferred option
+                  </label>
+                  <select
+                    id="condition"
+                    name="condition"
+                    value={condition}
+                    onChange={handleChange}
+                    className="block w-full rounded px-4 py-[9px] mt-1 bg-white border border-black outline-none shadow-none"
+                  >
+                    <option value="" className="text-neutral-300">
+                      Are you an Individual or Business owner
+                    </option>
+                    <option value="individual">Individual</option>
+                    <option value="business">Business Owner</option>
+                  </select>
+                </section>
+                <Separator />
 
-                  <section>{SELECT_CONDITION[condition]?.component}</section>
-                </div>
-                <div>
-                  <p className="text-center text-sm mt-4">
-                    Signing up for an Autobuy sellers account means you agree to the{' '}
-                    <span className="text-secondary-500">Privacy Policy</span>
-                    and <span className="text-secondary-500">Terms of Service</span>
-                  </p>
-                  <p className="text-center text-sm mt-4">
-                    Already have an account?{' '}
-                    <Link className="text-secondary-500" href="/sell-a-car/login">
-                      Login
-                    </Link>
-                  </p>
-                </div>
-              </form>
+                <section>{SELECT_CONDITION[condition]?.component}</section>
+              </div>
+              <div>
+                <p className="text-center text-sm mt-4">
+                  Signing up for an Autobuy sellers account means you agree to the{' '}
+                  <span className="text-secondary-500">Privacy Policy</span>
+                  and <span className="text-secondary-500">Terms of Service</span>
+                </p>
+                <p className="text-center text-sm mt-4">
+                  Already have an account?{' '}
+                  <Link className="text-secondary-500" href="/sell-a-car/login">
+                    Login
+                  </Link>
+                </p>
+              </div>
+              {/* </form> */}
             </div>
           </section>
         </MaxWidthWrapper>

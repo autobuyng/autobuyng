@@ -64,3 +64,11 @@ export type IAccountCreationResponse = {
     message: string;
   };
 };
+
+export type ISellerRegistrationResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    message: string;
+  };
+};

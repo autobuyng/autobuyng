@@ -73,6 +73,7 @@ export const endpoints = {
   auth: {
     login: '/auth/login',
     register: '/auth/register/buyer',
+    registerseller: 'auth/register/seller',
     resentToken: '/auth/resend-token',
     resentTokenForgetPassword: '/auth/resend-password-reset-token',
     verifyEmail: '/auth/verify-email',

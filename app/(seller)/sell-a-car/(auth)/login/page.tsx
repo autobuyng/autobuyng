@@ -1,22 +1,62 @@
 'use client';
 import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+
 import Steptop from '@/app/(seller)/assets/vectortop.svg';
 import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-import Image from 'next/image';
+import { useLogin } from '@/app/(seller)/api/auth';
+import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
+import { useToast } from '@/hooks/use-toast';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginPayload>({
+    resolver: zodResolver(LoginSchema),
+  });
+
+  const { login, isLoggingIn } = useLogin();
+
+  const handleLogin = async (data: ILoginPayload) => {
+    try {
+      const response = await login(data);
+
+      toast({
+        title: 'Success',
+        description: response.data.message,
+      });
+
+      router.push('/sell-a-car/dashboard');
+    } catch (error: any) {
+      toast({
+        title: 'Failed',
+        description: error.message,
+      });
+
+      console.log(error);
+    }
+  };
   return (
     <div className="flex">
       <div className="flex-[1] flex justify-center h-full">
         <MaxWidthWrapper>
           <div className="w-full flex justify-center sm:items-center min-h-[calc(100vh_-_76px)] mt-10 sm:mt-0">
             <div>
-              <form action="" className="flex justify-center">
+              <form onSubmit={handleSubmit(handleLogin)} className="flex justify-center">
                 <div className="w-[85vw] sm:max-w-[458px] space-y-4 pb-2">
                   <div className="text-center pb-2">
                     <h1 className="font-medium text-3xl">Welcome Back!</h1>
@@ -32,11 +72,13 @@ const Login = () => {
                     </label>
                     <div className="w-full">
                       <input
+                        {...register('email')}
                         type="email"
                         id="email"
                         placeholder="email"
                         className="  px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
                       />
+                      {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                     </div>
                   </div>
 
@@ -49,6 +91,7 @@ const Login = () => {
                     </label>
                     <div className="w-full flex justify-between items-center  px-2 outline-none border rounded-md border-neutral-700 shadow-sm">
                       <input
+                        {...register('password')}
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         placeholder=""
@@ -60,6 +103,9 @@ const Login = () => {
                         <EyeOff onClick={() => setShowPassword(true)} />
                       )}
                     </div>
+                    {errors.password && (
+                      <span className="text-red-500">{errors.password.message}</span>
+                    )}
                   </div>
 
                   <Link
@@ -70,40 +116,15 @@ const Login = () => {
                   </Link>
 
                   <div className="w-full">
-                    <button className="w-full bg-secondary-700 mt-4 text-white px-3 py-3 rounded-sm font-bold">
-                      Log in
+                    <button
+                      disabled={isLoggingIn}
+                      className="w-full bg-secondary-700 mt-4 text-white px-3 py-3 rounded-sm font-bold"
+                    >
+                      {isLoggingIn ? <Loader className="animate-spin mx-auto" /> : ' Log in'}
                     </button>
                   </div>
                 </div>
               </form>
-
-              {/* <div className="flex flex-col gap-4 w-[80vw] sm:w-[510px]">
-          <div className="w-full flex justify-between items-center gap-[5px]">
-            <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-            <span className="text-lg">or</span>
-            <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-          </div>
-
-          <div
-            className={cn('flex  gap-4', {
-              'sm:flex-col': os === 'macOS',
-              'flex-col': isMobile,
-            })}
-          >
-            <div className="w-full">
-              <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
-                <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
-              </button>
-            </div>
-
-            <div className="w-full">
-              <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
-                <Image src={Facebook} alt="Facebook" />
-                <span> Sign up with Facebook</span>
-              </button>
-            </div>
-          </div>
-        </div> */}
 
               <div>
                 <p className="text-center mt-5 font-medium">
