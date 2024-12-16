@@ -15,15 +15,12 @@ import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
 import Flex from '@/app/(buyer)/assets/FlexFormat.svg';
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
-import useDetectOS from '@/hooks/useDetectOs';
 import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 
 const Results = ({ params }: { params: { slug: string } }) => {
-  const os = useDetectOS();
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  console.log(os);
   const DEFAULT_FILTERS = {
     year: {
       min_year: '2009',
@@ -34,7 +31,6 @@ const Results = ({ params }: { params: { slug: string } }) => {
     exterior_color: '',
     price: 33,
   };
-
   const [search, setSearch] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
@@ -73,7 +69,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
       </div>
 
       <MaxWidthWrapper>
-        <section>
+        <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={search} setSearch={setSearch} />
 

@@ -72,3 +72,59 @@ export type ISellerRegistrationResponse = {
     message: string;
   };
 };
+
+type VehicleType = {
+  _id: string;
+  name: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+export type Vehicle = {
+  _id: string;
+  make: string;
+  vehicleModel: string;
+  condition: string;
+  vehicleYear: number;
+  vehicleTypeId?: string;
+  mileage: string;
+  vin: string;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  interiorColor: string;
+  price: number;
+  fuelConsumption: string;
+  images: string[];
+  engine: string;
+  liked?: boolean;
+  vehicleType: VehicleType[];
+};
+
+export type SearchResponseData = {
+  data: Vehicle[];
+  count: number;
+  currentPage: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  lastPage: number;
+};
+
+export type ApiResponse = {
+  status: boolean;
+  message: string;
+  data: SearchResponseData;
+};
+
+export type SearchQuery = {
+  keyword?: string;
+  mileage?: string;
+  vin?: string;
+  fuelType?: string;
+  transmission?: string;
+  exteriorColor?: string;
+  interiorColor?: string;
+  price?: number;
+};

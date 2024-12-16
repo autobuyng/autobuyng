@@ -65,4 +65,3 @@ export type ILoginPayload = z.infer<typeof LoginSchema>;
 export type IPassword = z.infer<typeof PasswordSchema>;
 export type ISellerRegistrationPayload = z.infer<typeof SellerRegistrationSchema>;
 export type ISellerRegistrationPayloadDealer = z.infer<typeof SellerRegistrationSchemaDealer>;
-

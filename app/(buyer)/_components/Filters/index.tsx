@@ -40,12 +40,9 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   return (
     <main className=" w-full  ">
       <section
-        className={cn(
-          'w-full  p-8 space-y-4  bg-white md:after:shadow-[0px_2px_14px_0px_#0000001A]',
-          {
-            'pt-4 px-0': isMobile,
-          },
-        )}
+        className={cn('w-full  p-8 space-y-4  bg-white md:shadow-[0px_2px_14px_0px_#0000001A]', {
+          'pt-4 px-0': isMobile,
+        })}
       >
         <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2  ">
           <p className="text-xs text-neutral-400 pl-3">Vehicle Condition</p>

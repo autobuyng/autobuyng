@@ -1,38 +1,48 @@
 'use client';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import React, { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
-import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
+import { Vehicle } from '@/types/types';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
 import { AppContext } from '@/context/AppContext';
 
-type ProductCardProps = {
-  index?: number;
-  id: string;
-  Img: StaticImageData;
-  name: string;
-  model: string;
-  mileage: string;
-  price: string;
-  category: string;
-};
-
-export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) => {
+export const ProductCard = ({
+  _id,
+  make,
+  images,
+  vehicleModel,
+  condition,
+  // vehicleYear,
+  // vehicleTypeId,
+  mileage,
+  // vin,
+  // fuelType,
+  // transmission,
+  // exteriorColor,
+  // interiorColor,
+  price,
+  // fuelConsumption,
+}: Vehicle) => {
   const router = useRouter();
   const { setVehicleId } = useContext(AppContext);
 
-  const handleOnViewDetails = () => {
+  const handleOnViewDetails = (id: string) => {
     setVehicleId(id);
 
     router.push(`/vehicle/${uuidv4()}`);
   };
   return (
     <div className="rounded-[12px] shadow-md">
-      <div className="relative">
-        <Image src={Img} alt={name} className=" rounded-tl-[12px] rounded-tr-[12px]" />
+      <div className="relative max-w-full md:max-w-[348px] w-full h-[230px]">
+        <Image
+          src={images[0] && images[0].startsWith('/') ? images[0] : `/${images[0]}`}
+          alt={make}
+          fill
+          className=" rounded-tl-[12px] rounded-tr-[12px]"
+        />
 
         <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
@@ -45,16 +55,16 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
 
       <div className=" px-2">
         <div className="flex items-center gap-2   border-neutral-300">
-          <p className="font-[600] text-[20px] py-1">{`${name} ${model}`}</p>
+          <p className="font-[600] text-[20px] py-1">{`${make} ${vehicleModel}`}</p>
         </div>
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
           <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
-            <span className="capitalize text-primary-900 font-[500] leading-6">Brand New</span>
+            <span className="capitalize text-primary-900 font-[500] leading-6">{condition}</span>
           </p>
           <p className="flex text-center items-center justify-start gap-2">
             <span className="capitalize text-primary-900  pl-2  font-[500] leading-6">
-              8k miles
+              {mileage}
             </span>
           </p>
         </div>
@@ -63,7 +73,7 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
 
         <div className="w-full cursor-pointer">
           <button
-            onClick={handleOnViewDetails}
+            onClick={() => handleOnViewDetails(_id)}
             className=" text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
           >
             View Details
@@ -75,15 +85,22 @@ export const ProductCard = ({ Img, name, model, price, id }: ProductCardProps) =
 };
 
 export const ColProductCard = ({
-  Img,
-  name,
-  price,
+  make,
+  images,
+  // vehicleModel,
+  condition,
+  // vehicleYear,
+  // vehicleTypeId,
   mileage,
-  mpg,
-  engin,
-  transmission,
   vin,
-}: VEHICLE_SEARCH_RESULTS_PROPS) => {
+  // fuelType,
+  transmission,
+  // exteriorColor,
+  // interiorColor,
+  price,
+  engine,
+  fuelConsumption,
+}: Vehicle) => {
   const router = useRouter();
   // const handleOnViewDetails = () => {
   //   router.push('/vehicle/1rwerw4-r3e44udr-454');
@@ -94,7 +111,13 @@ export const ColProductCard = ({
       <section className="rounded-md shadow-md  px-3 ">
         <div className="flex gap-6  cursor-pointer pb-4 ">
           <div className="w-full relative">
-            <Image src={Img} alt={name} height={450} width={400} className="rounded-md w-full" />
+            <Image
+              src={images[0] && images[0].startsWith('/') ? images[0] : `/${images[0]}`}
+              alt={make}
+              height={450}
+              width={400}
+              className="rounded-md w-full"
+            />
 
             <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
               <Image src={Save} alt="Save" />
@@ -107,9 +130,9 @@ export const ColProductCard = ({
           </div>
           <div className="px-1.5  flex flex-col gap-2 text-sm w-full">
             <div className="flex items-center justify-between w-full">
-              <p className="font-[600] text-2xl ">{name}</p>
+              <p className="font-[600] text-2xl ">{make}</p>
               <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
-                Foreign used
+                {condition}
               </p>
             </div>
 
@@ -119,7 +142,7 @@ export const ColProductCard = ({
             </p>
             <p>
               <span className="text-primary-900 pr-1 font-[600] ">MPG:</span>
-              {mpg}
+              {fuelConsumption}
             </p>
             {/* <p>
               <span className="text-primary-900 pr-1 font-[600] ">Bodystyle:</span>
@@ -127,7 +150,7 @@ export const ColProductCard = ({
             </p> */}
             <p>
               <span className="text-primary-900 pr-1 font-[600] ">Engin:</span>
-              {engin}
+              {engine}
             </p>
             <p>
               <span className="text-primary-900 pr-1 font-[600] ">Transmission:</span>

@@ -1,3 +1,4 @@
+import { SearchQuery } from '@/types/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export enum ApiType {
@@ -81,9 +82,6 @@ export const endpoints = {
     verifyForgetPassword: '/auth/verify-password-reset-token',
     resetPassword: '/auth/reset-password',
     resendEmail: '/auth/resend-verification-email',
-    getGoogleAuth: '/auth/google-authurl',
-    googleLoginAuth: '/auth/google-signin',
-    googleRegisterAuth: '/auth/google-signup',
   },
   user: {
     profile: '/user',
@@ -100,4 +98,17 @@ export const endpoints = {
     dislike: '/like/remove',
     share: '/',
   },
+  search: {
+    search: (data: SearchQuery) => buildSearchUrl('/search', data),
+    // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
+  },
+};
+
+const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
+  const params = Object.entries(data)
+    .filter(([_, value]) => value !== undefined && value !== null) // Exclude undefined and null values
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`) // Encode and format key-value pairs
+    .join('&');
+
+  return `${basePath}?${params}`;
 };
