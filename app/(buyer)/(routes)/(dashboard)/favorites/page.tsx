@@ -48,16 +48,26 @@ const Saved = () => {
       <div className="mt-6 w-full  grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3   gap-8 sm:gap-x-4 md:gap-y-8">
         {TOP_SELLING_VEHICLE.map((vehicle) => {
           return (
-            <ProductCard
-              key={vehicle.id}
-              id={vehicle.id}
-              name={vehicle.name}
-              Img={vehicle.Img}
-              model={vehicle.model}
-              mileage={vehicle.mileage}
-              category={vehicle.category}
-              price={vehicle.price}
-            />
+            <h1>vehicle</h1>
+            // <ProductCard
+            //   key={vehicle._id}
+            //   make={vehicle.make}
+            //   images={vehicle.images}
+            //   vehicleModel={vehicle.vehicleModel}
+            //   mileage={vehicle.mileage}
+            //   vehicleType={vehicle.vehicleType}
+            //   price={vehicle.price}
+            //   engine={vehicle.engine}
+            //   transmission={vehicle.transmission}
+            //   vin={vehicle.vin}
+            //   fuelConsumption={vehicle.fuelConsumption}
+            //   exteriorColor={vehicle.exteriorColor}
+            //   interiorColor={vehicle.interiorColor}
+            //   fuelType={vehicle.fuelType}
+            //   vehicleYear={vehicle.vehicleYear}
+            //   condition={vehicle.condition}
+            //   _id={vehicle._id}
+            // />
           );
         })}
       </div>
