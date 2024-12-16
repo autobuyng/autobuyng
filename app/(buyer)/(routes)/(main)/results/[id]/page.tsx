@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
@@ -7,7 +7,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet';
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { FilterProps, suggestionList } from '@/types/types';
+import { FilterProps, SearchQuery, SearchResponseData, suggestionList } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { SORT_LIST } from '@/constants/constants';
@@ -17,6 +17,8 @@ import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
 import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
+import { useSearchVehicle } from '@/app/(buyer)/api/search';
+import { useSearchParams } from 'next/navigation';
 
 const Results = ({ params }: { params: { slug: string } }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,33 +33,73 @@ const Results = ({ params }: { params: { slug: string } }) => {
     exterior_color: '',
     price: 33,
   };
-  const [search, setSearch] = useState<suggestionList | null>(null);
+
+  console.log(params);
+  const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
-  const [isLoading, setIsLoading] = useState(true);
-  const [filterQuery, setFilterQuery] = useState<string[]>([
+  const [filterQuery, setFilterQuery] = useState<(string | number)[]>([
     'Toyota',
     'Silveerado',
     'black',
     ' 4WD',
     '8 cyl',
     'automatic',
+    400,
   ]);
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 2000);
+  // setTimeout(() => {
+  //   setIsLoading(false);
+  // }, 2000);
 
-  const handleQuery = (query: string) => {
+  const handleQuery = (query: string | number) => {
     console.log(query);
     const queryIndex = filterQuery?.indexOf(query);
     console.log(queryIndex);
     setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
   };
 
-  console.log(params);
+  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
+
+  const { search, isPending } = useSearchVehicle();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword');
+  const mileage = searchParams.get('mileage') ?? undefined;
+  const price = searchParams.get('price') ?? undefined;
+
+  const handleSearch = async (data: SearchQuery) => {
+    const entriesArray = Object.entries(data);
+
+    entriesArray.forEach(([, value]) => {
+      setFilterQuery((prev) => [...prev, value]);
+    });
+    console.log(entriesArray, 'entrieswertyuiouytrewrtyuiuytrewrtyui');
+
+    try {
+      const response = await search(data);
+      setSearchResult(response.data);
+      // router.push(`/results/keyword=${data.keyword}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch({
+      keyword: keyword || searchQuery?.label || '',
+      mileage: mileage,
+      // price: price,
+      //    vin: vin,
+      //    fuelType?: string;
+      // transmission?: string;
+      // exteriorColor?: string;
+      // interiorColor?: string;
+    });
+  }, [searchQuery, mileage, price]);
+
   return (
     <main className="mb-24">
       <div className="bg-img">
@@ -71,7 +113,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
       <MaxWidthWrapper>
         <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
-            <SearchInput search={search} setSearch={setSearch} />
+            <SearchInput search={searchQuery} setSearch={setSearchQuery} />
 
             <div className="hidden md:flex items-center gap-4 w-[240px]">
               <div>
@@ -144,7 +186,12 @@ const Results = ({ params }: { params: { slug: string } }) => {
             </div>
 
             <div className="w-full">
-              <Result displayFormat={displayFormat} isLoading={isLoading} />
+              <Result
+                displayFormat={displayFormat}
+                isPending={isPending}
+                searchResult={searchResult}
+                setSearchResult={setSearchResult}
+              />
             </div>
           </div>
         </section>

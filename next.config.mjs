@@ -9,7 +9,7 @@ const nextConfig = {
         // pathname: '/account123/**',
       },
       {
-        protocol: 'https',
+        protocol: 'http',
         hostname: 'res.cloudinary.com',
         port: '',
         pathname: '/dlbwktrdc/image/upload/**',

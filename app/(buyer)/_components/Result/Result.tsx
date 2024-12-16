@@ -1,46 +1,45 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { SkeletonCard } from '@/components/Loader/SkeletonCard';
-import { useSearchParams } from 'next/navigation';
-import { SearchQuery, SearchResponseData } from '@/types/types';
-import { useSearchVehicle } from '../../api/search';
+import { SearchResponseData } from '@/types/types';
 
 type ResultProps = {
   displayFormat: boolean;
-  isLoading?: boolean;
+  isPending: boolean;
+  setSearchResult: React.Dispatch<React.SetStateAction<SearchResponseData | null>>;
+  searchResult: SearchResponseData | null;
 };
-const Result = ({ displayFormat }: ResultProps) => {
+const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
   const { isMobile } = useIsMobile();
-  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
+  // const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
-  const { search, isPending } = useSearchVehicle();
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword') || '';
+  // const { search, isPending } = useSearchVehicle();
+  // const searchParams = useSearchParams();
+  // const keyword = searchParams.get('keyword') || '';
+  // const handleSearch = async (data: SearchQuery) => {
+  //   try {
+  //     const response = await search(data);
+  //     setSearchResult(response.data);
+  //     // router.push(`/results/keyword=${data.keyword}`);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleSearch = async (data: SearchQuery) => {
-    try {
-      const response = await search(data);
-      setSearchResult(response.data);
-      // router.push(`/results/keyword=${data.keyword}`);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // useEffect(() => {
+  //   handleSearch({
+  //     keyword: keyword,
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    handleSearch({
-      keyword: keyword,
-    });
-  }, []);
-
-  if (searchResult?.data.length === 0) {
+  if ((!searchResult || searchResult?.data.length === 0) && !isPending) {
     return (
-      <main className="mb-8">
+      <main className="mb-8 w-full  flex items-center justify-center">
         <div className="space-y-4">
           <h1 className="text-2xl font-bold text-gray-900">No Result Found</h1>
         </div>

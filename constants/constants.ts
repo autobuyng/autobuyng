@@ -514,13 +514,13 @@ export const MAX_YEAR = [
 ];
 
 export const MILEAGE = [
-  { id: '1', name: '10000 or less' },
-  { id: '2', name: '20000 or less' },
-  { id: '3', name: '30000 or less' },
-  { id: '4', name: '40000 or less' },
-  { id: '5', name: '50000 or less' },
-  { id: '6', name: '60000 or less' },
-  { id: '7', name: '70000 or less' },
+  { id: '1', name: '10000 ' },
+  { id: '2', name: '20000 ' },
+  { id: '3', name: '30000 ' },
+  { id: '4', name: '40000 ' },
+  { id: '5', name: '50000' },
+  { id: '6', name: '60000 ' },
+  { id: '7', name: '70000 ' },
   // { id: '8', name: '2016' },
   // { id: '9', name: '2017' },
   // { id: '10', name: '2018' },

@@ -13,7 +13,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
   const axiosInstance = axios.create({
     baseURL: baseUrls[baseUrlKey],
     // Add timeout to prevent hanging requests
-    // timeout: 10000,
+    timeout: 10000,
   });
 
   function getCookie(name: string): string | null {
