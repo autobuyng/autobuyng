@@ -114,7 +114,7 @@ const HowitWorks = () => {
                   </SwiperSlide>
                 </div>
 
-                <div className="custom-pagination mt-10 bg-[#0066CC] rounded-[50px] "></div>
+                <div className="custom-pagination mt-10 bg-[#0066CC] rounded-[50px] w-fit"></div>
               </Swiper>
             </div>
 
