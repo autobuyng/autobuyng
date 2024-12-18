@@ -3,10 +3,10 @@
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useVerifyEmail } from '@/app/(buyer)/api/auth';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
-export default function VerifyEmailPage() {
+function VerifyEmailPage() {
   const { toast } = useToast();
   const [data, setData] = useState<any>();
 
@@ -63,5 +63,13 @@ export default function VerifyEmailPage() {
         ) : null}
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyEmailPage />
+    </Suspense>
   );
 }
