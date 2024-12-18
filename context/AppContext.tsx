@@ -1,6 +1,6 @@
 'use client';
 import { VEHICLE_SEARCH_RESULTS } from '@/constants/constants';
-import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
+import { SearchResponseData, VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
 import React, { createContext, useEffect, useState } from 'react';
 
 type AppContextTypes = {
@@ -11,6 +11,8 @@ type AppContextTypes = {
   vehicleList: VEHICLE_SEARCH_RESULTS_PROPS[];
   user: boolean;
   setUser: (user: boolean) => void;
+  searchResult: SearchResponseData | null;
+  setSearchResult: React.Dispatch<React.SetStateAction<SearchResponseData | null>>;
 };
 
 const initialAppState: AppContextTypes = {
@@ -21,6 +23,8 @@ const initialAppState: AppContextTypes = {
   vehicleList: [],
   user: false,
   setUser: () => {},
+  searchResult: null,
+  setSearchResult: () => {},
 };
 
 export const AppContext = createContext<AppContextTypes>(initialAppState);
@@ -30,6 +34,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [moreVehicle, setMoreVehicles] = useState('');
   const [vehicleId, setVehicleId] = useState('');
   const [vehicleList, setVehicleList] = useState<VEHICLE_SEARCH_RESULTS_PROPS[]>([]);
+  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
   console.log(user, 'user context');
 
   useEffect(() => {
@@ -44,7 +49,17 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AppContext.Provider
-      value={{ name: 'AppState', moreVehicle, setVehicleId, vehicleList, vehicleId, user, setUser }}
+      value={{
+        name: 'AppState',
+        moreVehicle,
+        setVehicleId,
+        vehicleList,
+        vehicleId,
+        user,
+        setUser,
+        searchResult,
+        setSearchResult,
+      }}
     >
       {children}
     </AppContext.Provider>

@@ -12,7 +12,6 @@ import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
 import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/VehicleInformation';
-import sampleVehicle from '@/app/(buyer)/assets/vehice1.avif';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
@@ -30,6 +29,7 @@ import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
+import { Vehicle } from '@/types/types';
 
 const VehicledetailsPage = () => {
   const { isMobile } = useIsMobile();
@@ -54,60 +54,114 @@ const VehicledetailsPage = () => {
     router.push(`/vehicle/${uuidv4()}`);
   };
 
-  const SIMILAR_VEHICLE = [
+  const similarVehicles: Vehicle[] = [
     {
-      id: '1',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
+      _id: '1',
+      make: 'Mercedes Benz',
+      images: ['path/to/sampleVehicle1.jpg'],
+      vehicleModel: 'C 63',
       mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      vehicleType: [],
+      price: '35,000,000',
+      engine: 'V8',
+      transmission: 'Automatic',
+      vin: '1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: '12L/100km',
+      exteriorColor: 'Black',
+      interiorColor: 'Beige',
+      fuelType: 'Petrol',
+      vehicleYear: 2022,
+      condition: 'New',
     },
     {
-      id: '2',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      _id: '2',
+      make: 'BMW',
+      images: ['path/to/sampleVehicle2.jpg'],
+      vehicleModel: 'M3',
+      mileage: '500',
+      vehicleType: [],
+      price: '45,000,000',
+      engine: 'I6',
+      transmission: 'Manual',
+      vin: '2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: '10L/100km',
+      exteriorColor: 'Blue',
+      interiorColor: 'Black',
+      fuelType: 'Diesel',
+      vehicleYear: 2021,
+      condition: 'Used',
     },
     {
-      id: '3',
-      name: 'Tesla',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      _id: '3',
+      make: 'Audi',
+      images: ['path/to/sampleVehicle3.jpg'],
+      vehicleModel: 'A6',
+      mileage: '300',
+      vehicleType: [],
+      price: '50,000,000',
+      engine: 'V6',
+      transmission: 'Automatic',
+      vin: '3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: '8L/100km',
+      exteriorColor: 'White',
+      interiorColor: 'Gray',
+      fuelType: 'Hybrid',
+      vehicleYear: 2023,
+      condition: 'New',
     },
     {
-      id: '4',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      _id: '4',
+      make: 'Tesla',
+      images: ['path/to/sampleVehicle4.jpg'],
+      vehicleModel: 'Model S',
+      mileage: '0',
+      vehicleType: [],
+      price: '70,000,000',
+      engine: 'Electric',
+      transmission: 'Automatic',
+      vin: '4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: 'N/A',
+      exteriorColor: 'Red',
+      interiorColor: 'Black',
+      fuelType: 'Electric',
+      vehicleYear: 2024,
+      condition: 'New',
     },
     {
-      id: '5',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      _id: '5',
+      make: 'Honda',
+      images: [],
+      vehicleModel: 'Civic',
+      mileage: '150',
+      vehicleType: [],
+      price: '15,000,000',
+      engine: 'I4',
+      transmission: 'Automatic',
+      vin: '5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: '7L/100km',
+      exteriorColor: 'Silver',
+      interiorColor: 'Gray',
+      fuelType: 'Petrol',
+      vehicleYear: 2020,
+      condition: 'Used',
     },
     {
-      id: '6',
-      name: 'Mercedes Benz',
-      model: 'C 63',
-      price: '35,000,000',
-      mileage: '400',
-      category: 'new',
-      Img: sampleVehicle,
+      _id: '6',
+      make: 'Toyota',
+      images: ['path/to/sampleVehicle6.jpg'],
+      vehicleModel: 'Camry',
+      mileage: '200',
+      vehicleType: [],
+      price: '20,000,000',
+      engine: 'I4',
+      transmission: 'Automatic',
+      vin: '6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
+      fuelConsumption: '6L/100km',
+      exteriorColor: 'Green',
+      interiorColor: 'Beige',
+      fuelType: 'Petrol',
+      vehicleYear: 2019,
+      condition: 'Used',
     },
   ];
 
@@ -336,17 +390,26 @@ const VehicledetailsPage = () => {
               <h1 className="py-2 font-bold text-2xl">Similar cars at Autobuy</h1>
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3  gap-y-10 gap-x-8 sm:gap-4 ">
-                {SIMILAR_VEHICLE.map((vehicle) => {
+                {similarVehicles.map((result) => {
                   return (
                     <ProductCard
-                      key={vehicle.id}
-                      id={vehicle.id}
-                      name={vehicle.name}
-                      model={vehicle.model}
-                      price={vehicle.price}
-                      mileage={vehicle.mileage}
-                      category={vehicle.mileage}
-                      Img={vehicle.Img}
+                      key={result._id}
+                      make={result.make}
+                      images={result.images}
+                      vehicleModel={result.vehicleModel}
+                      mileage={result.mileage}
+                      vehicleType={result.vehicleType}
+                      price={result.price}
+                      engine={result.engine}
+                      transmission={result.transmission}
+                      vin={result.vin}
+                      fuelConsumption={result.fuelConsumption}
+                      exteriorColor={result.exteriorColor}
+                      interiorColor={result.interiorColor}
+                      fuelType={result.fuelType}
+                      vehicleYear={result.vehicleYear}
+                      condition={result.condition}
+                      _id={result._id}
                     />
                   );
                 })}

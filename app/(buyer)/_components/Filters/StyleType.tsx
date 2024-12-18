@@ -10,18 +10,38 @@ import {
 
 import { BODY_STYLE, COLORS } from '@/constants/constants';
 import { FilterProps } from '@/types/types';
+import { useState } from 'react';
 
 type StyleTypeProps = {
   filters: FilterProps;
   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
 };
+type Checked = {
+  [key: string]: string;
+  body_type: string;
+  interior_color: string;
+  exterior_color: string;
+};
 
 const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
-  console.log(filters);
-  const handleCheckboxChange = (name: string) => {
-    setFilters((prev) => ({
+  const [checked, setChecked] = useState<Checked>({
+    body_type: '',
+    interior_color: '',
+    exterior_color: '',
+  });
+
+  const handleCheckboxChange = (input: string, category: string) => {
+    setChecked((prev: Checked) => {
+      if (prev[category] === input) {
+        return { ...prev, [category]: '' };
+      } else {
+        return { ...prev, [category]: input };
+      }
+    });
+
+    setFilters((prev: FilterProps) => ({
       ...prev,
-      body_style: name,
+      [category]: input === checked[category] ? '' : (input as string),
     }));
   };
 
@@ -38,10 +58,10 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                     <input
                       type="checkbox"
                       name={type.name}
-                      onChange={() => handleCheckboxChange(type.name)}
+                      value={filters.body_type}
+                      onChange={() => handleCheckboxChange(type.name, 'body_type')}
                       className="h-5 w-5"
-                      // disabled={false}
-                      // checked={type.id === String(index)}
+                      checked={type.name === checked.body_type || filters.body_type === type.name}
                     />
                     <span className="">{type.name}</span>
                   </p>
@@ -49,8 +69,10 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
               })}
             </AccordionContent>
           </AccordionItem>
+        </Accordion>
 
-          <AccordionItem value="item-2">
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
             <AccordionTrigger className="py-2 ">Interior Colour</AccordionTrigger>
             <AccordionContent className="">
               {COLORS.map((color) => {
@@ -58,9 +80,13 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                   <p key={color.id} className="py-1 space-x-2 flex items-center">
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(color.id)}
+                      value={filters.interior_color}
+                      onChange={() => handleCheckboxChange(color.name, 'interior_color')}
                       className="h-5 w-5"
-                      // checked={filters.style}
+                      checked={
+                        color.name === checked.interior_color ||
+                        filters.interior_color === color.name
+                      }
                     />
                     <span className="">{color.name}</span>
                   </p>
@@ -68,18 +94,23 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
               })}
             </AccordionContent>
           </AccordionItem>
+        </Accordion>
 
-          <AccordionItem value="item-3">
-            <AccordionTrigger className="py-2 ">Exterior</AccordionTrigger>
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="py-2 ">Exterior Color</AccordionTrigger>
             <AccordionContent className="">
               {COLORS.map((color) => {
                 return (
                   <p key={color.id} className="py-1 space-x-2 flex items-center">
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(color.id)}
+                      value={filters.exterior_color}
+                      onChange={() => handleCheckboxChange(color.name, 'exterior_color')}
                       className="h-5 w-5"
-                      // checked={filters.style}
+                      checked={
+                        color.name === checked.exterior_color || filters.exterior === color.name
+                      }
                     />
                     <span className="">{color.name}</span>
                   </p>

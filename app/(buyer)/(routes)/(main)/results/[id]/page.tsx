@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
@@ -7,7 +7,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet';
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { FilterProps, suggestionList } from '@/types/types';
+import { FilterProps, SearchQuery, SearchResponseData, suggestionList } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { SORT_LIST } from '@/constants/constants';
@@ -15,53 +15,91 @@ import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
 import Flex from '@/app/(buyer)/assets/FlexFormat.svg';
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
-import useDetectOS from '@/hooks/useDetectOs';
 import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
+import { useSearchVehicle } from '@/app/(buyer)/api/search';
+import { useSearchParams } from 'next/navigation';
+import { getSessionItem } from '@/lib/Sessionstorage';
 
 const Results = ({ params }: { params: { slug: string } }) => {
-  const os = useDetectOS();
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  console.log(os);
-  const DEFAULT_FILTERS = {
+  console.log(params);
+  const default_filters = getSessionItem('filters');
+  const DEFAULT_FILTERS: FilterProps = {
     year: {
       min_year: '2009',
-      max_year: '2024',
+      max_year: '',
     },
-    body_style: '',
-    interior_color: '',
-    exterior_color: '',
-    price: 33,
+    mileage: '',
+    price: {
+      min_price: 5000000,
+    },
+    ...default_filters,
   };
-
-  const [search, setSearch] = useState<suggestionList | null>(null);
+  const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
-  const [isLoading, setIsLoading] = useState(true);
-  const [filterQuery, setFilterQuery] = useState<string[]>([
-    'Toyota',
-    'Silveerado',
-    'black',
-    ' 4WD',
-    '8 cyl',
-    'automatic',
-  ]);
+  const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 2000);
+  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
-  const handleQuery = (query: string) => {
+  const { search, isPending } = useSearchVehicle();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword');
+  // const mileage = searchParams.get('mileage') ?? undefined;
+  // const price = searchParams.get('price') ?? undefined;
+  // const condition = searchParams.get('vehicle_condition') ?? undefined;
+  // const minYear = searchParams.get('min_year') ?? undefined;
+  // const maxYear = searchParams.get('max_year') ?? undefined;
+
+  // console.log(condition, 'condition');
+
+  const handleQuery = (query: string | number) => {
     console.log(query);
     const queryIndex = filterQuery?.indexOf(query);
     console.log(queryIndex);
     setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
   };
+  const handleSearch = async (data: SearchQuery) => {
+    // console.log(data, 'data');
+    // const entriesArray = Object.entries({});
 
-  console.log(params);
+    // entriesArray.forEach(([, value]) => {
+    //   setFilterQuery((prev) => [...prev, value]);
+    // });
+
+    try {
+      const response = await search(data);
+      setSearchResult(response.data);
+      // router.push(`/results/keyword=${data.keyword}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const searchParams: Partial<SearchQuery> = {
+      ...(keyword || searchQuery?.label ? { keyword: keyword || searchQuery?.label } : {}),
+      ...(filters.mileage ? { mileage: filters.mileage } : {}),
+      ...(filters.vehicle_condition ? { condition: filters.vehicle_condition } : {}),
+      ...(filters.year.min_year ? { yearMin: filters.year.min_year } : {}),
+      ...(filters.year.max_year ? { yearMax: filters.year.max_year } : {}),
+      // ...(filters.price.min_price ? { priceMin: filter. } : {}),
+      ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
+      ...(filters.body_type ? { type: filters.body_type } : {}),
+      ...(filters.interior_color ? { interiorColor: filters.interior_color } : {}),
+      ...(filters.exterior_color ? { exteriorColor: filters.exterior_color } : {}),
+      ...(filters.drive_train ? { driveTrain: filters.drive_train } : {}),
+      ...(filters.fuel_type ? { fuelType: filters.fuel_type } : {}),
+      ...(filters.transmission ? { fuelType: filters.transmission } : {}),
+    };
+
+    handleSearch(searchParams);
+  }, [filters]);
   return (
     <main className="mb-24">
       <div className="bg-img">
@@ -73,9 +111,9 @@ const Results = ({ params }: { params: { slug: string } }) => {
       </div>
 
       <MaxWidthWrapper>
-        <section>
+        <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
-            <SearchInput search={search} setSearch={setSearch} />
+            <SearchInput search={searchQuery} setSearch={setSearchQuery} />
 
             <div className="hidden md:flex items-center gap-4 w-[240px]">
               <div>
@@ -103,7 +141,13 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
           <div className="flex items-start justify-between mt-6 w-full">
             <div className="w-full ">
-              <FilterDisplay isOpen={isOpen} setIsOpen={setIsOpen} setIsSortOpen={setIsSortOpen} />
+              <FilterDisplay
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                filterQuery={filterQuery}
+                setFilterQuery={setFilterQuery}
+                setIsSortOpen={setIsSortOpen}
+              />
             </div>
           </div>
 
@@ -113,7 +157,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
-                  <h1 className="font-bold t  border-b-2 mb-4 border-b-neutral-100">Filters</h1>
+                  <h1 className="font-bold   border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">
                     {filterQuery.map((query) => (
                       <div
@@ -148,7 +192,12 @@ const Results = ({ params }: { params: { slug: string } }) => {
             </div>
 
             <div className="w-full">
-              <Result displayFormat={displayFormat} isLoading={isLoading} />
+              <Result
+                displayFormat={displayFormat}
+                isPending={isPending}
+                searchResult={searchResult}
+                setSearchResult={setSearchResult}
+              />
             </div>
           </div>
         </section>

@@ -8,6 +8,12 @@ const nextConfig = {
         port: '',
         // pathname: '/account123/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/dlbwktrdc/image/upload/**',
+      },
     ],
   },
 };

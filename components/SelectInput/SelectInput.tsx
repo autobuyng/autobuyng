@@ -15,6 +15,7 @@ type SelectInputProps = {
   list: Array<Record<string, any>>;
   selectedInput: string;
   title?: string;
+  defaultValue?: string;
   width?: string;
   height?: string;
   setSelectedInput: React.Dispatch<React.SetStateAction<string>>;
@@ -24,6 +25,7 @@ const SelectInput = ({
   list,
   selectedInput,
   title,
+  defaultValue,
   setSelectedInput,
   width,
   height,
@@ -37,7 +39,7 @@ const SelectInput = ({
           width ? width : '',
         )}
       >
-        <SelectValue placeholder={title} />
+        <SelectValue placeholder={title} defaultValue={defaultValue} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

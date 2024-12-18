@@ -24,25 +24,42 @@ export type VEHICLE_SEARCH_RESULTS_PROPS = {
 };
 
 export type FilterProps = {
+  [key: string]: any;
   year: {
-    min_year: string;
-    max_year: string;
+    min_year: string; // Corresponds to yearMin in the query
+    max_year: string; // Corresponds to yearMax in the query
   };
-  mileage?: string;
-  // price: { max_price: string; min_price: string };
-  price: number;
-
-  body_style: string;
-  vehicle_condition?: string;
+  mileage?: string; // Corresponds to mileage in the query
+  price: {
+    min_price?: number; // Corresponds to priceMin in the query
+    max_price?: number; // Corresponds to priceMax in the query
+  };
+  body_type?: string; // Corresponds to type (Sedan in the query)
+  vehicle_condition?: string; // Corresponds to condition (New in the query)
+  fuel_type?: string; // Corresponds to fuelType in the query
+  transmission?: string; // Corresponds to transmission in the query
+  exterior_color?: string; // Corresponds to exteriorColor in the query
+  interior_color?: string; // Corresponds to interiorColor in the query
+  drive_train?: string; // Corresponds to driveTrain in the query
+  engine?: string; // Corresponds to engine in the query
+  keyword?: string; // Corresponds to keyword in the query
+  cylinders?: string;
+  convenience?: string;
+  safety?: string;
+  door_count?: string;
+  entertainment?: string;
+  exterior?: string;
   sort?: {
-    best_available?: boolean;
+    best_available?: boolean; // You may want to define what this means in your sorting context
     lowest_price?: boolean;
-    hightest_price?: boolean;
+    highest_price?: boolean; // Updated typo from 'hightest_price'
     lowest_mileage?: boolean;
-    best_deals: boolean;
-    newest_listed: boolean;
-    oldest_listed: boolean;
+    best_deals?: boolean;
+    newest_listed?: boolean;
+    oldest_listed?: boolean;
   };
+  page?: number; // Corresponds to page in the query
+  limit?: number; // Corresponds to limit in the query
 };
 
 export type SIDEBAR_ITEMS_TYPES = {
@@ -63,4 +80,83 @@ export type IAccountCreationResponse = {
   data: {
     message: string;
   };
+};
+
+export type ISellerRegistrationResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    message: string;
+  };
+};
+
+type VehicleType = {
+  _id: string;
+  name: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+export type Vehicle = {
+  _id: string;
+  make: string;
+  vehicleModel: string;
+  condition: string;
+  vehicleYear: number;
+  vehicleTypeId?: string;
+  mileage: string;
+  vin: string;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  interiorColor: string;
+  price: number | string;
+  fuelConsumption: string;
+  images: string[];
+  engine: string;
+  liked?: boolean;
+  vehicleType: VehicleType[];
+};
+
+export type SearchResponseData = {
+  data: Vehicle[];
+  count: number;
+  currentPage: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  lastPage: number;
+};
+
+export type ApiResponse = {
+  status: boolean;
+  message: string;
+  data: SearchResponseData;
+};
+
+export type SearchQuery = {
+  vin?: string;
+  price?: number;
+  keyword?: string;
+  userId?: string;
+  make?: string;
+  vehicleModel?: string;
+  condition?: string;
+  yearMin?: number | string;
+  yearMax?: number | string;
+  type?: string;
+  mileage?: string; // Mileage is a string (e.g., "70k miles")
+  fuelType?: string;
+  transmission?: string;
+  exteriorColor?: string;
+  interiorColor?: string;
+  driveTrain?: string;
+  engine?: string;
+  priceMin?: number | string;
+  priceMax?: number | string;
+  sortParameter?: string;
+  sortOrder?: 'asc' | 'desc';
+  page?: number;
+  limit?: number;
 };

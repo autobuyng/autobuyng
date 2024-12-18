@@ -1,6 +1,10 @@
 import { endpoints, mutator } from '@/axios';
-import { IRegistrationPayload } from '@/Schema/authSchema';
-import { IAccountCreationResponse, ILoginPayload } from '@/types/types';
+import {
+  IRegistrationPayload,
+  ISellerRegistrationPayload,
+  ISellerRegistrationPayloadDealer,
+} from '@/Schema/authSchema';
+import { ILoginPayload, ISellerRegistrationResponse } from '@/types/types';
 import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -29,12 +33,37 @@ export function useLogin() {
 export function useRegister() {
   // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<
-    IAccountCreationResponse,
+    ISellerRegistrationResponse,
     any,
-    IRegistrationPayload
+    ISellerRegistrationPayload
   >({
     mutationFn: (values: IRegistrationPayload) =>
-      mutator({ method: 'POST', data: values, url: endpoints.auth.register }),
+      mutator({ method: 'POST', data: values, url: endpoints.auth.registerseller }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      signup: mutateAsync,
+      data,
+      isRegistering: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useRegisterBusiness() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    ISellerRegistrationResponse,
+    any,
+    ISellerRegistrationPayloadDealer
+  >({
+    mutationFn: (values: IRegistrationPayload) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.registerseller }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },

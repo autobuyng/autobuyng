@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import SelectInput from '@/components/SelectInput/SelectInput';
@@ -12,6 +12,7 @@ import Performance from './Performance';
 import Features from './Features';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
+import { setSessionItem } from '@/lib/Sessionstorage';
 
 type FilterComponentProps = {
   filters: FilterProps;
@@ -30,35 +31,35 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      params.set(name, value.trim());
 
       return params.toString();
     },
     [searchParams],
   );
 
+  useEffect(() => {
+    setSessionItem('filters', filters);
+  }, [filters]);
   return (
     <main className=" w-full  ">
       <section
-        className={cn(
-          'w-full  p-8 space-y-4  bg-white md:after:shadow-[0px_2px_14px_0px_#0000001A]',
-          {
-            'pt-4 px-0': isMobile,
-          },
-        )}
+        className={cn('w-full  p-8 space-y-4  bg-white md:shadow-[0px_2px_14px_0px_#0000001A]', {
+          'pt-4 px-0': isMobile,
+        })}
       >
         <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2  ">
           <p className="text-xs text-neutral-400 pl-3">Vehicle Condition</p>
 
           <SelectInput
             list={[
-              { id: '1', name: 'Brand new' },
-              { id: '2', name: 'Nigerian Used' },
-              { id: '3', name: 'Foreign Used' },
+              { id: '1', label: 'New', name: 'New' },
+              { id: '2', label: 'Nigerian_Used', name: 'Nigerian Used' },
+              { id: '3', label: 'Foreign_Used', name: 'Foreign Used' },
             ]}
             title="Vehicle Condition"
             setSelectedInput={(input) => {
-              router.push(pathname + '?' + createQueryString('vehicle_condition', input as string));
+              // router.push(pathname + '?' + createQueryString('vehicle_condition', input as string));
               setFilters(
                 (prev: FilterProps): FilterProps => ({
                   ...prev,
@@ -66,7 +67,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
                 }),
               );
             }}
-            selectedInput={filters.mileage as string}
+            selectedInput={filters.vehicle_condition as string}
             width="max-w-full h-4 border-none"
           />
         </div>
@@ -77,8 +78,9 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
           <SelectInput
             list={MILEAGE}
             title="Any mileage"
+            defaultValue={filters.mileage}
             setSelectedInput={(input) => {
-              router.push(pathname + '?' + createQueryString('mileage', input as string));
+              // router.push(pathname + '?' + createQueryString('mileage', input as string));
               setFilters(
                 (prev: FilterProps): FilterProps => ({
                   ...prev,
@@ -98,6 +100,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             <SelectInput
               list={MAX_YEAR}
               title="Oldest"
+              defaultValue={filters.year.max_year}
               setSelectedInput={(input) => {
                 router.push(pathname + '?' + createQueryString('max_year', input as string));
                 setFilters(
@@ -121,8 +124,9 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             <SelectInput
               list={MAX_YEAR}
               title="Highest"
+              defaultValue={filters.year.min_year}
               setSelectedInput={(input) => {
-                router.push(pathname + '?' + createQueryString('min_year', input as string));
+                // router.push(pathname + '?' + createQueryString('min_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -146,7 +150,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
 
           <input
             type="text"
-            value={filters.price}
+            value={filters.price.max_price}
             onChange={() => {}}
             id="UserEmail"
             placeholder="NGN 10,000,000"
@@ -161,14 +165,16 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
-                    price: newPrice,
+                    price: {
+                      max_price: newPrice,
+                    },
                   }),
                 );
               }}
-              defaultValue={[33]}
-              max={100}
-              min={0}
-              step={1}
+              defaultValue={[7000000]}
+              max={100000000}
+              min={5000000}
+              step={1000000}
             />
           </div>
         </div>
@@ -185,11 +191,11 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
-          <Performance />
+          <Performance filters={filters} setFilters={setFilters} />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 ">Features</p>
-          <Features />
+          <Features filters={filters} setFilters={setFilters} />
         </div>
       </section>
     </main>

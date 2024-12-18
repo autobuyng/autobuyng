@@ -1,3 +1,4 @@
+import { SearchQuery } from '@/types/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export enum ApiType {
@@ -12,7 +13,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
   const axiosInstance = axios.create({
     baseURL: baseUrls[baseUrlKey],
     // Add timeout to prevent hanging requests
-    // timeout: 10000,
+    timeout: 10000,
   });
 
   function getCookie(name: string): string | null {
@@ -73,6 +74,7 @@ export const endpoints = {
   auth: {
     login: '/auth/login',
     register: '/auth/register/buyer',
+    registerseller: 'auth/register/seller',
     resentToken: '/auth/resend-token',
     resentTokenForgetPassword: '/auth/resend-password-reset-token',
     verifyEmail: '/auth/verify-email',
@@ -80,9 +82,6 @@ export const endpoints = {
     verifyForgetPassword: '/auth/verify-password-reset-token',
     resetPassword: '/auth/reset-password',
     resendEmail: '/auth/resend-verification-email',
-    getGoogleAuth: '/auth/google-authurl',
-    googleLoginAuth: '/auth/google-signin',
-    googleRegisterAuth: '/auth/google-signup',
   },
   user: {
     profile: '/user',
@@ -99,4 +98,18 @@ export const endpoints = {
     dislike: '/like/remove',
     share: '/',
   },
+  search: {
+    search: (data: SearchQuery) => buildSearchUrl('/search', data),
+    // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
+  },
+};
+
+const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
+  const params = Object.entries(data)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .filter(([_, value]) => value !== undefined && value !== null) // Exclude undefined and null values
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`) // Encode and format key-value pairs
+    .join('&');
+
+  return `${basePath}?${params}`;
 };
