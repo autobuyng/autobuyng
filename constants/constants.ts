@@ -26,12 +26,12 @@ import Innoson from '@/app/(buyer)/_components/Filters/assets/innoson.svg';
 import LandRover from '@/app/(buyer)/_components/Filters/assets/landrover.svg';
 import Volvo from '@/app/(buyer)/_components/Filters/assets/volvo.svg';
 import Infiniti from '@/app/(buyer)/_components/Filters/assets/infiniti.svg';
-import Sabaru from '@/app/(buyer)/_components/Filters/assets/subaru.svg';
-import Tesla from '@/app/(buyer)/_components/Filters/assets/tesla.svg';
-import Greely from '@/app/(buyer)/_components/Filters/assets/geely.svg';
+// import Sabaru from '@/app/(buyer)/_components/Filters/assets/subaru.svg';
+// import Tesla from '@/app/(buyer)/_components/Filters/assets/tesla.svg';
+// import Greely from '@/app/(buyer)/_components/Filters/assets/geely.svg';
 import Porshe from '@/app/(buyer)/_components/Filters/assets/porshe.svg';
 import Audi from '@/app/(buyer)/_components/Filters/assets/audi.svg';
-import Mazda from '@/app/(buyer)/_components/Filters/assets/mazda.svg';
+// import Mazda from '@/app/(buyer)/_components/Filters/assets/mazda.svg';
 
 import samlplevehicle from '@/app/(buyer)/assets/vehice1.avif';
 import { VEHICLE_SEARCH_RESULTS_PROPS } from '@/types/types';
@@ -42,9 +42,9 @@ import Car3 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import Car4 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import Car5 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import Car6 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
-import Car7 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
+// import Car7 from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 
-const TeslaModel = 'https://ik.imagekit.io/0xy9wqmrh/Autobuy/Tesla.jpeg';
+// const TeslaModel = 'https://ik.imagekit.io/0xy9wqmrh/Autobuy/Tesla.jpeg';
 
 export const IMAGES = [Car1, Car2, Car3, Car4, Car5, Car6];
 
@@ -596,10 +596,62 @@ export const CYLINDERS = [
 ];
 
 export const FUEL_TYPE = [
-  { id: '1', name: 'Compressed natural gas' },
-  { id: '2', name: 'Diesel' },
-  { id: '3', name: 'E85 flex fuel' },
-  { id: '4', name: 'Electric' },
-  { id: '5', name: 'Gasoline' },
-  { id: '6', name: 'Hybrid' },
+  { id: 'compressed-natural-gas', name: 'Compressed Natural Gas' },
+  { id: 'diesel', name: 'Diesel' },
+  { id: 'e85-flex-fuel', name: 'E85 Flex Fuel' },
+  { id: 'electric', name: 'Electric' },
+  { id: 'gasoline', name: 'Gasoline' },
+  { id: 'hybrid', name: 'Hybrid' },
+  { id: 'hydrogen-fuel-cell', name: 'Hydrogen Fuel Cell' },
+  { id: 'plug-in-hybrid', name: 'Plug-in Hybrid' },
+];
+
+export const CONVENIENCEIOPTIONS = [
+  { id: 'adaptive-cruise-control', name: 'Adaptive Cruise Control' },
+  { id: 'autopilot', name: 'Autopilot' },
+  { id: 'cool-seats', name: 'Cool Seats' },
+  { id: 'heated-seats', name: 'Heated Seats' },
+  { id: 'heated-steering-wheel', name: 'Heated Steering Wheel' },
+  { id: 'keyless-start', name: 'Keyless Start' },
+  { id: 'navigation-system', name: 'Navigation System' },
+  { id: 'power-liftgate', name: 'Power Liftgate' },
+  { id: 'remote-start', name: 'Remote Start' },
+];
+
+export const ENTERTAINMENTOPTIONS = [
+  { id: 'apple-carplay-android-auto', name: 'Apple CarPlay/Android Auto' },
+  { id: 'bluetooth', name: 'Bluetooth' },
+  { id: 'homelink', name: 'HomeLink' },
+  { id: 'premium-sound-system', name: 'Premium Sound System' },
+  { id: 'rear-seat-entertainment', name: 'Rear Seat Entertainment' },
+  { id: 'usb-port', name: 'USB Port' },
+];
+
+export const EXTERIOROPTIONS = [
+  { id: 'alloy-wheels', name: 'Alloy Wheels' },
+  { id: 'sunroof-moonroof', name: 'Sunroof/Moonroof' },
+  { id: 'two-hitch', name: 'Two Hitch' },
+  { id: 'two-hooks', name: 'Two Hooks' },
+];
+
+export const SAFETYOPTIONS = [
+  { id: 'automatic-emergency-braking', name: 'Automatic Emergency Braking' },
+  { id: 'backup-camera', name: 'Backup Camera' },
+  { id: 'blind-spot-monitor', name: 'Blind Spot Monitor' },
+  { id: 'break-assist', name: 'Break Assist' },
+  { id: 'led-highlights', name: 'LED Highlights' },
+  { id: 'lane-departure-warning', name: 'Lane Departure Warning' },
+  { id: 'rear-cross-traffic-alert', name: 'Rear Cross Traffic Alert' },
+  { id: 'stability-control', name: 'Stability Control' },
+];
+
+export const DOORCOUNTOPTIONS = [
+  { id: '1-doors', name: '1 doors' },
+  { id: '2-doors', name: '2 doors' },
+  { id: '3-doors', name: '3 doors' },
+  { id: '4-doors', name: '4 doors' },
+  { id: '5-doors', name: '5 doors' },
+  { id: '6-doors', name: '6 doors' },
+  { id: '7-doors', name: '7 doors' },
+  { id: '8-doors', name: '8 doors' },
 ];

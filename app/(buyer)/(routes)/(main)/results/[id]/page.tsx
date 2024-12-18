@@ -19,40 +19,43 @@ import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
 import { useSearchParams } from 'next/navigation';
+import { getSessionItem } from '@/lib/Sessionstorage';
 
 const Results = ({ params }: { params: { slug: string } }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const DEFAULT_FILTERS = {
+  console.log(params);
+  const default_filters = getSessionItem('filters');
+  const DEFAULT_FILTERS: FilterProps = {
     year: {
       min_year: '2009',
-      max_year: '2024',
+      max_year: '',
     },
-    body_style: '',
-    interior_color: '',
-    exterior_color: '',
-    price: 33,
+    mileage: '',
+    price: {
+      min_price: 5000000,
+    },
+    ...default_filters,
   };
-
-  console.log(params);
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
-  const [filterQuery, setFilterQuery] = useState<(string | number)[]>([
-    'Toyota',
-    'Silveerado',
-    'black',
-    ' 4WD',
-    '8 cyl',
-    'automatic',
-    400,
-  ]);
+  const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
 
-  // setTimeout(() => {
-  //   setIsLoading(false);
-  // }, 2000);
+  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
+
+  const { search, isPending } = useSearchVehicle();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword');
+  // const mileage = searchParams.get('mileage') ?? undefined;
+  // const price = searchParams.get('price') ?? undefined;
+  // const condition = searchParams.get('vehicle_condition') ?? undefined;
+  // const minYear = searchParams.get('min_year') ?? undefined;
+  // const maxYear = searchParams.get('max_year') ?? undefined;
+
+  // console.log(condition, 'condition');
 
   const handleQuery = (query: string | number) => {
     console.log(query);
@@ -60,22 +63,13 @@ const Results = ({ params }: { params: { slug: string } }) => {
     console.log(queryIndex);
     setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
   };
-
-  const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
-
-  const { search, isPending } = useSearchVehicle();
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword');
-  const mileage = searchParams.get('mileage') ?? undefined;
-  const price = searchParams.get('price') ?? undefined;
-
   const handleSearch = async (data: SearchQuery) => {
-    const entriesArray = Object.entries(data);
+    // console.log(data, 'data');
+    // const entriesArray = Object.entries({});
 
-    entriesArray.forEach(([, value]) => {
-      setFilterQuery((prev) => [...prev, value]);
-    });
-    console.log(entriesArray, 'entrieswertyuiouytrewrtyuiuytrewrtyui');
+    // entriesArray.forEach(([, value]) => {
+    //   setFilterQuery((prev) => [...prev, value]);
+    // });
 
     try {
       const response = await search(data);
@@ -88,18 +82,24 @@ const Results = ({ params }: { params: { slug: string } }) => {
   };
 
   useEffect(() => {
-    handleSearch({
-      keyword: keyword || searchQuery?.label || '',
-      mileage: mileage,
-      // price: price,
-      //    vin: vin,
-      //    fuelType?: string;
-      // transmission?: string;
-      // exteriorColor?: string;
-      // interiorColor?: string;
-    });
-  }, [searchQuery, mileage, price]);
+    const searchParams: Partial<SearchQuery> = {
+      ...(keyword || searchQuery?.label ? { keyword: keyword || searchQuery?.label } : {}),
+      ...(filters.mileage ? { mileage: filters.mileage } : {}),
+      ...(filters.vehicle_condition ? { condition: filters.vehicle_condition } : {}),
+      ...(filters.year.min_year ? { yearMin: filters.year.min_year } : {}),
+      ...(filters.year.max_year ? { yearMax: filters.year.max_year } : {}),
+      // ...(filters.price.min_price ? { priceMin: filter. } : {}),
+      ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
+      ...(filters.body_type ? { type: filters.body_type } : {}),
+      ...(filters.interior_color ? { interiorColor: filters.interior_color } : {}),
+      ...(filters.exterior_color ? { exteriorColor: filters.exterior_color } : {}),
+      ...(filters.drive_train ? { driveTrain: filters.drive_train } : {}),
+      ...(filters.fuel_type ? { fuelType: filters.fuel_type } : {}),
+      ...(filters.transmission ? { fuelType: filters.transmission } : {}),
+    };
 
+    handleSearch(searchParams);
+  }, [filters]);
   return (
     <main className="mb-24">
       <div className="bg-img">
@@ -141,7 +141,13 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
           <div className="flex items-start justify-between mt-6 w-full">
             <div className="w-full ">
-              <FilterDisplay isOpen={isOpen} setIsOpen={setIsOpen} setIsSortOpen={setIsSortOpen} />
+              <FilterDisplay
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                filterQuery={filterQuery}
+                setFilterQuery={setFilterQuery}
+                setIsSortOpen={setIsSortOpen}
+              />
             </div>
           </div>
 
@@ -151,7 +157,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
-                  <h1 className="font-bold t  border-b-2 mb-4 border-b-neutral-100">Filters</h1>
+                  <h1 className="font-bold   border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">
                     {filterQuery.map((query) => (
                       <div

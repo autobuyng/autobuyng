@@ -106,6 +106,7 @@ export const endpoints = {
 
 const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
   const params = Object.entries(data)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .filter(([_, value]) => value !== undefined && value !== null) // Exclude undefined and null values
     .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`) // Encode and format key-value pairs
     .join('&');

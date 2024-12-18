@@ -37,11 +37,24 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
   //   });
   // }, []);
 
-  if ((!searchResult || searchResult?.data.length === 0) && !isPending) {
+  console.log(isPending, 'isPending');
+  if (isPending) {
+    return (
+      <div className="grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, index) => (
+          <SkeletonCard key={index} />
+          // <div key={index} className="h-40 bg-gray-200 animate-pulse rounded-lg">
+          // </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (!isPending && (!searchResult || searchResult?.data.length === 0)) {
     return (
       <main className="mb-8 w-full  flex items-center justify-center">
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold text-gray-900">No Result Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mt-56">No Result Found</h1>
         </div>
       </main>
     );
@@ -56,9 +69,6 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
           )}
         >
           {searchResult?.data.map((result) => {
-            if (isPending) {
-              return <SkeletonCard key={result._id} />;
-            }
             return (
               <div key={result._id}>
                 <ProductCard

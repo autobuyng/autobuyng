@@ -1,32 +1,45 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 
 import Filter from './assets/filter.svg';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import Sort from '@/app/(buyer)/_components/Filters/assets/sort.svg';
+import { useSearchParams } from 'next/navigation';
 
 type FilterDisplayProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSortOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  filterQuery: (string | number)[];
+  setFilterQuery: React.Dispatch<React.SetStateAction<(number | string)[]>>;
 };
-const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
-  const [filterQuery, setFilterQuery] = useState<string[]>([
-    'Toyota',
-    'Silveerado',
-    'black',
-    ' 4WD',
-    '8 cyl',
-    'automatic',
-  ]);
+const FilterDisplay = ({
+  setIsOpen,
+  setIsSortOpen,
+  filterQuery,
+  setFilterQuery,
+}: FilterDisplayProps) => {
+  console.log(filterQuery, 'filterQuery');
 
-  const handleQuery = (query: string) => {
-    console.log(query);
-    const queryIndex = filterQuery?.indexOf(query);
-    console.log(queryIndex);
-    setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
-  };
+  const searchParams = useSearchParams();
+
+  // const handleQuery = (query: string | number) => {
+  //   console.log(query);
+  //   const queryIndex = filterQuery?.indexOf(query);
+  //   console.log(queryIndex);
+  //   setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
+  // };
+
+  const deleteQueryString = useCallback(
+    (name: string | number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete(name as string); // Deletes all instances of the parameter by name
+
+      return params.toString(); // Returns the updated query string
+    },
+    [searchParams],
+  );
 
   return (
     <main className="flex items-start justify-between md:gap-8 lg:gap-6">
@@ -46,7 +59,7 @@ const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
               className="bg-primary-700 text-white py-1 px-2 rounded-sm whitespace-nowrap flex items-center gap-2"
             >
               <span>{query}</span>
-              <button onClick={() => handleQuery(query)} className="text-xl">
+              <button onClick={() => deleteQueryString(query)} className="text-xl">
                 <Image src={Cancel} alt="Cancel" />
               </button>
             </div>
@@ -55,7 +68,12 @@ const FilterDisplay = ({ setIsOpen, setIsSortOpen }: FilterDisplayProps) => {
       </div>
 
       <div className="hidden md:block">
-        <p onClick={() => setFilterQuery([])} className="underline cursor-pointer ">
+        <p
+          onClick={() => {
+            setFilterQuery([]);
+          }}
+          className="underline cursor-pointer "
+        >
           Clear
         </p>
       </div>
