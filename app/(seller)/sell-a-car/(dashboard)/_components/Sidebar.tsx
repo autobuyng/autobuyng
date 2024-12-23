@@ -3,8 +3,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logout from '@/app/(seller)/sell-a-car/(dashboard)/assets/logout.svg';
 
-import Logout from '@/app/(buyer)/(routes)/(dashboard)/assets/logout.svg';
 import {
   Dashboard,
   Settings,
