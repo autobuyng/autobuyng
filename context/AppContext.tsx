@@ -31,18 +31,16 @@ export const AppContext = createContext<AppContextTypes>(initialAppState);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [moreVehicle, setMoreVehicles] = useState('');
   const [vehicleId, setVehicleId] = useState('');
   const [vehicleList, setVehicleList] = useState<VEHICLE_SEARCH_RESULTS_PROPS[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
-  console.log(user, 'user context');
 
   useEffect(() => {
     const vehicleIndex = VEHICLE_SEARCH_RESULTS.findIndex((vehicle) => vehicle.id === vehicleId);
     const NextFive = VEHICLE_SEARCH_RESULTS.slice(vehicleIndex, vehicleIndex + 8);
     setVehicleList(NextFive);
-    console.log(NextFive, 'NextFive');
-    console.log(vehicleIndex, 'vehicleIndex');
 
     // setVehicleList();
   }, [vehicleId]);

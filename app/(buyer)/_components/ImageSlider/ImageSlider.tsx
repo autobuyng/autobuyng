@@ -23,7 +23,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
 
 type ImageSliderProp = {
-  ImageUrls: StaticImageData[];
+  ImageUrls: (StaticImageData | string)[];
 };
 
 const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
@@ -51,21 +51,27 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
   };
 
   return (
-    <div>
-      <div className="relative overflow-hidden">
+    <div className="w-full">
+      <div className="w-full relative overflow-hidden">
         <div
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          className="flex   transition-transform duration-500 ease-in-out "
+          className="flex  items-center transition-transform duration-500 ease-in-out "
         >
-          {ImageUrls.map((image, index) => (
-            <Image
-              src={image}
-              alt="image slider"
-              key={index}
-              className="cursor-pointer"
-              onClick={() => setShowSlidermodal(true)}
-            />
-          ))}
+          {ImageUrls &&
+            ImageUrls.map((image, index) => {
+              return (
+                <div key={index} className="w-full flex-shrink-0">
+                  <Image
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    width={800}
+                    height={600}
+                    className="w-full h-[510px] object-cover cursor-pointer"
+                    onClick={() => setShowSlidermodal(true)}
+                  />
+                </div>
+              );
+            })}
         </div>
 
         <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
@@ -79,7 +85,6 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
             <Image src={ArrowLeft} alt="Arrow left" />
           </button>
         </div>
-
         <div className="absolute h-full top-0 right-0 flex items-center pr-4 ">
           <button
             onClick={showNextImage}
@@ -95,10 +100,9 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
         <button className="absolute top-4 right-5 h-8 w-8  rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
           <Image src={Save} alt="Save" />
         </button>
-
         <button className="absolute bottom-2 right-4  text-white rounded-[30px] bg-[#00000073] p-1 flex items-center justify-center gap-1.5">
           <span>
-            {currentIndex + 1} / {25}
+            {currentIndex + 1} / {ImageUrls?.length}
           </span>
           <Image src={Photo} alt="Photo" />
         </button>
@@ -132,7 +136,7 @@ type ImageSliderModalProps = {
   isOpen: boolean;
   currentIndex: number;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  ImageUrls: StaticImageData[];
+  ImageUrls: (StaticImageData | string)[];
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -185,18 +189,19 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
             <div className="overflow-hidden relative">
               <div
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                className="flex transition-transform duration-500 ease-in-out "
+                className="flex  transition-transform duration-500 ease-in-out "
               >
-                {ImageUrls.map((image, index) => (
-                  <Image
-                    src={image}
-                    alt="image slider"
-                    key={index}
-                    // height={333}
-                    // width={470}
-                    className="cursor-pointer"
-                  />
-                ))}
+                {ImageUrls &&
+                  ImageUrls.map((image, index) => (
+                    <Image
+                      src={image}
+                      alt="image slider"
+                      key={index}
+                      height={333}
+                      width={600}
+                      className="cursor-pointer flex-shrink-0"
+                    />
+                  ))}
               </div>
               <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
                 <button
@@ -231,17 +236,25 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
           </div>
 
           <div className="grid grid-cols-4 mt-4 gap-4 w-full">
-            {ImageUrls.map((image, index) => (
-              <div
-                key={index}
-                className={cn(' w-[100px]', {
-                  'border-2 border-black': currentIndex === index,
-                })}
-                onClick={() => setCurrentIndex(index)}
-              >
-                <Image src={image} alt="image slider" key={index} className="cursor-pointer" />
-              </div>
-            ))}
+            {ImageUrls &&
+              ImageUrls.map((image, index) => (
+                <div
+                  key={index}
+                  className={cn(' w-[100px] flex-shrink-0', {
+                    'border-2 border-black': currentIndex === index,
+                  })}
+                  onClick={() => setCurrentIndex(index)}
+                >
+                  <Image
+                    src={image}
+                    height={200}
+                    width={200}
+                    alt="image slider"
+                    key={index}
+                    className="cursor-pointer w-[100px]"
+                  />
+                </div>
+              ))}
           </div>
         </DialogContent>
       </Dialog>
@@ -257,16 +270,17 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
 
             <AlertDialogDescription className="h-[100vh] overflow-y-auto">
               <span className="flex flex-col gap-2 transition-transform duration-500 ease-in-out ">
-                {ImageUrls.map((image, index) => (
-                  <Image
-                    src={image}
-                    alt="image slider"
-                    key={index}
-                    // height={333}
-                    // width={470}
-                    className="cursor-pointer"
-                  />
-                ))}
+                {ImageUrls &&
+                  ImageUrls.map((image, index) => (
+                    <Image
+                      src={image}
+                      alt="image slider"
+                      key={index}
+                      height={333}
+                      width={470}
+                      className="cursor-pointer"
+                    />
+                  ))}
               </span>
             </AlertDialogDescription>
           </AlertDialogHeader>

@@ -40,7 +40,6 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
     door_count: '',
   });
 
-  console.log(filters, 'filters');
   const handleCheckboxChange = (input: string, category: string) => {
     setChecked((prev: Checked) => {
       if (prev[category] === input) {

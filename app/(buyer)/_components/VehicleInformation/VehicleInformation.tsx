@@ -19,8 +19,9 @@ import {
 
 // import link from './assets/link.svg';
 import { X } from 'lucide-react';
+import { VehicleData } from '@/types/types';
 
-const VehicleInformation = () => {
+const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }) => {
   return (
     <div className="mt-4">
       <div>
@@ -61,7 +62,9 @@ const VehicleInformation = () => {
 
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-6">
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">Navy Blue</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">
+                {vehicleData?.interiorColor}
+              </h1>
               <p className="bg-primary-100 text-primary-900 w-[101px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 interior color
               </p>
@@ -75,14 +78,18 @@ const VehicleInformation = () => {
             </div>
 
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">Automatic</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">
+                {vehicleData?.transmission}
+              </h1>
               <p className="bg-primary-100 text-primary-900 w-[103px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Transmission
               </p>
             </div>
 
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">35 - 40</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">
+                {vehicleData?.fuelConsumption}
+              </h1>
               <p className="bg-primary-100 text-primary-900 w-[48px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 MPG
               </p>
@@ -96,20 +103,20 @@ const VehicleInformation = () => {
             </div>
 
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">PMS</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">{vehicleData?.fuelType}</h1>
               <p className="bg-primary-100 text-primary-900 w-[77px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Fuel Type
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <h1 className="text-[20px] leading-[25px] font-medium">35 - 40</h1>
               <p className="bg-primary-100 text-primary-900 w-[48px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 MPG
               </p>
-            </div>
+            </div> */}
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">1.8L,4Cyl</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">{vehicleData?.engine}</h1>
               <p className="bg-primary-100 text-primary-900 w-[61px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Engine
               </p>

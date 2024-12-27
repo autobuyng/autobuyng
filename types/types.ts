@@ -49,15 +49,9 @@ export type FilterProps = {
   door_count?: string;
   entertainment?: string;
   exterior?: string;
-  sort?: {
-    best_available?: boolean; // You may want to define what this means in your sorting context
-    lowest_price?: boolean;
-    highest_price?: boolean; // Updated typo from 'hightest_price'
-    lowest_mileage?: boolean;
-    best_deals?: boolean;
-    newest_listed?: boolean;
-    oldest_listed?: boolean;
-  };
+  sortParameter?: string;
+  sortOrder?: 'asc' | 'desc';
+  sort?: string;
   page?: number; // Corresponds to page in the query
   limit?: number; // Corresponds to limit in the query
 };
@@ -159,4 +153,55 @@ export type SearchQuery = {
   sortOrder?: 'asc' | 'desc';
   page?: number;
   limit?: number;
+};
+
+interface VehicleReliabilityScore {
+  overall: number;
+  engine: number;
+  body: number;
+  wheels: number;
+  accessories: number;
+}
+
+export type VehicleData = {
+  _id: string;
+  sellerId: string;
+  make: string;
+  vehicleModel: string;
+  condition: string;
+  vehicleYear: number;
+  vehicleType: string;
+  mileage: string;
+  vin: string;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  interiorColor: string;
+  driveTrain: string;
+  price: number;
+  fuelConsumption: string;
+  features: string[];
+  reliabilityScore: VehicleReliabilityScore;
+  images: string[];
+  note: string | null;
+  engine: string;
+  isInspected: boolean;
+  availabilityStatus: string;
+  uploadedFiles: any[]; // Adjust this type if you have a specific structure for files
+  comfort: string | null; // Adjust type if structure is known
+  entertainment: string | null; // Adjust type if structure is known
+  exteriorAndMechanical: string | null; // Adjust type if structure is known
+  interior: string | null; // Adjust type if structure is known
+  mechanical: string | null; // Adjust type if structure is known
+  tech: string | null; // Adjust type if structure is known
+  likes: string[]; // Adjust type if structure is known
+  createdAt: string; // Consider using Date if parsed
+  updatedAt: string; // Consider using Date if parsed
+  __v: number;
+};
+
+export type SingleVehicleResponse = {
+  status: boolean;
+  message: string;
+  data: VehicleData;
 };

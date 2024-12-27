@@ -25,7 +25,6 @@ const Navbar = () => {
   const { isMobile } = useIsMobile();
 
   const { user } = useContext(AppContext);
-  console.log(user, 'user');
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -79,12 +78,10 @@ const Navbar = () => {
           <div className="hidden md:flex items-center justify-between gap-8">
             {NAV_ITEMS.map(({ id, text, path }) => {
               const isSellPath = path === '/sell-a-car';
-              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
-              console.log(isSellPath, 'isSellPath');
-              const href = isSellPath
-                ? `${baseUrl}` // Remove the leading slash when using baseUrl
-                : `/${path}`; // Keep the leading slash for regular paths
-              console.log(href, 'href');
+              // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+              // const href = isSellPath
+              //   ? `${baseUrl}` // Remove the leading slash when using baseUrl
+              //   : `/${path}`; // Keep the leading slash for regular paths
               return (
                 <span key={id}>
                   <Link

@@ -20,7 +20,6 @@ type FilterComponentProps = {
 };
 const Filters = ({ filters, setFilters }: FilterComponentProps) => {
   const { isMobile } = useIsMobile();
-  console.log(filters, 'filters');
 
   const router = useRouter();
   const pathname = usePathname();
@@ -102,7 +101,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
               title="Oldest"
               defaultValue={filters.year.max_year}
               setSelectedInput={(input) => {
-                router.push(pathname + '?' + createQueryString('max_year', input as string));
+                // router.push(pathname + '?' + createQueryString('max_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,

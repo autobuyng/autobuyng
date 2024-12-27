@@ -28,12 +28,10 @@ const Address = () => {
   });
 
   const { register, handleSubmit } = useForm<AddressProps>();
-  console.log(isAdding, isEditing);
   const handleSubmitForm = (data: AddressProps) => {
     setAddress(data);
     setIsAdding(false);
     setIsEditing(false);
-    console.log(data);
   };
 
   return (

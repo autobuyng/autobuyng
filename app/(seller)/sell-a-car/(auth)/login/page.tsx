@@ -14,6 +14,7 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { useLogin } from '@/app/(seller)/api/auth';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useToast } from '@/hooks/use-toast';
+import { setSessionItem } from '@/lib/Sessionstorage';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +35,8 @@ const Login = () => {
   const handleLogin = async (data: ILoginPayload) => {
     try {
       const response = await login(data);
-
+      console.log(response);
+      setSessionItem('accessToken', response.data.accessToken);
       toast({
         title: 'Success',
         description: response.data.message,
