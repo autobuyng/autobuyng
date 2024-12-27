@@ -20,8 +20,6 @@ const FilterDisplay = ({
   filterQuery,
   setFilterQuery,
 }: FilterDisplayProps) => {
-  console.log(filterQuery, 'filterQuery');
-
   const searchParams = useSearchParams();
 
   // const handleQuery = (query: string | number) => {

@@ -41,7 +41,7 @@ const Performance = ({ filters, setFilters }: PerformanceTypeProps) => {
 
     setFilters((prev: FilterProps) => ({
       ...prev,
-      [category]: input === checked[category] ? '' : (input as string),
+      [category]: input === checked[category] ? '' : (input.toLocaleLowerCase() as string),
     }));
   };
 

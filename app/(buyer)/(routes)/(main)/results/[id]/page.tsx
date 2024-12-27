@@ -38,7 +38,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
     ...default_filters,
   };
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
-  const [sortQuery, setSortQuery] = useState('');
+  // const [sortQuery, setSortQuery] = useState('');
   const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
@@ -57,10 +57,14 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
   // console.log(condition, 'condition');
 
+  // const handlesort = (input: string) => {
+  //   console.log(input);
+  // };
+
+  console.log(filters);
+
   const handleQuery = (query: string | number) => {
-    console.log(query);
     const queryIndex = filterQuery?.indexOf(query);
-    console.log(queryIndex);
     setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
   };
   const handleSearch = async (data: SearchQuery) => {
@@ -95,10 +99,13 @@ const Results = ({ params }: { params: { slug: string } }) => {
       ...(filters.exterior_color ? { exteriorColor: filters.exterior_color } : {}),
       ...(filters.drive_train ? { driveTrain: filters.drive_train } : {}),
       ...(filters.fuel_type ? { fuelType: filters.fuel_type } : {}),
-      ...(filters.transmission ? { fuelType: filters.transmission } : {}),
+      ...(filters.transmission ? { transmission: filters.transmission } : {}),
+      ...(filters.sortParameter ? { sortParameter: filters.sortParameter } : {}),
+      ...(filters.sortOrder ? { sortOrder: filters.sortOrder } : {}),
     };
 
     handleSearch(searchParams);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
   return (
     <main className="mb-24">
@@ -120,8 +127,21 @@ const Results = ({ params }: { params: { slug: string } }) => {
                 <SelectInput
                   list={SORT_LIST}
                   title="Sort by"
-                  setSelectedInput={setSortQuery}
-                  selectedInput={sortQuery}
+                  setSelectedInput={(input) => {
+                    if (typeof input != 'string') return;
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                    const parameter = input.split(' ');
+                    console.log(input, 'input');
+                    console.log(parameter, 'parametrer');
+                    setFilters((prev: FilterProps) => ({
+                      ...prev,
+                      sortParameter: parameter[1].toLowerCase() as string,
+                      sortOrder: parameter[0] === 'Highest' ? 'desc' : 'asc',
+                      sort: input,
+                    }));
+                  }}
+                  selectedInput={filters?.sort as string}
+                  defaultValue={filters.sort}
                   width="w-full md:w-[155px]"
                   height="h-10"
                 />
@@ -181,8 +201,21 @@ const Results = ({ params }: { params: { slug: string } }) => {
                     <SelectInput
                       list={SORT_LIST}
                       title="Sort by"
-                      setSelectedInput={setSortQuery}
-                      selectedInput={sortQuery}
+                      setSelectedInput={(input) => {
+                        if (typeof input != 'string') return;
+                        const parameter = input.split(' ');
+                        console.log(parameter);
+                        console.log(input, 'input');
+                        setFilters((prev: FilterProps) => ({
+                          ...prev,
+                          sortParameter: parameter[1] as string,
+                          sortOrder: parameter[0] === 'Highest' ? 'desc' : 'asc',
+                          sort: input,
+                        }));
+                      }}
+                      selectedInput={filters?.sort as string}
+                      // selectedInput={filters?.sortParameter as string}
+                      defaultValue={filters.sort}
                       width="w-full md:w-[155px]"
                       height="h-10"
                     />

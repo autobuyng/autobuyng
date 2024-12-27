@@ -289,6 +289,7 @@ export const POPULAR_MODEL = [
 ];
 
 export const SORT_LIST = [
+  { id: '0', name: 'default ' },
   { id: '1', name: 'Best Available ' },
   { id: '2', name: 'Lowest Price' },
   { id: '3', name: 'Highest Price' },

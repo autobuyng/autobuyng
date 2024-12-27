@@ -30,6 +30,7 @@ const SelectInput = ({
   width,
   height,
 }: SelectInputProps) => {
+  console.log(selectedInput, 'selectedInput');
   return (
     <Select value={selectedInput} onValueChange={setSelectedInput}>
       <SelectTrigger

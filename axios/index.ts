@@ -12,6 +12,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
   };
   const axiosInstance = axios.create({
     baseURL: baseUrls[baseUrlKey],
+    withCredentials: true,
     // Add timeout to prevent hanging requests
     timeout: 10000,
   });
@@ -100,6 +101,8 @@ export const endpoints = {
   },
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
+    likevehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}/like`,
+    getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
   },
 };

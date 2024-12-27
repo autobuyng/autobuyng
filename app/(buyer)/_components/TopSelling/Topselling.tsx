@@ -20,7 +20,7 @@ const Topselling = () => {
     {
       _id: '1',
       make: 'Mercedes Benz',
-      images: ['path/to/sampleVehicle1.jpg'],
+      images: [''],
       vehicleModel: 'C 63',
       mileage: '400',
       vehicleType: [],
@@ -38,7 +38,7 @@ const Topselling = () => {
     {
       _id: '2',
       make: 'BMW',
-      images: ['path/to/sampleVehicle2.jpg'],
+      images: [''],
       vehicleModel: 'M3',
       mileage: '500',
       vehicleType: [],
@@ -56,7 +56,7 @@ const Topselling = () => {
     {
       _id: '3',
       make: 'Audi',
-      images: ['path/to/sampleVehicle3.jpg'],
+      images: [''],
       vehicleModel: 'A6',
       mileage: '300',
       vehicleType: [],
@@ -74,7 +74,7 @@ const Topselling = () => {
     {
       _id: '4',
       make: 'Tesla',
-      images: ['path/to/sampleVehicle4.jpg'],
+      images: [''],
       vehicleModel: 'Model S',
       mileage: '0',
       vehicleType: [],
@@ -110,7 +110,7 @@ const Topselling = () => {
     {
       _id: '6',
       make: 'Toyota',
-      images: ['path/to/sampleVehicle6.jpg'],
+      images: [''],
       vehicleModel: 'Camry',
       mileage: '200',
       vehicleType: [],
@@ -128,7 +128,7 @@ const Topselling = () => {
     {
       _id: '7',
       make: 'Toyota',
-      images: ['path/to/sampleVehicle6.jpg'],
+      images: [''],
       vehicleModel: 'Camry',
       mileage: '200',
       vehicleType: [],
@@ -146,7 +146,7 @@ const Topselling = () => {
     {
       _id: '8',
       make: 'Toyota',
-      images: ['path/to/sampleVehicle6.jpg'],
+      images: [''],
       vehicleModel: 'Camry',
       mileage: '200',
       vehicleType: [],

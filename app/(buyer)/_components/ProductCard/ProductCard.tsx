@@ -1,13 +1,15 @@
 'use client';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Vehicle } from '@/types/types';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
 import { AppContext } from '@/context/AppContext';
+import { Heart } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useLikeVehicle } from '../../api/search';
 
 export const ProductCard = ({
   _id,
@@ -28,19 +30,43 @@ export const ProductCard = ({
 }: Vehicle) => {
   const router = useRouter();
   const { setVehicleId } = useContext(AppContext);
+  const [liked, setLiked] = useState(false);
 
+  const { likeVehicle } = useLikeVehicle();
   const handleOnViewDetails = (id: string) => {
     setVehicleId(id);
 
-    router.push(`/vehicle/${uuidv4()}`);
+    router.push(`/vehicle/${_id}`);
   };
+
+  const handleLikeVehhicle = async (id: string) => {
+    const newLikedState = !liked;
+    setLiked(newLikedState);
+    try {
+      const response = await likeVehicle({ vehicleId: id });
+      console.log(response);
+    } catch (error) {
+      setLiked(!newLikedState);
+      console.log(error, 'error');
+    }
+  };
+
   return (
     <div className="rounded-[12px] shadow-md">
       <div className="relative max-w-full md:max-w-[348px] w-full h-[230px]">
         <Image src={images?.[0]} alt={make} fill className=" rounded-tl-[12px] rounded-tr-[12px]" />
 
-        <button className="absolute top-4 right-4 h-8 w-8 rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
-          <Image src={Save} alt="Save" />
+        <button
+          onClick={() => handleLikeVehhicle(_id)}
+          className="absolute top-4 right-4 h-8 w-8 rounded-[50%] text-white bg-black/55 p-1 flex items-center justify-center"
+        >
+          <Heart
+            className={cn({
+              'text-red-500 fill-current': liked,
+              '': !liked,
+            })}
+          />
+          {/* <Image src={Save} alt="Save" /> */}
         </button>
 
         <button className="absolute bottom-2 right-2  text-white rounded-[30px] bg-black/55 p-1 flex items-center text-sm justify-center">
@@ -80,6 +106,7 @@ export const ProductCard = ({
 };
 
 export const ColProductCard = ({
+  _id,
   make,
   images,
   // vehicleModel,
@@ -107,7 +134,7 @@ export const ColProductCard = ({
         <div className="flex gap-6  cursor-pointer pb-4 ">
           <div className="w-full relative">
             <Image
-              src={images[0] && images[0].startsWith('/') ? images[0] : `/${images[0]}`}
+              src={images?.[0]}
               alt={make}
               height={450}
               width={400}
@@ -166,7 +193,7 @@ export const ColProductCard = ({
 
             <div className="cursor-pointer">
               <button
-                onClick={() => router.push(`/vehicle/${uuidv4()}`)}
+                onClick={() => router.push(`/vehicle/${_id}`)}
                 className=" text-primary-900 underline font-[600]"
               >
                 View vehicle details

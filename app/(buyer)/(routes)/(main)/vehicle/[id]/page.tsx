@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, useContext, useState } from 'react';
+import React, { Suspense, useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import '../vehicle.css';
 import { AppContext } from '@/context/AppContext';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
-import { IMAGES } from '@/constants/constants';
+// import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/VehicleInformation';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
@@ -29,14 +29,34 @@ import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
-import { Vehicle } from '@/types/types';
+import { Vehicle, VehicleData } from '@/types/types';
+import { useGetVehicle } from '@/app/(buyer)/api/search';
 
-const VehicledetailsPage = () => {
+const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const os = useDetectOS();
   const router = useRouter();
+
+  const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
+
+  const { getVehicle } = useGetVehicle();
+
+  const handleGetVehicle = async () => {
+    try {
+      const response = await getVehicle({ vehicleId: params.id });
+      setVehicleData(response.data);
+      console.log(response, 'response');
+    } catch (error) {
+      console.log(error, 'error');
+    }
+  };
+
+  useEffect(() => {
+    handleGetVehicle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
 
@@ -58,7 +78,7 @@ const VehicledetailsPage = () => {
     {
       _id: '1',
       make: 'Mercedes Benz',
-      images: ['path/to/sampleVehicle1.jpg'],
+      images: [''],
       vehicleModel: 'C 63',
       mileage: '400',
       vehicleType: [],
@@ -76,7 +96,7 @@ const VehicledetailsPage = () => {
     {
       _id: '2',
       make: 'BMW',
-      images: ['path/to/sampleVehicle2.jpg'],
+      images: [''],
       vehicleModel: 'M3',
       mileage: '500',
       vehicleType: [],
@@ -94,7 +114,7 @@ const VehicledetailsPage = () => {
     {
       _id: '3',
       make: 'Audi',
-      images: ['path/to/sampleVehicle3.jpg'],
+      images: [''],
       vehicleModel: 'A6',
       mileage: '300',
       vehicleType: [],
@@ -112,7 +132,7 @@ const VehicledetailsPage = () => {
     {
       _id: '4',
       make: 'Tesla',
-      images: ['path/to/sampleVehicle4.jpg'],
+      images: [''],
       vehicleModel: 'Model S',
       mileage: '0',
       vehicleType: [],
@@ -148,7 +168,7 @@ const VehicledetailsPage = () => {
     {
       _id: '6',
       make: 'Toyota',
-      images: ['path/to/sampleVehicle6.jpg'],
+      images: [''],
       vehicleModel: 'Camry',
       mileage: '200',
       vehicleType: [],
@@ -231,26 +251,26 @@ const VehicledetailsPage = () => {
                   'max-w-[900px] h-fit  ': os === 'macOS',
                 })}
               >
-                <ImageSlider ImageUrls={IMAGES} />
+                <ImageSlider ImageUrls={vehicleData?.images as string[]} />
               </div>
               <div className="my-2 space-y-2">
                 <div className="flex items-center justify-between">
                   <p className="font-[600] text-2xl">Mercedes Benz</p>
                   <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
-                    Foreign used
+                    {vehicleData?.condition}
                   </p>
                 </div>
 
                 <div className="space-x-1 flex items-center">
-                  <span className="text-neutral-700 font-semibold">9k miles</span>
+                  <span className="text-neutral-700 font-semibold">{vehicleData?.mileage}</span>
                   <span>|</span>
-                  <span className="text-xl font-bold tracking-wide">NGN13,000,000</span>
+                  <span className="text-xl font-bold tracking-wide">{vehicleData?.price}</span>
                 </div>
 
                 <div className="   min-[480px]:flex space-y-2 items-center justify-between">
                   <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
                     <span className="text-primary-900">VIN</span>
-                    <span>19XFB2F71FE246463</span>
+                    <span>{vehicleData?.vin}</span>
                   </p>
 
                   <p className="underline text-sm text-primary-900 cursor-pointer  capitalize flex items-center ">
@@ -266,7 +286,9 @@ const VehicledetailsPage = () => {
                 </div>
               </div>
 
-              <div className="w-full ">{isMobile ? null : <VehicleInformation />}</div>
+              <div className="w-full ">
+                {isMobile ? null : <VehicleInformation vehicleData={vehicleData} />}
+              </div>
             </div>
 
             <div className="h-fit  space-y-10  flex-[2] ">
@@ -278,7 +300,7 @@ const VehicledetailsPage = () => {
                 <div className="space-y-8">
                   <div className="flex items-center justify-between">
                     <SemiCircleProgressBar
-                      percentage={75}
+                      percentage={Number(vehicleData?.reliabilityScore)}
                       size={200}
                       strokeWidth={10}
                       color="#3385FF"
@@ -298,7 +320,7 @@ const VehicledetailsPage = () => {
                           4.0/10
                         </span>
                       </p>
-                      <ProgressBar progress="40" />
+                      <ProgressBar progress={vehicleData?.reliabilityScore.toString()} />
                     </div>
                   </div>
 
@@ -382,7 +404,9 @@ const VehicledetailsPage = () => {
               </div>
             </div>
 
-            <div className="">{isMobile ? <VehicleInformation /> : null}</div>
+            <div className="">
+              {isMobile ? <VehicleInformation vehicleData={vehicleData} /> : null}
+            </div>
           </div>
 
           <div className="mt-20">
