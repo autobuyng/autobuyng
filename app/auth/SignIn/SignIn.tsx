@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 // import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
+import { setSessionItem } from '@/lib/Sessionstorage';
 
 const SignIn = ({
   setType,
@@ -32,7 +33,7 @@ const SignIn = ({
   console.log(errors, 'errors');
   // const os = useDetectOS();
   // const { isMobile } = useIsMobile();
-  const { user } = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
   console.log(user);
   const router = useRouter();
 
@@ -46,8 +47,10 @@ const SignIn = ({
       if (response.status === true) {
         toast({
           title: 'Success',
-          description: response.data.message,
+          description: response.message,
         });
+        setUser(response.data.user);
+        setSessionItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
     } catch (error: any) {

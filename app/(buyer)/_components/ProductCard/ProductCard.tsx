@@ -53,7 +53,7 @@ export const ProductCard = ({
 
   return (
     <div className="rounded-[12px] shadow-md">
-      <div className="relative max-w-full md:max-w-[348px] w-full h-[230px]">
+      <div className="relative max-w-full md:max-w-full w-full h-[230px]">
         <Image src={images?.[0]} alt={make} fill className=" rounded-tl-[12px] rounded-tr-[12px]" />
 
         <button

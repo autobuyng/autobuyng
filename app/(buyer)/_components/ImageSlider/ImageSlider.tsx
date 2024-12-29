@@ -55,18 +55,18 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
       <div className="w-full relative overflow-hidden">
         <div
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          className="flex  items-center transition-transform duration-500 ease-in-out "
+          className="flex w-full h-[500px]   items-center transition-transform duration-500 ease-in-out "
         >
           {ImageUrls &&
             ImageUrls.map((image, index) => {
               return (
-                <div key={index} className="w-full flex-shrink-0">
+                <div key={index} className="w-full h-full object-cover flex-shrink-0">
                   <Image
                     src={image}
                     alt={`Slide ${index + 1}`}
                     width={800}
                     height={600}
-                    className="w-full h-[510px] object-cover cursor-pointer"
+                    className="w-full h-full  object-cover cursor-pointer"
                     onClick={() => setShowSlidermodal(true)}
                   />
                 </div>

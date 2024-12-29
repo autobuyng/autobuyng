@@ -134,19 +134,16 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
           <h1 className="py-2 font-bold text-xl">Features</h1>
           <div className=" grid grid-cols-1 md:grid-cols-2">
             <div className="space-y-2">
-              <p>Heated and Ventilated Seats</p>
+              {vehicleData?.features.slice(0, 4).map((item, index) => <p key={index}>{item}</p>)}
+              {/* <p>Heated and Ventilated Seats</p>
               <p>Power Liftgate</p>
               <p>Parking Sensors</p>
               <p>Rear View Camera</p>
-              <p>360 Camera System</p>
+              <p>360 Camera System</p> */}
             </div>
 
             <div className="space-y-2">
-              <p>Apple CarPlay</p>
-              <p>Blind Spot Monitor</p>
-              <p>Remote Start</p>
-              <p>Sunroofs</p>
-              <p>Wireless Charging</p>
+              {vehicleData?.features.slice(4).map((item, index) => <p key={index + 4}>{item}</p>)}
             </div>
           </div>
 

@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppProvider>
-          <ReactQuery>
+        <ReactQuery>
+          <AppProvider>
             {children}
             <Toaster />
-          </ReactQuery>
-        </AppProvider>
+          </AppProvider>
+        </ReactQuery>
       </body>
     </html>
   );
