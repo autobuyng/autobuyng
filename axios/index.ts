@@ -1,3 +1,4 @@
+import { getSessionItem } from '@/lib/Sessionstorage';
 import { SearchQuery } from '@/types/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
@@ -17,21 +18,10 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     timeout: 10000,
   });
 
-  function getCookie(name: string): string | null {
-    // Ensure this runs only in browser environment
-    if (typeof window === 'undefined') {
-      return null;
-    }
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
-    return null;
-  }
+  const accessToken = getSessionItem('accessToken');
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      const accessToken = getCookie('auth_token');
-
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
@@ -77,6 +67,7 @@ export const endpoints = {
     register: '/auth/register/buyer',
     registerseller: 'auth/register/seller',
     resentToken: '/auth/resend-token',
+    currentUser: '/auth/profile',
     resentTokenForgetPassword: '/auth/resend-password-reset-token',
     verifyEmail: '/auth/verify-email',
     forgetPassword: '/auth/forgot-password',
@@ -103,6 +94,8 @@ export const endpoints = {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
     likevehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}/like`,
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
+    getsimilarvehicle: (data: { vehicleId: string }) =>
+      `/vehicles/${data.vehicleId}/similar-vehicles`,
     // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
   },
 };
@@ -115,4 +108,26 @@ const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
     .join('&');
 
   return `${basePath}?${params}`;
+};
+
+export const queryKeys = {
+  user: {
+    root: [{ type: 'currentUser' }],
+  },
+  // event: {
+  //   root: [{ type: 'event' }],
+  //   recentEvents: [{ type: 'recentEvents' }],
+  //   recentMedias: [{ type: 'recentMedias' }],
+  //   explore: [{ type: 'explore' }],
+  //   id: (id: string) => [{ type: 'eventById', id }],
+  //   user: (id: string) => [{ type: 'eventUser', id }],
+  //   signature: [{ type: 'signature' }],
+  // },
+  // favorite: {
+  //   root: [{ type: 'favoriteEvent' }],
+  //   id: (id: string) => [{ type: 'favoriteEventById', id }],
+  // },
+  // auth: {
+  //   root: [{ type: 'auth' }],
+  // },
 };

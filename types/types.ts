@@ -205,3 +205,34 @@ export type SingleVehicleResponse = {
   message: string;
   data: VehicleData;
 };
+
+export type User = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  verifiedAt: string;
+};
+
+export type LoginResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    user: User;
+    accessToken: string;
+    refreshToken: string;
+  };
+};
+
+export type SimilarVehicleApiResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    data: Vehicle[];
+  };
+};

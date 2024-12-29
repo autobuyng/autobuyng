@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,19 +12,22 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import Menucontent from '../Menucontent/Menucontent';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
-import { AppContext } from '@/context/AppContext';
 
 import AuthDialog from '@/app/auth';
+import { AppContext } from '@/context/AppContext';
+import { useGetUser } from '@/app/(buyer)/api/auth';
+// import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
+// import { User } from '@/types/types';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [hasMounted, setHasMounted] = useState(false);
   const [type, setType] = useState('');
-
   const router = useRouter();
   const { isMobile } = useIsMobile();
+  const { user, setUser } = useContext(AppContext);
+  // console.log(user, 'user');
 
-  const { user } = useContext(AppContext);
+  const { getUser } = useGetUser();
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -35,11 +38,19 @@ const Navbar = () => {
     setType('signin');
   };
 
-  // const handleSignInClick = () => {
-  //   console.log('click');
-  //   setIsOpen(true);
-  //   setType('signin');
-  // };
+  const getUserData = async () => {
+    try {
+      const response = await getUser();
+      setUser(response.data.user);
+      console.log(response.data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   const NAV_ITEMS = [
     {
@@ -99,7 +110,7 @@ const Navbar = () => {
           <div>
             {user ? (
               <div className="flex items-center justify-center gap-2">
-                <p className="">Hi Jonathan</p>
+                <p className="">Hi {user.firstName}</p>
 
                 <div className=" relative flex items-center">
                   {isMobile && (

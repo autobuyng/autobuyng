@@ -1,5 +1,10 @@
 import { endpoints, mutator } from '@/axios';
-import { ApiResponse, SearchQuery, SingleVehicleResponse } from '@/types/types';
+import {
+  ApiResponse,
+  SearchQuery,
+  SimilarVehicleApiResponse,
+  SingleVehicleResponse,
+} from '@/types/types';
 import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -71,6 +76,31 @@ export function useGetVehicle() {
   return useMemo(
     () => ({
       getVehicle: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useGetSimilarVehicle() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, error, isError } = useMutation<
+    SimilarVehicleApiResponse,
+    any,
+    { vehicleId: string }
+  >({
+    mutationFn: (values: { vehicleId: string }) =>
+      mutator({ method: 'GET', data: values, url: endpoints.search.getsimilarvehicle(values) }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      getSimilarVehicle: mutateAsync,
       data,
       isPending,
       error,

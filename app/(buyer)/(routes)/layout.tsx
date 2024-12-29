@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar/Navbar';
-import AppProvider from '@/context/AppContext';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -15,9 +14,7 @@ export default function RootLayout({
   return (
     <main>
       <Navbar />
-      <main>
-        <AppProvider>{children}</AppProvider>
-      </main>
+      <main>{children}</main>
     </main>
   );
 }

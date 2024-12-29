@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { USER } from '@/constants/constants';
 import Download from '@/app/(buyer)/assets/download.svg';
 import Image from 'next/image';
 
@@ -11,6 +10,7 @@ type ApppraisalFormProps = {
 };
 
 const AppraisalForm = ({ isOpen, setIsOpen }: ApppraisalFormProps) => {
+  console.log(isOpen, 'open appraisal');
   const [step, setStep] = useState(1);
 
   const stepToRender = (key: number) => {
@@ -27,7 +27,7 @@ const AppraisalForm = ({ isOpen, setIsOpen }: ApppraisalFormProps) => {
 
   return (
     <div>
-      <Dialog open={isOpen && USER} onOpenChange={setIsOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-[90%] sm:max-w-lg">
           <div>{stepToRender(step)}</div>
         </DialogContent>

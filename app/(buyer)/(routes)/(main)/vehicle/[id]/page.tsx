@@ -29,27 +29,39 @@ import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
-import { Vehicle, VehicleData } from '@/types/types';
-import { useGetVehicle } from '@/app/(buyer)/api/search';
+import { User, Vehicle, VehicleData } from '@/types/types';
+import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
+import { useGetUser } from '@/app/(buyer)/api/auth';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
+  const [openAppraissal, setOpenAppraisal] = useState(false);
   const [type, setType] = useState('signin');
   const os = useDetectOS();
   const router = useRouter();
 
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
-  const { getVehicle } = useGetVehicle();
+  const { getVehicle, isPending } = useGetVehicle();
+  const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
+  const { getUser } = useGetUser();
 
   const handleGetVehicle = async () => {
     try {
+      const response2 = await getSimilarVehicle({ vehicleId: params.id });
       const response = await getVehicle({ vehicleId: params.id });
+      const response1 = await getUser();
+      setUser(response1.data.user);
       setVehicleData(response.data);
-      console.log(response, 'response');
+      setSimilarVehicle(response2.data.data);
     } catch (error) {
       console.log(error, 'error');
+    } finally {
+      setIsLoading(isPending);
     }
   };
 
@@ -61,8 +73,12 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
 
   const handleSignInClick = () => {
-    setType('signin');
-    setIsOpen(true);
+    if (user) {
+      setOpenAppraisal(true);
+    } else {
+      setType('signin');
+      setIsOpen(true);
+    }
   };
 
   const handleOpenChange = () => {
@@ -74,116 +90,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     router.push(`/vehicle/${uuidv4()}`);
   };
 
-  const similarVehicles: Vehicle[] = [
-    {
-      _id: '1',
-      make: 'Mercedes Benz',
-      images: [''],
-      vehicleModel: 'C 63',
-      mileage: '400',
-      vehicleType: [],
-      price: '35,000,000',
-      engine: 'V8',
-      transmission: 'Automatic',
-      vin: '1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: '12L/100km',
-      exteriorColor: 'Black',
-      interiorColor: 'Beige',
-      fuelType: 'Petrol',
-      vehicleYear: 2022,
-      condition: 'New',
-    },
-    {
-      _id: '2',
-      make: 'BMW',
-      images: [''],
-      vehicleModel: 'M3',
-      mileage: '500',
-      vehicleType: [],
-      price: '45,000,000',
-      engine: 'I6',
-      transmission: 'Manual',
-      vin: '2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: '10L/100km',
-      exteriorColor: 'Blue',
-      interiorColor: 'Black',
-      fuelType: 'Diesel',
-      vehicleYear: 2021,
-      condition: 'Used',
-    },
-    {
-      _id: '3',
-      make: 'Audi',
-      images: [''],
-      vehicleModel: 'A6',
-      mileage: '300',
-      vehicleType: [],
-      price: '50,000,000',
-      engine: 'V6',
-      transmission: 'Automatic',
-      vin: '3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: '8L/100km',
-      exteriorColor: 'White',
-      interiorColor: 'Gray',
-      fuelType: 'Hybrid',
-      vehicleYear: 2023,
-      condition: 'New',
-    },
-    {
-      _id: '4',
-      make: 'Tesla',
-      images: [''],
-      vehicleModel: 'Model S',
-      mileage: '0',
-      vehicleType: [],
-      price: '70,000,000',
-      engine: 'Electric',
-      transmission: 'Automatic',
-      vin: '4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: 'N/A',
-      exteriorColor: 'Red',
-      interiorColor: 'Black',
-      fuelType: 'Electric',
-      vehicleYear: 2024,
-      condition: 'New',
-    },
-    {
-      _id: '5',
-      make: 'Honda',
-      images: [],
-      vehicleModel: 'Civic',
-      mileage: '150',
-      vehicleType: [],
-      price: '15,000,000',
-      engine: 'I4',
-      transmission: 'Automatic',
-      vin: '5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: '7L/100km',
-      exteriorColor: 'Silver',
-      interiorColor: 'Gray',
-      fuelType: 'Petrol',
-      vehicleYear: 2020,
-      condition: 'Used',
-    },
-    {
-      _id: '6',
-      make: 'Toyota',
-      images: [''],
-      vehicleModel: 'Camry',
-      mileage: '200',
-      vehicleType: [],
-      price: '20,000,000',
-      engine: 'I4',
-      transmission: 'Automatic',
-      vin: '6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1',
-      fuelConsumption: '6L/100km',
-      exteriorColor: 'Green',
-      interiorColor: 'Beige',
-      fuelType: 'Petrol',
-      vehicleYear: 2019,
-      condition: 'Used',
-    },
-  ];
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <div className="w-full mb-32">
@@ -245,9 +154,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
       <div className="mt-8">
         <MaxWidthWrapper>
           <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
-            <div className="bg-white p-4 flex-[3]">
+            <div className="bg-white px-4 flex-[3]">
               <div
-                className={cn(' max-w-[800px] h-fit ', {
+                className={cn('max-w-[800px] h-fit ', {
                   'max-w-[900px] h-fit  ': os === 'macOS',
                 })}
               >
@@ -300,13 +209,13 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 <div className="space-y-8">
                   <div className="flex items-center justify-between">
                     <SemiCircleProgressBar
-                      percentage={Number(vehicleData?.reliabilityScore)}
+                      percentage={Number(vehicleData?.reliabilityScore.overall)}
                       size={200}
                       strokeWidth={10}
                       color="#3385FF"
                     />
 
-                    <span className="text-[#3385FF] text-[40px] font-bold">{`${Math.round(80)}%`}</span>
+                    <span className="text-[#3385FF] text-[40px] font-bold">{`${vehicleData?.reliabilityScore.overall}%`}</span>
                   </div>
 
                   <div className="flex items-start justify-between gap-2">
@@ -317,10 +226,10 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                           Engine <Image src={Info} alt="Info" />
                         </span>
                         <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          4.0/10
+                          {Number(vehicleData?.reliabilityScore?.engine) / 10}/10
                         </span>
                       </p>
-                      <ProgressBar progress={vehicleData?.reliabilityScore.toString()} />
+                      <ProgressBar progress={vehicleData?.reliabilityScore.engine.toString()} />
                     </div>
                   </div>
 
@@ -332,10 +241,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                           Body <Image src={Info} alt="Info" />
                         </span>
                         <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          6.8/10
+                          {Number(vehicleData?.reliabilityScore?.body) / 10}/10
                         </span>
                       </p>
-                      <ProgressBar progress="80" />
+
+                      <ProgressBar progress={vehicleData?.reliabilityScore.body.toString()} />
                     </div>
                   </div>
 
@@ -347,10 +257,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                           Wheels <Image src={Info} alt="Info" />
                         </span>
                         <span className="w-[64px] h-[28px] text-[#EFD80F] text-xs font-bold flex items-center justify-center bg-[#FFFEF0] border border-[#F2E572] rounded-[50px] text-center">
-                          6.6/10
+                          {Number(vehicleData?.reliabilityScore?.wheels) / 10}/10
                         </span>
                       </p>
-                      <ProgressBar progress="66" />
+
+                      <ProgressBar progress={vehicleData?.reliabilityScore.wheels.toString()} />
                     </div>
                   </div>
 
@@ -362,10 +273,13 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                           Accessories <Image src={Info} alt="Info" />
                         </span>
                         <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          6.6/10
+                          {Number(vehicleData?.reliabilityScore?.accessories) / 10}/10
                         </span>
                       </p>
-                      <ProgressBar progress="66" />
+
+                      <ProgressBar
+                        progress={vehicleData?.reliabilityScore.accessories.toString()}
+                      />
                     </div>
                   </div>
 
@@ -390,7 +304,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   </p>
                   <button
                     max-
-                    onClick={() => router.push('/payment/adste-te34at-4eafd')}
+                    onClick={() => router.push(`/payment/${vehicleData?._id}`)}
                     className="w-full py-2 text-white rounded-sm  bg-primary-900"
                   >
                     Continue
@@ -412,31 +326,34 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
           <div className="mt-20">
             <div>
               <h1 className="py-2 font-bold text-2xl">Similar cars at Autobuy</h1>
+              <div className="mt-4">{similarVehicleLoading && <SimilarVehicleSkeleton />}</div>
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3  gap-y-10 gap-x-8 sm:gap-4 ">
-                {similarVehicles.map((result) => {
-                  return (
-                    <ProductCard
-                      key={result._id}
-                      make={result.make}
-                      images={result.images}
-                      vehicleModel={result.vehicleModel}
-                      mileage={result.mileage}
-                      vehicleType={result.vehicleType}
-                      price={result.price}
-                      engine={result.engine}
-                      transmission={result.transmission}
-                      vin={result.vin}
-                      fuelConsumption={result.fuelConsumption}
-                      exteriorColor={result.exteriorColor}
-                      interiorColor={result.interiorColor}
-                      fuelType={result.fuelType}
-                      vehicleYear={result.vehicleYear}
-                      condition={result.condition}
-                      _id={result._id}
-                    />
-                  );
-                })}
+                {!similarVehicleLoading &&
+                  similarVehicle &&
+                  similarVehicle?.map((result) => {
+                    return (
+                      <ProductCard
+                        key={result._id}
+                        make={result.make}
+                        images={result.images}
+                        vehicleModel={result.vehicleModel}
+                        mileage={result.mileage}
+                        vehicleType={[]}
+                        price={result.price}
+                        engine={result.engine}
+                        transmission={result.transmission}
+                        vin={result.vin}
+                        fuelConsumption={result.fuelConsumption}
+                        exteriorColor={result.exteriorColor}
+                        interiorColor={result.interiorColor}
+                        fuelType={result.fuelType}
+                        vehicleYear={result.vehicleYear}
+                        condition={result.condition}
+                        _id={result._id}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -451,9 +368,192 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
         setType={setType}
       />
 
-      <AppraisalForm isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AppraisalForm isOpen={openAppraissal} setIsOpen={setOpenAppraisal} />
     </div>
   );
 };
 
 export default VehicledetailsPage;
+
+function LoadingSkeleton() {
+  return (
+    <div className="max-w-7xl mx-auto p-4 animate-pulse">
+      {/* Main content grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* Left column - Image and Details */}
+        <div className="space-y-6 col-span-3">
+          {/* Image carousel skeleton with navigation */}
+          <div className="relative aspect-[16/9] bg-gray-200 rounded-lg overflow-hidden">
+            {/* Loading spinner */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+            </div>
+
+            {/* Navigation arrows */}
+            <button className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center">
+              <div className="w-4 h-4 bg-gray-300 rounded-sm" />
+            </button>
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 rounded-full flex items-center justify-center">
+              <div className="w-4 h-4 bg-gray-300 rounded-sm" />
+            </button>
+
+            {/* Image counter */}
+            <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded text-xs">
+              <div className="w-10 h-3 bg-gray-300 rounded" />
+            </div>
+          </div>
+
+          {/* Car title and badge */}
+          <div className="flex justify-between items-start">
+            <div className="space-y-2">
+              <div className="h-7 w-48 bg-gray-200 rounded" />
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-20 bg-gray-200 rounded" />
+                <div className="h-5 w-24 bg-blue-100 rounded" />
+              </div>
+            </div>
+            <div className="h-6 w-24 bg-gray-200 rounded" />
+          </div>
+
+          {/* Specs grid with tooltips */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="group relative">
+                <div className="space-y-1">
+                  <div className="h-4 w-16 bg-gray-200 rounded" />
+                  <div className="h-5 w-24 bg-gray-200 rounded" />
+                  <div className="h-3 w-12 bg-blue-100 rounded" />
+                </div>
+                {/* Tooltip skeleton */}
+                <div className="invisible group-hover:visible absolute top-full mt-2 w-48 p-2 bg-gray-100 rounded-md">
+                  <div className="h-4 w-full bg-gray-200 rounded mb-1" />
+                  <div className="h-3 w-3/4 bg-gray-200 rounded" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Features */}
+          <div className="space-y-4">
+            <div className="h-6 w-24 bg-gray-200 rounded" />
+            <div className="grid grid-cols-2 gap-y-3 gap-x-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="w-5 h-5 bg-gray-200 rounded" />
+                  <div className="h-4 flex-1 bg-gray-200 rounded" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="h-6 w-24 bg-gray-200 rounded" />
+            <div className="grid grid-cols-2 gap-y-3 gap-x-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="w-5 h-5 bg-gray-200 rounded" />
+                  <div className="h-4 flex-1 bg-gray-200 rounded" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* View all features button */}
+          <div className="h-9 w-48 bg-gray-200 rounded-md" />
+        </div>
+
+        {/* Right column - Reliability Score and Actions */}
+        <div className="space-y-6 col-span-2">
+          {/* Reliability Score */}
+          <div className="p-6 border rounded-lg space-y-4">
+            <div className="h-6 w-28 bg-gray-200 rounded" />
+
+            {/* Gauge */}
+            <div className="relative h-40">
+              <div className="absolute inset-x-0 bottom-0 h-[160px] flex items-center justify-center">
+                {/* Gauge background */}
+                <div className="relative w-40 h-20 overflow-hidden">
+                  <div className="absolute w-40 h-40 rounded-full border-[16px] border-gray-200 -bottom-20" />
+                  <div className="absolute w-6 h-6 bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                    <div className="w-full h-full border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+                  </div>
+                </div>
+                {/* Score */}
+                <div className="absolute bottom-2 h-8 w-16 bg-gray-200 rounded" />
+              </div>
+            </div>
+
+            {/* Score bars */}
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="space-y-4">
+                <div className="flex justify-between">
+                  <div className="h-8 w-28 bg-gray-200 rounded" />
+                  <div className="h-8 w-16 bg-gray-200 rounded" />
+                </div>
+                <div className="h-4 bg-gray-200 rounded" />
+              </div>
+            ))}
+          </div>
+
+          {/* Action buttons */}
+          <div className="space-y-3">
+            <div className="h-12 bg-gray-200 rounded-lg" />
+            <div className="h-12 bg-gray-200 rounded-lg" />
+          </div>
+
+          {/* Checkbox area */}
+          <div className="flex items-center space-x-2">
+            <div className="h-4 w-4 bg-gray-200 rounded" />
+            <div className="h-4 flex-1 bg-gray-200 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SimilarVehicleSkeleton() {
+  return (
+    <div className="container mx-auto p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="bg-white rounded-lg overflow-hidden shadow animate-pulse">
+            {/* Image container */}
+            <div className="relative aspect-[16/9] bg-gray-200">
+              {/* Loading spinner */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+              </div>
+
+              {/* Heart icon placeholder */}
+              <div className="absolute top-2 right-2 w-8 h-8 bg-gray-100 rounded-full" />
+
+              {/* Image counter */}
+              <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded">
+                <div className="w-6 h-3 bg-gray-300 rounded" />
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-4 space-y-4">
+              {/* Title */}
+              <div className="h-5 w-32 bg-gray-200 rounded" />
+
+              {/* Status and mileage */}
+              <div className="flex items-center justify-between">
+                <div className="h-5 w-24 bg-blue-100 rounded" />
+                <div className="h-5 w-20 bg-gray-200 rounded" />
+              </div>
+
+              {/* Price */}
+              <div className="h-6 w-28 bg-gray-200 rounded" />
+
+              {/* Button */}
+              <div className="h-10 bg-blue-600 rounded-md w-full" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
