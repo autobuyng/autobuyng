@@ -5,10 +5,14 @@ import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useVerifyEmail } from '@/app/(buyer)/api/auth';
 import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { getLocalItem } from '@/lib/localStorage';
+import { useRouter } from 'next/navigation';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
+  const router = useRouter();
   const [data, setData] = useState<any>();
+  const prevPage = getLocalItem('previousPage');
 
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -28,6 +32,7 @@ function VerifyEmailPage() {
           description: response.message,
         });
       }
+      router.push(prevPage);
     } catch (error: any) {
       setData(error);
       toast({
