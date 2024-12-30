@@ -18,10 +18,12 @@ import Result from '@/app/(buyer)/_components/Result/Result';
 import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { getSessionItem } from '@/lib/Sessionstorage';
+import { setLocalItem } from '@/lib/localStorage';
 
 const Results = ({ params }: { params: { slug: string } }) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
   console.log(params);
@@ -105,8 +107,11 @@ const Results = ({ params }: { params: { slug: string } }) => {
     };
 
     handleSearch(searchParams);
+
+    setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
   return (
     <main className="mb-24">
       <div className="bg-img">

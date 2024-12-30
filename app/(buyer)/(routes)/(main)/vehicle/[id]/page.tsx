@@ -1,7 +1,7 @@
 'use client';
 import React, { Suspense, useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -32,8 +32,10 @@ import AuthDialog from '@/app/auth';
 import { User, Vehicle, VehicleData } from '@/types/types';
 import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
 import { useGetUser } from '@/app/(buyer)/api/auth';
+import { setLocalItem } from '@/lib/localStorage';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
+  const pathname = usePathname();
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [openAppraissal, setOpenAppraisal] = useState(false);
@@ -67,6 +69,8 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     handleGetVehicle();
+    setLocalItem('previousPage', pathname);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
