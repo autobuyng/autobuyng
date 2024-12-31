@@ -56,8 +56,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     try {
       const response2 = await getSimilarVehicle({ vehicleId: params.id });
       const response = await getVehicle({ vehicleId: params.id });
-      const response1 = await getUser();
-      setUser(response1.data.user);
       setVehicleData(response.data);
       setSimilarVehicle(response2.data.data);
     } catch (error) {
@@ -67,8 +65,18 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
+  const handleGetUser = async () => {
+    try {
+      const response1 = await getUser();
+      setUser(response1.data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     handleGetVehicle();
+    handleGetUser();
     setLocalItem('previousPage', pathname);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,9 +102,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     router.push(`/vehicle/${uuidv4()}`);
   };
 
-  if (isLoading) {
-    return <LoadingSkeleton />;
-  }
+  // if (isLoading) {
+  //   return <LoadingSkeleton />;
+  // }
 
   return (
     <div className="w-full mb-32">
@@ -157,176 +165,179 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
       <div className="mt-8">
         <MaxWidthWrapper>
-          <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
-            <div className="bg-white px-4 flex-[3]">
-              <div
-                className={cn('max-w-[800px] h-fit ', {
-                  'max-w-[900px] h-fit  ': os === 'macOS',
-                })}
-              >
-                <ImageSlider ImageUrls={vehicleData?.images as string[]} />
-              </div>
-              <div className="my-2 space-y-2">
-                <div className="flex items-center justify-between">
-                  <p className="font-[600] text-2xl">Mercedes Benz</p>
-                  <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
-                    {vehicleData?.condition}
-                  </p>
+          {isLoading && <LoadingSkeleton />}
+          {!isLoading && (
+            <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
+              <div className="bg-white px-4 flex-[3]">
+                <div
+                  className={cn('max-w-[800px] h-fit ', {
+                    'max-w-[900px] h-fit  ': os === 'macOS',
+                  })}
+                >
+                  <ImageSlider ImageUrls={vehicleData?.images as string[]} />
                 </div>
-
-                <div className="space-x-1 flex items-center">
-                  <span className="text-neutral-700 font-semibold">{vehicleData?.mileage}</span>
-                  <span>|</span>
-                  <span className="text-xl font-bold tracking-wide">{vehicleData?.price}</span>
-                </div>
-
-                <div className="   min-[480px]:flex space-y-2 items-center justify-between">
-                  <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
-                    <span className="text-primary-900">VIN</span>
-                    <span>{vehicleData?.vin}</span>
-                  </p>
-
-                  <p className="underline text-sm text-primary-900 cursor-pointer  capitalize flex items-center ">
-                    <Link
-                      className="flex items-center gap-1"
-                      target="_blank"
-                      href="/vehicle-history/45174d0d-7906-4cef-a617-904cf2a580eb"
-                    >
-                      view vehicle history
-                      <Image src={link} alt="Link" />
-                    </Link>
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-full ">
-                {isMobile ? null : <VehicleInformation vehicleData={vehicleData} />}
-              </div>
-            </div>
-
-            <div className="h-fit  space-y-10  flex-[2] ">
-              <div className="shadow-[0px_2px_14px_0px_#0000001A] bg-white px-6 pb-4 pt-12">
-                <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
-                  Autobuy Reliability Score{' '}
-                </h1>
-
-                <div className="space-y-8">
+                <div className="my-2 space-y-2">
                   <div className="flex items-center justify-between">
-                    <SemiCircleProgressBar
-                      percentage={Number(vehicleData?.reliabilityScore.overall)}
-                      size={200}
-                      strokeWidth={10}
-                      color="#3385FF"
-                    />
-
-                    <span className="text-[#3385FF] text-[40px] font-bold">{`${vehicleData?.reliabilityScore.overall}%`}</span>
+                    <p className="font-[600] text-2xl">Mercedes Benz</p>
+                    <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+                      {vehicleData?.condition}
+                    </p>
                   </div>
 
-                  <div className="flex items-start justify-between gap-2">
-                    <Image src={Engine} alt="Engine" className="mx-auto" />
-                    <div className="w-full">
-                      <p className="flex items-start justify-between pb-2 ">
-                        <span className="flex items-center gap-1">
-                          Engine <Image src={Info} alt="Info" />
-                        </span>
-                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          {Number(vehicleData?.reliabilityScore?.engine) / 10}/10
-                        </span>
-                      </p>
-                      <ProgressBar progress={vehicleData?.reliabilityScore.engine.toString()} />
-                    </div>
+                  <div className="space-x-1 flex items-center">
+                    <span className="text-neutral-700 font-semibold">{vehicleData?.mileage}</span>
+                    <span>|</span>
+                    <span className="text-xl font-bold tracking-wide">{vehicleData?.price}</span>
                   </div>
 
-                  <div className="flex items-start justify-between gap-2">
-                    <Image src={Car} alt="Car" className="mx-auto" />
-                    <div className="w-full">
-                      <p className="flex items-start justify-between pb-2 ">
-                        <span className="flex items-center gap-1">
-                          Body <Image src={Info} alt="Info" />
-                        </span>
-                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          {Number(vehicleData?.reliabilityScore?.body) / 10}/10
-                        </span>
-                      </p>
+                  <div className="   min-[480px]:flex space-y-2 items-center justify-between">
+                    <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
+                      <span className="text-primary-900">VIN</span>
+                      <span>{vehicleData?.vin}</span>
+                    </p>
 
-                      <ProgressBar progress={vehicleData?.reliabilityScore.body.toString()} />
-                    </div>
+                    <p className="underline text-sm text-primary-900 cursor-pointer  capitalize flex items-center ">
+                      <Link
+                        className="flex items-center gap-1"
+                        target="_blank"
+                        href="/vehicle-history/45174d0d-7906-4cef-a617-904cf2a580eb"
+                      >
+                        view vehicle history
+                        <Image src={link} alt="Link" />
+                      </Link>
+                    </p>
                   </div>
+                </div>
 
-                  <div className="flex items-start justify-between gap-2">
-                    <Image src={Wheels} alt="Wheels" className="mx-auto" />
-                    <div className="w-full">
-                      <p className="flex items-start justify-between pb-2 ">
-                        <span className="flex items-center gap-1">
-                          Wheels <Image src={Info} alt="Info" />
-                        </span>
-                        <span className="w-[64px] h-[28px] text-[#EFD80F] text-xs font-bold flex items-center justify-center bg-[#FFFEF0] border border-[#F2E572] rounded-[50px] text-center">
-                          {Number(vehicleData?.reliabilityScore?.wheels) / 10}/10
-                        </span>
-                      </p>
+                <div className="w-full ">
+                  {isMobile ? null : <VehicleInformation vehicleData={vehicleData} />}
+                </div>
+              </div>
 
-                      <ProgressBar progress={vehicleData?.reliabilityScore.wheels.toString()} />
-                    </div>
-                  </div>
+              <div className="h-fit  space-y-10  flex-[2] ">
+                <div className="shadow-[0px_2px_14px_0px_#0000001A] bg-white px-6 pb-4 pt-12">
+                  <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
+                    Autobuy Reliability Score{' '}
+                  </h1>
 
-                  <div className="flex items-start justify-between gap-2">
-                    <Image src={Accessories} alt="Accessories" className="mx-auto" />
-                    <div className="w-full">
-                      <p className="flex items-start justify-between pb-2 ">
-                        <span className="flex items-center gap-1">
-                          Accessories <Image src={Info} alt="Info" />
-                        </span>
-                        <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                          {Number(vehicleData?.reliabilityScore?.accessories) / 10}/10
-                        </span>
-                      </p>
-
-                      <ProgressBar
-                        progress={vehicleData?.reliabilityScore.accessories.toString()}
+                  <div className="space-y-8">
+                    <div className="flex items-center justify-between">
+                      <SemiCircleProgressBar
+                        percentage={Number(vehicleData?.reliabilityScore.overall)}
+                        size={200}
+                        strokeWidth={10}
+                        color="#3385FF"
                       />
+
+                      <span className="text-[#3385FF] text-[40px] font-bold">{`${vehicleData?.reliabilityScore.overall}%`}</span>
                     </div>
+
+                    <div className="flex items-start justify-between gap-2">
+                      <Image src={Engine} alt="Engine" className="mx-auto" />
+                      <div className="w-full">
+                        <p className="flex items-start justify-between pb-2 ">
+                          <span className="flex items-center gap-1">
+                            Engine <Image src={Info} alt="Info" />
+                          </span>
+                          <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                            {Number(vehicleData?.reliabilityScore?.engine) / 10}/10
+                          </span>
+                        </p>
+                        <ProgressBar progress={vehicleData?.reliabilityScore.engine.toString()} />
+                      </div>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-2">
+                      <Image src={Car} alt="Car" className="mx-auto" />
+                      <div className="w-full">
+                        <p className="flex items-start justify-between pb-2 ">
+                          <span className="flex items-center gap-1">
+                            Body <Image src={Info} alt="Info" />
+                          </span>
+                          <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                            {Number(vehicleData?.reliabilityScore?.body) / 10}/10
+                          </span>
+                        </p>
+
+                        <ProgressBar progress={vehicleData?.reliabilityScore.body.toString()} />
+                      </div>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-2">
+                      <Image src={Wheels} alt="Wheels" className="mx-auto" />
+                      <div className="w-full">
+                        <p className="flex items-start justify-between pb-2 ">
+                          <span className="flex items-center gap-1">
+                            Wheels <Image src={Info} alt="Info" />
+                          </span>
+                          <span className="w-[64px] h-[28px] text-[#EFD80F] text-xs font-bold flex items-center justify-center bg-[#FFFEF0] border border-[#F2E572] rounded-[50px] text-center">
+                            {Number(vehicleData?.reliabilityScore?.wheels) / 10}/10
+                          </span>
+                        </p>
+
+                        <ProgressBar progress={vehicleData?.reliabilityScore.wheels.toString()} />
+                      </div>
+                    </div>
+
+                    <div className="flex items-start justify-between gap-2">
+                      <Image src={Accessories} alt="Accessories" className="mx-auto" />
+                      <div className="w-full">
+                        <p className="flex items-start justify-between pb-2 ">
+                          <span className="flex items-center gap-1">
+                            Accessories <Image src={Info} alt="Info" />
+                          </span>
+                          <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
+                            {Number(vehicleData?.reliabilityScore?.accessories) / 10}/10
+                          </span>
+                        </p>
+
+                        <ProgressBar
+                          progress={vehicleData?.reliabilityScore.accessories.toString()}
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleSignInClick}
+                      className="w-full text-white bg-primary-900 rounded-sm py-2 whitespace-nowrap "
+                    >
+                      Download Appraisal
+                    </button>
+                  </div>
+                </div>
+
+                <div className="bg-white shadow-[0px_2px_14px_0px_#0000001A] mt-6 py-4 px-6">
+                  <div className="w-full space-y-2 mt-2 ">
+                    <h1 className="text-2xl font-bold">Proceed with your purchase</h1>
+                    <p
+                      onClick={handleSignInClick}
+                      className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap "
+                    >
+                      Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
+                      Autobuy registered outlets
+                    </p>
+                    <button
+                      max-
+                      onClick={() => router.push(`/payment/${vehicleData?._id}`)}
+                      className="w-full py-2 text-white rounded-sm  bg-primary-900"
+                    >
+                      Continue
+                    </button>
                   </div>
 
-                  <button
-                    onClick={handleSignInClick}
-                    className="w-full text-white bg-primary-900 rounded-sm py-2 whitespace-nowrap "
-                  >
-                    Download Appraisal
-                  </button>
+                  <div className="flex items-center gap-2 mt-2 text-sm">
+                    <input type="checkbox" />
+                    <p>Lorem ipsum dolor sit amet consectetur </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-white shadow-[0px_2px_14px_0px_#0000001A] mt-6 py-4 px-6">
-                <div className="w-full space-y-2 mt-2 ">
-                  <h1 className="text-2xl font-bold">Proceed with your purchase</h1>
-                  <p
-                    onClick={handleSignInClick}
-                    className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap "
-                  >
-                    Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
-                    Autobuy registered outlets
-                  </p>
-                  <button
-                    max-
-                    onClick={() => router.push(`/payment/${vehicleData?._id}`)}
-                    className="w-full py-2 text-white rounded-sm  bg-primary-900"
-                  >
-                    Continue
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-2 mt-2 text-sm">
-                  <input type="checkbox" />
-                  <p>Lorem ipsum dolor sit amet consectetur </p>
-                </div>
+              <div className="">
+                {isMobile ? <VehicleInformation vehicleData={vehicleData} /> : null}
               </div>
             </div>
-
-            <div className="">
-              {isMobile ? <VehicleInformation vehicleData={vehicleData} /> : null}
-            </div>
-          </div>
-
+          )}
+          {/* similar vehicle */}
           <div className="mt-20">
             <div>
               <h1 className="py-2 font-bold text-2xl">Similar cars at Autobuy</h1>
