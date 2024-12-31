@@ -2,28 +2,27 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 // import samlplevehicle from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
-import { User, VehicleData } from '@/types/types';
+import { VehicleData } from '@/types/types';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
-import { useGetUser } from '@/app/(buyer)/api/auth';
 import { usePathname } from 'next/navigation';
+import { useStore } from '@/store/useStore';
 
 const ShipmentDetails = () => {
   const pathname = usePathname();
   console.log(pathname.split('/').at(-1), 'pathname');
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [, setUser] = useState<User | null>(null);
 
+  const { user } = useStore();
+  console.log(user, 'payment');
   const { getVehicle, isPending } = useGetVehicle();
-  const { getUser } = useGetUser();
 
   const handleGetVehicle = async () => {
     try {
       const response = await getVehicle({
         vehicleId: pathname.split('/').at(-1) as string,
       });
-      const response1 = await getUser();
-      setUser(response1.data.user);
+
       setVehicleData(response.data);
     } catch (error) {
       console.log(error, 'error');

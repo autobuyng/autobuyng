@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,8 +14,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
 
 import AuthDialog from '@/app/auth';
-import { AppContext } from '@/context/AppContext';
 import { useGetUser } from '@/app/(buyer)/api/auth';
+import { useStore } from '@/store/useStore';
 // import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
 // import { User } from '@/types/types';
 
@@ -24,8 +24,8 @@ const Navbar = () => {
   const [type, setType] = useState('');
   const router = useRouter();
   const { isMobile } = useIsMobile();
-  const { user, setUser } = useContext(AppContext);
-  // console.log(user, 'user');
+  const { user, setUser } = useStore((state) => state);
+  console.log(user, 'user');
 
   const { getUser } = useGetUser();
 
@@ -41,7 +41,9 @@ const Navbar = () => {
   const getUserData = async () => {
     try {
       const response = await getUser();
-      setUser(response.data.user);
+      if (response.status) {
+        setUser(response.data.user);
+      }
       console.log(response.data.user);
     } catch (error) {
       console.log(error);
