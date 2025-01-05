@@ -29,12 +29,15 @@ import Accessories from '../assets/accessories.svg';
 import Wheels from '../assets/wheels.svg';
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
-import { User, Vehicle, VehicleData } from '@/types/types';
+import { Vehicle, VehicleData } from '@/types/types';
 import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
-import { useGetUser } from '@/app/(buyer)/api/auth';
+// import { useGetUser } from '@/app/(buyer)/api/auth';
 import { setLocalItem } from '@/lib/localStorage';
+import { useStore } from '@/store/useStore';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
+  const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
+  const { user } = useStore();
   const pathname = usePathname();
   const { isMobile } = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
@@ -45,19 +48,20 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  // const [userData, setUserData] = useState<User | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
   const { getVehicle, isPending } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
-  const { getUser } = useGetUser();
+  // const { getUser } = useGetUser();
 
+  console.log(user, 'userData');
   const handleGetVehicle = async () => {
     try {
       const response2 = await getSimilarVehicle({ vehicleId: params.id });
       const response = await getVehicle({ vehicleId: params.id });
       setVehicleData(response.data);
-      setSimilarVehicle(response2.data.data);
+      setSimilarVehicle(response2.data.vehicles);
     } catch (error) {
       console.log(error, 'error');
     } finally {
@@ -65,28 +69,28 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const handleGetUser = async () => {
-    try {
-      const response1 = await getUser();
-      setUser(response1.data.user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleGetUser = async () => {
+  //   try {
+  //     const response1 = await getUser();
+  //     setUserData(response1.data.user);
+  //     setUser(response1.data.user);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     handleGetVehicle();
-    handleGetUser();
+    // handleGetUser();
     setLocalItem('previousPage', pathname);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
-
-  const handleSignInClick = () => {
-    if (user) {
+  const handleSignInClick = (key: string) => {
+    if (user && key === 'appraisal') {
       setOpenAppraisal(true);
+    } else if (user && key != 'appraisal') {
+      router.push(`/payment/${key}`);
     } else {
       setType('signin');
       setIsOpen(true);
@@ -112,7 +116,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
         <MaxWidthWrapper>
           <div>
             <h1>
-              Home/Search Result/ <span className="font-semibold">Tesla</span>
+              Home/Search Result/ <span className="font-semibold">{vehicleData?.make}</span>
             </h1>
 
             <Suspense
@@ -298,7 +302,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     </div>
 
                     <button
-                      onClick={handleSignInClick}
+                      onClick={() => handleSignInClick('appraisal')}
                       className="w-full text-white bg-primary-900 rounded-sm py-2 whitespace-nowrap "
                     >
                       Download Appraisal
@@ -309,16 +313,12 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 <div className="bg-white shadow-[0px_2px_14px_0px_#0000001A] mt-6 py-4 px-6">
                   <div className="w-full space-y-2 mt-2 ">
                     <h1 className="text-2xl font-bold">Proceed with your purchase</h1>
-                    <p
-                      onClick={handleSignInClick}
-                      className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap "
-                    >
+                    <p className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap ">
                       Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
                       Autobuy registered outlets
                     </p>
                     <button
-                      max-
-                      onClick={() => router.push(`/payment/${vehicleData?._id}`)}
+                      onClick={() => handleSignInClick(vehicleData?._id as string)}
                       className="w-full py-2 text-white rounded-sm  bg-primary-900"
                     >
                       Continue

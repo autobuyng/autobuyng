@@ -4,15 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 // import useIsMobile from '@/hooks/useIsMobile';
-import { AppContext } from '@/context/AppContext';
+// import { AppContext } from '@/context/AppContext';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useLogin } from '@/app/(buyer)/api/auth';
 import { Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 // import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { setSessionItem } from '@/lib/Sessionstorage';
+import { useStore } from '@/store/useStore';
 
 const SignIn = ({
   setType,
@@ -33,7 +34,9 @@ const SignIn = ({
   console.log(errors, 'errors');
   // const os = useDetectOS();
   // const { isMobile } = useIsMobile();
-  const { user, setUser } = useContext(AppContext);
+  // const { user, setUser } = useContext(AppContext);
+  const { user, setUser } = useStore();
+
   console.log(user);
   const router = useRouter();
 

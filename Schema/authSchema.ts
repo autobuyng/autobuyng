@@ -60,6 +60,23 @@ export const PasswordSchema = z.object({
     .regex(/^[A-Za-z0-9!@#$%^]+$/, { message: 'Only !@#$%^ special characters allowed' }),
 });
 
+export const ContactDetailsSchema = z.object({
+  phoneNumber: z
+    .string()
+    .min(10, { message: 'Phone number must be at least 10 digits' })
+    .max(15, { message: 'Phone number must be at most 15 digits' })
+    .regex(/^\d+$/, { message: 'Phone number must contain only digits' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  address: z.string().min(1, { message: 'Address is required' }),
+  state: z.string().min(1, { message: 'State is required' }),
+  city: z.string().min(1, { message: 'City is required' }),
+  date: z.string().refine((value) => !isNaN(Date.parse(value)), {
+    message: 'Invalid date format. Use YYYY-MM-DD',
+  }),
+  time: z.string(),
+});
+
+export type IContactDetailsSchema = z.infer<typeof ContactDetailsSchema>;
 export type IRegistrationPayload = z.infer<typeof RegistrationSchema>;
 export type ILoginPayload = z.infer<typeof LoginSchema>;
 export type IPassword = z.infer<typeof PasswordSchema>;

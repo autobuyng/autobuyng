@@ -115,7 +115,7 @@ export type Vehicle = {
 };
 
 export type SearchResponseData = {
-  data: Vehicle[];
+  vehicles: Vehicle[];
   count: number;
   currentPage: number;
   nextPage: number | null;
@@ -206,19 +206,6 @@ export type SingleVehicleResponse = {
   data: VehicleData;
 };
 
-export type User = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  verifiedAt: string;
-};
-
 export type LoginResponse = {
   status: boolean;
   message: string;
@@ -233,6 +220,112 @@ export type SimilarVehicleApiResponse = {
   status: boolean;
   message: string;
   data: {
-    data: Vehicle[];
+    vehicles: Vehicle[];
   };
 };
+
+export interface AddressResponse {
+  status: boolean;
+  message: string;
+  data: {
+    address: Address;
+  };
+}
+
+export interface Address {
+  userId: string;
+  address: string;
+  city: string;
+  region: string;
+  isActive: boolean;
+  _id?: string;
+  createdAt?: string; // ISO date string
+  updatedAt?: string; // ISO date string
+  __v?: number;
+}
+
+export type AddressProps = {
+  // firstname: string;
+  // lastname: string;
+  // phonenumber: string;
+  phonenumber2?: string;
+  city: string;
+  region: string;
+  address: string;
+  additionalInformation?: string;
+};
+
+export type FavoriteVehicleResponse = {
+  status: boolean;
+  message: string;
+  data: Vehicle[];
+  count: number;
+  currentPage: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  lastPage: number;
+};
+
+export type FavoriteVehicle = {
+  _id: string;
+  make: string;
+  vehicleModel: string;
+  condition: string;
+  mileage: string;
+  price: number;
+  images: string[];
+};
+
+export type ContactDetails = {
+  phoneNumber: string;
+  email: string;
+  address: string;
+  state: string;
+  city: string;
+  date: string; // ISO format or "YYYY-MM-DD"
+  time: string; // Time format, e.g., "HH:mm AM/PM"
+};
+
+export type UserResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    user: User;
+    profile: Profile;
+    addresses: Address[];
+  };
+};
+
+export type User = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  verifiedAt: string;
+};
+
+export type Profile = {
+  _id: string;
+  userId: string;
+  phoneNumber: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+// interface Address {
+//   _id: string;
+//   userId: string;
+//   address: string;
+//   city: string;
+//   region: string;
+//   isActive: boolean;
+//   createdAt: string;
+//   updatedAt: string;
+//   __v: number;
+// }

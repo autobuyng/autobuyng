@@ -36,7 +36,6 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [vehicleId, setVehicleId] = useState('');
   const [vehicleList, setVehicleList] = useState<VEHICLE_SEARCH_RESULTS_PROPS[]>([]);
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
-  console.log(user, 'in appcontext page');
   useEffect(() => {
     const vehicleIndex = VEHICLE_SEARCH_RESULTS.findIndex((vehicle) => vehicle.id === vehicleId);
     const NextFive = VEHICLE_SEARCH_RESULTS.slice(vehicleIndex, vehicleIndex + 8);
