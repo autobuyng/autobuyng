@@ -24,13 +24,16 @@ const Sidebar = () => {
   ];
 
   const pathname = usePathname();
-  const currentPath = pathname.split('/');
+  // const currentPath = pathname.split('/');
 
   return (
     <main className="w-[270px]   sticky top-[76px] left-0 max-h-[calc(100vh_-_76px)] hidden lg:flex flex-col  border-r border-neutral-100  ">
       <div className="flex flex-col h-full  gap-4 mt-4 mx-2  ">
         {SIDEBAR_ITEMS.map((item) => {
-          const isActive = item.path === currentPath[currentPath.length - 1];
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          // const isActive = item.path.includes(currentPath[currentPath.length - 1]);
+          const isActive = pathname.includes(item.path);
+
           return (
             <Link
               prefetch={true}

@@ -36,7 +36,7 @@ const Login = () => {
     try {
       const response = await login(data);
       console.log(response);
-      setSessionItem('accessToken', response.data.accessToken);
+      setSessionItem('sellerAccessToken', response.data.accessToken);
       toast({
         title: 'Success',
         description: response.data.message,

@@ -1,7 +1,12 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
 import { IRegistrationPayload } from '@/Schema/authSchema';
-import { IAccountCreationResponse, ILoginPayload, LoginResponse } from '@/types/types';
+import {
+  IAccountCreationResponse,
+  ILoginPayload,
+  LoginResponse,
+  UserResponse,
+} from '@/types/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -12,8 +17,7 @@ export function useLogin() {
     any,
     ILoginPayload
   >({
-    mutationFn: (values: ILoginPayload) =>
-      mutator({ method: 'POST', data: values, url: endpoints.auth.login }),
+    mutationFn: (values) => mutator({ method: 'POST', data: values, url: endpoints.auth.login }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
@@ -58,7 +62,7 @@ export function useRegister() {
 }
 export function useGetUser() {
   // const queryClient = useQueryClient();
-  const { mutateAsync, data, isPending, isError, error } = useMutation<LoginResponse, any>({
+  const { mutateAsync, data, isPending, isError, error } = useMutation<UserResponse, any>({
     mutationFn: () => mutator({ method: 'GET', url: endpoints.auth.currentUser }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });

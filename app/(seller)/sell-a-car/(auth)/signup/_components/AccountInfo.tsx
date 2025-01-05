@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import {
@@ -13,7 +12,6 @@ import { useRegisterBusiness } from '@/app/(seller)/api/auth';
 import { Loader } from 'lucide-react';
 
 const AccountInfo = () => {
-  const router = useRouter();
   const { toast } = useToast();
 
   const {
@@ -35,7 +33,7 @@ const AccountInfo = () => {
         description: response.data.message,
       });
 
-      router.push('/sell-a-car/dashboard');
+      // router.push('/sell-a-car/dashboard');
     } catch (error: any) {
       toast({
         title: 'Failed',

@@ -24,8 +24,7 @@ const Navbar = () => {
   const [type, setType] = useState('');
   const router = useRouter();
   const { isMobile } = useIsMobile();
-  const { user, setUser } = useStore((state) => state);
-  console.log(user, 'user');
+  const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
 
   const { getUser } = useGetUser();
 
@@ -39,18 +38,24 @@ const Navbar = () => {
   };
 
   const getUserData = async () => {
+    setIsLoading(true);
     try {
       const response = await getUser();
       if (response.status) {
         setUser(response.data.user);
+        setProfile(response.data.profile);
+        setAddress(response.data.addresses);
       }
       console.log(response.data.user);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getUserData();
   }, []);
 
@@ -145,6 +150,8 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
+            ) : isLoading ? (
+              <div className="flex gap-8">Loading...</div> // Replace with your loading indicator
             ) : (
               <div className="flex gap-8">
                 <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">

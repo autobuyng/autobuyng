@@ -48,7 +48,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
-  const { search, isPending } = useSearchVehicle();
+  const { search, isPending, isError, error } = useSearchVehicle();
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword');
   // const mileage = searchParams.get('mileage') ?? undefined;
@@ -80,6 +80,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
     try {
       const response = await search(data);
       setSearchResult(response.data);
+      console.log(response.data, 'response');
       // router.push(`/results/keyword=${data.keyword}`);
       console.log(response);
     } catch (error) {
@@ -235,6 +236,8 @@ const Results = ({ params }: { params: { slug: string } }) => {
                 isPending={isPending}
                 searchResult={searchResult}
                 setSearchResult={setSearchResult}
+                isError={isError}
+                error={error}
               />
             </div>
           </div>

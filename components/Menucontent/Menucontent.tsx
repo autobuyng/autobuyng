@@ -1,20 +1,21 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import Profile from '@/components/Navbar/assets/Profile.svg';
 import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
-import { AppContext } from '@/context/AppContext';
 import AuthDialog from '@/app/auth';
+import { useStore } from '@/store/useStore';
 
 const Menucontent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const router = useRouter();
-  const { user } = useContext(AppContext);
+  const { user } = useStore();
+
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -39,7 +40,7 @@ const Menucontent = () => {
   return (
     <div className="mt-8 md:mt-0">
       <div>
-        <h1 className="font-semibold text-lg text-primary-700">Hi Jonathan</h1>
+        <h1 className="font-semibold text-lg text-primary-700">Hi {user?.firstName}</h1>
       </div>
 
       <div className="flex flex-col gap-3 mt-4">

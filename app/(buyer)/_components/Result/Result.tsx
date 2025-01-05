@@ -12,8 +12,10 @@ type ResultProps = {
   isPending: boolean;
   setSearchResult: React.Dispatch<React.SetStateAction<SearchResponseData | null>>;
   searchResult: SearchResponseData | null;
+  isError: boolean;
+  error: any;
 };
-const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
+const Result = ({ displayFormat, searchResult, isPending, isError, error }: ResultProps) => {
   const { isMobile } = useIsMobile();
   // const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
@@ -37,7 +39,6 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
   //   });
   // }, []);
 
-  console.log(isPending, 'isPending');
   if (isPending) {
     return (
       <div className="grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8">
@@ -50,7 +51,15 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
     );
   }
 
-  if (!isPending && (!searchResult || searchResult?.data.length === 0)) {
+  if (isError) {
+    <main className="mb-8 w-full  flex items-center justify-center">
+      <div className="space-y-4">
+        <h1 className="text-2xl font-bold text-gray-900 mt-56">{error}</h1>
+      </div>
+    </main>;
+  }
+
+  if (searchResult && searchResult.vehicles.length === 0) {
     return (
       <main className="mb-8 w-full  flex items-center justify-center">
         <div className="space-y-4">
@@ -68,7 +77,7 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
             'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
           )}
         >
-          {searchResult?.data.map((result) => {
+          {searchResult?.vehicles.map((result) => {
             return (
               <div key={result._id}>
                 <ProductCard
@@ -96,7 +105,7 @@ const Result = ({ displayFormat, searchResult, isPending }: ResultProps) => {
         </div>
       ) : (
         <div className="space-y-4 ">
-          {searchResult?.data.map((result) => {
+          {searchResult?.vehicles.map((result) => {
             return (
               <ColProductCard
                 key={result._id}

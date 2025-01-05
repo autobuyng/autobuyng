@@ -15,13 +15,20 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     baseURL: baseUrls[baseUrlKey],
     withCredentials: true,
     // Add timeout to prevent hanging requests
-    timeout: 10000,
+    timeout: 15000,
   });
 
-  const accessToken = getSessionItem('accessToken');
+  // const accessToken = getSessionItem('accessToken');
 
   axiosInstance.interceptors.request.use(
     (config) => {
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+      const isSeller = currentPath.includes('sell-a-car');
+      console.log(isSeller, 'is this a seller');
+      const accessToken = isSeller
+        ? getSessionItem('sellerAccessToken')
+        : getSessionItem('accessToken');
+
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
@@ -77,18 +84,16 @@ export const endpoints = {
   },
   user: {
     profile: '/user',
-    notification: '/notification',
+    addAddress: '/users/add-address',
+    getFavoriteVehicle: '/users/favorite-vehicles',
+    updateAddress: (id: string) => `/users/address/${id}`,
     editProfile: (id: string) => `/user/update/${id}`,
-    avatarUpload: '/user/settings/avatar',
   },
   friends: {
     friendslist: '/friends/list',
   },
-  posts: {
-    posts: '/posts',
-    like: '/like/create',
-    dislike: '/like/remove',
-    share: '/',
+  upload: {
+    bookInspection: '/seller/book-inspection',
   },
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
@@ -113,6 +118,7 @@ const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
 export const queryKeys = {
   user: {
     root: [{ type: 'currentUser' }],
+    getFavoriteVehicle: [{ type: 'getFavoriteVehicle' }],
   },
   // event: {
   //   root: [{ type: 'event' }],

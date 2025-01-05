@@ -61,7 +61,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
       const response2 = await getSimilarVehicle({ vehicleId: params.id });
       const response = await getVehicle({ vehicleId: params.id });
       setVehicleData(response.data);
-      setSimilarVehicle(response2.data.data);
+      setSimilarVehicle(response2.data.vehicles);
     } catch (error) {
       console.log(error, 'error');
     } finally {
