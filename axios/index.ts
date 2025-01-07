@@ -87,6 +87,7 @@ export const endpoints = {
     addAddress: '/users/add-address',
     getFavoriteVehicle: '/users/favorite-vehicles',
     updateAddress: (id: string) => `/users/address/${id}`,
+    setActiveAddress: (id: string) => `/users/set-active-address/${id}`,
     editProfile: (id: string) => `/user/update/${id}`,
   },
   friends: {

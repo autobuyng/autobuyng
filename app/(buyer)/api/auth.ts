@@ -2,6 +2,7 @@ import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
 import { IRegistrationPayload } from '@/Schema/authSchema';
 import {
+  EmailverificationResponse,
   IAccountCreationResponse,
   ILoginPayload,
   LoginResponse,
@@ -102,15 +103,17 @@ export function useGetAuthenticatedUser() {
 
 export function useVerifyEmail() {
   // const queryClient = useQueryClient();
-  const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { token: string }>(
-    {
-      mutationFn: (values: { token: string }) =>
-        mutator({ method: 'POST', data: values, url: endpoints.auth.verifyEmail }),
-      onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
-      },
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    EmailverificationResponse,
+    any,
+    { token: string }
+  >({
+    mutationFn: (values: { token: string }) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.verifyEmail }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
-  );
+  });
 
   return useMemo(
     () => ({

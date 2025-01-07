@@ -29,7 +29,7 @@ function VerifyEmailPage() {
           title: 'Success',
           description: response.message,
         });
-        setSessionItem('sellerAccessToken', response.data.accessToken);
+        setSessionItem('sellerAccessToken', response.accessToken);
         router.push('/sell-a-car/dashboard');
       }
     } catch (error: any) {

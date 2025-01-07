@@ -233,15 +233,11 @@ export interface AddressResponse {
 }
 
 export interface Address {
-  userId: string;
   address: string;
   city: string;
   region: string;
-  isActive: boolean;
+  isActive?: boolean;
   _id?: string;
-  createdAt?: string; // ISO date string
-  updatedAt?: string; // ISO date string
-  __v?: number;
 }
 
 export type AddressProps = {
@@ -289,6 +285,16 @@ export type ContactDetails = {
 export type UserResponse = {
   status: boolean;
   message: string;
+  data: {
+    user: User;
+    profile: Profile;
+    addresses: Address[];
+  };
+};
+export type EmailverificationResponse = {
+  status: boolean;
+  message: string;
+  accessToken: string;
   data: {
     user: User;
     profile: Profile;

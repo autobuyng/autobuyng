@@ -4,36 +4,50 @@ import { useForm } from 'react-hook-form';
 import { ChevronDown, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import type { Address } from '@/types/types';
-import { useAddAddress } from '@/app/(buyer)/api/user';
+import { useAddAddress, useSetActiveAddress, useUpdateAddAddress } from '@/app/(buyer)/api/user';
 import AddressListSkeleton from '@/LoadingSkeleton/AddressSkeleton';
+import { useGetUser } from '@/app/(buyer)/api/auth';
 
 const Address = () => {
-  const { user, isLoading, address: Addresses } = useStore();
+  const { user, setUser, setProfile, isLoading, address: Addresses, setAddress } = useStore();
   const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
 
   console.log(loading, isLoading, 'loading');
-  const [address, setAddress] = useState<Address | null>({
-    isActive: false,
-    userId: '',
+  const [addressFields, setAddressFields] = useState<Address>({
     city: '',
     region: '',
     address: '',
   });
   const { addAddress } = useAddAddress();
-  // const { updateAddress } = useUpdateAddAddress();
+  const { getUser } = useGetUser();
+  const { updateAddress } = useUpdateAddAddress();
+  const { setActiveAddress, isPending } = useSetActiveAddress();
   const { register, handleSubmit } = useForm<Address>({});
+
+  const updateUserData = async () => {
+    try {
+      const response1 = await getUser();
+
+      setUser(response1.data.user);
+      setProfile(response1.data.profile);
+      setAddress(response1.data.addresses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSubmitForm = async (data: Address) => {
     try {
       const response = await addAddress(data);
+      await updateUserData();
       console.log(response, 'add address');
     } catch (error) {
       console.log(error);
     }
-    console.log(data, 'address');
-    setAddress(data);
+    // setAddressFields(data);
     setIsAdding(false);
     setIsEditing(false);
   };
@@ -41,60 +55,50 @@ const Address = () => {
   useEffect(() => {
     setLoading(isLoading);
   }, []);
-  // const handleUpdateAddress = async (data: AddressProps, id:string) => {
-  //   try {
-  //     const response = await updateAddress({values:data,id});
-  //     console.log(response, 'add address');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   console.log(data, 'address');
-  //   setAddress(data);
-  //   setIsAdding(false);
-  //   setIsEditing(false);
-  // };
+  const handleUpdateAddress = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(addressFields, 'addressFields');
 
-  const handleViewDetails = (index: number, id: string) => {
-    setAddress(null);
-    setEditingIndex(index);
-    const address = Addresses?.find((address) => address._id === id);
-    if (address) {
-      setAddress(address);
+    try {
+      const response = await updateAddress({ values: addressFields, id: addressFields._id! });
+      await updateUserData();
+      console.log(response, 'update address');
+      setEditingIndex(-1);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const userData = [
-    {
-      firstname: 'John',
-      lastname: 'Doe',
-      phonenumber: '1234567890',
-      phonenumber2: '0987654321',
-      city: 'New York',
-      region: 'New York',
-      deliveryAddress: '123 Main Street, Apt 4B',
-      additionalInformation: 'Leave at the front door.',
-    },
-    {
-      firstname: 'Jane',
-      lastname: 'Smith',
-      phonenumber: '2345678901',
-      phonenumber2: '8765432109',
-      city: 'Los Angeles',
-      region: 'California',
-      deliveryAddress: '456 Elm Street, Suite 300',
-      additionalInformation: 'Call before delivery.',
-    },
-    {
-      firstname: 'Alice',
-      lastname: 'Johnson',
-      phonenumber: '3456789012',
-      phonenumber2: '7654321098',
-      city: 'Chicago',
-      region: 'Illinois',
-      deliveryAddress: '789 Oak Avenue, Unit 12',
-      additionalInformation: 'Ring the bell twice.',
-    },
-  ];
+  const handleSetActiveAddress = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(addressFields, 'addressFields');
+
+    const address = Addresses?.find((address) => address._id === addressFields._id);
+    if (!address) return;
+    address.isActive = true;
+
+    try {
+      const response = await setActiveAddress({ id: addressFields._id! });
+      await updateUserData();
+      console.log(response, 'update address');
+    } catch (error) {
+      console.error(error);
+      address.isActive = false;
+    }
+  };
+
+  const handleViewDetails = (index: number, id: string) => {
+    setAddressFields({
+      city: '',
+      region: '',
+      address: '',
+    });
+    setEditingIndex(index);
+    const address = Addresses?.find((address) => address._id === id);
+    if (address) {
+      setAddressFields(address);
+    }
+  };
 
   if (loading || isLoading) {
     return <AddressListSkeleton />;
@@ -113,7 +117,7 @@ const Address = () => {
       </div>
 
       <div>
-        {userData.length === 0 && (
+        {Addresses?.length === 0 && (
           <div className="flex justify-between items-center mt-4">
             <p className="text-sm text-red-500"></p>
             <button onClick={() => setIsAdding(true)} className="text-sm">
@@ -185,7 +189,7 @@ const Address = () => {
                         </div>
                       </section>
 
-                      <section className="flex items-center gap-4 w-full">
+                      {/* <section className="flex items-center gap-4 w-full">
                         <div className="w-full">
                           <label
                             htmlFor="phonenumber"
@@ -218,7 +222,7 @@ const Address = () => {
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                           />
                         </div>
-                      </section>
+                      </section> */}
 
                       <section className="flex items-center gap-4 w-full">
                         <div className="w-full">
@@ -229,7 +233,10 @@ const Address = () => {
                           <input
                             type="text"
                             id="region"
-                            defaultValue={address?.region}
+                            defaultValue={addressFields?.region}
+                            onChange={(e) =>
+                              setAddressFields({ ...addressFields, region: e.target.value })
+                            }
                             // {...register('region')}
                             placeholder=""
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
@@ -244,7 +251,10 @@ const Address = () => {
                           <input
                             type="text"
                             id="city"
-                            defaultValue={address?.city}
+                            defaultValue={addressFields?.city}
+                            onChange={(e) =>
+                              setAddressFields({ ...addressFields, city: e.target.value })
+                            }
                             // {...register('city')}
                             placeholder=""
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
@@ -264,14 +274,17 @@ const Address = () => {
                           <input
                             type="text"
                             id="deliveryAddress"
-                            defaultValue={address?.address}
+                            defaultValue={addressFields?.address}
                             // {...register('address')}
+                            onChange={(e) =>
+                              setAddressFields({ ...addressFields, address: e.target.value })
+                            }
                             placeholder=""
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                           />
                         </div>
 
-                        <div className="w-full">
+                        {/* <div className="w-full">
                           <label
                             htmlFor="addionalInfo"
                             className="block text-xs font-medium text-gray-700"
@@ -285,12 +298,17 @@ const Address = () => {
                             placeholder=""
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                           />
-                        </div>
+                        </div> */}
                       </section>
 
                       <div>
-                        <div className="flex items-center gap-4">
-                          <input type="checkbox" />
+                        <div className="flex items-center pt-1.5 pb-2.5 gap-4">
+                          <input
+                            type="checkbox"
+                            onChange={handleSetActiveAddress}
+                            disabled={isPending}
+                            checked={addressFields?.isActive}
+                          />
                           <p>Set as Default Address</p>
                         </div>
 
@@ -303,7 +321,7 @@ const Address = () => {
                           </button>
 
                           <button
-                            type="submit"
+                            onClick={handleUpdateAddress}
                             className="bg-primary-700 text-white rounded-sm text-center px-4 py-2"
                           >
                             Save
