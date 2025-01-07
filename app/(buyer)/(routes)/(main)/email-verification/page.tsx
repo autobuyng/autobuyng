@@ -7,6 +7,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { getLocalItem } from '@/lib/localStorage';
 import { useRouter } from 'next/navigation';
+import { useStore } from '@/store/useStore';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
@@ -16,6 +17,7 @@ function VerifyEmailPage() {
 
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
+  const { setUser } = useStore();
 
   const { verifyEmail, isVerifying } = useVerifyEmail();
 
@@ -31,6 +33,7 @@ function VerifyEmailPage() {
           title: 'Success',
           description: response.message,
         });
+        setUser(response.data.user);
       }
       router.push(prevPage);
     } catch (error: any) {

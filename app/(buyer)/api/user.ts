@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useAddAddress() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<
     AddressResponse,
     any,
@@ -14,7 +14,7 @@ export function useAddAddress() {
     mutationFn: (values: AddressProps) =>
       mutator({ method: 'POST', data: values, url: endpoints.user.addAddress }),
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
   });
 
@@ -46,6 +46,31 @@ export function useUpdateAddAddress() {
   return useMemo(
     () => ({
       updateAddress: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useSetActiveAddress() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    { id: string }
+  >({
+    mutationFn: ({ id }) => mutator({ method: 'PATCH', url: endpoints.user.setActiveAddress(id) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      setActiveAddress: mutateAsync,
       data,
       isPending,
       error,
