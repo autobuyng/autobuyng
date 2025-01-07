@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { getLocalItem } from '@/lib/localStorage';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/store/useStore';
+import { setSessionItem } from '@/lib/Sessionstorage';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
@@ -34,6 +35,7 @@ function VerifyEmailPage() {
           description: response.message,
         });
         setUser(response.data.user);
+        setSessionItem('accessToken', response.accessToken);
       }
       router.push(prevPage);
     } catch (error: any) {
