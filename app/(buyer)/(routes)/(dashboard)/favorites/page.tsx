@@ -68,7 +68,7 @@ const Saved = () => {
 
 export default Saved;
 
-export function CarListingSkeleton() {
+function CarListingSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
       {[1, 2, 3].map((item) => (
