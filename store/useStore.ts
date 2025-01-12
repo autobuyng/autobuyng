@@ -8,7 +8,6 @@ const DEFAULT_FILTERS: FilterProps = {
     min_year: '2009',
     max_year: '',
   },
-  mileage: '',
   price: {
     min_price: 5000000,
   },

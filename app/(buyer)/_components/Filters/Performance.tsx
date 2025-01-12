@@ -22,8 +22,7 @@ type Checked = {
 const Performance = () => {
   const { filters, setFilters } = useStore();
 
-  console.log(filters, 'from performance');
-  const [checked, setChecked] = useState<Checked>({
+  const [, setChecked] = useState<Checked>({
     transmission: '',
     drive_train: '',
     cylinders: '',
@@ -38,10 +37,19 @@ const Performance = () => {
       }
     });
 
-    setFilters((prev: FilterProps) => ({
-      ...prev,
-      [category]: input === checked[category] ? '' : (input.toLocaleLowerCase() as string),
-    }));
+    setFilters((prev: FilterProps) => {
+      const updatedFilters = { ...prev };
+
+      if (prev[category] === input) {
+        // If the input already exists, remove the entire key-value pair
+        delete updatedFilters[category];
+      } else {
+        // If the input doesn't exist or is different, add/update it
+        updatedFilters[category] = input as string;
+      }
+
+      return updatedFilters;
+    });
   };
 
   return (
@@ -52,7 +60,6 @@ const Performance = () => {
             <AccordionTrigger className=" py-2 ">Transmission</AccordionTrigger>
             <AccordionContent className="">
               {TRANSMISSION.map((color) => {
-                console.log(filters.transmission === color.name.toLowerCase(), 'testing');
                 return (
                   <p key={color.id} className="py-1 space-x-2 flex items-center">
                     <input
@@ -60,10 +67,7 @@ const Performance = () => {
                       value={filters.transmission}
                       onChange={() => handleCheckboxChange(color.name, 'transmission')}
                       className="h-5 w-5"
-                      checked={
-                        filters.transmission === color.name.toLowerCase() ||
-                        color.name === checked.transmission
-                      }
+                      checked={filters.transmission === color.name}
                     />
                     <span className="">{color.name}</span>
                   </p>
@@ -87,10 +91,7 @@ const Performance = () => {
                       value={filters.drive_train}
                       onChange={() => handleCheckboxChange(train.name, 'drive_train')}
                       className="h-5 w-5"
-                      checked={
-                        train.name === checked.drive_train ||
-                        filters.drive_train === train.name.toLowerCase()
-                      }
+                      checked={filters.drive_train == train.name}
                     />
                     <span className="">{train.name}</span>
                   </p>
@@ -114,10 +115,7 @@ const Performance = () => {
                       value={filters.cylinders}
                       onChange={() => handleCheckboxChange(cylinder.name, 'cylinders')}
                       className="h-5 w-5"
-                      checked={
-                        cylinder.name === checked.cylinders ||
-                        filters.cylinders === cylinder.name.toLowerCase()
-                      }
+                      checked={filters.cylinders === cylinder.name.toLowerCase()}
                     />
                     <span className="">{cylinder.name}</span>
                   </p>
@@ -141,10 +139,7 @@ const Performance = () => {
                       value={filters.fuel_type}
                       onChange={() => handleCheckboxChange(fuelType.name, 'fuel_type')}
                       className="h-5 w-5"
-                      checked={
-                        fuelType.name === checked.fuel_type ||
-                        filters.fuel_type === fuelType.name.toLowerCase()
-                      }
+                      checked={filters.fuel_type === fuelType.name.toLowerCase()}
                     />
                     <span className="">{fuelType.name}</span>
                   </p>

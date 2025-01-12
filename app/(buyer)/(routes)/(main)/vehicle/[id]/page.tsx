@@ -343,7 +343,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
               <h1 className="py-2 font-bold text-2xl">Similar cars at Autobuy</h1>
               <div className="mt-4">{similarVehicleLoading && <SimilarVehicleSkeleton />}</div>
 
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3  gap-y-10 gap-x-8 sm:gap-4 ">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  gap-y-10 gap-x-8 sm:gap-4 ">
                 {!similarVehicleLoading &&
                   similarVehicle &&
                   similarVehicle?.map((result) => {

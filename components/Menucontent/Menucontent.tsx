@@ -20,7 +20,6 @@ const Menucontent = () => {
     setIsOpen(false);
   };
 
-  console.log(user, 'user');
   const handleSignUpClick = () => {
     setIsOpen(true);
     setType('signup');
@@ -33,7 +32,7 @@ const Menucontent = () => {
 
   const MENU_ITEMS = [
     { id: '1', text: 'orders', path: 'orders', Icon: Orders },
-    { id: '2', text: 'saved', path: 'saved', Icon: Save },
+    { id: '2', text: 'favorites', path: 'favorites', Icon: Save },
     // { id: '3', text: 'My Account', path: 'accounts', Icon: Profile },
   ];
 

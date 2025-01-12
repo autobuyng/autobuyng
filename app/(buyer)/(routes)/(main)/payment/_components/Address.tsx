@@ -1,19 +1,29 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown, ChevronUp, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import type { Address } from '@/types/types';
-import { useAddAddress, useSetActiveAddress, useUpdateAddAddress } from '@/app/(buyer)/api/user';
+import {
+  useAddAddress,
+  useDeleteAddress,
+  useSetActiveAddress,
+  useUpdateAddAddress,
+} from '@/app/(buyer)/api/user';
 import AddressListSkeleton from '@/LoadingSkeleton/AddressSkeleton';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 
+type ShowAddressProps = {
+  data: Address;
+  index: number;
+};
 const Address = () => {
   const { user, setUser, setProfile, isLoading, address: Addresses, setAddress } = useStore();
   const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
+  const [isActiveAddress, setIsActiveAddress] = useState(true);
 
   console.log(loading, isLoading, 'loading');
   const [addressFields, setAddressFields] = useState<Address>({
@@ -24,6 +34,7 @@ const Address = () => {
   const { addAddress } = useAddAddress();
   const { getUser } = useGetUser();
   const { updateAddress } = useUpdateAddAddress();
+  const { deleteAddress } = useDeleteAddress();
   const { setActiveAddress, isPending } = useSetActiveAddress();
   const { register, handleSubmit } = useForm<Address>({});
 
@@ -57,7 +68,6 @@ const Address = () => {
   }, []);
   const handleUpdateAddress = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(addressFields, 'addressFields');
 
     try {
       const response = await updateAddress({ values: addressFields, id: addressFields._id! });
@@ -68,10 +78,20 @@ const Address = () => {
       console.error(error);
     }
   };
+  const handleDeleteAddress = async (e: React.MouseEvent<HTMLElement>, data: { id: string }) => {
+    e.preventDefault();
+    try {
+      const response = await deleteAddress({ id: data.id });
+      await updateUserData();
+      console.log(response, 'update address');
+      setEditingIndex(-1);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSetActiveAddress = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(addressFields, 'addressFields');
 
     const address = Addresses?.find((address) => address._id === addressFields._id);
     if (!address) return;
@@ -104,14 +124,52 @@ const Address = () => {
     return <AddressListSkeleton />;
   }
 
+  const ShowAddress = ({ data, index }: ShowAddressProps) => {
+    return (
+      <div className="border-[1.5px] border-primary-700 rounded-sm p-2.5">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="font-medium ">{`${user?.firstName} ${user?.lastName}`}</h1>
+            <p className="">{`${data.address} ${''}`}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span
+              onClick={() => handleViewDetails(index, data._id as string)}
+              className="text-sm cursor-pointer"
+            >
+              Edit
+            </span>
+            <span
+              onClick={(e) => handleDeleteAddress(e, { id: data._id! })}
+              className="text-sm cursor-pointer"
+            >
+              Delete
+            </span>
+          </div>
+        </div>
+        {data.isActive && (
+          <p className="text-sm bg-primary-700 text-white rounded-sm w-fit px-2 py-1 mt-1.5">
+            Default Address
+          </p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="bg-white shadow-sm rounded-sm px-4 py-4">
       <div className="flex justify-between">
         <h1 className="text-lg font-[600] uppercase py-1.5">Your Address</h1>
 
         {!isAdding && !isEditing && (
-          <p className="text-primary-700 flex cursor-pointer">
-            <span className="text-sm">Change</span> <ChevronDown />
+          <p
+            onClick={() => setIsActiveAddress(!isActiveAddress)}
+            className="text-primary-700 flex cursor-pointer  items-center"
+          >
+            <span className="text-sm">Change</span>
+
+            {isActiveAddress ? <ChevronUp /> : <ChevronDown />}
           </p>
         )}
       </div>
@@ -133,19 +191,8 @@ const Address = () => {
             <React.Fragment key={data._id}>
               {editingIndex != index ? (
                 <div>
-                  <div className="border-[1.5px] border-primary-700 rounded-sm p-2.5">
-                    <div className="flex items-center justify-between">
-                      <h1 className="font-medium ">{`${data.address} ${''}`}</h1>
-                      <span
-                        onClick={() => handleViewDetails(index, data._id as string)}
-                        className="text-sm"
-                      >
-                        Edit
-                      </span>
-                    </div>
-
-                    {/* <p>{address.address}</p> */}
-                  </div>
+                  {isActiveAddress && data.isActive && <ShowAddress data={data} index={index} />}
+                  {!isActiveAddress && <ShowAddress data={data} index={index} />}
                 </div>
               ) : (
                 <div className="w-full mt-4">
@@ -188,41 +235,6 @@ const Address = () => {
                           />
                         </div>
                       </section>
-
-                      {/* <section className="flex items-center gap-4 w-full">
-                        <div className="w-full">
-                          <label
-                            htmlFor="phonenumber"
-                            className="block text-xs font-medium text-gray-700"
-                          >
-                            Phone number
-                          </label>
-
-                          <input
-                            type="text"
-                            id="phonenumber"
-                            // {...register('phonenumber')}
-                            placeholder=""
-                            className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                          />
-                        </div>
-
-                        <div className="w-full">
-                          <label
-                            htmlFor="phonenumber2"
-                            className="block text-xs font-medium text-gray-700"
-                          >
-                            Additional phone number
-                          </label>
-
-                          <input
-                            type="text"
-                            id="phonenumber2"
-                            placeholder=""
-                            className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                          />
-                        </div>
-                      </section> */}
 
                       <section className="flex items-center gap-4 w-full">
                         <div className="w-full">

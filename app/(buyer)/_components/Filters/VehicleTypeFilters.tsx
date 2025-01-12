@@ -4,12 +4,16 @@ import Image from 'next/image';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { setLocalItem } from '@/lib/localStorage';
+import { FilterProps } from '@/types/types';
+import { useStore } from '@/store/useStore';
 
 const VehicleTypeFilters = () => {
   const pathname = usePathname();
-  const [, setVehicleType] = useState<string>('');
+  const router = useRouter();
+  const { setFilters } = useStore();
+  // const [, setVehicleType] = useState<string>('');
   const [visibleCards, setVisibleCards] = useState<number>(14);
 
   const showMoreCards = () => {
@@ -23,17 +27,28 @@ const VehicleTypeFilters = () => {
     setLocalItem('previousPage', pathname);
   }, [pathname]);
 
+  const handlVehicleTypeClick = (key: string) => {
+    setFilters((prev: FilterProps) => ({ ...prev, vehicle_type: key }));
+    router.push(`/results/vehicle_type=${key}`);
+  };
+
+  const handleVehicleBrandClick = (key: string) => {
+    setFilters((prev: FilterProps) => ({ ...prev, make: key }));
+    router.push(`/results/make=${key}`);
+  };
+
   const renderCarBrands = useCallback(
     () =>
       VEHICLE_BRAND?.slice(0, visibleCards).map((vehicle) => (
         <div
-          onClick={() => setVehicleType(vehicle.name)}
+          onClick={() => handleVehicleBrandClick(vehicle.name)}
           key={vehicle.id}
-          className="flex flex-col px- py-6 items-center justify-center shadow-[0px_2px_14px_0px_#0000001A] rounded-[8px]"
+          className="flex flex-col  py-6 items-center justify-center cursor-pointer shadow-[0px_2px_14px_0px_#0000001A] rounded-[8px]"
         >
           <Image src={vehicle.Img} alt={vehicle.name} className="px-1 flex-shrink-0" />
         </div>
       )),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleCards],
   );
 
@@ -58,9 +73,9 @@ const VehicleTypeFilters = () => {
           {VEHICLE_TYPE?.map((vehicle) => {
             return (
               <div
-                onClick={() => setVehicleType(vehicle.name)}
+                onClick={() => handlVehicleTypeClick(vehicle.name)}
                 key={vehicle.id}
-                className="flex flex-col p-2 items-center justify-center shadow-[0px_2px_14px_0px_#0000001A] rounded-[8px]"
+                className="flex flex-col p-2 items-center cursor-pointer justify-center shadow-[0px_2px_14px_0px_#0000001A] rounded-[8px]"
               >
                 <Image src={vehicle.Img} alt={vehicle.name} />
                 <p>{vehicle.name}</p>

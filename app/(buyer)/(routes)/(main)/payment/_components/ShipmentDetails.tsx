@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { VehicleData } from '@/types/types';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
 import { usePathname } from 'next/navigation';
-import { useStore } from '@/store/useStore';
 
 const ShipmentDetails = () => {
   const pathname = usePathname();
@@ -13,8 +12,6 @@ const ShipmentDetails = () => {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { user } = useStore();
-  console.log(user, 'payment');
   const { getVehicle, isPending } = useGetVehicle();
 
   const handleGetVehicle = async () => {

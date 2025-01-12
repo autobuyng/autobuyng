@@ -117,7 +117,7 @@ const Navbar = () => {
           <div>
             {user ? (
               <div className="flex items-center justify-center gap-2">
-                <p className="">Hi {user.firstName}</p>
+                <p className="hidden md:block">Hi {user.firstName}</p>
 
                 <div className=" relative flex items-center">
                   {isMobile && (

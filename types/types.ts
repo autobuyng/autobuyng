@@ -29,6 +29,8 @@ export type FilterProps = {
     min_year: string; // Corresponds to yearMin in the query
     max_year: string; // Corresponds to yearMax in the query
   };
+  make?: string; // Corresponds to make in the query
+  model?: string; // Corresponds to vehicleModel in the query
   mileage?: string; // Corresponds to mileage in the query
   price: {
     min_price?: number; // Corresponds to priceMin in the query
@@ -36,6 +38,7 @@ export type FilterProps = {
   };
   body_type?: string; // Corresponds to type (Sedan in the query)
   vehicle_condition?: string; // Corresponds to condition (New in the query)
+  vehicle_type?: string; // Corresponds to type (Sedan in the query)
   fuel_type?: string; // Corresponds to fuelType in the query
   transmission?: string; // Corresponds to transmission in the query
   exterior_color?: string; // Corresponds to exteriorColor in the query
@@ -317,11 +320,15 @@ export type User = {
 
 export type Profile = {
   _id: string;
-  userId: string;
+  // userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   phoneNumber: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  additionalPhoneNumber: string;
+  additionalInformation: string;
+  dob?: string;
+  // __v: number;
 };
 
 // interface Address {
