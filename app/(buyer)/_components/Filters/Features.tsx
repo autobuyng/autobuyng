@@ -15,11 +15,7 @@ import {
   EXTERIOROPTIONS,
   SAFETYOPTIONS,
 } from '@/constants/constants';
-
-type FeaturesTypeProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
+import { useStore } from '@/store/useStore';
 
 type Checked = {
   [key: string]: string;
@@ -30,7 +26,8 @@ type Checked = {
   safety: string;
   door_count: string;
 };
-const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
+const Features = () => {
+  const { filters, setFilters } = useStore();
   const [checked, setChecked] = useState<Checked>({
     convenience: '',
     entertainment: '',
@@ -70,7 +67,8 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       onChange={() => handleCheckboxChange(option.name, 'convenience')}
                       className="h-5 w-5"
                       checked={
-                        option.name === checked.convenience || filters.convenience === option.name
+                        option.name === checked.convenience ||
+                        filters.convenience === option.name.toLowerCase()
                       }
                     />
                     <span className="">{option.name}</span>
@@ -97,7 +95,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       className="h-5 w-5"
                       checked={
                         option.name === checked.entertainment ||
-                        filters.entertainment === option.name
+                        filters.entertainment === option.name.toLowerCase()
                       }
                     />
                     <span className="">{option.name}</span>
@@ -122,7 +120,10 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.exterior}
                       onChange={() => handleCheckboxChange(option.name, 'exterior')}
                       className="h-5 w-5"
-                      checked={option.name === checked.exterior || filters.exterior === option.name}
+                      checked={
+                        option.name === checked.exterior ||
+                        filters.exterior === option.name.toLowerCase()
+                      }
                     />
                     <span className="">{option.name}</span>
                   </p>
@@ -146,7 +147,10 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.safety}
                       onChange={() => handleCheckboxChange(option.name, 'safety')}
                       className="h-5 w-5"
-                      checked={option.name === checked.safety || filters.safety === option.name}
+                      checked={
+                        option.name === checked.safety ||
+                        filters.safety === option.name.toLowerCase()
+                      }
                     />
                     <span className="">{option.name}</span>
                   </p>

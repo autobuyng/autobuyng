@@ -9,13 +9,10 @@ import {
 } from '@/components/ui/accordion';
 
 import { BODY_STYLE, COLORS } from '@/constants/constants';
+import { useStore } from '@/store/useStore';
 import { FilterProps } from '@/types/types';
 import { useState } from 'react';
 
-type StyleTypeProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
 type Checked = {
   [key: string]: string;
   body_type: string;
@@ -23,7 +20,8 @@ type Checked = {
   exterior_color: string;
 };
 
-const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
+const StyleType = () => {
+  const { filters, setFilters } = useStore();
   const [checked, setChecked] = useState<Checked>({
     body_type: '',
     interior_color: '',

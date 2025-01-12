@@ -80,7 +80,7 @@ const HomeSearch = () => {
           <input
             {...register('keyword')}
             type="text"
-            placeholder="Search by make, model or body style"
+            placeholder="Search by make or model"
             className="block w-full h-[56px] px-5 border border-neutral-700 outline-none rounded-md placeholder:text-xs"
           />
         </div>

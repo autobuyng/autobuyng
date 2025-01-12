@@ -254,7 +254,7 @@ export type AddressProps = {
 export type FavoriteVehicleResponse = {
   status: boolean;
   message: string;
-  data: Vehicle[];
+  likedVehicles: Vehicle[];
   count: number;
   currentPage: number;
   nextPage: number | null;

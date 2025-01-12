@@ -13,13 +13,15 @@ import Features from './Features';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { setSessionItem } from '@/lib/Sessionstorage';
+import { useStore } from '@/store/useStore';
 
-type FilterComponentProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
-const Filters = ({ filters, setFilters }: FilterComponentProps) => {
+// type FilterComponentProps = {
+//   filters: FilterProps;
+//   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
+// };
+const Filters = () => {
   const { isMobile } = useIsMobile();
+  const { filters, setFilters } = useStore();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -186,15 +188,15 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
       >
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
-          <StyleType filters={filters} setFilters={setFilters} />
+          <StyleType />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
-          <Performance filters={filters} setFilters={setFilters} />
+          <Performance />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 ">Features</p>
-          <Features filters={filters} setFilters={setFilters} />
+          <Features />
         </div>
       </section>
     </main>

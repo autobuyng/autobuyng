@@ -19,29 +19,30 @@ import useIsMobile from '@/hooks/useIsMobile';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { getSessionItem } from '@/lib/Sessionstorage';
+// import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
+import { useStore } from '@/store/useStore';
 
-const Results = ({ params }: { params: { slug: string } }) => {
+const Results = () => {
   const pathname = usePathname();
+  const { filters, setFilters } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  console.log(params);
-  const default_filters = getSessionItem('filters');
-  const DEFAULT_FILTERS: FilterProps = {
-    year: {
-      min_year: '2009',
-      max_year: '',
-    },
-    mileage: '',
-    price: {
-      min_price: 5000000,
-    },
-    ...default_filters,
-  };
+  // const default_filters = getSessionItem('filters');
+  // const DEFAULT_FILTERS: FilterProps = {
+  //   year: {
+  //     min_year: '2009',
+  //     max_year: '',
+  //   },
+  //   mileage: '',
+  //   price: {
+  //     min_price: 5000000,
+  //   },
+  //   ...default_filters,
+  // };
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   // const [sortQuery, setSortQuery] = useState('');
-  const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
+  // const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
   const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
@@ -179,7 +180,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
           <div className="flex w-full mt-8 gap-8">
             <div className=" hidden lg:block w-full max-w-[296px]">
-              <Filters filters={filters} setFilters={setFilters} />
+              <Filters />
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
@@ -197,7 +198,7 @@ const Results = ({ params }: { params: { slug: string } }) => {
                       </div>
                     ))}
                   </div>
-                  <Filters filters={filters} setFilters={setFilters} />
+                  <Filters />
                 </SheetContent>
               </Sheet>
 
