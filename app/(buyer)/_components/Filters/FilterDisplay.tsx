@@ -1,42 +1,68 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import Filter from './assets/filter.svg';
 import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import Sort from '@/app/(buyer)/_components/Filters/assets/sort.svg';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
+import { useStore } from '@/store/useStore';
+import { FilterProps } from '@/types/types';
 
 type FilterDisplayProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSortOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  filterQuery: (string | number)[];
-  setFilterQuery: React.Dispatch<React.SetStateAction<(number | string)[]>>;
+  // filterQuery: (string | number)[];
+  // setFilterQuery: React.Dispatch<React.SetStateAction<(number | string)[]>>;
 };
 const FilterDisplay = ({
   setIsOpen,
   setIsSortOpen,
-  filterQuery,
-  setFilterQuery,
+  // filterQuery,
+  // setFilterQuery,
 }: FilterDisplayProps) => {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
+  const { filters, setFilters } = useStore();
+  const [filterQuery, setFilterQuery] = useState<string[]>([]);
 
-  // const handleQuery = (query: string | number) => {
-  //   console.log(query);
-  //   const queryIndex = filterQuery?.indexOf(query);
-  //   console.log(queryIndex);
-  //   setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
-  // };
+  useEffect(() => {
+    const filterValues = Object.values(filters)
+      .flatMap((value) => (typeof value === 'object' ? Object.values(value) : value))
+      .filter((value) => value);
+    console.log(filterValues, 'filterValues');
+    setFilterQuery(filterValues);
+  }, [filters]);
 
-  const deleteQueryString = useCallback(
-    (name: string | number) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.delete(name as string); // Deletes all instances of the parameter by name
+  const handleDelete = useCallback(
+    (index: number) => {
+      setFilters((prevFilters: FilterProps) => {
+        const updatedFilters: FilterProps = { ...prevFilters };
+        const entries = Object.entries(updatedFilters);
+        let currentIndex = 0;
 
-      return params.toString(); // Returns the updated query string
+        for (const [key, value] of entries) {
+          if (typeof value === 'object' && value !== null) {
+            const nestedEntries = Object.entries(value);
+            if (index >= currentIndex && index < currentIndex + nestedEntries.length) {
+              const nestedIndex = index - currentIndex;
+              const [nestedKey] = nestedEntries[nestedIndex];
+              const updatedNestedValue = { ...value };
+              delete updatedNestedValue[nestedKey];
+              updatedFilters[key] = updatedNestedValue;
+            }
+            currentIndex += nestedEntries.length;
+          } else {
+            if (currentIndex === index) {
+              delete updatedFilters[key];
+            }
+            currentIndex++;
+          }
+        }
+        return updatedFilters;
+      });
     },
-    [searchParams],
+    [setFilters],
   );
 
   return (
@@ -51,13 +77,13 @@ const FilterDisplay = ({
         </div>
 
         <div className="hidden md:flex items-center gap-2 flex-wrap">
-          {filterQuery.map((query) => (
+          {filterQuery.map((value, index) => (
             <div
-              key={query}
+              key={index}
               className="bg-primary-700 text-white py-1 px-2 rounded-sm whitespace-nowrap flex items-center gap-2"
             >
-              <span>{query}</span>
-              <button onClick={() => deleteQueryString(query)} className="text-xl">
+              <span>{value}</span>
+              <button onClick={() => handleDelete(index)} className="text-xl">
                 <Image src={Cancel} alt="Cancel" />
               </button>
             </div>
@@ -66,14 +92,7 @@ const FilterDisplay = ({
       </div>
 
       <div className="hidden md:block">
-        <p
-          onClick={() => {
-            setFilterQuery([]);
-          }}
-          className="underline cursor-pointer "
-        >
-          Clear
-        </p>
+        <p className="underline cursor-pointer ">Clear</p>
       </div>
 
       <div onClick={() => setIsSortOpen(true)} className="md:hidden flex items-center gap-1">

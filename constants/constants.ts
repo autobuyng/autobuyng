@@ -534,7 +534,6 @@ export const MILEAGE = [
 ];
 
 export const BODY_STYLE = [
-  { id: '1', name: 'Chassis' },
   { id: '2', name: 'Convertible' },
   { id: '3', name: 'Coupe ' },
   { id: '4', name: 'Hatchback' },

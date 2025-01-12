@@ -15,11 +15,7 @@ import {
   EXTERIOROPTIONS,
   SAFETYOPTIONS,
 } from '@/constants/constants';
-
-type FeaturesTypeProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
+import { useStore } from '@/store/useStore';
 
 type Checked = {
   [key: string]: string;
@@ -30,8 +26,9 @@ type Checked = {
   safety: string;
   door_count: string;
 };
-const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
-  const [checked, setChecked] = useState<Checked>({
+const Features = () => {
+  const { filters, setFilters } = useStore();
+  const [, setChecked] = useState<Checked>({
     convenience: '',
     entertainment: '',
     exterior: '',
@@ -49,11 +46,21 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
       }
     });
 
-    setFilters((prev: FilterProps) => ({
-      ...prev,
-      [category]: input === (checked[category] || filters[category]) ? '' : (input as string),
-    }));
+    setFilters((prev: FilterProps) => {
+      const updatedFilters = { ...prev };
+
+      if (prev[category] === input) {
+        // If the input already exists, remove the entire key-value pair
+        delete updatedFilters[category];
+      } else {
+        // If the input doesn't exist or is different, add/update it
+        updatedFilters[category] = input as string;
+      }
+
+      return updatedFilters;
+    });
   };
+
   return (
     <main>
       <div>
@@ -69,9 +76,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.convenience}
                       onChange={() => handleCheckboxChange(option.name, 'convenience')}
                       className="h-5 w-5"
-                      checked={
-                        option.name === checked.convenience || filters.convenience === option.name
-                      }
+                      checked={filters.convenience === option.name}
                     />
                     <span className="">{option.name}</span>
                   </p>
@@ -95,10 +100,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.entertainment}
                       onChange={() => handleCheckboxChange(option.name, 'entertainment')}
                       className="h-5 w-5"
-                      checked={
-                        option.name === checked.entertainment ||
-                        filters.entertainment === option.name
-                      }
+                      checked={filters.entertainment === option.name}
                     />
                     <span className="">{option.name}</span>
                   </p>
@@ -122,7 +124,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.exterior}
                       onChange={() => handleCheckboxChange(option.name, 'exterior')}
                       className="h-5 w-5"
-                      checked={option.name === checked.exterior || filters.exterior === option.name}
+                      checked={filters.exterior === option.name}
                     />
                     <span className="">{option.name}</span>
                   </p>
@@ -146,7 +148,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                       value={filters.safety}
                       onChange={() => handleCheckboxChange(option.name, 'safety')}
                       className="h-5 w-5"
-                      checked={option.name === checked.safety || filters.safety === option.name}
+                      checked={filters.safety === option.name}
                     />
                     <span className="">{option.name}</span>
                   </p>
@@ -191,7 +193,7 @@ const Features = ({ filters, setFilters }: FeaturesTypeProps) => {
                     type="checkbox"
                     onChange={() => handleCheckboxChange(option.name, 'door_count')}
                     className="h-5 w-5"
-                    checked={option.name === (checked.door_count || filters.door_count)}
+                    checked={option.name === filters.door_count}
                   />
                   <span className="">{option.name}</span>
                 </p>

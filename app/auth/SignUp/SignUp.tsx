@@ -8,8 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { IRegistrationPayload, RegistrationSchema } from '@/Schema/authSchema';
 import { useRegister } from '@/app/(buyer)/api/auth';
-import { Loader } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 const SignUp = ({
   setType,
@@ -25,6 +26,8 @@ const SignUp = ({
   } = useForm<IRegistrationPayload>({
     resolver: zodResolver(RegistrationSchema),
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { toast } = useToast();
 
@@ -44,7 +47,6 @@ const SignUp = ({
         description: error.message,
       });
     }
-    console.log(data);
     // Implement your registration logic here
   };
 
@@ -66,7 +68,7 @@ const SignUp = ({
                     {...register('firstName')}
                     type="text"
                     id="fullName"
-                    placeholder="Tosin kadiri"
+                    placeholder="John"
                     className={cn(
                       'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                       { 'border border-red-500': errors.firstName },
@@ -85,7 +87,7 @@ const SignUp = ({
                     {...register('lastName')}
                     type="text"
                     id="lastName"
-                    placeholder="Tosin "
+                    placeholder="Doe"
                     className={cn(
                       'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                       { 'border border-red-500': errors.lastName },
@@ -125,7 +127,7 @@ const SignUp = ({
                 {...register('email')}
                 type="email"
                 id="email"
-                placeholder="tosinkadiri@gmail.com"
+                placeholder="johndoe@gmail.com"
                 className={cn(
                   'mt-1 w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                   { 'border border-red-500': errors.email },
@@ -140,16 +142,28 @@ const SignUp = ({
               >
                 Password
               </label>
-              <input
-                {...register('password')}
-                type="password"
-                id="password"
-                placeholder="******"
+              <div
                 className={cn(
-                  'mt-1 w-full py-1.5 px-2 rounded-md outline-none border border-neutral-700 shadow-sm sm:text-sm',
+                  'mt-1 flex justify-between items-center w-full  px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                   { 'border border-red-500': errors.password },
                 )}
-              />
+              >
+                <input
+                  {...register('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  placeholder="******"
+                  className={cn(
+                    'flex-1 border-none outline-none py-1.5',
+                    // { 'border border-red-500': errors.password },
+                  )}
+                />
+                {showPassword ? (
+                  <EyeIcon onClick={() => setShowPassword(false)} />
+                ) : (
+                  <EyeOffIcon onClick={() => setShowPassword(true)} />
+                )}
+              </div>
               {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
             </div>
             <p className="text-xs">
@@ -158,14 +172,14 @@ const SignUp = ({
 
             <div className="w-full">
               <button className="w-full bg-primary-700 rounded-md py-3 text-white">
-                {isRegistering ? <Loader className="animate-spin mx-auto w" /> : 'Sign up'}
+                {isRegistering ? <Loader className="animate-spin mx-auto w" /> : 'Sign Up'}
               </button>
             </div>
 
             <p>
               Already have an account?{' '}
               <span onClick={() => setType('signin')} className="text-primary-500 cursor-pointer">
-                Login in
+                Log In
               </span>
             </p>
           </div>

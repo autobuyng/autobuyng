@@ -16,35 +16,25 @@ import Flex from '@/app/(buyer)/assets/FlexFormat.svg';
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
 import useIsMobile from '@/hooks/useIsMobile';
-import Cancel from '@/app/(buyer)/assets/cancel.svg';
+// import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { getSessionItem } from '@/lib/Sessionstorage';
+// import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
+import { useStore } from '@/store/useStore';
 
-const Results = ({ params }: { params: { slug: string } }) => {
+const Results = () => {
   const pathname = usePathname();
+  const { filters, setFilters } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
-  console.log(params);
-  const default_filters = getSessionItem('filters');
-  const DEFAULT_FILTERS: FilterProps = {
-    year: {
-      min_year: '2009',
-      max_year: '',
-    },
-    mileage: '',
-    price: {
-      min_price: 5000000,
-    },
-    ...default_filters,
-  };
+
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   // const [sortQuery, setSortQuery] = useState('');
-  const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
+  // const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
   const [displayFormat, setDisplayFormat] = useState(true);
   const { isTablet, isMobile } = useIsMobile();
-  const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
+  // const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
 
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
@@ -63,12 +53,10 @@ const Results = ({ params }: { params: { slug: string } }) => {
   //   console.log(input);
   // };
 
-  console.log(filters);
-
-  const handleQuery = (query: string | number) => {
-    const queryIndex = filterQuery?.indexOf(query);
-    setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
-  };
+  // const handleQuery = (query: string | number) => {
+  //   const queryIndex = filterQuery?.indexOf(query);
+  //   setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
+  // };
   const handleSearch = async (data: SearchQuery) => {
     // console.log(data, 'data');
     // const entriesArray = Object.entries({});
@@ -97,14 +85,16 @@ const Results = ({ params }: { params: { slug: string } }) => {
       ...(filters.year.max_year ? { yearMax: filters.year.max_year } : {}),
       // ...(filters.price.min_price ? { priceMin: filter. } : {}),
       ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
-      ...(filters.body_type ? { type: filters.body_type } : {}),
-      ...(filters.interior_color ? { interiorColor: filters.interior_color } : {}),
-      ...(filters.exterior_color ? { exteriorColor: filters.exterior_color } : {}),
-      ...(filters.drive_train ? { driveTrain: filters.drive_train } : {}),
-      ...(filters.fuel_type ? { fuelType: filters.fuel_type } : {}),
-      ...(filters.transmission ? { transmission: filters.transmission } : {}),
+      ...(filters.body_type ? { type: filters.body_type.toLowerCase() } : {}),
+      ...(filters.interior_color ? { interiorColor: filters.interior_color.toLowerCase() } : {}),
+      ...(filters.exterior_color ? { exteriorColor: filters.exterior_color.toLowerCase() } : {}),
+      ...(filters.drive_train ? { driveTrain: filters.drive_train.toLowerCase() } : {}),
+      ...(filters.fuel_type ? { fuelType: filters.fuel_type.toLowerCase() } : {}),
+      ...(filters.transmission ? { transmission: filters.transmission.toLowerCase() } : {}),
       ...(filters.sortParameter ? { sortParameter: filters.sortParameter } : {}),
       ...(filters.sortOrder ? { sortOrder: filters.sortOrder } : {}),
+      ...(filters.make ? { make: filters.make.toLowerCase() } : {}),
+      ...(filters.vehicle_type ? { type: filters.vehicle_type.toLowerCase() } : {}),
     };
 
     handleSearch(searchParams);
@@ -170,8 +160,8 @@ const Results = ({ params }: { params: { slug: string } }) => {
               <FilterDisplay
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                filterQuery={filterQuery}
-                setFilterQuery={setFilterQuery}
+                // filterQuery={filterQuery}
+                // setFilterQuery={setFilterQuery}
                 setIsSortOpen={setIsSortOpen}
               />
             </div>
@@ -179,13 +169,13 @@ const Results = ({ params }: { params: { slug: string } }) => {
 
           <div className="flex w-full mt-8 gap-8">
             <div className=" hidden lg:block w-full max-w-[296px]">
-              <Filters filters={filters} setFilters={setFilters} />
+              <Filters />
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <h1 className="font-bold   border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">
-                    {filterQuery.map((query) => (
+                    {/* {filterQuery.map((query) => (
                       <div
                         key={query}
                         className="bg-primary-700 text-white py-1 px-2 rounded-sm whitespace-nowrap flex items-center gap-2"
@@ -195,9 +185,9 @@ const Results = ({ params }: { params: { slug: string } }) => {
                           <Image src={Cancel} alt="Cancel" />
                         </button>
                       </div>
-                    ))}
+                    ))} */}
                   </div>
-                  <Filters filters={filters} setFilters={setFilters} />
+                  <Filters />
                 </SheetContent>
               </Sheet>
 

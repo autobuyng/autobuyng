@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 
 import {
   Sheet,
@@ -9,6 +10,11 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
+import { useForm } from 'react-hook-form';
+import { Profile } from '@/types/types';
+import { useStore } from '@/store/useStore';
+import { useEditProfile } from '@/app/(buyer)/api/user';
+import { useToast } from '@/hooks/use-toast';
 
 const EditPersonalInfo = ({
   editPersonalInfoModal,
@@ -17,6 +23,52 @@ const EditPersonalInfo = ({
   editPersonalInfoModal: boolean;
   setEditPersonalInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { user, profile, setUser, setProfile } = useStore();
+  const { toast } = useToast();
+  const { register, reset, handleSubmit } = useForm<Profile>({
+    defaultValues: {
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      phoneNumber: profile?.phoneNumber,
+      email: user?.email,
+      additionalPhoneNumber: profile?.additionalPhoneNumber,
+      additionalInformation: profile?.additionalInformation,
+    },
+  });
+
+  useEffect(() => {
+    if (profile) {
+      reset({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        phoneNumber: profile?.phoneNumber,
+        email: user?.email,
+        additionalPhoneNumber: profile?.additionalPhoneNumber,
+        additionalInformation: profile?.additionalInformation,
+      });
+    }
+  }, []);
+
+  const { editUserProfile, isPending } = useEditProfile();
+
+  const handleOnSubmit = async (data: Profile) => {
+    console.log(data);
+    try {
+      const response = await editUserProfile(data);
+      setUser(response.data.user);
+      setProfile(response.data.profile);
+
+      toast({
+        title: 'Profile updated successfully',
+        description: 'Your profile has been updated successfully.',
+        variant: 'success',
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Sheet open={editPersonalInfoModal} onOpenChange={setEditPersonalInfoModal}>
       <SheetContent className="h-screen sm:max-w-[528px]">
@@ -29,8 +81,9 @@ const EditPersonalInfo = ({
               Update your profile, contact details and preferences to personalize your experience.
             </SheetDescription>
           </SheetHeader>
+
           <form
-            action=""
+            onSubmit={handleSubmit(handleOnSubmit)}
             className="w-full h-[83%]  overflow-auto flex flex-col items-center justify-between"
           >
             <div className="w-full space-y-4 ">
@@ -43,6 +96,7 @@ const EditPersonalInfo = ({
                   <input
                     type="text"
                     id="firstname"
+                    {...register('firstName')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -56,6 +110,7 @@ const EditPersonalInfo = ({
                   <input
                     type="text"
                     id="lastname"
+                    {...register('lastName')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -71,6 +126,7 @@ const EditPersonalInfo = ({
                   <input
                     type="email"
                     id="email"
+                    {...register('email')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -86,19 +142,24 @@ const EditPersonalInfo = ({
                   <input
                     type="text"
                     id="phonenumber"
+                    {...register('phoneNumber')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
 
                 <div className="w-full">
-                  <label htmlFor="phonenumber2" className="block text-xs font-medium text-gray-700">
+                  <label
+                    htmlFor="additionalPhoneNumber"
+                    className="block text-xs font-medium text-gray-700"
+                  >
                     Additional phone number
                   </label>
 
                   <input
                     type="text"
-                    id="phonenumber2"
+                    id="additionalPhoneNumber"
+                    {...register('additionalPhoneNumber')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -107,13 +168,17 @@ const EditPersonalInfo = ({
 
               <section className="flex items-center gap-4 w-full">
                 <div className="w-full">
-                  <label htmlFor="city" className="block text-xs font-medium text-gray-700">
-                    City
+                  <label
+                    htmlFor="additionalInformation"
+                    className="block text-xs font-medium text-gray-700"
+                  >
+                    Additional Information
                   </label>
 
                   <input
                     type="text"
-                    id="city"
+                    id="additionalInformation"
+                    {...register('additionalInformation')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -128,6 +193,7 @@ const EditPersonalInfo = ({
                     type="date"
                     id="date"
                     placeholder=""
+                    {...register('dob')}
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
@@ -174,7 +240,7 @@ const EditPersonalInfo = ({
                     type="submit"
                     className="bg-primary-700 w-full text-white rounded-sm text-center px-4 py-2"
                   >
-                    Save Changes
+                    {isPending ? 'Updating...' : 'Save changes'}
                   </button>
                 </div>
               </div>

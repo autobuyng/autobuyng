@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Sheet,
@@ -13,6 +13,9 @@ import {
 import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
+import { useStore } from '@/store/useStore';
+import { useSetActiveAddress } from '@/app/(buyer)/api/user';
+import { useGetUser } from '@/app/(buyer)/api/auth';
 
 const EditAddress = ({
   editAddressModal,
@@ -21,7 +24,41 @@ const EditAddress = ({
   editAddressModal: boolean;
   setEditAddressModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [activeChoice, setActiveChoice] = useState(1);
+  // const [activeChoice, setActiveChoice] = useState(1);
+
+  const { address, setUser, setProfile, setAddress } = useStore();
+  const { setActiveAddress } = useSetActiveAddress();
+  const { getUser } = useGetUser();
+
+  const updateUserData = async () => {
+    try {
+      const response1 = await getUser();
+
+      setUser(response1.data.user);
+      setProfile(response1.data.profile);
+      setAddress(response1.data.addresses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSetActiveAddress = async (e: React.MouseEvent<HTMLElement>, id: string) => {
+    e.preventDefault();
+
+    const activeAddress = address?.find((address) => address._id === id);
+    if (!activeAddress) return;
+    activeAddress.isActive = true;
+
+    try {
+      const response = await setActiveAddress({ id });
+      await updateUserData();
+      console.log(response, 'update address');
+    } catch (error) {
+      console.error(error);
+      activeAddress.isActive = false;
+    }
+  };
+
   return (
     <Sheet open={editAddressModal} onOpenChange={setEditAddressModal}>
       {/* <SheetTrigger asChild>
@@ -37,26 +74,29 @@ const EditAddress = ({
           </SheetHeader>
 
           <section className="space-y-4 h-full mb-3">
-            <div
-              className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
-                'outline outline-[4px]  outline-[#0382c8]/25': activeChoice === 1,
-              })}
-            >
-              <div
-                onClick={() => setActiveChoice(1)}
-                className={cn(
-                  'h-8 w-8 border  border-neutral-300 outline-8 rounded-[50%] cursor-pointer',
-                  {
-                    ' border-8 border-primary-700': activeChoice === 1,
-                  },
-                )}
-              ></div>
-              <p className="w-full text-sm flex items-center">
-                3517 W. Gray St. Utica, Pennsylvania 57867
-              </p>
-            </div>
+            {address?.map((address, index) => {
+              return (
+                <div
+                  key={index}
+                  className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
+                    'outline outline-[4px]  outline-[#0382c8]/25': address.isActive,
+                  })}
+                >
+                  <div
+                    onClick={(e) => handleSetActiveAddress(e, address._id as string)}
+                    className={cn(
+                      'h-8 w-8 border  border-neutral-300 rounded-full cursor-pointer',
+                      {
+                        ' border-8 border-primary-700': address.isActive,
+                      },
+                    )}
+                  ></div>
+                  <p className="w-full text-sm flex items-center">{address.address}</p>
+                </div>
+              );
+            })}
 
-            <div
+            {/* <div
               className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
                 'outline outline-[4px]  outline-[#0382c8]/25': activeChoice === 2,
               })}
@@ -73,7 +113,7 @@ const EditAddress = ({
               <p className="w-full text-sm flex items-center">
                 4517 Washington Ave. Manchester, Kentucky 39495
               </p>
-            </div>
+            </div> */}
           </section>
 
           <Separator />
@@ -83,13 +123,13 @@ const EditAddress = ({
             <div className="w-full space-y-4">
               <section className="flex items-center gap-4 w-full">
                 <div className="w-full  ">
-                  <label htmlFor="firstname" className="block  text-xs font-medium text-gray-700">
-                    Firstname
+                  <label htmlFor="address" className="block  text-xs font-medium text-gray-700">
+                    Address
                   </label>
 
                   <input
                     type="text"
-                    id="firstname"
+                    id="address"
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -111,18 +151,18 @@ const EditAddress = ({
 
               <section className="flex items-center gap-4 w-full">
                 <div className="w-full">
-                  <label htmlFor="phonenumber" className="block text-xs font-medium text-gray-700">
-                    Phone number
+                  <label htmlFor="city" className="block text-xs font-medium text-gray-700">
+                    City
                   </label>
 
                   <input
                     type="text"
-                    id="phonenumber"
+                    id="city"
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
-
+                {/* 
                 <div className="w-full">
                   <label htmlFor="phonenumber2" className="block text-xs font-medium text-gray-700">
                     Additional phone number
@@ -134,27 +174,24 @@ const EditAddress = ({
                     placeholder=""
                     className="mt-1 w-full  rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
-                </div>
+                </div> */}
               </section>
 
               <section className="flex flex-col  gap-4 w-full">
                 <div className="w-full">
-                  <label
-                    htmlFor="deliveryAddress"
-                    className="block text-xs font-medium text-gray-700"
-                  >
-                    Delivery Address
+                  <label htmlFor="region" className="block text-xs font-medium text-gray-700">
+                    Region
                   </label>
 
                   <input
                     type="text"
-                    id="deliveryAddress"
+                    id="region"
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
 
-                <div className="w-full">
+                {/* <div className="w-full">
                   <label htmlFor="addionalInfo" className="block text-xs font-medium text-gray-700">
                     Additonal Information
                   </label>
@@ -165,10 +202,10 @@ const EditAddress = ({
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
-                </div>
+                </div> */}
               </section>
 
-              <section className="flex items-center gap-4 w-full">
+              {/* <section className="flex items-center gap-4 w-full">
                 <div className="w-full">
                   <label htmlFor="" className="block text-xs font-medium text-gray-700">
                     Region
@@ -194,7 +231,7 @@ const EditAddress = ({
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
-              </section>
+              </section> */}
             </div>
             <SheetFooter className="w-full">
               <div className="w-full  ">

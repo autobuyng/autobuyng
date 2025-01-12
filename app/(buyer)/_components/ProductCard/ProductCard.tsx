@@ -10,6 +10,8 @@ import { AppContext } from '@/context/AppContext';
 import { Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLikeVehicle } from '../../api/search';
+import AuthDialog from '@/app/auth';
+import { useStore } from '@/store/useStore';
 
 export const ProductCard = ({
   _id,
@@ -30,7 +32,10 @@ export const ProductCard = ({
 }: Vehicle) => {
   const router = useRouter();
   const { setVehicleId } = useContext(AppContext);
+  const { user } = useStore();
   const [liked, setLiked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [type, setType] = useState('signin');
 
   const { likeVehicle } = useLikeVehicle();
   const handleOnViewDetails = (id: string) => {
@@ -39,7 +44,15 @@ export const ProductCard = ({
     router.push(`/vehicle/${_id}`);
   };
 
+  const handleOpenChange = () => {
+    setIsOpen(false);
+  };
   const handleLikeVehhicle = async (id: string) => {
+    if (!user) {
+      setIsOpen(true);
+      return;
+    }
+
     const newLikedState = !liked;
     setLiked(newLikedState);
     try {
@@ -101,6 +114,14 @@ export const ProductCard = ({
           </button>
         </div>
       </div>
+
+      <AuthDialog
+        isOpen={isOpen}
+        handleOpenChange={handleOpenChange}
+        setIsOpen={setIsOpen}
+        type={type}
+        setType={setType}
+      />
     </div>
   );
 };

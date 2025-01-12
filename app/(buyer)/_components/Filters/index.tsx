@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 import SelectInput from '@/components/SelectInput/SelectInput';
 import { MAX_YEAR, MILEAGE } from '@/constants/constants';
@@ -13,29 +12,31 @@ import Features from './Features';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { setSessionItem } from '@/lib/Sessionstorage';
+import { useStore } from '@/store/useStore';
 
-type FilterComponentProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
-const Filters = ({ filters, setFilters }: FilterComponentProps) => {
+// type FilterComponentProps = {
+//   filters: FilterProps;
+//   setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
+// };
+const Filters = () => {
   const { isMobile } = useIsMobile();
+  const { filters, setFilters } = useStore();
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value.trim());
+  // const createQueryString = useCallback(
+  //   (name: string, value: string) => {
+  //     const params = new URLSearchParams(searchParams.toString());
+  //     params.set(name, value.trim());
 
-      return params.toString();
-    },
-    [searchParams],
-  );
+  //     return params.toString();
+  //   },
+  //   [searchParams],
+  // );
 
   useEffect(() => {
     setSessionItem('filters', filters);
@@ -80,12 +81,14 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             defaultValue={filters.mileage}
             setSelectedInput={(input) => {
               // router.push(pathname + '?' + createQueryString('mileage', input as string));
-              setFilters(
-                (prev: FilterProps): FilterProps => ({
-                  ...prev,
-                  mileage: input as string,
-                }),
-              );
+              if (input) {
+                setFilters(
+                  (prev: FilterProps): FilterProps => ({
+                    ...prev,
+                    mileage: input as string,
+                  }),
+                );
+              }
             }}
             selectedInput={filters.mileage as string}
             width="max-w-full h-4 border-none"
@@ -160,7 +163,7 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
             <Slider
               onValueChange={(input) => {
                 const [newPrice] = input;
-                router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
+                // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -186,15 +189,15 @@ const Filters = ({ filters, setFilters }: FilterComponentProps) => {
       >
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
-          <StyleType filters={filters} setFilters={setFilters} />
+          <StyleType />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
-          <Performance filters={filters} setFilters={setFilters} />
+          <Performance />
         </div>
         <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 ">Features</p>
-          <Features filters={filters} setFilters={setFilters} />
+          <Features />
         </div>
       </section>
     </main>

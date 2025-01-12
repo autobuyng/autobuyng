@@ -1,6 +1,12 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { AddressProps, AddressResponse, FavoriteVehicleResponse } from '@/types/types';
+import {
+  AddressProps,
+  AddressResponse,
+  FavoriteVehicleResponse,
+  Profile,
+  UserResponse,
+} from '@/types/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -46,6 +52,51 @@ export function useUpdateAddAddress() {
   return useMemo(
     () => ({
       updateAddress: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useDeleteAddress() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    { id: string }
+  >({
+    mutationFn: ({ id }) => mutator({ method: 'DELETE', url: endpoints.user.updateAddress(id) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      deleteAddress: mutateAsync,
+      data,
+      isDeleting: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useEditProfile() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<UserResponse, any, Profile>({
+    mutationFn: (values) =>
+      mutator({ method: 'PATCH', data: values, url: endpoints.user.editUserProfile }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      editUserProfile: mutateAsync,
       data,
       isPending,
       error,

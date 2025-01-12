@@ -9,13 +9,10 @@ import {
 } from '@/components/ui/accordion';
 
 import { BODY_STYLE, COLORS } from '@/constants/constants';
+import { useStore } from '@/store/useStore';
 import { FilterProps } from '@/types/types';
 import { useState } from 'react';
 
-type StyleTypeProps = {
-  filters: FilterProps;
-  setFilters: React.Dispatch<React.SetStateAction<FilterProps>>;
-};
 type Checked = {
   [key: string]: string;
   body_type: string;
@@ -23,8 +20,9 @@ type Checked = {
   exterior_color: string;
 };
 
-const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
-  const [checked, setChecked] = useState<Checked>({
+const StyleType = () => {
+  const { filters, setFilters } = useStore();
+  const [, setChecked] = useState<Checked>({
     body_type: '',
     interior_color: '',
     exterior_color: '',
@@ -39,10 +37,24 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
       }
     });
 
-    setFilters((prev: FilterProps) => ({
-      ...prev,
-      [category]: input === checked[category] ? '' : (input as string),
-    }));
+    // setFilters((prev: FilterProps) => ({
+    //   ...prev,
+    //   [category]: input === checked[category] ? delete prev[category] : (input as string),
+    // }));
+
+    setFilters((prev: FilterProps) => {
+      const updatedFilters = { ...prev };
+
+      if (prev[category] === input) {
+        // If the input already exists, remove the entire key-value pair
+        delete updatedFilters[category];
+      } else {
+        // If the input doesn't exist or is different, add/update it
+        updatedFilters[category] = input as string;
+      }
+
+      return updatedFilters;
+    });
   };
 
   return (
@@ -61,7 +73,7 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                       value={filters.body_type}
                       onChange={() => handleCheckboxChange(type.name, 'body_type')}
                       className="h-5 w-5"
-                      checked={type.name === checked.body_type || filters.body_type === type.name}
+                      checked={filters?.body_type === type.name}
                     />
                     <span className="">{type.name}</span>
                   </p>
@@ -83,10 +95,7 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                       value={filters.interior_color}
                       onChange={() => handleCheckboxChange(color.name, 'interior_color')}
                       className="h-5 w-5"
-                      checked={
-                        color.name === checked.interior_color ||
-                        filters.interior_color === color.name
-                      }
+                      checked={filters?.interior_color === color.name}
                     />
                     <span className="">{color.name}</span>
                   </p>
@@ -108,9 +117,7 @@ const StyleType = ({ filters, setFilters }: StyleTypeProps) => {
                       value={filters.exterior_color}
                       onChange={() => handleCheckboxChange(color.name, 'exterior_color')}
                       className="h-5 w-5"
-                      checked={
-                        color.name === checked.exterior_color || filters.exterior === color.name
-                      }
+                      checked={filters?.exterior === color.name}
                     />
                     <span className="">{color.name}</span>
                   </p>

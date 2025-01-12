@@ -7,13 +7,14 @@ import { cn } from '@/lib/utils';
 // import { AppContext } from '@/context/AppContext';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useLogin } from '@/app/(buyer)/api/auth';
-import { Loader } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 // import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 // import { useContext } from 'react';
 import { setSessionItem } from '@/lib/Sessionstorage';
 import { useStore } from '@/store/useStore';
+import { useState } from 'react';
 
 const SignIn = ({
   setType,
@@ -31,20 +32,17 @@ const SignIn = ({
   });
 
   const { toast } = useToast();
-  console.log(errors, 'errors');
+  const [showPassword, setShowPassword] = useState(false);
   // const os = useDetectOS();
   // const { isMobile } = useIsMobile();
   // const { user, setUser } = useContext(AppContext);
-  const { user, setUser } = useStore();
+  const { setUser } = useStore();
 
-  console.log(user);
   const router = useRouter();
 
   const { login, isLoggingIn } = useLogin();
 
   const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
-    console.log('signin');
-
     try {
       const response = await login(data);
       if (response.status === true) {
@@ -96,16 +94,28 @@ const SignIn = ({
             >
               Password
             </label>
-            <input
-              {...register('password')}
-              type="password"
-              id="password"
-              placeholder="******"
+            <div
               className={cn(
-                'mt-1 w-full py-1.5 px-2 rounded-md outline-none border border-neutral-700 shadow-sm sm:text-sm',
+                'mt-1 flex justify-between   items-center w-full  px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                 { 'border border-red-500': errors.password },
               )}
-            />
+            >
+              <input
+                {...register('password')}
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                placeholder="******"
+                className={cn(
+                  'flex-1 border-none outline-none py-1.5',
+                  // { 'border border-red-500': errors.password },
+                )}
+              />
+              {showPassword ? (
+                <EyeIcon onClick={() => setShowPassword(false)} />
+              ) : (
+                <EyeOffIcon onClick={() => setShowPassword(true)} />
+              )}
+            </div>
             {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
           </div>
           <p
@@ -126,7 +136,7 @@ const SignIn = ({
           <p>
             Don&apos;t have an account?{' '}
             <span onClick={() => setType('signup')} className="text-primary-500 cursor-pointer">
-              SignUp
+              Sign Up
             </span>
           </p>
         </div>
@@ -136,33 +146,3 @@ const SignIn = ({
 };
 
 export default SignIn;
-
-{
-  /* <div className="flex flex-col gap-4">
-              <div className="w-full flex justify-between items-center gap-[5px]">
-                <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-                <span className="text-lg">or</span>
-                <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-              </div>
-
-              <div
-                className={cn('flex  gap-4', {
-                  'sm:flex-col': os === 'macOS',
-                  'flex-col': isMobile,
-                })}
-              >
-                <div className="w-full">
-                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
-                    <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
-                  </button>
-                </div>
-
-                <div className="w-full">
-                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
-                    <Image src={Facebook} alt="Facebook" />
-                    <span> Sign up with Facebook</span>
-                  </button>
-                </div>
-              </div>
-            </div> */
-}
