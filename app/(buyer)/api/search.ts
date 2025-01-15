@@ -73,6 +73,8 @@ export function useGetVehicle() {
     },
   });
 
+  console.log(isError, 'from searchapi');
+
   return useMemo(
     () => ({
       getVehicle: mutateAsync,

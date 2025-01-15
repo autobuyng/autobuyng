@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -14,14 +14,41 @@ import useIsMobile from '@/hooks/useIsMobile';
 import useClickOutside from '@/hooks/useClickOutside';
 import Menucontent from '@/app/(seller)/_components/MenuContent/MenuContent';
 import { cn } from '@/lib/utils';
+import { useStore } from '@/store/useStore';
+import { useGetUser } from '@/app/(seller)/api/user';
 
 const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
   const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
   const router = useRouter();
-  const user = false;
   const divRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  const { seller, setSeller, setIsLoading, setSellerProfile, setSellerAddress } = useStore();
+
+  const { getUser } = useGetUser();
+
+  const getUserData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getUser();
+      if (response.status) {
+        setSeller(response.data.user);
+        setSellerProfile(response.data.profile);
+        setSellerAddress(response.data.addresses);
+      }
+      console.log(response.data.user);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserData();
+  }, []);
 
   const handleClosePopover = () => {
     setIsOpen(false);
@@ -84,9 +111,9 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
           <div>
             {pathname === '/sell-a-car' ? (
               <div>
-                {user ? (
+                {seller ? (
                   <div className="flex items-center justify-center gap-2">
-                    <p className="">Hi Jonathan</p>
+                    <p className="">Hi {seller.firstName}</p>
                     <div className=" relative flex items-center">
                       {isMobile && (
                         <Sheet>
@@ -158,3 +185,51 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
 };
 
 export default Navbar;
+// {
+//     "status": true,
+//     "message": "Request Successful",
+//     "data": {
+//         "user": {
+//             "_id": "677867b54e4d799fefc197ea",
+//             "firstName": "Emmanuel",
+//             "lastName": "Chima",
+//             "email": "chima2472@gmail.com",
+//             "role": "individual-seller",
+//             "status": "active",
+//             "createdAt": "2025-01-03T22:41:57.019Z",
+//             "updatedAt": "2025-01-03T22:44:08.471Z",
+//             "__v": 0,
+//             "verifiedAt": "2025-01-03T22:44:08.470Z"
+//         },
+//         "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Nzc4NjdiNTRlNGQ3OTlmZWZjMTk3ZWEiLCJyb2xlIjoiaW5kaXZpZHVhbC1zZWxsZXIiLCJpYXQiOjE3MzY5Nzg1ODQsImV4cCI6MTczNjk4NTc4NH0.wpkWRuzn8U1um2whw0wqv7bPyNjXLiJe_lThOVFvqEM",
+//         "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Nzc4NjdiNTRlNGQ3OTlmZWZjMTk3ZWEiLCJpYXQiOjE3MzY5Nzg1ODQsImV4cCI6MTczODE4ODE4NH0.XE3DzHTXD1ttYie3C6vsfKL3yxdjhUubKmTw51WuJzw"
+//     }
+// }
+
+// {
+//     "status": true,
+//     "message": "Request Successful",
+//     "data": {
+//         "user": {
+//             "_id": "677867b54e4d799fefc197ea",
+//             "firstName": "Emmanuel",
+//             "lastName": "Chima",
+//             "email": "chima2472@gmail.com",
+//             "role": "individual-seller",
+//             "status": "active",
+//             "createdAt": "2025-01-03T22:41:57.019Z",
+//             "updatedAt": "2025-01-03T22:44:08.471Z",
+//             "__v": 0,
+//             "verifiedAt": "2025-01-03T22:44:08.470Z"
+//         },
+//         "profile": {
+//             "_id": "677867b54e4d799fefc197ec",
+//             "userId": "677867b54e4d799fefc197ea",
+//             "phoneNumber": "08138160644",
+//             "createdAt": "2025-01-03T22:41:57.394Z",
+//             "updatedAt": "2025-01-03T22:41:57.394Z",
+//             "__v": 0
+//         },
+//         "addresses": []
+//     }
+// }

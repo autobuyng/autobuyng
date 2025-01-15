@@ -8,7 +8,7 @@ import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
 import { AppContext } from '@/context/AppContext';
 import { Heart } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
@@ -19,6 +19,7 @@ export const ProductCard = ({
   images,
   vehicleModel,
   condition,
+  liked,
   // vehicleYear,
   // vehicleTypeId,
   mileage,
@@ -33,7 +34,7 @@ export const ProductCard = ({
   const router = useRouter();
   const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
-  const [liked, setLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
 
@@ -54,16 +55,16 @@ export const ProductCard = ({
     }
 
     const newLikedState = !liked;
-    setLiked(newLikedState);
+    setIsLiked(newLikedState);
     try {
       const response = await likeVehicle({ vehicleId: id });
       console.log(response);
     } catch (error) {
-      setLiked(!newLikedState);
+      setIsLiked(!newLikedState);
       console.log(error, 'error');
     }
   };
-
+  console.log(liked, 'liked');
   return (
     <div className="rounded-[12px] shadow-md">
       <div className="relative max-w-full md:max-w-full w-full h-[230px]">
@@ -75,8 +76,8 @@ export const ProductCard = ({
         >
           <Heart
             className={cn({
-              'text-red-500 fill-current': liked,
-              '': !liked,
+              'text-red-500 fill-current': liked || isLiked,
+              '': !liked || isLiked,
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}
@@ -103,7 +104,7 @@ export const ProductCard = ({
           </p>
         </div>
 
-        <p className=" font-[700]  text-lg my-1"> ₦ {price}</p>
+        <p className=" font-[700]  text-lg my-1"> {formatCurrency(price)}</p>
 
         <div className="w-full cursor-pointer">
           <button

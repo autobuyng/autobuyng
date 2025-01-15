@@ -20,6 +20,7 @@ import { useStore } from '@/store/useStore';
 // import { User } from '@/types/types';
 
 const Navbar = () => {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
   const router = useRouter();
@@ -36,6 +37,10 @@ const Navbar = () => {
     setIsOpen(true);
     setType('signin');
   };
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, []);
 
   const getUserData = async () => {
     setIsLoading(true);
@@ -150,7 +155,7 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            ) : isLoading ? (
+            ) : isLoading || loading ? (
               <div className="flex gap-8">Loading...</div> // Replace with your loading indicator
             ) : (
               <div className="flex gap-8">

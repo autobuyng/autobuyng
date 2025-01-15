@@ -21,8 +21,13 @@ const Menucontent = () => {
   };
 
   const handleSignUpClick = () => {
-    setIsOpen(true);
-    setType('signup');
+    if (!user) {
+      setIsOpen(true);
+      setType('signin');
+    }
+    {
+      router.push('/settings');
+    }
   };
 
   const handleMenuClick = (path: string) => {

@@ -34,6 +34,15 @@ const toastVariants = cva(
           'destructive group border-destructive bg-destructive text-destructive-foreground',
         success: 'success group border-success bg-success text-success-foreground',
       },
+      position: {
+        default: 'top-0 sm:bottom-0 sm:right-0 sm:top-auto',
+        top: 'top-0 right-0 data-[state=closed]:slide-out-to-right-full',
+        'top-left': 'top-0 left-0 data-[state=closed]:slide-out-to-left-full',
+        'top-right': 'top-0 right-0 data-[state=closed]:slide-out-to-right-full',
+        bottom: 'bottom-0 right-0 data-[state=open]:slide-in-from-bottom-full ',
+        'bottom-left': 'data-[state=closed]:slide-out-to-left-full bottom-0 left-0',
+        center: 'bottom-0 mx-auto w-auto sm:bottom-0',
+      },
     },
     defaultVariants: {
       variant: 'default',

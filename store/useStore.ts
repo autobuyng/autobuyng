@@ -25,6 +25,10 @@ type State = {
   setProfile: (profile: Profile | null) => void;
   address: Address[] | null;
   setAddress: (address: Address[] | null) => void;
+  sellerProfile: Profile | null;
+  setSellerProfile: (profile: Profile | null) => void;
+  sellerAddress: Address[] | null;
+  setSellerAddress: (address: Address[] | null) => void;
   filters: FilterProps;
   setFilters: (filters: FilterProps | ((prev: FilterProps) => FilterProps)) => void;
 };
@@ -32,14 +36,25 @@ type State = {
 export const useStore = create<State>((set) => ({
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
+
   user: null,
   setUser: (user) => set({ user }),
+
   seller: null,
   setSeller: (seller) => set({ seller }),
+
   profile: null,
   setProfile: (profile) => set({ profile }),
+
   address: null,
   setAddress: (address) => set({ address }),
+
+  sellerProfile: null,
+  setSellerProfile: (sellerProfile) => set({ sellerProfile }),
+
+  sellerAddress: null,
+  setSellerAddress: (sellerAddress) => set({ sellerAddress }),
+
   filters: DEFAULT_FILTERS,
   setFilters: (update) =>
     set((state) => ({

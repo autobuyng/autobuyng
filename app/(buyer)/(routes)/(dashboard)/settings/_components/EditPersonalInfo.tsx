@@ -57,11 +57,13 @@ const EditPersonalInfo = ({
       const response = await editUserProfile(data);
       setUser(response.data.user);
       setProfile(response.data.profile);
+      setEditPersonalInfoModal(false);
 
       toast({
         title: 'Profile updated successfully',
         description: 'Your profile has been updated successfully.',
         variant: 'success',
+        position: 'top-right',
         duration: 3000,
       });
     } catch (error) {

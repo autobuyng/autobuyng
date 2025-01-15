@@ -49,6 +49,7 @@ const SignIn = ({
         toast({
           title: 'Success',
           description: response.message,
+          position: 'top-right',
         });
         setUser(response.data.user);
         setSessionItem('accessToken', response.data.accessToken);
@@ -79,7 +80,7 @@ const SignIn = ({
               {...register('email')}
               type="email"
               id="email"
-              placeholder="tosinkadiri@gmail.com"
+              placeholder="johnDoe@gmail.com"
               className={cn(
                 'mt-1 w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
                 { 'border border-red-500': errors.email },
