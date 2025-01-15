@@ -19,6 +19,7 @@ const ForgotPassword = () => {
       toast({
         title: 'Success',
         description: response.data.message,
+        position: 'top-right',
       });
 
       console.log(response);

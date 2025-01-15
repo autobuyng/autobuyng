@@ -33,6 +33,7 @@ function VerifyEmailPage() {
         toast({
           title: 'Success',
           description: response.message,
+          position: 'top-right',
         });
         setUser(response.data.user);
         setSessionItem('accessToken', response.accessToken);

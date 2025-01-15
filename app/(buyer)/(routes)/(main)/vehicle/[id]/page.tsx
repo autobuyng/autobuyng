@@ -34,6 +34,7 @@ import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
 // import { useGetUser } from '@/app/(buyer)/api/auth';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
+import VehicleDetailsError from '@/constants/TableData';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
@@ -51,21 +52,23 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   // const [userData, setUserData] = useState<User | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
-  const { getVehicle, isPending } = useGetVehicle();
+  const { getVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
   // const { getUser } = useGetUser();
 
-  console.log(user, 'userData');
+  useEffect(() => {
+    setIsLoading(isPending);
+  }, [isPending]);
+
+  console.log(isError, 'ieError happenning', error, 'actural error');
   const handleGetVehicle = async () => {
     try {
-      const response2 = await getSimilarVehicle({ vehicleId: params.id });
       const response = await getVehicle({ vehicleId: params.id });
+      const response2 = await getSimilarVehicle({ vehicleId: params.id });
       setVehicleData(response.data);
       setSimilarVehicle(response2.data.vehicles);
     } catch (error) {
       console.log(error, 'error');
-    } finally {
-      setIsLoading(isPending);
     }
   };
 
@@ -106,9 +109,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     router.push(`/vehicle/${uuidv4()}`);
   };
 
-  // if (isLoading) {
-  //   return <LoadingSkeleton />;
-  // }
+  if (isError) {
+    return <VehicleDetailsError error={error.message} />;
+  }
 
   return (
     <div className="w-full mb-32">
@@ -169,8 +172,8 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
       <div className="mt-8">
         <MaxWidthWrapper>
-          {isLoading && <LoadingSkeleton />}
-          {!isLoading && (
+          {(isLoading || isPending) && <LoadingSkeleton />}
+          {!isLoading && !isPending && (
             <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
               <div className="bg-white px-4 flex-[3]">
                 <div

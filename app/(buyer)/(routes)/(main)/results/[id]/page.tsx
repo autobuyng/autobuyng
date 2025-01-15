@@ -200,8 +200,6 @@ const Results = () => {
                       setSelectedInput={(input) => {
                         if (typeof input != 'string') return;
                         const parameter = input.split(' ');
-                        console.log(parameter);
-                        console.log(input, 'input');
                         setFilters((prev: FilterProps) => ({
                           ...prev,
                           sortParameter: parameter[1] as string,

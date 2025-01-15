@@ -14,8 +14,10 @@ import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
-import { useSetActiveAddress } from '@/app/(buyer)/api/user';
+import { useAddAddress, useSetActiveAddress } from '@/app/(buyer)/api/user';
 import { useGetUser } from '@/app/(buyer)/api/auth';
+import { useForm } from 'react-hook-form';
+import { Address } from '@/types/types';
 
 const EditAddress = ({
   editAddressModal,
@@ -25,9 +27,10 @@ const EditAddress = ({
   setEditAddressModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   // const [activeChoice, setActiveChoice] = useState(1);
-
+  const { register, handleSubmit } = useForm<Address>();
   const { address, setUser, setProfile, setAddress } = useStore();
   const { setActiveAddress } = useSetActiveAddress();
+  const { addAddress, isPending } = useAddAddress();
   const { getUser } = useGetUser();
 
   const updateUserData = async () => {
@@ -42,12 +45,30 @@ const EditAddress = ({
     }
   };
 
+  const handleSubmitForm = async (data: Address) => {
+    try {
+      const response = await addAddress(data);
+      await updateUserData();
+      console.log(response, 'add address');
+    } catch (error) {
+      console.log(error);
+    }
+    // setAddressFields(data);
+  };
+
   const handleSetActiveAddress = async (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
 
-    const activeAddress = address?.find((address) => address._id === id);
-    if (!activeAddress) return;
-    activeAddress.isActive = true;
+    const activeAddress = address?.find((address) => address.isActive);
+
+    console.log(activeAddress, 'activeAddress');
+    if (activeAddress) {
+      activeAddress.isActive = false;
+    }
+
+    const addressTosetActive = address?.find((address) => address._id === id);
+    if (!addressTosetActive) return;
+    addressTosetActive.isActive = true;
 
     try {
       const response = await setActiveAddress({ id });
@@ -55,7 +76,11 @@ const EditAddress = ({
       console.log(response, 'update address');
     } catch (error) {
       console.error(error);
-      activeAddress.isActive = false;
+      addressTosetActive.isActive = false;
+
+      if (activeAddress) {
+        activeAddress.isActive = true;
+      }
     }
   };
 
@@ -95,30 +120,11 @@ const EditAddress = ({
                 </div>
               );
             })}
-
-            {/* <div
-              className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
-                'outline outline-[4px]  outline-[#0382c8]/25': activeChoice === 2,
-              })}
-            >
-              <div
-                onClick={() => setActiveChoice(2)}
-                className={cn(
-                  'h-8 w-8 border  border-neutral-300 outline-8 rounded-[50%] cursor-pointer',
-                  {
-                    ' border-8 border-primary-700': activeChoice === 2,
-                  },
-                )}
-              ></div>
-              <p className="w-full text-sm flex items-center">
-                4517 Washington Ave. Manchester, Kentucky 39495
-              </p>
-            </div> */}
           </section>
 
           <Separator />
 
-          <form action="" className="w-full space-y-4 mt-4">
+          <form onSubmit={handleSubmit(handleSubmitForm)} className="w-full space-y-4 mt-4">
             <h1 className="font-bold text-2xl">Add New Address</h1>
             <div className="w-full space-y-4">
               <section className="flex items-center gap-4 w-full">
@@ -130,6 +136,7 @@ const EditAddress = ({
                   <input
                     type="text"
                     id="address"
+                    {...register('address')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -158,6 +165,7 @@ const EditAddress = ({
                   <input
                     type="text"
                     id="city"
+                    {...register('city')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -186,6 +194,7 @@ const EditAddress = ({
                   <input
                     type="text"
                     id="region"
+                    {...register('region')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -242,7 +251,7 @@ const EditAddress = ({
                     type="submit"
                     className="bg-primary-700 w-full text-white rounded-sm text-center px-4 py-2"
                   >
-                    Save Changes
+                    {isPending ? 'Updating...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

@@ -52,18 +52,20 @@ const Result = ({ displayFormat, searchResult, isPending, isError, error }: Resu
   }
 
   if (isError) {
-    <main className="mb-8 w-full  flex items-center justify-center">
-      <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-gray-900 mt-56">{error}</h1>
+    return (
+      <div className="mb-8 w-full  flex items-center justify-center">
+        <div className="space-y-4">
+          <h1 className="text-2xl font-bold text-gray-900 mt-24">{error.message}</h1>
+        </div>
       </div>
-    </main>;
+    );
   }
 
   if (searchResult && searchResult.vehicles.length === 0) {
     return (
       <main className="mb-8 w-full  flex items-center justify-center">
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold text-gray-900 mt-56">No Result Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mt-24">No Result Found</h1>
         </div>
       </main>
     );
@@ -97,6 +99,7 @@ const Result = ({ displayFormat, searchResult, isPending, isError, error }: Resu
                   fuelType={result.fuelType}
                   vehicleYear={result.vehicleYear}
                   condition={result.condition}
+                  liked={result.liked}
                   _id={result._id}
                 />
               </div>
