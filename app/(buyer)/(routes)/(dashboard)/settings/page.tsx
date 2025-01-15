@@ -91,7 +91,7 @@ const Settings = () => {
 
 export default Settings;
 
-export function ProfileSettingsSkeleton() {
+export const ProfileSettingsSkeleton = () => {
   return (
     <div className="max-w-full mx-auto p-4 space-y-6">
       {/* Page Title */}
@@ -149,4 +149,4 @@ export function ProfileSettingsSkeleton() {
       </div>
     </div>
   );
-}
+};
