@@ -5,7 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number | string): string {
+export function formatCurrency(amount: number | string | undefined): string {
+  if (!amount) {
+    return '';
+  }
   // Convert amount to a number if it's a string
   const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
 

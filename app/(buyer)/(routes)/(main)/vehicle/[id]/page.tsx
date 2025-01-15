@@ -15,7 +15,7 @@ import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/Veh
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
-import { cn } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
 import SemiCircleProgressBar, {
   ProgressBar,
@@ -194,11 +194,13 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   <div className="space-x-1 flex items-center">
                     <span className="text-neutral-700 font-semibold">{vehicleData?.mileage}</span>
                     <span>|</span>
-                    <span className="text-xl font-bold tracking-wide">{vehicleData?.price}</span>
+                    <span className="text-xl font-bold tracking-wide">
+                      {formatCurrency(vehicleData?.price)}
+                    </span>
                   </div>
 
                   <div className="   min-[480px]:flex space-y-2 items-center justify-between">
-                    <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] w-[191px] h-[29px] rounded-[50px] text-sm">
+                    <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] px-2 w-fit h-[29px] rounded-[50px] text-sm">
                       <span className="text-primary-900">VIN</span>
                       <span>{vehicleData?.vin}</span>
                     </p>

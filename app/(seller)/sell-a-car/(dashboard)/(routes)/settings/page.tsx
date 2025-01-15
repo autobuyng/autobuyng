@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import EditAddress from './_component/EditAddress';
 import EditPersonalInfo from './_component/EditPersonalInfo';
 import EditBankInfo from './_component/EditBankInfo';
+import { useStore } from '@/store/useStore';
 
 const Settings = () => {
   const [editPersonalInfoModal, setEditPersonalInfoModal] = useState(false);
   const [editAddressModal, setEditAddressModal] = useState(false);
   const [editBankInfoModal, setEditBankInfoModal] = useState(false);
+
+  const { seller, sellerProfile, sellerAddress } = useStore();
   return (
     <>
       <main className="mx-4 ">
@@ -27,9 +30,9 @@ const Settings = () => {
               </div>
 
               <div>
-                <h1 className="font-semibold">Darlent Rebertson</h1>
-                <p className="text-neutral-700">michelle.rivera@example.com</p>
-                <p className="text-neutral-700">(684) 555-0102</p>
+                <h1 className="font-semibold">{`${seller?.firstName} ${seller?.lastName}`}</h1>
+                <p className="text-neutral-700">{seller?.email}</p>
+                <p className="text-neutral-700">{sellerProfile?.phoneNumber}</p>
               </div>
             </div>
 
@@ -44,13 +47,18 @@ const Settings = () => {
                 </span>
               </div>
 
-              <div className="space-y-4">
-                <p className="text-[#1A1A1A] space-x-3">
-                  <span>3517 W. Gray St. Utica, Pennsylvania 57867</span>
-                  <span className="text-secondary-500 ">Active</span>
-                </p>
-                <p className="text-neutral-500">4517 Washington Ave. Manchester, Kentucky 39495</p>
-              </div>
+              {sellerAddress?.map(
+                (address) =>
+                  address.isActive && (
+                    <div key={address._id} className="space-y-4">
+                      <p className="text-[#1A1A1A] space-x-3">
+                        <span>{address.address} </span>
+                        <span className="text-primary-700 ">Active</span>
+                      </p>
+                      <p className="text-neutral-500">{address.city}</p>
+                    </div>
+                  ),
+              )}
             </div>
 
             <div className="border border-neutral-300 p-6 rounded-[9px]">

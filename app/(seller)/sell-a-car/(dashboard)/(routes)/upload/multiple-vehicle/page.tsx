@@ -6,8 +6,10 @@ import { ContactDetails } from '@/types/types';
 import { ContactDetailsSchema, IContactDetailsSchema } from '@/Schema/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useBookInspection } from '@/app/(seller)/api/upload';
+import { useToast } from '@/hooks/use-toast';
 
 const MulitipleVehicle = () => {
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -32,13 +34,17 @@ const MulitipleVehicle = () => {
     try {
       const response = await bookInspection({ ...data, time: convertToAmPmFormat(data.time) });
       console.log(response, 'srespone');
+      toast({
+        title: 'Success',
+        description: 'Vehicle Inspection booked successfully',
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto mb-8">
       <div>
         <ArrowLeft className=" ml-4 cursor-pointer" onClick={() => window.history.back()} />
       </div>
