@@ -4,6 +4,7 @@ import EditAddress from './_component/EditAddress';
 import EditPersonalInfo from './_component/EditPersonalInfo';
 import EditBankInfo from './_component/EditBankInfo';
 import { useStore } from '@/store/useStore';
+import { useGetAllBankDetials } from '@/app/(seller)/api/user';
 
 const Settings = () => {
   const [editPersonalInfoModal, setEditPersonalInfoModal] = useState(false);
@@ -11,6 +12,7 @@ const Settings = () => {
   const [editBankInfoModal, setEditBankInfoModal] = useState(false);
 
   const { seller, sellerProfile, sellerAddress } = useStore();
+  const { data } = useGetAllBankDetials();
   return (
     <>
       <main className="mx-4 ">
@@ -61,23 +63,29 @@ const Settings = () => {
               )}
             </div>
 
-            <div className="border border-neutral-300 p-6 rounded-[9px]">
-              <div className="flex items-center justify-between">
-                <h1 className=" font-bold text-xl mb-4 ">Banking Information</h1>
-                <span
-                  onClick={() => setEditBankInfoModal(true)}
-                  className=" cursor-pointer font-bold text-secondary-500"
-                >
-                  EDIT
-                </span>
-              </div>
+            {(data ?? []).map((bank) => {
+              if (bank.isActive) {
+                return (
+                  <div key={bank._id} className="border border-neutral-300 p-6 rounded-[9px]">
+                    <div className="flex items-center justify-between">
+                      <h1 className=" font-bold text-xl mb-4 ">Banking Information</h1>
+                      <span
+                        onClick={() => setEditBankInfoModal(true)}
+                        className=" cursor-pointer font-bold text-secondary-500"
+                      >
+                        EDIT
+                      </span>
+                    </div>
 
-              <div>
-                <h1 className="font-semibold">GUARANTEE TRUST BANK (GTB)</h1>
-                <p className="text-neutral-700">0098122563</p>
-                <p className="text-neutral-700 uppercase">JONATHAN MANDINGO</p>
-              </div>
-            </div>
+                    <div>
+                      <h1 className="font-semibold">{bank.bankName}</h1>
+                      <p className="text-neutral-700">{bank.accountNumber}</p>
+                      <p className="text-neutral-700 uppercase">{bank.accountName}</p>
+                    </div>
+                  </div>
+                );
+              }
+            })}
 
             <div className="border border-neutral-300 p-6 rounded-[9px]">
               <h1 className=" font-bold text-xl mb-4">Secure your Account</h1>

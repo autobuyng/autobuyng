@@ -1,4 +1,4 @@
-import { getSessionItem } from '@/lib/Sessionstorage';
+import { getSessionItem, removeSessionItem } from '@/lib/Sessionstorage';
 import { SearchQuery } from '@/types/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
@@ -35,6 +35,34 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       return config;
     },
     (error) => Promise.reject(error),
+  );
+
+  // Response Interceptor
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      // Return the response directly if no issues
+      return response;
+    },
+    async (error) => {
+      const { response } = error;
+
+      // Handle Unauthorized Errors
+      if (response && (response.status === 401 || response.status === 403)) {
+        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+        const isSeller = currentPath.includes('sell-a-car');
+
+        // Clear the relevant token and redirect to the appropriate login page
+        if (isSeller) {
+          removeSessionItem('sellerAccessToken');
+          window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!;
+        } else {
+          removeSessionItem('accessToken');
+          window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+        }
+      }
+
+      return Promise.reject(error);
+    },
   );
 
   return axiosInstance;
@@ -87,10 +115,14 @@ export const endpoints = {
     addAddress: '/users/add-address',
     getFavoriteVehicle: '/users/favorite-vehicles',
     editUserProfile: '/users/profile-edit',
+    addBankDetails: '/seller/add-bank-details',
+    getBankDetails: 'seller/get-all-bank-details',
     updateAddress: (id: string) => `/users/address/${id}`,
     deleteAddress: (id: string) => `/users/address/${id}`,
     setActiveAddress: (id: string) => `/users/set-active-address/${id}`,
     editProfile: (id: string) => `/user/update/${id}`,
+    updataBankDetails: (id: string) => `/seller/update-bank-details/${id}`,
+    setActiveBankDetails: (id: string) => `/seller/set-active-bank-details/${id}`,
   },
   friends: {
     friendslist: '/friends/list',
@@ -122,6 +154,7 @@ export const queryKeys = {
   user: {
     root: [{ type: 'currentUser' }],
     getFavoriteVehicle: [{ type: 'getFavoriteVehicle' }],
+    getBankDetails: [{ type: 'geBankDetials' }],
   },
   // event: {
   //   root: [{ type: 'event' }],

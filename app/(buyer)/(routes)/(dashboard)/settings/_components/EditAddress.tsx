@@ -141,19 +141,6 @@ const EditAddress = ({
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
                 </div>
-
-                {/* <div className="w-full">
-                  <label htmlFor="lastname" className="block text-xs font-medium text-gray-700">
-                    Lastname
-                  </label>
-
-                  <input
-                    type="text"
-                    id="lastname"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
-                  />
-                </div> */}
               </section>
 
               <section className="flex items-center gap-4 w-full">
@@ -170,19 +157,6 @@ const EditAddress = ({
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
-                {/* 
-                <div className="w-full">
-                  <label htmlFor="phonenumber2" className="block text-xs font-medium text-gray-700">
-                    Additional phone number
-                  </label>
-
-                  <input
-                    type="text"
-                    id="phonenumber2"
-                    placeholder=""
-                    className="mt-1 w-full  rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div> */}
               </section>
 
               <section className="flex flex-col  gap-4 w-full">
@@ -199,48 +173,7 @@ const EditAddress = ({
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
                 </div>
-
-                {/* <div className="w-full">
-                  <label htmlFor="addionalInfo" className="block text-xs font-medium text-gray-700">
-                    Additonal Information
-                  </label>
-
-                  <input
-                    type="text"
-                    id="additionalInformation"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div> */}
               </section>
-
-              {/* <section className="flex items-center gap-4 w-full">
-                <div className="w-full">
-                  <label htmlFor="" className="block text-xs font-medium text-gray-700">
-                    Region
-                  </label>
-
-                  <input
-                    type="text"
-                    id="region"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-
-                <div className="w-full">
-                  <label htmlFor="city" className="block text-xs font-medium text-gray-700">
-                    City
-                  </label>
-
-                  <input
-                    type="text"
-                    id="city"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-              </section> */}
             </div>
             <SheetFooter className="w-full">
               <div className="w-full  ">

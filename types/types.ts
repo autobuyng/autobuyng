@@ -331,14 +331,26 @@ export type Profile = {
   // __v: number;
 };
 
-// interface Address {
-//   _id: string;
-//   userId: string;
-//   address: string;
-//   city: string;
-//   region: string;
-//   isActive: boolean;
-//   createdAt: string;
-//   updatedAt: string;
-//   __v: number;
-// }
+export type BankDetailsProps = {
+  accountNumber: string;
+  bankName: string;
+  accountName: string;
+};
+
+export type BankAccount = {
+  _id: string;
+  sellerId: string;
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  isActive: boolean;
+  createdAt: string; // Use `Date` if you want to parse this string into a Date object
+  updatedAt: string; // Use `Date` if you want to parse this string into a Date object
+  __v: number;
+};
+
+export type getAllBankDetailsResponse = {
+  status: boolean;
+  message: string;
+  data: BankAccount[];
+};
