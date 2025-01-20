@@ -3,6 +3,8 @@ import { getSessionItem } from '@/lib/Sessionstorage';
 import {
   AddressProps,
   AddressResponse,
+  BankAccount,
+  BankDetailsProps,
   FavoriteVehicleResponse,
   Profile,
   UserResponse,
@@ -54,6 +56,99 @@ export function useAddAddress() {
       isError,
     }),
     [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useAddBankDetails() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    BankDetailsProps
+  >({
+    mutationFn: (values: BankDetailsProps) =>
+      mutator({ method: 'POST', data: values, url: endpoints.user.addBankDetails }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getBankDetails });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      addBankDetails: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useUpdateBankDetails() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    { id: string; values: BankDetailsProps }
+  >({
+    mutationFn: ({ values, id }) =>
+      mutator({ method: 'PATCH', data: values, url: endpoints.user.updataBankDetails(id) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getBankDetails });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      updateBankDetais: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useSetActiveBank() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    { id: string }
+  >({
+    mutationFn: ({ id }) =>
+      mutator({ method: 'PATCH', url: endpoints.user.setActiveBankDetails(id) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getBankDetails });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      setActiveBank: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useGetAllBankDetials() {
+  const { data, isLoading, refetch } = useQuery<BankAccount[]>({
+    queryKey: queryKeys.user.getBankDetails,
+    queryFn: () => fetcher(endpoints.user.getBankDetails),
+  });
+  console.log(data, 'datra');
+
+  return useMemo(
+    () => ({
+      data,
+      userRefetch: refetch,
+      isLoading,
+    }),
+    [data, isLoading, refetch],
   );
 }
 export function useUpdateAddAddress() {
