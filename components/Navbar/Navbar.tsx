@@ -60,13 +60,13 @@ const Navbar = () => {
     }
   };
 
-  const accessToken = getSessionItem('accessToken');
   useEffect(() => {
+    const accessToken = getSessionItem('accessToken');
     if (!accessToken) {
       setIsLoading(true);
       getUserData();
     }
-  }, [accessToken]);
+  }, []);
 
   const NAV_ITEMS = [
     {
