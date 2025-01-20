@@ -79,7 +79,7 @@ const SingleVehicle = () => {
       id: 'localused',
       title: 'local',
       description: 'Upload your vehicle quantity',
-      component: <NigeriaUsed register={register} />,
+      component: <NigeriaUsed />,
     },
   };
 
