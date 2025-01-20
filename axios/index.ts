@@ -54,10 +54,10 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
           removeSessionItem('sellerAccessToken');
-          // window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!;
+          window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!;
         } else {
           removeSessionItem('accessToken');
-          window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+          // window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
         }
       }
 
