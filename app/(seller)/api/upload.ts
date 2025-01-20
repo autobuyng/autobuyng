@@ -1,6 +1,7 @@
-import { endpoints, mutator } from '@/axios';
+import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
 import { IContactDetailsSchema } from '@/Schema/authSchema';
-import { useMutation } from '@tanstack/react-query';
+import { BankAccount, UploadVehicleDataTypes } from '@/types/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useBookInspection() {
@@ -26,5 +27,48 @@ export function useBookInspection() {
       isError,
     }),
     [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useUploadVehicle() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    any,
+    any,
+    UploadVehicleDataTypes
+  >({
+    mutationFn: (values) =>
+      mutator({ method: 'POST', data: values, url: endpoints.upload.uploadVehicle }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.vehicle.getAllVehicle });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      uploadVehicle: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useGetAllVehicles() {
+  const { data, isLoading, refetch } = useQuery<BankAccount[]>({
+    queryKey: queryKeys.vehicle.getAllVehicle,
+    queryFn: () => fetcher(endpoints.upload.getAllVehicle),
+  });
+  console.log(data, 'datra');
+
+  return useMemo(
+    () => ({
+      data,
+      userRefetch: refetch,
+      isLoading,
+    }),
+    [data, isLoading, refetch],
   );
 }

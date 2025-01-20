@@ -354,3 +354,24 @@ export type getAllBankDetailsResponse = {
   message: string;
   data: BankAccount[];
 };
+
+export type UploadVehicleDataTypes = {
+  make: string;
+  vin: string;
+  condition: string;
+  price: string;
+  note: string;
+  vehicleType: string;
+  vehicleYear: string;
+  address: string;
+  otherSupportingDocuments?: File[];
+  certificateProofOfOwnership?: File[];
+  nationalCertificateOfRoadworthiness?: File[];
+  vehicleLicense?: File[];
+  auctionPurchaseReceipts?: File[];
+  picturesOfVehicle: File[];
+  purchaseReceipts: File[];
+  registrationDocuments: File[];
+  allRepairsReceipts: File[];
+  shippingCustomClearanceDocuments: File[];
+};
