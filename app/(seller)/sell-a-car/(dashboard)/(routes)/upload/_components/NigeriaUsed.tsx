@@ -2,6 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 
 import Document from '@/app/(seller)/sell-a-car/(dashboard)/assets/document.svg';
+// import { UseFormRegister } from 'react-hook-form';
+// import { UploadVehicleDataTypes } from '@/types/types';
+
+// type NigerianUsedProps = {
+//   register: UseFormRegister<UploadVehicleDataTypes>;
+// };
 
 const NigeriaUsed = () => {
   return (

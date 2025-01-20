@@ -129,6 +129,8 @@ export const endpoints = {
   },
   upload: {
     bookInspection: '/seller/book-inspection',
+    getAllVehicle: '/vehicles/seller',
+    uploadVehicle: '/vehicles/seller-upload',
   },
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
@@ -154,22 +156,9 @@ export const queryKeys = {
   user: {
     root: [{ type: 'currentUser' }],
     getFavoriteVehicle: [{ type: 'getFavoriteVehicle' }],
-    getBankDetails: [{ type: 'geBankDetials' }],
+    getBankDetails: [{ type: 'getBankDetials' }],
   },
-  // event: {
-  //   root: [{ type: 'event' }],
-  //   recentEvents: [{ type: 'recentEvents' }],
-  //   recentMedias: [{ type: 'recentMedias' }],
-  //   explore: [{ type: 'explore' }],
-  //   id: (id: string) => [{ type: 'eventById', id }],
-  //   user: (id: string) => [{ type: 'eventUser', id }],
-  //   signature: [{ type: 'signature' }],
-  // },
-  // favorite: {
-  //   root: [{ type: 'favoriteEvent' }],
-  //   id: (id: string) => [{ type: 'favoriteEventById', id }],
-  // },
-  // auth: {
-  //   root: [{ type: 'auth' }],
-  // },
+  vehicle: {
+    getAllVehicle: [{ type: 'getAllVehicle' }],
+  },
 };

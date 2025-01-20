@@ -16,6 +16,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
+import { getSessionItem } from '@/lib/Sessionstorage';
 // import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
 // import { User } from '@/types/types';
 
@@ -59,10 +60,13 @@ const Navbar = () => {
     }
   };
 
+  const accessToken = getSessionItem('accessToken');
   useEffect(() => {
-    setIsLoading(true);
-    getUserData();
-  }, []);
+    if (!accessToken) {
+      setIsLoading(true);
+      getUserData();
+    }
+  }, [accessToken]);
 
   const NAV_ITEMS = [
     {

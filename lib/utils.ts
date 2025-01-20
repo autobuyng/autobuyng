@@ -26,3 +26,10 @@ export function formatCurrency(amount: number | string | undefined): string {
     maximumFractionDigits: 0,
   });
 }
+
+const currentYear = new Date().getFullYear();
+
+export const yearsArray = Array.from({ length: currentYear - 2009 + 1 }, (_, i) => ({
+  label: (2009 + i).toString(),
+  value: (2009 + i).toString(),
+}));
