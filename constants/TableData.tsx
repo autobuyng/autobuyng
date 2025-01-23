@@ -50,13 +50,6 @@ export const payments: Payment[] = [
   // ...
 ];
 
-//  "_id": "678ff978afc8c322a1665c3d",
-//                 "userId": "678fa85d49dd7de3aeda89c0",
-//                 "make": "Acura",
-//                 "vehicleYear": 2023,
-//                 "vin": "JTHBK1EG6B2443242",
-//                 "description": null,
-//                 "status": "uninspected"
 export const columns: ColumnDef<UploadedVehicle>[] = [
   {
     accessorKey: 'files',
@@ -64,7 +57,7 @@ export const columns: ColumnDef<UploadedVehicle>[] = [
     cell: ({ row }) => {
       const imageUrl = row.getValue('files') as Array<{ file: string }>;
 
-      // console.log(imageUrl[0].file);
+      console.log(imageUrl[0].file);
       return (
         <div className="text-center font-medium">
           <Image
@@ -112,6 +105,55 @@ export const columns: ColumnDef<UploadedVehicle>[] = [
   {
     accessorKey: 'status',
     header: () => <div className="whitespace-nowrap text-center">STATUS</div>,
+
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap border-2 border-green-900 text-green-500 px-2 py-3 ">
+          {row.getValue('status')}
+        </div>
+      );
+    },
+  },
+];
+
+export const dashboardcolumns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: 'image',
+    header: () => <div className="whitespace-nowrap text-center">IMAGE </div>,
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('image');
+      console.log(row.getValue('image'));
+      return (
+        <div className="text-center font-medium">
+          <Image src={imageUrl as string} width={70} height={70} alt="image" className="mx-auto" />
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'status',
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE NAME </div>,
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap">{row.getValue('status')}</div>
+      );
+    },
+  },
+  {
+    accessorKey: 'email',
+    header: () => <div className="whitespace-nowrap text-center">VIN </div>,
+  },
+  {
+    accessorKey: 'amount',
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE ID </div>,
+  },
+  {
+    accessorKey: 'id',
+    header: () => <div className="whitespace-nowrap text-center">DESCRIPTION </div>,
+  },
+  {
+    accessorKey: 'status',
+    header: () => <div className="whitespace-nowrap text-center">STATUS </div>,
 
     cell: ({ row }) => {
       return (
