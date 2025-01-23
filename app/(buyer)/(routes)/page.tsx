@@ -1,6 +1,6 @@
 import Hero from '@/app/(buyer)/_components/Hero/Hero';
 import VehicleTypeFilters from '../_components/Filters/VehicleTypeFilters';
-import Topselling from '../_components/TopSelling/Topselling';
+// import Topselling from '../_components/TopSelling/Topselling';
 import Ourvalue from '../_components/Ourvalue/Ourvalue';
 import PopularVehicle from '../_components/PopularVehicle/PopularVehicle';
 import Footer from '@/components/Footer/Footer';
@@ -18,7 +18,7 @@ export default function Home() {
       <Hero />
       <VehicleTypeFilters />
       {/* <Stats /> */}
-      <Topselling />
+      {/* <Topselling /> */}
       <Ourvalue />
       <HowitWorks />
       <SellNow />

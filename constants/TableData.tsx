@@ -50,7 +50,70 @@ export const payments: Payment[] = [
   // ...
 ];
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<UploadedVehicle>[] = [
+  {
+    accessorKey: 'files',
+    header: () => <div className="whitespace-nowrap text-center">IMAGE </div>,
+    cell: ({ row }) => {
+      const imageUrl = row.getValue('files') as Array<{ file: string }>;
+
+      console.log(imageUrl[0].file);
+      return (
+        <div className="text-center font-medium">
+          <Image
+            src={imageUrl[0].file || 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
+            width={70}
+            height={70}
+            alt="image"
+            className="mx-auto"
+          />
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'make',
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE MAKE </div>,
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap">{row.getValue('make')}</div>
+      );
+    },
+  },
+  {
+    accessorKey: 'vin',
+    header: () => <div className="whitespace-nowrap text-center">VIN </div>,
+  },
+  {
+    accessorKey: '_id',
+    header: () => <div className="whitespace-nowrap text-center">VEHICLE ID </div>,
+  },
+  {
+    accessorKey: 'description',
+    header: () => <div className="whitespace-nowrap text-center">DESCRIPTION </div>,
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap">
+          {row.getValue('description') || 'No description'}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'status',
+    header: () => <div className="whitespace-nowrap text-center">STATUS</div>,
+
+    cell: ({ row }) => {
+      return (
+        <div className="font-medium text-center whitespace-nowrap border-2 border-green-900 text-green-500 px-2 py-3 ">
+          {row.getValue('status')}
+        </div>
+      );
+    },
+  },
+];
+
+export const dashboardcolumns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'image',
     header: () => <div className="whitespace-nowrap text-center">IMAGE </div>,
@@ -104,6 +167,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { AlertCircle, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { UploadedVehicle } from '@/types/types';
 
 export default function VehicleDetailsError({ error }: { error: string }) {
   return (

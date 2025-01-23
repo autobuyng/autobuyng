@@ -18,6 +18,8 @@ function VerifyEmailPage() {
 
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
+
+  console.log(token, 'token');
   const { setUser } = useStore();
 
   const { verifyEmail, isVerifying } = useVerifyEmail();
@@ -27,7 +29,7 @@ function VerifyEmailPage() {
       return;
     }
     try {
-      const response = await verifyEmail({ token: token });
+      const response = await verifyEmail({ token: encodeURIComponent(token) });
       setData(response);
       if (response.status === true) {
         toast({

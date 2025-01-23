@@ -1,7 +1,5 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
-import { columns, payments } from '@/constants/TableData';
-import { DataTable } from '../../../_components/DataTable';
 
 type Props = {
   addVehicle: () => void;
@@ -21,11 +19,7 @@ const VehicleInventory = ({ addVehicle }: Props) => {
           <Plus /> <span>Add Vehicle</span>
         </button>
       </div>
-      <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A]  rounded-md border ">
-        {/* <Link href={`upload/${id}`}> */}
-        <DataTable columns={columns} data={payments} />
-        {/* </Link>{' '} */}
-      </div>
+      <div className="mt-4 shadow-[1px_1px_16px_4px_#1F1F1F1A]  rounded-md border "></div>
     </>
   );
 };

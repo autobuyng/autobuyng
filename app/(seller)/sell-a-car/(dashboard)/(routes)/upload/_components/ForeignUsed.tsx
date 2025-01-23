@@ -27,33 +27,49 @@ const ForeignUsed = ({
 }: ForeignUsedProps) => {
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    fileType: 'autionPurchaseReceipt' | 'shippingCustomClearanceDocuments' | 'allRepairsReceipts',
+    fileType: 'autionPurchaseReceipt' | 'shippingCustomClearanceDocuments' | 'allRepairReceipts',
   ) => {
     const newFile = event.target.files?.[0];
-    if (newFile) {
-      if (fileType === 'autionPurchaseReceipt') {
-        setAuctionPurchaseReceipt((prevFiles) => [...prevFiles, newFile]);
-      } else if (fileType === 'shippingCustomClearanceDocuments') {
-        setShippingCustomClearanceDocuments((prevFiles) => [...prevFiles, newFile]);
-      } else {
-        setAllRepairReceipts((prevFiles) => [...prevFiles, newFile]);
-      }
+    console.log('new file');
+
+    if (!newFile) {
+      return;
     }
+
+    // Create a unique identifier
+    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Create a new File object with a unique name
+    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
+      type: newFile.type,
+      lastModified: newFile.lastModified,
+    });
+
+    if (fileType === 'autionPurchaseReceipt') {
+      setAuctionPurchaseReceipt((prevFiles) => [...prevFiles, uniqueFile]);
+    } else if (fileType === 'shippingCustomClearanceDocuments') {
+      setShippingCustomClearanceDocuments((prevFiles) => [...prevFiles, uniqueFile]);
+    } else {
+      setAllRepairReceipts((prevFiles) => [...prevFiles, uniqueFile]);
+    }
+
+    // Reset the file input
+    event.target.value = '';
   };
 
-  const handleRemoveFile = useCallback((file: File) => {
-    const isAuction = autionPurchaseReceipt.find((f) => f === file);
-    const isCustom = shippingCustomClearanceDocuments.find((f) => f === file);
-    if (isAuction) {
+  const handleRemoveFile = useCallback((file: File, type: string) => {
+    // const isAuction = autionPurchaseReceipt.find((f) => f === file);
+    // const isCustom = shippingCustomClearanceDocuments.find((f) => f === file);
+    if (type === 'autionPurchaseReceipt') {
       setAuctionPurchaseReceipt((prevFiles) => prevFiles.filter((f) => f !== file));
-    } else if (isCustom) {
+    } else if (type === 'shippingCustomClearanceDocuments') {
       setShippingCustomClearanceDocuments((prevFiles) => prevFiles.filter((f) => f !== file));
     } else {
       setAllRepairReceipts((prevFiles) => prevFiles.filter((f) => f !== file));
     }
   }, []);
 
-  const renderFilePreview = (files: File[]) => (
+  const renderFilePreview = (files: File[], type: string) => (
     <div className="flex flex-col gap-2 mt-4">
       {files.map((file, index) => {
         return (
@@ -80,7 +96,7 @@ const ForeignUsed = ({
 
             <div className="flex flex-1 flex-col gap-1 px-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">{file.name}</span>
+                <span className="text-sm font-medium">{file.name.split('_').pop()}</span>
                 <span className="text-xs text-muted-foreground">
                   {(file.size / 1024).toFixed(0)}kb
                 </span>
@@ -89,7 +105,11 @@ const ForeignUsed = ({
             </div>
 
             <div>
-              <X onClick={() => handleRemoveFile(file)} size={20} className="text-[#F5A07B]" />
+              <X
+                onClick={() => handleRemoveFile(file, type)}
+                size={20}
+                className="text-[#F5A07B]"
+              />
             </div>
           </div>
         );
@@ -122,7 +142,7 @@ const ForeignUsed = ({
 
         <div>
           <p className="text-secondary-500 font-semibold">Uploaded files</p>
-          {renderFilePreview(autionPurchaseReceipt)}
+          {renderFilePreview(autionPurchaseReceipt, 'autionPurchaseReceipt')}
         </div>
       </section>
 
@@ -149,7 +169,7 @@ const ForeignUsed = ({
 
         <div>
           <p className="text-secondary-500 font-semibold">Uploaded files</p>
-          {renderFilePreview(shippingCustomClearanceDocuments)}
+          {renderFilePreview(shippingCustomClearanceDocuments, 'shippingCustomClearanceDocuments')}
         </div>
       </section>
 
@@ -164,8 +184,8 @@ const ForeignUsed = ({
           </p>
           <input
             type="file"
-            {...register('allRepairsReceipts')}
-            onChange={(e) => handleFileChange(e, 'allRepairsReceipts')}
+            {...register('allRepairReceipts')}
+            onChange={(e) => handleFileChange(e, 'allRepairReceipts')}
             className="block w-full h-full absolute opacity-0"
           />
           <p className="text-sm text-center">
@@ -176,7 +196,7 @@ const ForeignUsed = ({
 
         <div>
           <p className="text-secondary-500 font-semibold">Uploaded files</p>
-          {renderFilePreview(allRepairsReceipts)}
+          {renderFilePreview(allRepairsReceipts, 'allRepairsReceipts')}
         </div>
       </section>
     </div>

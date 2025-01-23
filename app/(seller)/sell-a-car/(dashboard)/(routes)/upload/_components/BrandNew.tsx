@@ -29,27 +29,49 @@ const BrandNew = ({
 }: BrandNewVehicleProps) => {
   // const [purchaseReceipts, setPurchaseReceipts] = useState<File[]>([]);
   // const [otherDocuments, setOtherDocuments] = useState<File[]>([]);
-
-  console.log(otherDocuments, 'others', purchaseReceipts, 'pur');
-
-  // useEffect(() => {
-  //   setValue('purchaseReceipts', purchaseReceipts);
-  //   setValue('otherSupportingDocuments', otherDocuments);
-  // }, [purchaseReceipts, otherDocuments]);
-
+  console.log(purchaseReceipts, 'purchasereceipt');
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fileType: 'purchaseReceipts' | 'otherSupportingDocuments',
   ) => {
     const newFile = event.target.files?.[0];
-    if (newFile) {
-      if (fileType === 'purchaseReceipts') {
-        setPurchaseReceipts((prevFiles) => [...prevFiles, newFile]);
-      } else {
-        setOtherDocuments((prevFiles) => [...prevFiles, newFile]);
-      }
+
+    if (!newFile) {
+      return;
     }
+
+    // Create a unique identifier
+    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Create a new File object with a unique name
+    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
+      type: newFile.type,
+      lastModified: newFile.lastModified,
+    });
+
+    if (fileType === 'purchaseReceipts') {
+      setPurchaseReceipts((prevFiles) => [...prevFiles, uniqueFile]);
+    } else {
+      setOtherDocuments((prevFiles) => [...prevFiles, uniqueFile]);
+    }
+
+    // Reset the file input
+    event.target.value = '';
   };
+
+  // const handleFileChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   fileType: 'purchaseReceipts' | 'otherSupportingDocuments',
+  // ) => {
+  //   const newFile = event.target.files?.[0];
+  //   if (newFile) {
+  //     if (fileType === 'purchaseReceipts') {
+  //       setPurchaseReceipts((prevFiles) => [...prevFiles, newFile]);
+  //     } else {
+  //       setOtherDocuments((prevFiles) => [...prevFiles, newFile]);
+  //     }
+  //   }
+  // };
 
   const handleRemoveFile = useCallback((file: File) => {
     const fileType = purchaseReceipts.find((f) => f === file);
@@ -87,7 +109,7 @@ const BrandNew = ({
 
             <div className="flex flex-1 flex-col gap-1 px-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">{file.name}</span>
+                <span className="text-sm font-medium">{file.name.split('_').pop()}</span>
                 <span className="text-xs text-muted-foreground">
                   {(file.size / 1024).toFixed(0)}kb
                 </span>

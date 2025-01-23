@@ -364,14 +364,58 @@ export type UploadVehicleDataTypes = {
   vehicleType: string;
   vehicleYear: string;
   address: string;
+  model: string;
   otherSupportingDocuments?: File[];
   certificateProofOfOwnership?: File[];
   nationalCertificateOfRoadworthiness?: File[];
   vehicleLicense?: File[];
   auctionPurchaseReceipts?: File[];
   picturesOfVehicle: File[];
-  purchaseReceipts: File[];
-  registrationDocuments: File[];
-  allRepairsReceipts: File[];
-  shippingCustomClearanceDocuments: File[];
+  purchaseReceipts?: File[];
+  registrationDocuments?: File[];
+  allRepairReceipts?: File[];
+  shippingCustomClearanceDocuments?: File[];
+};
+
+// Define the structure of a single brand
+export type Make = {
+  id: number;
+  name: string;
+};
+
+// Define the structure of the full response
+export type MakeApiResponse = {
+  status: boolean;
+  message: string;
+  data: Make[];
+};
+
+// Define the file object structure
+export type File = {
+  _id: string;
+  fileType: string;
+  file: string;
+  vehicleId: string;
+};
+
+// Define the vehicle structure
+export type UploadedVehicle = {
+  _id: string;
+  userId: string;
+  make: string;
+  vehicleYear: number;
+  vin: string;
+  description: string | null;
+  status: string;
+  files: File[];
+};
+
+// Define the paginated response structure
+export type UploadedVehiclesResponse = {
+  vehicles: UploadedVehicle[];
+  count: number;
+  currentPage: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  lastPage: number;
 };

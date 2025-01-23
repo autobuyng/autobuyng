@@ -63,29 +63,42 @@ const Settings = () => {
               )}
             </div>
 
-            {(data ?? []).map((bank) => {
-              if (bank.isActive) {
-                return (
-                  <div key={bank._id} className="border border-neutral-300 p-6 rounded-[9px]">
-                    <div className="flex items-center justify-between">
-                      <h1 className=" font-bold text-xl mb-4 ">Banking Information</h1>
-                      <span
-                        onClick={() => setEditBankInfoModal(true)}
-                        className=" cursor-pointer font-bold text-secondary-500"
-                      >
-                        EDIT
-                      </span>
-                    </div>
+            <div>
+              {data?.length === 0 && (
+                <div className="flex items-center justify-between border border-neutral-300  rounded-[9px]  p-6">
+                  <h1 className=" font-bold text-xl mb-4 ">Banking Information</h1>
+                  <span
+                    onClick={() => setEditBankInfoModal(true)}
+                    className=" cursor-pointer font-bold text-secondary-500"
+                  >
+                    ADD
+                  </span>
+                </div>
+              )}
+              {(data ?? []).map((bank) => {
+                if (bank.isActive) {
+                  return (
+                    <div key={bank._id} className="border border-neutral-300 p-6 rounded-[9px]">
+                      <div className="flex items-center justify-between">
+                        <h1 className=" font-bold text-xl mb-4 ">Banking Information</h1>
+                        <span
+                          onClick={() => setEditBankInfoModal(true)}
+                          className=" cursor-pointer font-bold text-secondary-500"
+                        >
+                          EDIT
+                        </span>
+                      </div>
 
-                    <div>
-                      <h1 className="font-semibold">{bank.bankName}</h1>
-                      <p className="text-neutral-700">{bank.accountNumber}</p>
-                      <p className="text-neutral-700 uppercase">{bank.accountName}</p>
+                      <div>
+                        <h1 className="font-semibold">{bank.bankName}</h1>
+                        <p className="text-neutral-700">{bank.accountNumber}</p>
+                        <p className="text-neutral-700 uppercase">{bank.accountName}</p>
+                      </div>
                     </div>
-                  </div>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+            </div>
 
             <div className="border border-neutral-300 p-6 rounded-[9px]">
               <h1 className=" font-bold text-xl mb-4">Secure your Account</h1>
