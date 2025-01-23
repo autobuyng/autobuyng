@@ -62,7 +62,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const accessToken = getSessionItem('accessToken');
-    if (!accessToken) {
+    if (accessToken) {
       setIsLoading(true);
       getUserData();
     }

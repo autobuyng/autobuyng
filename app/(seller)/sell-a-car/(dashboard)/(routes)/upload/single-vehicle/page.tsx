@@ -8,10 +8,11 @@ import BrandNew from '../_components/BrandNew';
 import NigeriaUsed from '../_components/NigeriaUsed';
 import { ArrowLeft, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { UploadVehicleDataTypes } from '@/types/types';
+import { Make, UploadVehicleDataTypes } from '@/types/types';
 import { yearsArray } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
-import { useUploadVehicle } from '@/app/(seller)/api/upload';
+import { useGetVehicleMake, useUploadVehicle } from '@/app/(seller)/api/upload';
+import { useToast } from '@/hooks/use-toast';
 
 interface ConditonTypes {
   [key: string]: CarConditions;
@@ -23,12 +24,14 @@ type CarConditions = {
   component: JSX.Element;
 };
 const SingleVehicle = () => {
+  const { make } = useGetVehicleMake();
+  const { toast } = useToast();
   const { register, getValues, handleSubmit, watch, setValue } = useForm<UploadVehicleDataTypes>({
     defaultValues: {
-      condition: 'New',
+      condition: 'new',
     },
   });
-  const [vehicleLicence, setVehicleLicence] = useState<File[]>([]);
+  const [picturesOfVehicle, setPicturesOfVehicle] = useState<File[]>([]);
   const [purchaseReceipts, setPurchaseReceipts] = useState<File[]>([]);
   const [otherDocuments, setOtherDocuments] = useState<File[]>([]);
   const [autionPurchaseReceipt, setAuctionPurchaseReceipt] = useState<File[]>([]);
@@ -36,11 +39,15 @@ const SingleVehicle = () => {
     [],
   );
   const [allRepairsReceipts, setAllRepairReceipts] = useState<File[]>([]);
-  const { uploadVehicle } = useUploadVehicle();
+  const [certificateProofOfOwnership, setCertificateProofOfOwnership] = useState<File[]>([]);
+  const [nationalCertificateOfRoadworthiness, setNationalCertificateOfRoadworthiness] = useState<
+    File[]
+  >([]);
+  const [vehicleLicense, setVehicleLicense] = useState<File[]>([]);
 
-  useEffect(() => {
-    console.log(getValues('condition'), 'testin gset ');
-  }, [watch('condition')]);
+  const { uploadVehicle, isPending } = useUploadVehicle();
+
+  useEffect(() => {}, [watch('condition')]);
 
   const CAR_CONDITION: ConditonTypes = {
     foreign: {
@@ -60,7 +67,7 @@ const SingleVehicle = () => {
       ),
     },
 
-    New: {
+    new: {
       id: 'brandnew',
       title: 'brandNew',
       description: 'Upload your vehicle quantity',
@@ -79,46 +86,105 @@ const SingleVehicle = () => {
       id: 'localused',
       title: 'local',
       description: 'Upload your vehicle quantity',
-      component: <NigeriaUsed />,
+      component: (
+        <NigeriaUsed
+          register={register}
+          certificateProofOfOwnership={certificateProofOfOwnership}
+          setCertificateProofOfOwnership={setCertificateProofOfOwnership}
+          nationalCertificateOfRoadworthiness={nationalCertificateOfRoadworthiness}
+          setNationalCertificateOfRoadworthiness={setNationalCertificateOfRoadworthiness}
+          vehicleLicense={vehicleLicense}
+          setVehicleLicense={setVehicleLicense}
+        />
+      ),
     },
+  };
+
+  const convertToFormData = (data: FormData): FormData => {
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((file) => {
+          formData.append(key, file, file.name);
+        });
+      } else {
+        formData.append(key, value);
+      }
+    });
+    return formData;
   };
 
   const handleOnSubmit = async (data: UploadVehicleDataTypes) => {
     console.log({
       ...data,
-      vehicleLicense: vehicleLicence,
+      picturesOfVehicle: picturesOfVehicle,
       purchaseReceipts,
       otherSupportingDocuments: otherDocuments,
     });
 
+    console.log(data, 'data');
+
     const updatedData = {
       ...data,
-      vehicleLicense: vehicleLicence,
-      purchaseReceipts,
-      otherSupportingDocuments: otherDocuments,
+      ...(picturesOfVehicle.length > 0 && { picturesOfVehicle }),
+      ...(purchaseReceipts.length > 0 && { purchaseReceipts }),
+      ...(otherDocuments.length > 0 && { otherSupportingDocuments: otherDocuments }),
+      ...(autionPurchaseReceipt.length > 0 && { auctionPurchaseReceipts: autionPurchaseReceipt }),
+      ...(shippingCustomClearanceDocuments.length > 0 && { shippingCustomClearanceDocuments }),
+      ...(allRepairsReceipts.length > 0 && { allRepairReceipts: allRepairsReceipts }),
+      ...(certificateProofOfOwnership.length > 0 && { certificateProofOfOwnership }),
+      ...(nationalCertificateOfRoadworthiness.length > 0 && {
+        nationalCertificateOfRoadworthiness,
+      }),
+      ...(vehicleLicense.length > 0 && { vehicleLicense }),
     };
 
-    //      const formData = new FormData();
-    //  Object.entries(updatedData).forEach(([key, value]) => {
-    //    formData.append(key, value);
-    //  });
+    const filteredData = Object.fromEntries(
+      Object.entries(updatedData).filter(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        ([_, value]) =>
+          !(value instanceof FileList || Array.isArray(value)) ||
+          ((value instanceof FileList || Array.isArray(value)) && value.length > 0),
+      ),
+    );
+    console.log(filteredData, 'filtered');
+
+    console.log(updatedData, 'updatedvehicle');
+    const formData = convertToFormData(filteredData as unknown as FormData);
+
+    console.log(formData.entries(), 'formData');
     try {
-      const response = await uploadVehicle(updatedData);
+      const response = await uploadVehicle(formData);
+      toast({
+        variant: 'success',
+        description: 'Successfully uploaded a vehicle',
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    selectedFile;
-    if (selectedFile) {
-      setVehicleLicence((prev) => [...prev, selectedFile]);
+    const newFile = event.target.files?.[0];
+
+    if (!newFile) {
+      return;
     }
+    // Create a unique identifier
+    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Create a new File object with a unique name
+    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
+      type: newFile.type,
+      lastModified: newFile.lastModified,
+    });
+
+    setPicturesOfVehicle((prev) => [...prev, uniqueFile]);
   };
 
   const handleRemoveFile = (file: File) => {
-    setVehicleLicence((prev) => prev.filter((f) => f.name !== file.name));
+    setPicturesOfVehicle((prev) => prev.filter((f) => f.name !== file.name));
   };
 
   const renderFilePreview = (files: File[]) => (
@@ -175,19 +241,52 @@ const SingleVehicle = () => {
           <h1 className="font-bold text-2xl text-center mb-4">UPLOAD A VEHICLE</h1>
 
           <div className="w-full space-y-4">
-            <section className="flex flex-col items-center gap-4 w-full">
+            <section className="flex  items-center gap-4 w-full">
               <div className="w-full">
                 <label htmlFor="make" className="block text-xs font-medium text-gray-700">
                   Make
                 </label>
-
-                <input
-                  type="text"
+                <select
                   {...register('make')}
-                  id="make"
-                  placeholder=""
-                  className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-700  sm:text-sm"
-                />
+                  id="model"
+                  className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
+                >
+                  {/* <option value="" disabled>
+                    Select vehicle condition
+                  </option> */}
+
+                  {make &&
+                    make.map((vehicle: Make, index) => (
+                      <option key={index} value={vehicle.name}>
+                        {vehicle.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <div className="w-full">
+                <label htmlFor="model" className="block text-xs font-medium text-gray-700">
+                  Model
+                </label>
+
+                <select
+                  {...register('model')}
+                  id="model"
+                  className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
+                >
+                  {/* <option value="" disabled>
+                    Select vehicle condition
+                  </option> */}
+
+                  {make &&
+                    make.map((vehicle: Make, index) => (
+                      <option key={index} value={vehicle.name}>
+                        {vehicle.name}
+                      </option>
+                    ))}
+                  {/* <option value="new">Brand New</option>
+                  <option value="foreign">Foreign Used</option>
+                  <option value="local">Local Used</option> */}
+                </select>
               </div>
             </section>
 
@@ -326,7 +425,7 @@ const SingleVehicle = () => {
                 </p>
                 <input
                   type="file"
-                  {...register('vehicleLicense')}
+                  {...register('picturesOfVehicle')}
                   onChange={handleFileChange}
                   className="block w-full h-full absolute opacity-0"
                 />
@@ -338,7 +437,7 @@ const SingleVehicle = () => {
 
               <div>
                 <p className="text-secondary-500 font-semibold">Uploaded files</p>
-                {renderFilePreview(vehicleLicence)}
+                {renderFilePreview(picturesOfVehicle)}
               </div>
 
               <div>
@@ -374,9 +473,10 @@ const SingleVehicle = () => {
             <div className="flex items-center  gap-4 h-full w-full">
               <button
                 type="submit"
+                disabled={isPending}
                 className="bg-secondary-500 w-full text-white rounded-sm text-center px-4 py-2"
               >
-                Proceed
+                {isPending ? 'Loading...' : 'Proceed'}
               </button>
             </div>
           </div>

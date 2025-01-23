@@ -1,39 +1,33 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { FilterProps, SearchQuery, SearchResponseData, suggestionList } from '@/types/types';
+import { SearchQuery, SearchResponseData, suggestionList } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
-import SelectInput from '@/components/SelectInput/SelectInput';
-import { SORT_LIST } from '@/constants/constants';
-import GridFormat from '@/app/(buyer)/assets/Gridformat.svg';
-import Flex from '@/app/(buyer)/assets/FlexFormat.svg';
+
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
-import useIsMobile from '@/hooks/useIsMobile';
 // import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
 import { usePathname, useSearchParams } from 'next/navigation';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const Results = () => {
   const pathname = usePathname();
-  const { filters, setFilters } = useStore();
+  const { filters } = useStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
   // const [sortQuery, setSortQuery] = useState('');
   // const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
-  const [displayFormat, setDisplayFormat] = useState(true);
-  const { isTablet, isMobile } = useIsMobile();
+  const { isTablet } = useIsMobile();
   // const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
 
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
@@ -118,7 +112,7 @@ const Results = () => {
           <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={searchQuery} setSearch={setSearchQuery} />
 
-            <div className="hidden md:flex items-center gap-4 w-[240px]">
+            {/* <div className="hidden md:flex items-center gap-4 w-[240px]">
               <div>
                 <SelectInput
                   list={SORT_LIST}
@@ -127,8 +121,6 @@ const Results = () => {
                     if (typeof input != 'string') return;
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     const parameter = input.split(' ');
-                    console.log(input, 'input');
-                    console.log(parameter, 'parametrer');
                     setFilters((prev: FilterProps) => ({
                       ...prev,
                       sortParameter: parameter[1].toLowerCase() as string,
@@ -152,17 +144,15 @@ const Results = () => {
                   )}
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-start justify-between mt-6 w-full">
             <div className="w-full ">
               <FilterDisplay
                 isOpen={isOpen}
-                setIsOpen={setIsOpen}
                 // filterQuery={filterQuery}
                 // setFilterQuery={setFilterQuery}
-                setIsSortOpen={setIsSortOpen}
               />
             </div>
           </div>
@@ -191,7 +181,7 @@ const Results = () => {
                 </SheetContent>
               </Sheet>
 
-              <Sheet open={isMobile && isSortOpen} onOpenChange={setIsSortOpen}>
+              {/* <Sheet open={isMobile && isSortOpen} onOpenChange={setIsSortOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <div>
                     <SelectInput
@@ -215,12 +205,11 @@ const Results = () => {
                     />
                   </div>
                 </SheetContent>
-              </Sheet>
+              </Sheet> */}
             </div>
 
             <div className="w-full">
               <Result
-                displayFormat={displayFormat}
                 isPending={isPending}
                 searchResult={searchResult}
                 setSearchResult={setSearchResult}

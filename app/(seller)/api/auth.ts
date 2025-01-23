@@ -156,21 +156,19 @@ export function useResetPassword() {
 }
 export function useResendEmail() {
   // const queryClient = useQueryClient();
-  const { mutateAsync, data, isPending, isError, error } = useMutation<
-    any,
-    any,
-    { email: string; password: string }
-  >({
-    mutationFn: (values: { email: string; password: string }) =>
-      mutator({ method: 'POST', data: values, url: endpoints.auth.resetPassword }),
-    onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+  const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { email: string }>(
+    {
+      mutationFn: (values: { email: string }) =>
+        mutator({ method: 'POST', data: values, url: endpoints.auth.resendEmail }),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      },
     },
-  });
+  );
 
   return useMemo(
     () => ({
-      resetPassword: mutateAsync,
+      resendEmail: mutateAsync,
       data,
       isPending,
       error,

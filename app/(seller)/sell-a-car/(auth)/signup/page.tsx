@@ -91,7 +91,7 @@ const Signup = () => {
           </section>
         </MaxWidthWrapper>
       </div>
-      <div className="md:flex-[1] hidden md:block relative h-[calc(100vh_-_76px)]">
+      <div className="md:flex-[1] hidden lg:block relative h-[calc(100vh_-_76px)]">
         <div className="fixed right-0 bottom-0 top-0 z-30 w-[50%] bg-secondary-700">
           <div className="flex justify-center items-center relative h-full">
             <div className="flex flex-col items-center gap-10 z-10 relative h-fit px-10">

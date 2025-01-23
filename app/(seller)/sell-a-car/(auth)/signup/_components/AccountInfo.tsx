@@ -10,6 +10,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useRegisterBusiness } from '@/app/(seller)/api/auth';
 import { Loader } from 'lucide-react';
+import Verification from './Verification';
 
 const AccountInfo = () => {
   const { toast } = useToast();
@@ -23,10 +24,14 @@ const AccountInfo = () => {
   });
 
   const { signup, isRegistering } = useRegisterBusiness();
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayloadDealer | null>(null);
 
   const handleRegister = async (data: ISellerRegistrationPayloadDealer) => {
     try {
       const response = await signup(data);
+      setSignUpData(data);
+      setIsModalOpen(true);
 
       toast({
         title: 'Success',
@@ -46,7 +51,7 @@ const AccountInfo = () => {
 
   return (
     <MaxWidthWrapper>
-      <div className=" max-w-[458px] mx-auto w-full grid place-items-center ">
+      <div className="  mx-auto w-full grid place-items-center ">
         <form onSubmit={handleSubmit(handleRegister)} className="w-full space-y-4 mt-4">
           <div className="w-full space-y-4">
             <section className="flex flex-col items-center gap-4 w-full">
@@ -191,6 +196,11 @@ const AccountInfo = () => {
             </div>
           </div>
         </form>
+        <Verification
+          signupData={signupData}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </MaxWidthWrapper>
   );

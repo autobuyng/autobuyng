@@ -57,7 +57,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
           window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!;
         } else {
           removeSessionItem('accessToken');
-          // window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+          window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
         }
       }
 
@@ -131,6 +131,8 @@ export const endpoints = {
     bookInspection: '/seller/book-inspection',
     getAllVehicle: '/vehicles/seller',
     uploadVehicle: '/vehicles/seller-upload',
+    getVehicleMake: '/search/makes',
+    getVehicleModel: (data: { make: string }) => `/search/model?model=${data.make}`,
   },
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
@@ -160,5 +162,6 @@ export const queryKeys = {
   },
   vehicle: {
     getAllVehicle: [{ type: 'getAllVehicle' }],
+    getAllVehicleMake: [{ type: 'getAllVehicleMake' }],
   },
 };

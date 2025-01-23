@@ -8,36 +8,15 @@ import { SkeletonCard } from '@/components/Loader/SkeletonCard';
 import { SearchResponseData } from '@/types/types';
 
 type ResultProps = {
-  displayFormat: boolean;
   isPending: boolean;
   setSearchResult: React.Dispatch<React.SetStateAction<SearchResponseData | null>>;
   searchResult: SearchResponseData | null;
   isError: boolean;
   error: any;
 };
-const Result = ({ displayFormat, searchResult, isPending, isError, error }: ResultProps) => {
+const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
   const { isMobile } = useIsMobile();
-  // const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
-
-  // const { search, isPending } = useSearchVehicle();
-  // const searchParams = useSearchParams();
-  // const keyword = searchParams.get('keyword') || '';
-  // const handleSearch = async (data: SearchQuery) => {
-  //   try {
-  //     const response = await search(data);
-  //     setSearchResult(response.data);
-  //     // router.push(`/results/keyword=${data.keyword}`);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleSearch({
-  //     keyword: keyword,
-  //   });
-  // }, []);
+  const displayFormat = true;
 
   if (isPending) {
     return (
