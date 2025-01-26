@@ -67,9 +67,7 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
             </div>
 
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">
-                {capitalizeFirstLetter(VehicleData?.exteriorColor) || 'N/A'}
-              </h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">{'N/A'}</h1>
               <p className="bg-primary-100 text-primary-900 w-[101px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Exterior color
               </p>
