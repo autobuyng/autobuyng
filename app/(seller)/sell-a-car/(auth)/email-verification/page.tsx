@@ -2,10 +2,10 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { useVerifyEmail } from '@/app/(buyer)/api/auth';
 import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { setSessionItem } from '@/lib/Sessionstorage';
+import { useVerifyEmail } from '@/app/(seller)/api/auth';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
@@ -22,7 +22,7 @@ function VerifyEmailPage() {
       return;
     }
     try {
-      const response = await verifyEmail({ token: token });
+      const response = await verifyEmail({ token: decodeURIComponent(token) });
       setData(response);
       console.log(response.data.accessToken, 'accesstoken', response, 'response');
       if (response.status === true) {

@@ -179,69 +179,70 @@ export const PRICE_RANGE = [
 export const YEAR = [
   {
     id: 1,
-    name: 2009,
+    name: '2009',
   },
   {
     id: 2,
-    name: 2010,
+    name: '2010',
   },
   {
     id: 3,
-    name: 2011,
+    name: '2011',
   },
   {
     id: 4,
-    name: 2012,
+    name: '2012',
   },
   {
     id: 5,
-    name: 2013,
+    name: '2013',
   },
   {
     id: 6,
-    name: 2014,
+    name: '2014',
   },
   {
     id: 7,
-    name: 2015,
+    name: '2015',
   },
   {
     id: 8,
-    name: 2016,
+    name: '2016',
   },
   {
     id: 9,
-    name: 2017,
+    name: '2017',
   },
   {
     id: 10,
-    name: 2018,
+    name: '2018',
   },
   {
     id: 11,
-    name: 2019,
+    name: '2019',
   },
   {
     id: 12,
-    name: 2020,
+    name: '2020',
   },
   {
     id: 13,
-    name: 2021,
+    name: '2021',
   },
   {
     id: 14,
-    name: 2022,
+    name: '2022',
   },
   {
     id: 15,
-    name: 2023,
+    name: '2023',
   },
   {
     id: 16,
-    name: 2024,
+    name: '2024',
   },
 ];
+
 
 export const VEHICLE_TYPE = [
   { id: '1', name: 'Sedan', Img: Sedan },
