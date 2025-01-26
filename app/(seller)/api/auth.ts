@@ -4,7 +4,11 @@ import {
   ISellerRegistrationPayload,
   ISellerRegistrationPayloadDealer,
 } from '@/Schema/authSchema';
-import { ILoginPayload, ISellerRegistrationResponse } from '@/types/types';
+import {
+  EmailverificationResponse,
+  ILoginPayload,
+  ISellerRegistrationResponse,
+} from '@/types/types';
 import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -83,15 +87,17 @@ export function useRegisterBusiness() {
 
 export function useVerifyEmail() {
   // const queryClient = useQueryClient();
-  const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { token: string }>(
-    {
-      mutationFn: (values: { token: string }) =>
-        mutator({ method: 'POST', data: values, url: endpoints.auth.verifyEmail }),
-      onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
-      },
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    EmailverificationResponse,
+    any,
+    { token: string }
+  >({
+    mutationFn: (values: { token: string }) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.verifyEmail }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
-  );
+  });
 
   return useMemo(
     () => ({

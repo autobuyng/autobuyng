@@ -37,7 +37,7 @@ function VerifyEmailPage() {
           description: response.message,
         });
         setUser(response.data.user);
-        setSessionItem('accessToken', response.accessToken);
+        setSessionItem('accessToken', response.data.accessToken);
       }
       router.push(prevPage);
     } catch (error: any) {

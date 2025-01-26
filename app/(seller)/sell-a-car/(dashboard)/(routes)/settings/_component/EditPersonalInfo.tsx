@@ -249,5 +249,3 @@ const EditPersonalInfo = ({
 };
 
 export default EditPersonalInfo;
-
-

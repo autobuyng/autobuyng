@@ -153,7 +153,6 @@ export const CAR_BRANDS = [
   },
 ];
 
-
 export const PRICE_RANGE = [
   {
     id: 1,

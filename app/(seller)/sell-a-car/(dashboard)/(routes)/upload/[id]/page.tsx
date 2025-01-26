@@ -163,4 +163,3 @@ function CarListingSkeleton() {
     </div>
   );
 }
-

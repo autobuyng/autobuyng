@@ -185,4 +185,3 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
 };
 
 export default Navbar;
-
