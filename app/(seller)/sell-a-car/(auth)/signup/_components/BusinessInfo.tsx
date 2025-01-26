@@ -2,17 +2,22 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { Loader } from 'lucide-react';
+
+import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { ISellerRegistrationPayload, SellerRegistrationSchema } from '@/Schema/authSchema';
 import { useRegister } from '@/app/(seller)/api/auth';
 import { useToast } from '@/hooks/use-toast';
+import Verification from './Verification';
+import { cn } from '@/lib/utils';
 
 const BusinessInfo = () => {
   const { toast } = useToast();
-  const router = useRouter();
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayload | null>(null);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const {
     register,
@@ -27,13 +32,13 @@ const BusinessInfo = () => {
   const handleRegister = async (data: ISellerRegistrationPayload) => {
     try {
       const response = await signup(data);
+      setSignUpData(data);
+      setIsModalOpen(true);
 
       toast({
         title: 'Success',
         description: response.data.message,
       });
-
-      router.push('/sell-a-car/dashboard');
     } catch (error: any) {
       toast({
         title: 'Failed',
@@ -133,13 +138,28 @@ const BusinessInfo = () => {
                   Password
                 </label>
 
-                <input
-                  type="password"
-                  {...register('password')}
-                  id="password"
-                  placeholder=""
-                  className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                />
+                <div
+                  className={cn(
+                    'mt-1 flex justify-between items-center w-full  px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                    { 'border border-red-500': errors.password },
+                  )}
+                >
+                  <input
+                    {...register('password')}
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    placeholder="******"
+                    className={cn(
+                      'flex-1 border-none outline-none py-1.5',
+                      // { 'border border-red-500': errors.password },
+                    )}
+                  />
+                  {showPassword ? (
+                    <EyeIcon onClick={() => setShowPassword(false)} />
+                  ) : (
+                    <EyeOffIcon onClick={() => setShowPassword(true)} />
+                  )}
+                </div>
                 {errors.password && <p className="text-red-500">{errors.password.message}</p>}
               </div>
             </section>
@@ -156,6 +176,12 @@ const BusinessInfo = () => {
             </div>
           </div>
         </form>
+
+        <Verification
+          signupData={signupData}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </MaxWidthWrapper>
   );

@@ -297,8 +297,8 @@ export type UserResponse = {
 export type EmailverificationResponse = {
   status: boolean;
   message: string;
-  accessToken: string;
   data: {
+    accessToken: string;
     user: User;
     profile: Profile;
     addresses: Address[];
@@ -380,6 +380,11 @@ export type UploadVehicleDataTypes = {
 // Define the structure of a single brand
 export type Make = {
   id: number;
+  name: string;
+};
+export type Model = {
+  id: number;
+  make_id: number;
   name: string;
 };
 

@@ -7,10 +7,10 @@ const isSessionStorageAvailable = () => typeof window !== 'undefined';
  * Set an item in sessionStorage
  */
 export const setSessionItem = (key: string, value: any): void => {
-  if (!isSessionStorageAvailable()) {
-    console.warn('sessionStorage is not available on the server');
-    return;
-  }
+  // if (!isSessionStorageAvailable()) {
+  //   console.warn('sessionStorage is not available on the server');
+  //   return;
+  // }
 
   if (!key || value === undefined || value === null) {
     console.error('Invalid key or value provided for sessionStorage.setItem');

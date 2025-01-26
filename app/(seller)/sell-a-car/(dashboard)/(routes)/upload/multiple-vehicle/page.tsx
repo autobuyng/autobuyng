@@ -13,6 +13,7 @@ const MulitipleVehicle = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IContactDetailsSchema>({
     resolver: zodResolver(ContactDetailsSchema),
@@ -29,15 +30,15 @@ const MulitipleVehicle = () => {
   }
 
   const handleSubmitClick = async (data: ContactDetails) => {
-    console.log(data, 'data');
-
     try {
-      const response = await bookInspection({ ...data, time: convertToAmPmFormat(data.time) });
-      console.log(response, 'srespone');
+      await bookInspection({ ...data, time: convertToAmPmFormat(data.time) });
+
       toast({
         title: 'Success',
         description: 'Vehicle Inspection booked successfully',
       });
+
+      reset();
     } catch (error) {
       console.log(error);
     }

@@ -12,7 +12,11 @@ import {
 import { cn } from '@/lib/utils';
 
 type SelectInputProps = {
-  list: Array<Record<string, any>>;
+  list: {
+    id: string;
+    name: string;
+    label?: string;
+  }[];
   selectedInput: string;
   title?: string;
   defaultValue?: string;
@@ -31,7 +35,10 @@ const SelectInput = ({
   height,
 }: SelectInputProps) => {
   return (
-    <Select value={selectedInput} onValueChange={setSelectedInput}>
+    <Select
+      value={selectedInput}
+      onValueChange={(value) => setSelectedInput(value === 'reset' ? '' : value)}
+    >
       <SelectTrigger
         className={cn(
           `focus:outline-none h-[44px]  border rounded-sm border-neutral-900`,
@@ -45,11 +52,12 @@ const SelectInput = ({
         <SelectGroup>
           {list.map((listItem) => {
             return (
-              <SelectItem key={listItem.id} value={listItem.name}>
+              <SelectItem key={listItem.id} value={listItem.label || listItem.name}>
                 {listItem.name}
               </SelectItem>
             );
           })}
+          <SelectItem value="reset">Reset</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -151,6 +151,7 @@ const Results = () => {
             <div className="w-full ">
               <FilterDisplay
                 isOpen={isOpen}
+                setIsOpen={setIsOpen}
                 // filterQuery={filterQuery}
                 // setFilterQuery={setFilterQuery}
               />

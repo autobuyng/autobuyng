@@ -8,11 +8,12 @@ import BrandNew from '../_components/BrandNew';
 import NigeriaUsed from '../_components/NigeriaUsed';
 import { ArrowLeft, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Make, UploadVehicleDataTypes } from '@/types/types';
+import { Make, Model, UploadVehicleDataTypes } from '@/types/types';
 import { yearsArray } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
-import { useGetVehicleMake, useUploadVehicle } from '@/app/(seller)/api/upload';
+import { useGetVehicleMake, useGetVehicleModel, useUploadVehicle } from '@/app/(seller)/api/upload';
 import { useToast } from '@/hooks/use-toast';
+import { VEHICLE_TYPE } from '@/constants/constants';
 
 interface ConditonTypes {
   [key: string]: CarConditions;
@@ -26,11 +27,15 @@ type CarConditions = {
 const SingleVehicle = () => {
   const { make } = useGetVehicleMake();
   const { toast } = useToast();
-  const { register, getValues, handleSubmit, watch, setValue } = useForm<UploadVehicleDataTypes>({
-    defaultValues: {
-      condition: 'new',
-    },
-  });
+  const [vehicleMake, setVehicleMake] = useState<string>(make?.[0]?.name || '');
+  const { register, getValues, reset, handleSubmit, watch, setValue } =
+    useForm<UploadVehicleDataTypes>({
+      defaultValues: {
+        condition: 'new',
+      },
+    });
+
+  const { model, refetch } = useGetVehicleModel({ make: vehicleMake });
   const [picturesOfVehicle, setPicturesOfVehicle] = useState<File[]>([]);
   const [purchaseReceipts, setPurchaseReceipts] = useState<File[]>([]);
   const [otherDocuments, setOtherDocuments] = useState<File[]>([]);
@@ -46,8 +51,12 @@ const SingleVehicle = () => {
   const [vehicleLicense, setVehicleLicense] = useState<File[]>([]);
 
   const { uploadVehicle, isPending } = useUploadVehicle();
+  console.log(getValues('make'), 'outside');
 
-  useEffect(() => {}, [watch('condition')]);
+  useEffect(() => {
+    setVehicleMake(getValues('make'));
+    refetch();
+  }, [watch(['condition', 'make'])]);
 
   const CAR_CONDITION: ConditonTypes = {
     foreign: {
@@ -116,15 +125,6 @@ const SingleVehicle = () => {
   };
 
   const handleOnSubmit = async (data: UploadVehicleDataTypes) => {
-    console.log({
-      ...data,
-      picturesOfVehicle: picturesOfVehicle,
-      purchaseReceipts,
-      otherSupportingDocuments: otherDocuments,
-    });
-
-    console.log(data, 'data');
-
     const updatedData = {
       ...data,
       ...(picturesOfVehicle.length > 0 && { picturesOfVehicle }),
@@ -148,18 +148,18 @@ const SingleVehicle = () => {
           ((value instanceof FileList || Array.isArray(value)) && value.length > 0),
       ),
     );
-    console.log(filteredData, 'filtered');
 
-    console.log(updatedData, 'updatedvehicle');
     const formData = convertToFormData(filteredData as unknown as FormData);
 
-    console.log(formData.entries(), 'formData');
     try {
       const response = await uploadVehicle(formData);
       toast({
         variant: 'success',
         description: 'Successfully uploaded a vehicle',
       });
+
+      reset();
+
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -247,6 +247,7 @@ const SingleVehicle = () => {
                   Make
                 </label>
                 <select
+                  defaultValue={make?.[0].name || 'Audi'}
                   {...register('make')}
                   id="model"
                   className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
@@ -277,15 +278,12 @@ const SingleVehicle = () => {
                     Select vehicle condition
                   </option> */}
 
-                  {make &&
-                    make.map((vehicle: Make, index) => (
+                  {model &&
+                    model.map((vehicle: Model, index) => (
                       <option key={index} value={vehicle.name}>
                         {vehicle.name}
                       </option>
                     ))}
-                  {/* <option value="new">Brand New</option>
-                  <option value="foreign">Foreign Used</option>
-                  <option value="local">Local Used</option> */}
                 </select>
               </div>
             </section>
@@ -341,9 +339,12 @@ const SingleVehicle = () => {
                   <option value="" disabled>
                     Select vehicle category
                   </option>
-                  <option value="brandNew">Brand New</option>
-                  <option value="foreignUsed">Foreign Used</option>
-                  <option value="nigerianUsed">Nigerian Used</option>
+
+                  {VEHICLE_TYPE.map((type, index) => (
+                    <option key={index} value={type.name}>
+                      {type.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -387,7 +388,7 @@ const SingleVehicle = () => {
 
               <div className="w-full">
                 <label htmlFor="price" className="block text-xs font-medium text-gray-700">
-                  price
+                  Price
                 </label>
 
                 <input
@@ -476,7 +477,7 @@ const SingleVehicle = () => {
                 disabled={isPending}
                 className="bg-secondary-500 w-full text-white rounded-sm text-center px-4 py-2"
               >
-                {isPending ? 'Loading...' : 'Proceed'}
+                {isPending ? 'Loading...' : 'Upload'}
               </button>
             </div>
           </div>

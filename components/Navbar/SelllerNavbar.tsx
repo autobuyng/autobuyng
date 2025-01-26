@@ -24,12 +24,12 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  const { seller, setSeller, setIsLoading, setSellerProfile, setSellerAddress } = useStore();
+  const { seller, setSeller, setIsSellerLoading, setSellerProfile, setSellerAddress } = useStore();
 
-  const { getUser } = useGetUser();
+  const { getUser, isPending } = useGetUser();
 
   const getUserData = async () => {
-    setIsLoading(true);
+    setIsSellerLoading(true);
     try {
       const response = await getUser();
       if (response.status) {
@@ -41,12 +41,12 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsSellerLoading(false);
     }
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsSellerLoading(isPending);
     getUserData();
   }, []);
 
@@ -185,51 +185,4 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
 };
 
 export default Navbar;
-// {
-//     "status": true,
-//     "message": "Request Successful",
-//     "data": {
-//         "user": {
-//             "_id": "677867b54e4d799fefc197ea",
-//             "firstName": "Emmanuel",
-//             "lastName": "Chima",
-//             "email": "chima2472@gmail.com",
-//             "role": "individual-seller",
-//             "status": "active",
-//             "createdAt": "2025-01-03T22:41:57.019Z",
-//             "updatedAt": "2025-01-03T22:44:08.471Z",
-//             "__v": 0,
-//             "verifiedAt": "2025-01-03T22:44:08.470Z"
-//         },
-//         "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Nzc4NjdiNTRlNGQ3OTlmZWZjMTk3ZWEiLCJyb2xlIjoiaW5kaXZpZHVhbC1zZWxsZXIiLCJpYXQiOjE3MzY5Nzg1ODQsImV4cCI6MTczNjk4NTc4NH0.wpkWRuzn8U1um2whw0wqv7bPyNjXLiJe_lThOVFvqEM",
-//         "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Nzc4NjdiNTRlNGQ3OTlmZWZjMTk3ZWEiLCJpYXQiOjE3MzY5Nzg1ODQsImV4cCI6MTczODE4ODE4NH0.XE3DzHTXD1ttYie3C6vsfKL3yxdjhUubKmTw51WuJzw"
-//     }
-// }
 
-// {
-//     "status": true,
-//     "message": "Request Successful",
-//     "data": {
-//         "user": {
-//             "_id": "677867b54e4d799fefc197ea",
-//             "firstName": "Emmanuel",
-//             "lastName": "Chima",
-//             "email": "chima2472@gmail.com",
-//             "role": "individual-seller",
-//             "status": "active",
-//             "createdAt": "2025-01-03T22:41:57.019Z",
-//             "updatedAt": "2025-01-03T22:44:08.471Z",
-//             "__v": 0,
-//             "verifiedAt": "2025-01-03T22:44:08.470Z"
-//         },
-//         "profile": {
-//             "_id": "677867b54e4d799fefc197ec",
-//             "userId": "677867b54e4d799fefc197ea",
-//             "phoneNumber": "08138160644",
-//             "createdAt": "2025-01-03T22:41:57.394Z",
-//             "updatedAt": "2025-01-03T22:41:57.394Z",
-//             "__v": 0
-//         },
-//         "addresses": []
-//     }
-// }

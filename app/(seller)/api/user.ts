@@ -33,6 +33,25 @@ export function useGetUser() {
   );
 }
 
+// export function useGetAuthenticatedUser() {
+//   const accessToken = getSessionItem('accessToken');
+//   const { data, isLoading, refetch } = useQuery<any>({
+//     queryKey: queryKeys.user.root,
+//     enabled: !!accessToken,
+//     queryFn: () => fetcher(endpoints.auth.currentUser),
+//   });
+//   console.log(data, 'datra');
+
+//   return useMemo(
+//     () => ({
+//       data: data?.user,
+//       userRefetch: refetch,
+//       isLoading,
+//     }),
+//     [data, isLoading, refetch],
+//   );
+// }
+
 export function useAddAddress() {
   const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<

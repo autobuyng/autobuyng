@@ -18,7 +18,10 @@ interface DataTableProps<TData, TValue> {
   linkRow?: keyof TData;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData extends { _id: string }, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
@@ -28,8 +31,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   const router = useRouter();
 
   const handleClick = (row: Row<TData>) => {
-    router.push(`/sell-a-car/upload/${row.id}`);
-    console.log(row);
+    const rowData = row.original;
+    router.push(`/sell-a-car/upload/${rowData._id}`);
+    console.log('Row data:', rowData);
   };
 
   return (

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Sheet,
@@ -23,9 +23,9 @@ const EditPersonalInfo = ({
   editPersonalInfoModal: boolean;
   setEditPersonalInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { seller, setSeller, isLoading, sellerProfile, setSellerProfile } = useStore();
+  const { seller, setSeller, sellerProfile, setSellerProfile } = useStore();
   const { toast } = useToast();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const { register, reset, handleSubmit } = useForm<Profile>({
     defaultValues: {
@@ -51,15 +51,15 @@ const EditPersonalInfo = ({
     }
   }, []);
 
-  const { editUserProfile, isPending } = useEditProfile();
+  const { editUserProfile } = useEditProfile();
 
-  useEffect(() => {
-    setLoading(isPending);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(isPending);
+  // }, []);
 
-  if (loading || isLoading) {
-    return <ProfileSettingsSkeleton />;
-  }
+  // if (loading || isLoading) {
+  //   return <ProfileSettingsSkeleton />;
+  // }
 
   const handleOnSubmit = async (data: Profile) => {
     console.log(data);
@@ -250,62 +250,4 @@ const EditPersonalInfo = ({
 
 export default EditPersonalInfo;
 
-const ProfileSettingsSkeleton = () => {
-  return (
-    <div className="max-w-full mx-auto p-4 space-y-6">
-      {/* Page Title */}
-      <div className="h-8 w-48 bg-gray-200 animate-pulse rounded-md" />
 
-      {/* Account Details Section */}
-      <div className="border rounded-lg p-6 space-y-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="h-6 w-32 bg-gray-200 animate-pulse rounded-md" />
-          <div className="h-6 w-16 bg-blue-200 animate-pulse rounded-md" />
-        </div>
-
-        <div className="space-y-3">
-          <div className="h-5 w-40 bg-gray-200 animate-pulse rounded-md" />
-          <div className="h-5 w-56 bg-gray-200 animate-pulse rounded-md" />
-          <div className="h-5 w-32 bg-gray-200 animate-pulse rounded-md" />
-        </div>
-      </div>
-
-      {/* Address Book Section */}
-      <div className="border rounded-lg p-6 space-y-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="h-6 w-32 bg-gray-200 animate-pulse rounded-md" />
-          <div className="h-6 w-16 bg-blue-200 animate-pulse rounded-md" />
-        </div>
-
-        <div className="space-y-6">
-          {/* First Address */}
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
-              <div className="h-5 w-64 bg-gray-200 animate-pulse rounded-md" />
-              <div className="h-5 w-20 bg-blue-200 animate-pulse rounded-md" />
-            </div>
-          </div>
-
-          {/* Second Address */}
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
-              <div className="h-5 w-72 bg-gray-200 animate-pulse rounded-md" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Secure Account Section */}
-      <div className="border rounded-lg p-6 space-y-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="h-6 w-40 bg-gray-200 animate-pulse rounded-md" />
-        </div>
-
-        <div className="space-y-3">
-          <div className="h-5 w-48 bg-blue-200 animate-pulse rounded-md" />
-          <div className="h-5 w-44 bg-blue-200 animate-pulse rounded-md" />
-        </div>
-      </div>
-    </div>
-  );
-};

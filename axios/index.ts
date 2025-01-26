@@ -24,7 +24,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     (config) => {
       const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
       const isSeller = currentPath.includes('sell-a-car');
-      console.log(isSeller, 'is this a seller');
       const accessToken = isSeller
         ? getSessionItem('sellerAccessToken')
         : getSessionItem('accessToken');
@@ -49,12 +48,15 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       // Handle Unauthorized Errors
       if (response && (response.status === 401 || response.status === 403)) {
         const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-        const isSeller = currentPath.includes('sell-a-car');
+        const isSeller = currentPath.startsWith('/sell-a-car');
+
+        console.log(currentPath, 'currentPath');
 
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
           removeSessionItem('sellerAccessToken');
-          window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!;
+          currentPath !== '/sell-a-car' &&
+            (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
         } else {
           removeSessionItem('accessToken');
           window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
@@ -132,7 +134,8 @@ export const endpoints = {
     getAllVehicle: '/vehicles/seller',
     uploadVehicle: '/vehicles/seller-upload',
     getVehicleMake: '/search/makes',
-    getVehicleModel: (data: { make: string }) => `/search/model?model=${data.make}`,
+    getVehicleModel: (data: { make: string }) => `/search/models?model=${data.make}`,
+    getSingleVehicle: (id: string) => `/vehicles/seller/${id}`,
   },
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
@@ -163,5 +166,7 @@ export const queryKeys = {
   vehicle: {
     getAllVehicle: [{ type: 'getAllVehicle' }],
     getAllVehicleMake: [{ type: 'getAllVehicleMake' }],
+    getAllVehicleModel: [{ type: 'getAllVehicleModel' }],
+    getSingleVehicle: [{ type: 'getSingleVehicle' }],
   },
 };

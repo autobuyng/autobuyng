@@ -54,84 +54,105 @@ export const CAR_BRANDS = [
   {
     id: 1,
     name: 'Toyota',
+    label: 'toyota',
   },
   {
     id: 2,
     name: 'Honda',
+    label: 'honda',
   },
   {
     id: 3,
     name: 'Ford',
+    label: 'ford',
   },
   {
     id: 4,
     name: 'Chevrolet',
+    label: 'chevrolet',
   },
   {
     id: 5,
     name: 'Nissan',
+    label: 'nissan',
   },
   {
     id: 6,
     name: 'BMW',
+    label: 'bmw',
   },
   {
     id: 7,
     name: 'Mercedes-Benz',
+    label: 'mercedes-benz',
   },
   {
     id: 8,
     name: 'Audi',
+    label: 'audi',
   },
   {
     id: 9,
     name: 'Volkswagen',
+    label: 'volkswagen',
   },
   {
     id: 10,
     name: 'Hyundai',
+    label: 'hyundai',
   },
   {
     id: 11,
     name: 'Kia',
+    label: 'kia',
   },
   {
     id: 12,
     name: 'Lexus',
+    label: 'lexus',
   },
   {
     id: 13,
     name: 'Subaru',
+    label: 'subaru',
   },
   {
     id: 14,
     name: 'Mazda',
+    label: 'mazda',
   },
   {
     id: 15,
     name: 'Tesla',
+    label: 'tesla',
   },
   {
     id: 16,
     name: 'Jaguar',
+    label: 'jaguar',
   },
   {
     id: 17,
     name: 'Land Rover',
+    label: 'land rover',
   },
   {
     id: 18,
     name: 'Porsche',
+    label: 'porsche',
   },
   {
     id: 19,
     name: 'Volvo',
+    label: 'volvo',
   },
   {
     id: 20,
     name: 'Ferrari',
+    label: 'ferrari',
   },
 ];
+
 
 export const PRICE_RANGE = [
   {

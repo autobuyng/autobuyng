@@ -10,7 +10,7 @@ import LineChart from '@/app/(seller)/_components/Charts/LineChart';
 import BarChart from '@/app/(seller)/_components/Charts/BarChart';
 import DonoughtChart from '@/app/(seller)/_components/Charts/DonoughtChart';
 import { DataTable } from '../../_components/DataTable';
-import { dashboardcolumns, payments } from '@/constants/TableData';
+// import { dashboardcolumns, payments } from '@/constants/TableData';
 
 const Dashboard = () => {
   const [selectedChart, setSelectedChart] = useState('bar');
@@ -74,7 +74,7 @@ const Dashboard = () => {
       <div className="w-full">
         <div className="mt-14 shadow-[1px_1px_16px_4px_#1F1F1F1A] max-w-full  rounded-md border-2 overflow-x-auto">
           <h1 className="font-bold md:text-2xl my-4 pl-3 border-b">Activities</h1>
-          <DataTable columns={dashboardcolumns} data={payments} />
+          <DataTable columns={[]} data={[]} />
         </div>
       </div>
     </main>

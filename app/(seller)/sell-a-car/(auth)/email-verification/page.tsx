@@ -24,12 +24,13 @@ function VerifyEmailPage() {
     try {
       const response = await verifyEmail({ token: token });
       setData(response);
+      console.log(response.data.accessToken, 'accesstoken', response, 'response');
       if (response.status === true) {
         toast({
           title: 'Success',
           description: response.message,
         });
-        setSessionItem('sellerAccessToken', response.accessToken);
+        setSessionItem('sellerAccessToken', response.data.accessToken);
         router.push('/sell-a-car/dashboard');
       }
     } catch (error: any) {

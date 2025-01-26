@@ -4,15 +4,7 @@ import { Loader } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  Dialog,
-  DialogContent,
-  //   DialogDescription,
-  //   DialogFooter,
-  //   DialogHeader,
-  //   DialogTitle,
-  //   DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useResendEmail } from '@/app/(seller)/api/auth';
 
 import Envelope from '@/app/(seller)/assets/envelope.svg';

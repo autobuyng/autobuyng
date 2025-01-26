@@ -3,8 +3,24 @@ import React from 'react';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import Carouselitem from '../_components/Carousel';
+import { usePathname } from 'next/navigation';
+import { useGetVehicle } from '@/app/(seller)/api/upload';
 
-const page = () => {
+const SingleVehiclePage = () => {
+  const pathname = usePathname();
+  const [loading, setLoading] = React.useState(true);
+
+  const { vehicle, refetch, isLoading } = useGetVehicle(
+    pathname.split('/')[pathname.split('/').length - 1],
+  );
+  console.log(vehicle, 'vehicle');
+
+  refetch();
+
+  React.useEffect(() => {
+    setLoading(false);
+  }, []);
+
   const Uploadedvehicle = {
     id: '1',
     name: 'Mercedes Benz CLA300',
@@ -18,8 +34,20 @@ const page = () => {
     vin: '0177279F54',
     mileage: '23,000ml',
   };
-  const { name, exterior, interior, engine, drive, mileage, image, fuel, transmission, vin } =
+  const { name, exterior, interior, engine, drive, mileage, fuel, transmission, vin } =
     Uploadedvehicle;
+
+  if (isLoading || loading) {
+    return <CarListingSkeleton />;
+  }
+
+  if (!vehicle) {
+    return (
+      <div>
+        <h1>Something went wrong</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 px-6">
@@ -30,7 +58,13 @@ const page = () => {
       <section className="max-w-[470px]">
         <div className="gap-6 mb-8 ">
           <div>
-            <Image src={image} alt="car" height={230} width={464} className="h-[260px]" />
+            <Image
+              src={vehicle.files[0].file || ''}
+              alt="car"
+              height={230}
+              width={464}
+              className="h-[260px]"
+            />
           </div>
 
           <div className="max-w-[464px] py-5">
@@ -93,4 +127,40 @@ const page = () => {
   );
 };
 
-export default page;
+export default SingleVehiclePage;
+
+function CarListingSkeleton() {
+  return (
+    <div className="max-w-3xl mx-auto md:ml-8 p-4 space-y-6">
+      {/* Main Image Skeleton */}
+      <div className="h-[230px] w-[464px]  bg-gray-200 animate-pulse rounded-lg" />
+
+      {/* Thumbnail Images Skeleton */}
+      <div className="flex gap-2 relative">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="w-24 h-24 bg-gray-200 animate-pulse rounded-md" />
+        ))}
+      </div>
+
+      {/* Title Skeleton */}
+      <div className="h-8 bg-gray-200 animate-pulse rounded-md w-64" />
+
+      {/* Specifications Grid */}
+      <div className="grid grid-cols-2 gap-4">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="space-y-2">
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-24" />
+            <div className="h-6 bg-gray-200 animate-pulse rounded w-32" />
+          </div>
+        ))}
+      </div>
+
+      {/* Action Buttons Skeleton */}
+      <div className="flex gap-4">
+        <div className="h-12 bg-gray-200 animate-pulse rounded-md flex-1" />
+        <div className="h-12 bg-gray-200 animate-pulse rounded-md flex-1" />
+      </div>
+    </div>
+  );
+}
+

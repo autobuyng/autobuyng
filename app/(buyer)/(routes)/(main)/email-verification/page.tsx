@@ -29,13 +29,12 @@ function VerifyEmailPage() {
       return;
     }
     try {
-      const response = await verifyEmail({ token: encodeURIComponent(token) });
+      const response = await verifyEmail({ token: decodeURIComponent(token) });
       setData(response);
       if (response.status === true) {
         toast({
           title: 'Success',
           description: response.message,
-          position: 'top-right',
         });
         setUser(response.data.user);
         setSessionItem('accessToken', response.accessToken);

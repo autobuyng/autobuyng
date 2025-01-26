@@ -57,7 +57,6 @@ export const columns: ColumnDef<UploadedVehicle>[] = [
     cell: ({ row }) => {
       const imageUrl = row.getValue('files') as Array<{ file: string }>;
 
-      console.log(imageUrl[0].file);
       return (
         <div className="text-center font-medium">
           <Image

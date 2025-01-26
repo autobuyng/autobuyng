@@ -18,6 +18,8 @@ type State = {
   user: User | null;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  isSellerLoading: boolean;
+  setIsSellerLoading: (isLoading: boolean) => void;
   setUser: (user: User | null) => void;
   seller: User | null;
   setSeller: (seller: User | null) => void;
@@ -36,6 +38,8 @@ type State = {
 export const useStore = create<State>((set) => ({
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
+  isSellerLoading: false,
+  setIsSellerLoading: (isSellerLoading) => set({ isSellerLoading }),
 
   user: null,
   setUser: (user) => set({ user }),

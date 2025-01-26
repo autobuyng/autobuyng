@@ -9,8 +9,9 @@ import {
 } from '@/Schema/authSchema';
 import { useToast } from '@/hooks/use-toast';
 import { useRegisterBusiness } from '@/app/(seller)/api/auth';
-import { Loader } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import Verification from './Verification';
+import { cn } from '@/lib/utils';
 
 const AccountInfo = () => {
   const { toast } = useToast();
@@ -26,6 +27,7 @@ const AccountInfo = () => {
   const { signup, isRegistering } = useRegisterBusiness();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayloadDealer | null>(null);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleRegister = async (data: ISellerRegistrationPayloadDealer) => {
     try {
@@ -37,15 +39,11 @@ const AccountInfo = () => {
         title: 'Success',
         description: response.data.message,
       });
-
-      // router.push('/sell-a-car/dashboard');
     } catch (error: any) {
       toast({
         title: 'Failed',
         description: error.message,
       });
-
-      console.log(error);
     }
   };
 
@@ -168,14 +166,28 @@ const AccountInfo = () => {
                 <label htmlFor="city" className="block text-xs font-medium text-gray-700">
                   Password
                 </label>
-
-                <input
-                  type="password"
-                  {...register('password')}
-                  id="password"
-                  placeholder=""
-                  className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                />
+                <div
+                  className={cn(
+                    'mt-1 flex justify-between items-center w-full  px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                    { 'border border-red-500': errors.password },
+                  )}
+                >
+                  <input
+                    {...register('password')}
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    placeholder="******"
+                    className={cn(
+                      'flex-1 border-none outline-none py-1.5',
+                      // { 'border border-red-500': errors.password },
+                    )}
+                  />
+                  {showPassword ? (
+                    <EyeIcon onClick={() => setShowPassword(false)} />
+                  ) : (
+                    <EyeOffIcon onClick={() => setShowPassword(true)} />
+                  )}
+                </div>
                 {errors.password && (
                   <p className="text-red-500 text-sm pt-1">{errors.password.message}</p>
                 )}

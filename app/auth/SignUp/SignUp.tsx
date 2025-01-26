@@ -167,7 +167,9 @@ const SignUp = ({
               {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
             </div>
             <p className="text-xs">
-              By signing up, you confirm that youve read and accepted our and Privacy Policy.
+              By signing up, you confirm that you&apos;ve read and accepted our
+              <span className="text-primary-700">Term Of Use</span>
+              and <span className="text-primary-700">Privacy Policy.</span>
             </p>
 
             <div className="w-full">

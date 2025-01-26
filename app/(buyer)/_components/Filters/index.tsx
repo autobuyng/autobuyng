@@ -45,7 +45,7 @@ const Filters = () => {
     <main className=" w-full  ">
       <section
         className={cn('w-full  p-8 space-y-4  bg-white md:shadow-[0px_2px_14px_0px_#0000001A]', {
-          'pt-4 px-0': isMobile,
+          'pt-4 px-2': isMobile,
         })}
       >
         <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2  ">
@@ -53,9 +53,9 @@ const Filters = () => {
 
           <SelectInput
             list={[
-              { id: '1', label: 'New', name: 'New' },
-              { id: '2', label: 'Nigerian_Used', name: 'Nigerian Used' },
-              { id: '3', label: 'Foreign_Used', name: 'Foreign Used' },
+              { id: '1', name: 'Brand New', label: 'new' },
+              { id: '2', name: 'Local Used', label: 'local' },
+              { id: '3', name: 'Foreign Used', label: 'foreign' },
             ]}
             title="Vehicle Condition"
             setSelectedInput={(input) => {

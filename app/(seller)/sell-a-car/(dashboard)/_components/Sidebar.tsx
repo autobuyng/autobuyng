@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Logout from '@/app/(seller)/sell-a-car/(dashboard)/assets/logout.svg';
 
 import {
@@ -13,8 +13,11 @@ import {
 } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 import { SIDEBAR_ITEMS_TYPES } from '@/types/types';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 const Sidebar = () => {
+  const router = useRouter();
+  const { toast } = useToast();
   const SIDEBAR_ITEMS: SIDEBAR_ITEMS_TYPES = [
     { id: '1', text: 'Dashboard', path: 'dashboard', Icon: Dashboard },
     // { id: '2', text: 'Message', path: 'messages', Icon: Messages },
@@ -23,15 +26,24 @@ const Sidebar = () => {
     { id: '5', text: 'support', path: 'support', Icon: Support },
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const pathname = usePathname();
   // const currentPath = pathname.split('/');
+
+  const handleLogOut = () => {
+    sessionStorage.clear();
+    router.push('/sell-a-car/login');
+    toast({
+      title: 'Success',
+      description: 'Logout successfully',
+    });
+  };
 
   return (
     <main className="w-[270px]   sticky top-[76px] left-0 max-h-[calc(100vh_-_76px)] hidden lg:flex flex-col  border-r border-neutral-100  ">
       <div className="flex flex-col h-full  gap-4 mt-4 mx-2  ">
         {SIDEBAR_ITEMS.map((item) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          // const isActive = item.path.includes(currentPath[currentPath.length - 1]);
           const isActive = pathname.includes(item.path);
 
           return (
@@ -63,7 +75,10 @@ const Sidebar = () => {
         <p className="text-xs text-white mb-3">
           Are you done? you can take your leave through button below!
         </p>
-        <button className="flex gap-2 items-center rounded-[6px] py-2 px-4 justify-center bg-white text-secondary-700">
+        <button
+          onClick={handleLogOut}
+          className="flex gap-2 items-center rounded-[6px] py-2 px-4 justify-center bg-white text-secondary-700"
+        >
           <Image src={Logout} alt="Logout" />
           <span className="text-sm">LOG OUT</span>
         </button>
