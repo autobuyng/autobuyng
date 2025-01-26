@@ -15,7 +15,7 @@ import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/Veh
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
-import { cn, formatCurrency } from '@/lib/utils';
+import { capitalizeFirstLetter, cn, formatCurrency } from '@/lib/utils';
 import AppraisalForm from '@/app/(buyer)/_components/AppraisalForm/AppraisalForm';
 import SemiCircleProgressBar, {
   ProgressBar,
@@ -60,7 +60,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     setIsLoading(isPending);
   }, [isPending]);
 
-  console.log(isError, 'ieError happenning', error, 'actural error');
   const handleGetVehicle = async () => {
     try {
       const response = await getVehicle({ vehicleId: params.id });
@@ -90,7 +89,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     handleGetVehicle();
-  handleGetSimilarVehicle();
+    handleGetSimilarVehicle();
     setLocalItem('previousPage', pathname);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +143,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 <div className="flex items-center justify-center gap-4 py-4">
                   {vehicleList.map((vehicle) => {
                     const isActive = vehicle.id === vehicleId;
-                    console.log(isActive);
                     return (
                       <div
                         onClick={() => handleView(vehicle.id)}
@@ -191,9 +189,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
                 <div className="my-2 space-y-2">
                   <div className="flex items-center justify-between">
-                    <p className="font-[600] text-2xl">Mercedes Benz</p>
+                    <p className="font-[600] text-2xl">
+                      {vehicleData?.make} {vehicleData?.vehicleModel}
+                    </p>
                     <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
-                      {vehicleData?.condition}
+                      {capitalizeFirstLetter(vehicleData?.condition)}
                     </p>
                   </div>
 
@@ -238,13 +238,13 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   <div className="space-y-8">
                     <div className="flex items-center justify-between">
                       <SemiCircleProgressBar
-                        percentage={Number(vehicleData?.reliabilityScore.overall)}
+                        percentage={Number(80)}
                         size={200}
                         strokeWidth={10}
                         color="#3385FF"
                       />
 
-                      <span className="text-[#3385FF] text-[40px] font-bold">{`${vehicleData?.reliabilityScore.overall}%`}</span>
+                      <span className="text-[#3385FF] text-[40px] font-bold">{`${80}%`}</span>
                     </div>
 
                     <div className="flex items-start justify-between gap-2">
@@ -255,10 +255,10 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                             Engine <Image src={Info} alt="Info" />
                           </span>
                           <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                            {Number(vehicleData?.reliabilityScore?.engine) / 10}/10
+                            {Number(90) / 10}/10
                           </span>
                         </p>
-                        <ProgressBar progress={vehicleData?.reliabilityScore.engine.toString()} />
+                        <ProgressBar progress={'80'} />
                       </div>
                     </div>
 
@@ -270,11 +270,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                             Body <Image src={Info} alt="Info" />
                           </span>
                           <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                            {Number(vehicleData?.reliabilityScore?.body) / 10}/10
+                            {Number(85) / 10}/10
                           </span>
                         </p>
 
-                        <ProgressBar progress={vehicleData?.reliabilityScore.body.toString()} />
+                        <ProgressBar progress={'70'} />
                       </div>
                     </div>
 
@@ -286,11 +286,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                             Wheels <Image src={Info} alt="Info" />
                           </span>
                           <span className="w-[64px] h-[28px] text-[#EFD80F] text-xs font-bold flex items-center justify-center bg-[#FFFEF0] border border-[#F2E572] rounded-[50px] text-center">
-                            {Number(vehicleData?.reliabilityScore?.wheels) / 10}/10
+                            {Number(78) / 10}/10
                           </span>
                         </p>
 
-                        <ProgressBar progress={vehicleData?.reliabilityScore.wheels.toString()} />
+                        <ProgressBar progress={'89'} />
                       </div>
                     </div>
 
@@ -302,13 +302,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                             Accessories <Image src={Info} alt="Info" />
                           </span>
                           <span className="w-[64px] h-[28px] text-[#34B233] text-xs font-bold flex items-center justify-center bg-[#EDFBED] border border-[#80D67F] rounded-[50px] text-center">
-                            {Number(vehicleData?.reliabilityScore?.accessories) / 10}/10
+                            {Number(67) / 10}/10
                           </span>
                         </p>
 
-                        <ProgressBar
-                          progress={vehicleData?.reliabilityScore.accessories.toString()}
-                        />
+                        <ProgressBar progress={'78'} />
                       </div>
                     </div>
 

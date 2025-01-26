@@ -33,3 +33,8 @@ export const yearsArray = Array.from({ length: currentYear - 2009 + 1 }, (_, i) 
   label: (2009 + i).toString(),
   value: (2009 + i).toString(),
 }));
+
+export function capitalizeFirstLetter(word: string | undefined) {
+  if (!word) return ''; // Handle empty or undefined strings
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}

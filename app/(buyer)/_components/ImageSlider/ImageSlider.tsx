@@ -108,17 +108,6 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
         </button>
       </div>
 
-      {/* <div className="mt-4 space-y-2">
-        <div className="flex items-center justify-between">
-          <p className="font-[600] text-2xl">Mercedes Benz</p>
-          <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
-            Foreign used
-          </p>
-        </div>
-        <p className="text-neutral-700 font-semibold">2700mil</p>
-        <p className="text-xl font-bold tracking-wide">NGN13,000,000</p>
-      </div> */}
-
       <ImageSliderModal
         isOpen={showSliderModal}
         currentIndex={currentIndex}
@@ -240,15 +229,14 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
               ImageUrls.map((image, index) => (
                 <div
                   key={index}
-                  className={cn(' w-[100px] flex-shrink-0', {
+                  className={cn('relative  w-[100px] h-[100px] flex-shrink-0', {
                     'border-2 border-black': currentIndex === index,
                   })}
                   onClick={() => setCurrentIndex(index)}
                 >
                   <Image
                     src={image}
-                    height={200}
-                    width={200}
+                    fill
                     alt="image slider"
                     key={index}
                     className="cursor-pointer w-[100px]"

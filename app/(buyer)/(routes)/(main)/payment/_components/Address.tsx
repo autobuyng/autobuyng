@@ -31,7 +31,7 @@ const Address = () => {
     region: '',
     address: '',
   });
-  const { addAddress } = useAddAddress();
+  const { addAddress, isPending: Adding } = useAddAddress();
   const { getUser } = useGetUser();
   const { updateAddress } = useUpdateAddAddress();
   const { deleteAddress } = useDeleteAddress();
@@ -169,7 +169,7 @@ const Address = () => {
           >
             <span className="text-sm">Change</span>
 
-            {isActiveAddress ? <ChevronUp /> : <ChevronDown />}
+            {isActiveAddress ? <ChevronDown /> : <ChevronUp />}
           </p>
         )}
       </div>
@@ -295,22 +295,6 @@ const Address = () => {
                             className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                           />
                         </div>
-
-                        {/* <div className="w-full">
-                          <label
-                            htmlFor="addionalInfo"
-                            className="block text-xs font-medium text-gray-700"
-                          >
-                            Additonal Information
-                          </label>
-
-                          <input
-                            type="text"
-                            id="additionalInformation"
-                            placeholder=""
-                            className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                          />
-                        </div> */}
                       </section>
 
                       <div>
@@ -347,7 +331,7 @@ const Address = () => {
             </React.Fragment>
           );
         })}
-        <p className="text-primary-700 flex mt-2 gap-1">
+        <p className="text-primary-700 flex mt-2 gap-1 cursor-pointer">
           <Plus />
           <span onClick={() => setIsAdding(true)}>Add New address</span>
         </p>
@@ -391,35 +375,6 @@ const Address = () => {
 
               <section className="flex items-center gap-4 w-full">
                 <div className="w-full">
-                  <label htmlFor="phonenumber" className="block text-xs font-medium text-gray-700">
-                    Phone number
-                  </label>
-
-                  <input
-                    type="text"
-                    id="phonenumber"
-                    // {...register('phonenumber')}
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-
-                <div className="w-full">
-                  <label htmlFor="phonenumber2" className="block text-xs font-medium text-gray-700">
-                    Additional phone number
-                  </label>
-
-                  <input
-                    type="text"
-                    id="phonenumber2"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-              </section>
-
-              <section className="flex items-center gap-4 w-full">
-                <div className="w-full">
                   <label htmlFor="" className="block text-xs font-medium text-gray-700">
                     Region
                   </label>
@@ -454,26 +409,13 @@ const Address = () => {
                     htmlFor="deliveryAddress"
                     className="block text-xs font-medium text-gray-700"
                   >
-                    Delivery Address
+                    Address
                   </label>
 
                   <input
                     type="text"
-                    id="deliveryAddress"
+                    id="Address"
                     {...register('address')}
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-
-                <div className="w-full">
-                  <label htmlFor="addionalInfo" className="block text-xs font-medium text-gray-700">
-                    Additonal Information
-                  </label>
-
-                  <input
-                    type="text"
-                    id="additionalInformation"
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />
@@ -481,24 +423,19 @@ const Address = () => {
               </section>
 
               <div>
-                <div className="flex items-center gap-4">
-                  <input type="checkbox" />
-                  <p>Set as Default Address</p>
-                </div>
-
                 <div className="flex items-center justify-end gap-4">
                   <button
-                    type="button"
-                    className="border border-primary-700 text-primary-700 rounded-sm text-center px-4 py-2"
+                    onClick={() => setIsAdding(false)}
+                    className="border border-primary-700 text-primary-700 rounded-sm text-center px-4 py-2 cursor-pointer"
                   >
                     Cancel
                   </button>
 
                   <button
                     type="submit"
-                    className="bg-primary-700 text-white rounded-sm text-center px-4 py-2"
+                    className="bg-primary-700 text-white rounded-sm text-center px-4 py-2 cursor-pointer"
                   >
-                    Save
+                    {Adding ? 'Adding...' : 'Save'}
                   </button>
                 </div>
               </div>

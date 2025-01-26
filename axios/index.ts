@@ -15,7 +15,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     baseURL: baseUrls[baseUrlKey],
     withCredentials: true,
     // Add timeout to prevent hanging requests
-    timeout: 20000,
+    timeout: 50000,
   });
 
   // const accessToken = getSessionItem('accessToken');

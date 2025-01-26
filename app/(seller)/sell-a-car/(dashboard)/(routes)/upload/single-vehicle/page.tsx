@@ -159,8 +159,26 @@ const SingleVehicle = () => {
       });
 
       reset();
-    } catch (error) {
-      console.log(error);
+      setAuctionPurchaseReceipt([]);
+      setAllRepairReceipts([]);
+      setCertificateProofOfOwnership([]);
+      setNationalCertificateOfRoadworthiness([]);
+      setVehicleLicense([]);
+      setOtherDocuments([]);
+      setPurchaseReceipts([]);
+      setShippingCustomClearanceDocuments([]);
+      setPicturesOfVehicle([]);
+    } catch (error: any) {
+      const errorMessage = Array.isArray(error?.message)
+        ? error.message.join(', ')
+        : error?.message || 'An unexpected error occurred';
+
+      toast({
+        variant: 'destructive',
+        description: errorMessage,
+      });
+
+      console.error(error);
     }
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

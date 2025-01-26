@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { VehicleData } from '@/types/types';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
 import { usePathname } from 'next/navigation';
+import { capitalizeFirstLetter } from '@/lib/utils';
 
 const ShipmentDetails = () => {
   const pathname = usePathname();
@@ -54,13 +55,8 @@ const ShipmentDetails = () => {
           <div className="px-1.5   space-y-2 text-sm">
             <p className="font-[700] text-2xl"> {vehicleData?.make}</p>
 
-            {/* {[name, mileage, engin, transmission, desc, vin, bodyStyle, color, mpg].map((item) => (
-              <p>
-                <span className="text-primary-700 pr-1 font-[600] ">{item.toUpperCase()}:</span> {item}
-              </p>
-            ))} */}
             <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Mileage:</span>{' '}
+              <span className="text-primary-700 pr-1 font-[600] ">Mileage:</span>
               {vehicleData?.mileage}
             </p>
             <p>
@@ -73,11 +69,11 @@ const ShipmentDetails = () => {
             </p>
             <p>
               <span className="text-primary-700 pr-1 font-[600] ">Engin:</span>
-              {vehicleData?.engine}
+              {capitalizeFirstLetter(vehicleData?.engine)}
             </p>
             <p>
               <span className="text-primary-700 pr-1 font-[600] ">Transmission:</span>
-              {vehicleData?.transmission}
+              {capitalizeFirstLetter(vehicleData?.transmission)}
             </p>
             <p>
               <span className="text-primary-700  pr-1 font-[600]">Color:</span>
@@ -85,12 +81,8 @@ const ShipmentDetails = () => {
             </p>
             <p>
               <span className="text-primary-700 pr-1 font-[600] ">Vin:</span>
-              {vehicleData?.vin}
+              {vehicleData?.vin.toUpperCase()}
             </p>
-            {/* <p>
-              <span className="text-primary-700 pr-1 font-[600] ">Desc:</span>
-              {desc}
-            </p> */}
           </div>
         </div>
       </section>
