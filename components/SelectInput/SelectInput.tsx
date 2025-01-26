@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 
 type SelectInputProps = {
   list: {
-    id: string;
+    id: string | number;
     name: string;
     label?: string;
   }[];
