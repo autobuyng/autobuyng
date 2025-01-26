@@ -243,7 +243,6 @@ export const YEAR = [
   },
 ];
 
-
 export const VEHICLE_TYPE = [
   { id: '1', name: 'Sedan', Img: Sedan },
   { id: '2', name: 'Convertible', Img: Convertible },

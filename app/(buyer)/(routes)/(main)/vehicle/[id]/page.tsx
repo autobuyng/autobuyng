@@ -64,8 +64,14 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const handleGetVehicle = async () => {
     try {
       const response = await getVehicle({ vehicleId: params.id });
-      const response2 = await getSimilarVehicle({ vehicleId: params.id });
       setVehicleData(response.data);
+    } catch (error) {
+      console.log(error, 'error');
+    }
+  };
+  const handleGetSimilarVehicle = async () => {
+    try {
+      const response2 = await getSimilarVehicle({ vehicleId: params.id });
       setSimilarVehicle(response2.data.vehicles);
     } catch (error) {
       console.log(error, 'error');
@@ -84,7 +90,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     handleGetVehicle();
-    // handleGetUser();
+  handleGetSimilarVehicle();
     setLocalItem('previousPage', pathname);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

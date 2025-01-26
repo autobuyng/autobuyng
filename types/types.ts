@@ -424,3 +424,44 @@ export type UploadedVehiclesResponse = {
   prevPage: number | null;
   lastPage: number;
 };
+
+export type SingleVehicleData = {
+  _id: string;
+  userId: string;
+  address: string;
+  make: string;
+  condition: string;
+  vehicleYear: number;
+  vehicleType: string;
+  vin: string;
+  price: number;
+  note: string;
+  description: string | null;
+  status: string;
+  availabilityStatus: string;
+  trackingId: string;
+  comfort: string[]; // Can be refined if the structure is known
+  entertainment: string[]; // Can be refined if the structure is known
+  exterior: string[]; // Can be refined if the structure is known
+  interior: string[]; // Can be refined if the structure is known
+  mechanical: string | null; // Can be refined if the structure is known
+  tech: string[]; // Can be refined if the structure is known
+  exteriorImages: string[]; // Can be refined if the structure is known
+  interiorImages: string[]; // Can be refined if the structure is known
+  engineImages: string[]; // Can be refined if the structure is known
+  trunkImages: string[]; // Can be refined if the structure is known
+  tyreImages: string[]; // Can be refined if the structure is known
+  dignostics: string[]; // Can be refined if the structure is known
+  likes: string[]; // Can be refined if the structure is known
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  files: VehicleFile[];
+};
+
+export type VehicleFile = {
+  _id: string;
+  fileType: string;
+  file: string;
+  vehicleId: string;
+};

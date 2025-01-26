@@ -152,15 +152,13 @@ const SingleVehicle = () => {
     const formData = convertToFormData(filteredData as unknown as FormData);
 
     try {
-      const response = await uploadVehicle(formData);
+      await uploadVehicle(formData);
       toast({
         variant: 'success',
         description: 'Successfully uploaded a vehicle',
       });
 
       reset();
-
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -249,7 +247,7 @@ const SingleVehicle = () => {
                 <select
                   defaultValue={make?.[0].name || 'Audi'}
                   {...register('make')}
-                  id="model"
+                  id="make"
                   className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
                 >
                   {/* <option value="" disabled>
@@ -278,12 +276,11 @@ const SingleVehicle = () => {
                     Select vehicle condition
                   </option> */}
 
-                  {model &&
-                    model.map((vehicle: Model, index) => (
-                      <option key={index} value={vehicle.name}>
-                        {vehicle.name}
-                      </option>
-                    ))}
+                  {(Array.isArray(model) ? model : []).map((vehicle: Model, index) => (
+                    <option key={index} value={vehicle.name}>
+                      {vehicle.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </section>

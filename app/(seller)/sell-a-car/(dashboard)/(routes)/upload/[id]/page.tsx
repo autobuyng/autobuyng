@@ -34,8 +34,7 @@ const SingleVehiclePage = () => {
     vin: '0177279F54',
     mileage: '23,000ml',
   };
-  const { name, exterior, interior, engine, drive, mileage, fuel, transmission, vin } =
-    Uploadedvehicle;
+  const { engine, drive, mileage, fuel, transmission } = Uploadedvehicle;
 
   if (isLoading || loading) {
     return <CarListingSkeleton />;
@@ -43,7 +42,7 @@ const SingleVehiclePage = () => {
 
   if (!vehicle) {
     return (
-      <div>
+      <div className="h-screen flex items-center justify-center">
         <h1>Something went wrong</h1>
       </div>
     );
@@ -59,7 +58,7 @@ const SingleVehiclePage = () => {
         <div className="gap-6 mb-8 ">
           <div>
             <Image
-              src={vehicle.files[0].file || ''}
+              src={vehicle?.files?.[0].file ?? 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
               alt="car"
               height={230}
               width={464}
@@ -70,16 +69,15 @@ const SingleVehiclePage = () => {
           <div className="max-w-[464px] py-5">
             <Carouselitem />
           </div>
-
           <div className="space-y-2 text-sm pt-2">
-            <p className="font-[700] text-2xl mb-5"> {name}</p>
+            <p className="font-[700] text-2xl mb-5"> {vehicle.make}</p>
 
             <p>
-              <span className="pr-1 font-[600] ">Exterior Color:</span> {exterior}
+              <span className="pr-1 font-[600] ">Exterior Color:</span> {vehicle.exterior}
             </p>
             <p>
               <span className="pr-1 font-[600] ">Interior Color:</span>
-              {interior}
+              {vehicle.interior}
             </p>
             <p>
               <span className="pr-1 font-[600] ">Engine Type:</span>
@@ -95,7 +93,7 @@ const SingleVehiclePage = () => {
             </p>
             <p>
               <span className="pr-1 font-[600]">VIN:</span>
-              {vin}
+              {vehicle.vin}
             </p>
             <p>
               <span className="pr-1 font-[600] ">Transmission:</span>

@@ -1,6 +1,12 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
 import { IContactDetailsSchema } from '@/Schema/authSchema';
-import { Make, Model, UploadedVehiclesResponse, UploadVehicleDataTypes } from '@/types/types';
+import {
+  Make,
+  Model,
+  SingleVehicleData,
+  UploadedVehiclesResponse,
+  UploadVehicleDataTypes,
+} from '@/types/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -82,7 +88,7 @@ export function useGetSingleVehicle() {
 }
 
 export function useGetVehicle(id: string) {
-  const { data, isLoading, refetch } = useQuery<any>({
+  const { data, isLoading, refetch } = useQuery<SingleVehicleData>({
     queryKey: queryKeys.vehicle.getAllVehicleModel,
     queryFn: () => fetcher(endpoints.upload.getSingleVehicle(id)),
   });

@@ -30,7 +30,6 @@ const ForeignUsed = ({
     fileType: 'autionPurchaseReceipt' | 'shippingCustomClearanceDocuments' | 'allRepairReceipts',
   ) => {
     const newFile = event.target.files?.[0];
-    console.log('new file');
 
     if (!newFile) {
       return;
