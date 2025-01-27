@@ -60,7 +60,7 @@ export const columns: ColumnDef<UploadedVehicle>[] = [
       return (
         <div className="text-center font-medium">
           <Image
-            src={imageUrl?.[0].file || 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
+            src={imageUrl?.[0]?.file || 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
             width={70}
             height={70}
             alt="image"

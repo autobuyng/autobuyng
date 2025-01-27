@@ -58,7 +58,7 @@ const SingleVehiclePage = () => {
         <div className="gap-6 mb-8 ">
           <div>
             <Image
-              src={vehicle?.files?.[0].file ?? 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
+              src={vehicle?.files?.[0]?.file ?? 'https://ik.imagekit.io/0xy9wqmrh/tableimage'}
               alt="car"
               height={230}
               width={464}
