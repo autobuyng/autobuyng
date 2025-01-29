@@ -29,27 +29,29 @@ const ForeignUsed = ({
     event: React.ChangeEvent<HTMLInputElement>,
     fileType: 'autionPurchaseReceipt' | 'shippingCustomClearanceDocuments' | 'allRepairReceipts',
   ) => {
-    const newFile = event.target.files?.[0];
+    const files = event.target.files; // Access the selected files
 
-    if (!newFile) {
+    if (!files || files.length === 0) {
       return;
     }
 
-    // Create a unique identifier
-    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const updatedFiles: File[] = Array.from(files).map((file) => {
+      // Create a unique identifier for each file
+      const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Create a new File object with a unique name
-    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
-      type: newFile.type,
-      lastModified: newFile.lastModified,
+      // Return a new File object with a unique name
+      return new File([file], `${uniqueId}_${file.name}`, {
+        type: file.type,
+        lastModified: file.lastModified,
+      });
     });
 
     if (fileType === 'autionPurchaseReceipt') {
-      setAuctionPurchaseReceipt((prevFiles) => [...prevFiles, uniqueFile]);
+      setAuctionPurchaseReceipt((prevFiles) => [...prevFiles, ...updatedFiles]);
     } else if (fileType === 'shippingCustomClearanceDocuments') {
-      setShippingCustomClearanceDocuments((prevFiles) => [...prevFiles, uniqueFile]);
+      setShippingCustomClearanceDocuments((prevFiles) => [...prevFiles, ...updatedFiles]);
     } else {
-      setAllRepairReceipts((prevFiles) => [...prevFiles, uniqueFile]);
+      setAllRepairReceipts((prevFiles) => [...prevFiles, ...updatedFiles]);
     }
 
     // Reset the file input
@@ -57,8 +59,6 @@ const ForeignUsed = ({
   };
 
   const handleRemoveFile = useCallback((file: File, type: string) => {
-    // const isAuction = autionPurchaseReceipt.find((f) => f === file);
-    // const isCustom = shippingCustomClearanceDocuments.find((f) => f === file);
     if (type === 'autionPurchaseReceipt') {
       setAuctionPurchaseReceipt((prevFiles) => prevFiles.filter((f) => f !== file));
     } else if (type === 'shippingCustomClearanceDocuments') {
@@ -129,6 +129,7 @@ const ForeignUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('auctionPurchaseReceipts')}
             onChange={(e) => handleFileChange(e, 'autionPurchaseReceipt')}
             className="block w-full h-full absolute opacity-0"
@@ -156,6 +157,7 @@ const ForeignUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('shippingCustomClearanceDocuments')}
             onChange={(e) => handleFileChange(e, 'shippingCustomClearanceDocuments')}
             className="block w-full h-full absolute opacity-0"
@@ -183,6 +185,7 @@ const ForeignUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('allRepairReceipts')}
             onChange={(e) => handleFileChange(e, 'allRepairReceipts')}
             className="block w-full h-full absolute opacity-0"

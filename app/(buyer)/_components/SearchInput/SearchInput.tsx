@@ -123,11 +123,7 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
             }}
             isClearable
             isSearchable
-            placeholder={
-              isMobile
-                ? 'Search by make ,model, mileage '
-                : 'Search by make, model, mileage or body style'
-            }
+            placeholder={isMobile ? 'Search by make and model' : 'Search by make and  model'}
             styles={customStyles}
           />
         )}

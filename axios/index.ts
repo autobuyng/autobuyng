@@ -125,6 +125,7 @@ export const endpoints = {
     editProfile: (id: string) => `/user/update/${id}`,
     updataBankDetails: (id: string) => `/seller/update-bank-details/${id}`,
     setActiveBankDetails: (id: string) => `/seller/set-active-bank-details/${id}`,
+    deleteBankDetails: (id: string) => `/seller/delete-bank-details/${id}`,
   },
   friends: {
     friendslist: '/friends/list',

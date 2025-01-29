@@ -33,28 +33,29 @@ const NigeriaUsed = ({
       | 'nationalCertificateOfRoadworthiness'
       | 'vehicleLicense',
   ) => {
-    const newFile = event.target.files?.[0];
-    console.log('new file');
+    const files = event.target.files; // Access the selected files
 
-    if (!newFile) {
+    if (!files || files.length === 0) {
       return;
     }
 
-    // Create a unique identifier
-    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const updatedFiles: File[] = Array.from(files).map((file) => {
+      // Create a unique identifier for each file
+      const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Create a new File object with a unique name
-    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
-      type: newFile.type,
-      lastModified: newFile.lastModified,
+      // Return a new File object with a unique name
+      return new File([file], `${uniqueId}_${file.name}`, {
+        type: file.type,
+        lastModified: file.lastModified,
+      });
     });
 
     if (fileType === 'certificateProofOfOwnership') {
-      setCertificateProofOfOwnership((prevFiles) => [...prevFiles, uniqueFile]);
+      setCertificateProofOfOwnership((prevFiles) => [...prevFiles, ...updatedFiles]);
     } else if (fileType === 'nationalCertificateOfRoadworthiness') {
-      setNationalCertificateOfRoadworthiness((prevFiles) => [...prevFiles, uniqueFile]);
+      setNationalCertificateOfRoadworthiness((prevFiles) => [...prevFiles, ...updatedFiles]);
     } else {
-      setVehicleLicense((prevFiles) => [...prevFiles, uniqueFile]);
+      setVehicleLicense((prevFiles) => [...prevFiles, ...updatedFiles]);
     }
 
     // Reset the file input
@@ -134,6 +135,7 @@ const NigeriaUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('certificateProofOfOwnership')}
             onChange={(e) => handleFileChange(e, 'certificateProofOfOwnership')}
             className="block w-full h-full absolute opacity-0"
@@ -159,6 +161,7 @@ const NigeriaUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('nationalCertificateOfRoadworthiness')}
             onChange={(e) => handleFileChange(e, 'nationalCertificateOfRoadworthiness')}
             className="block w-full h-full absolute opacity-0"
@@ -188,6 +191,7 @@ const NigeriaUsed = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('vehicleLicense')}
             onChange={(e) => handleFileChange(e, 'vehicleLicense')}
             className="block w-full h-full absolute opacity-0"

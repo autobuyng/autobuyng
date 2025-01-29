@@ -52,7 +52,7 @@ const CustomerVerification = ({
       <form action="">
         <div className="space-y-4">
           <div>
-            <p>For Individual</p>
+            {/* <p>For Individual</p> */}
             <label htmlFor="UserEmail" className="block text-sm py-1 font-medium text-neutral-500">
               Natinoal Identification Number (NIN)
             </label>
@@ -65,7 +65,7 @@ const CustomerVerification = ({
             />
           </div>
 
-          <div>
+          {/* <div>
             <p>For company</p>
             <label htmlFor="UserEmail" className="block text-sm  py-1 font-medium text-neutral-500">
               Coperate Affairs Commission (CAC number)
@@ -77,7 +77,7 @@ const CustomerVerification = ({
               placeholder="john@rhcp.com"
               className="mt-1 w-full rounded-sm border border-neutral-700 py-2.5 px-4 shadow-sm sm:text-sm outline-none"
             />
-          </div>
+          </div> */}
 
           <div className="w-full">
             <button

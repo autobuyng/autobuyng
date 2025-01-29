@@ -24,6 +24,7 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
+  const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
   const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
@@ -105,10 +106,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center justify-between gap-8">
             {NAV_ITEMS.map(({ id, text, path }) => {
               const isSellPath = path === '/sell-a-car';
-              // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
-              // const href = isSellPath
-              //   ? `${baseUrl}` // Remove the leading slash when using baseUrl
-              //   : `/${path}`; // Keep the leading slash for regular paths
+
               return (
                 <span key={id}>
                   <Link
@@ -130,30 +128,30 @@ const Navbar = () => {
 
                 <div className=" relative flex items-center">
                   {isMobile && (
-                    <Sheet>
+                    <Sheet open={showPopover} onOpenChange={setShowPopover}>
                       <SheetTrigger>
                         <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
-                          <Menu className="text-primary-900" />
+                          <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </SheetTrigger>
                       <SheetContent>
-                        <Menucontent />
+                        <Menucontent setShowPopover={setShowPopover} />
                       </SheetContent>
                     </Sheet>
                   )}
 
                   {!isMobile && (
-                    <Popover>
+                    <Popover open={showPopover} onOpenChange={setShowPopover}>
                       <PopoverTrigger>
                         <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
-                          <Menu className="text-primary-900" />
+                          <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </PopoverTrigger>
                       <PopoverContent
                         onMouseLeave={() => setIsOpen(false)}
                         className="max-w-[250px] mr-4 "
                       >
-                        <Menucontent />
+                        <Menucontent setShowPopover={setShowPopover} />
                       </PopoverContent>
                     </Popover>
                   )}
@@ -187,29 +185,6 @@ const Navbar = () => {
           setType={setType}
           setIsOpen={setIsOpen}
         />
-
-        {/* <SignIn
-          isOpen={isOpen}
-          handleOpenChange={handleOpenChange}
-          type={type}
-          setType={setType}
-          setIsOpen={setIsOpen}
-        />
-        <SignUp
-          isOpen={isOpen}
-          handleOpenChange={handleOpenChange}
-          type={type}
-          setType={setType}
-          setIsOpen={setIsOpen}
-        />
-
-        <Verification
-          isOpen={isOpen}
-          handleOpenChange={handleOpenChange}
-          type={type}
-          setType={setType}
-          setIsOpen={setIsOpen}
-        /> */}
       </MaxWidthWrapper>
     </header>
   );

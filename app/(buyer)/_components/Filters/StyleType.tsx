@@ -117,7 +117,7 @@ const StyleType = () => {
                       value={filters.exterior_color}
                       onChange={() => handleCheckboxChange(color.name, 'exterior_color')}
                       className="h-5 w-5"
-                      checked={filters?.exterior === color.name}
+                      checked={filters?.exterior_color === color.name}
                     />
                     <span className="">{color.name}</span>
                   </p>

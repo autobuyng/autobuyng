@@ -34,25 +34,27 @@ const BrandNew = ({
     event: React.ChangeEvent<HTMLInputElement>,
     fileType: 'purchaseReceipts' | 'otherSupportingDocuments',
   ) => {
-    const newFile = event.target.files?.[0];
+    const files = event.target.files; // Access the selected files
 
-    if (!newFile) {
+    if (!files || files.length === 0) {
       return;
     }
 
-    // Create a unique identifier
-    const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const updatedFiles: File[] = Array.from(files).map((file) => {
+      // Create a unique identifier for each file
+      const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Create a new File object with a unique name
-    const uniqueFile = new File([newFile], `${uniqueId}_${newFile.name}`, {
-      type: newFile.type,
-      lastModified: newFile.lastModified,
+      // Return a new File object with a unique name
+      return new File([file], `${uniqueId}_${file.name}`, {
+        type: file.type,
+        lastModified: file.lastModified,
+      });
     });
 
     if (fileType === 'purchaseReceipts') {
-      setPurchaseReceipts((prevFiles) => [...prevFiles, uniqueFile]);
+      setPurchaseReceipts((prevFiles) => [...prevFiles, ...updatedFiles]);
     } else {
-      setOtherDocuments((prevFiles) => [...prevFiles, uniqueFile]);
+      setOtherDocuments((prevFiles) => [...prevFiles, ...updatedFiles]);
     }
 
     // Reset the file input
@@ -139,6 +141,7 @@ const BrandNew = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('purchaseReceipts')}
             onChange={(e) => handleFileChange(e, 'purchaseReceipts')}
             className="block w-full h-full absolute opacity-0"
@@ -166,6 +169,7 @@ const BrandNew = ({
           </p>
           <input
             type="file"
+            multiple
             {...register('otherSupportingDocuments')}
             onChange={(e) => handleFileChange(e, 'otherSupportingDocuments')}
             className="block w-full h-full absolute opacity-0"

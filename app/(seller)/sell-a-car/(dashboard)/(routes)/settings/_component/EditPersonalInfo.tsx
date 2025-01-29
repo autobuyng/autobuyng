@@ -51,7 +51,7 @@ const EditPersonalInfo = ({
     }
   }, []);
 
-  const { editUserProfile } = useEditProfile();
+  const { editUserProfile, isPending } = useEditProfile();
 
   // useEffect(() => {
   //   setLoading(isPending);
@@ -62,21 +62,29 @@ const EditPersonalInfo = ({
   // }
 
   const handleOnSubmit = async (data: Profile) => {
-    console.log(data);
     try {
       const response = await editUserProfile(data);
       setSeller(response.data.user);
       setSellerProfile(response.data.profile);
       setEditPersonalInfoModal(false);
 
+      reset();
+
       toast({
         title: 'Profile updated successfully',
         description: 'Your profile has been updated successfully.',
         variant: 'success',
-        position: 'top-right',
-        duration: 3000,
       });
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = Array.isArray(error?.message)
+        ? error.message.join(', ')
+        : error?.message || 'An unexpected error occurred';
+
+      toast({
+        variant: 'destructive',
+        description: errorMessage,
+      });
+
       console.error(error);
     }
   };
@@ -90,7 +98,7 @@ const EditPersonalInfo = ({
               Edit Personal Information
             </SheetTitle>
             <SheetDescription className="text-black ">
-              Update your sellerProfile, contact details and preferences to personalize your
+              Update your seller Profile, contact details and preferences to personalize your
               experience.
             </SheetDescription>
           </SheetHeader>
@@ -108,6 +116,7 @@ const EditPersonalInfo = ({
                   <input
                     type="text"
                     id="fullname"
+                    disabled
                     {...register('firstName')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
@@ -122,6 +131,7 @@ const EditPersonalInfo = ({
                   <input
                     type="text"
                     id="lastname"
+                    disabled
                     {...register('lastName')}
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
@@ -138,6 +148,7 @@ const EditPersonalInfo = ({
                   <input
                     type="email"
                     {...register('email')}
+                    disabled
                     id="email"
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
@@ -236,7 +247,7 @@ const EditPersonalInfo = ({
                     type="submit"
                     className="bg-secondary-700 w-full text-white rounded-sm text-center px-4 py-2"
                   >
-                    Save Changes
+                    {isPending ? 'Updating...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

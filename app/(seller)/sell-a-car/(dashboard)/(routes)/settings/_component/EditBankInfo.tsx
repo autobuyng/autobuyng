@@ -19,10 +19,14 @@ import { useForm } from 'react-hook-form';
 import { BankAccount, BankDetailsProps } from '@/types/types';
 import {
   useAddBankDetails,
+  useDeleteBankDetails,
   useGetAllBankDetials,
   useSetActiveBank,
   useUpdateBankDetails,
 } from '@/app/(seller)/api/user';
+import Edit from '@/app/(seller)/sell-a-car/(dashboard)/(routes)/settings/assets/edit.svg';
+import { Loader2, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 
 const EditBankInfo = ({
   editBankInfoModal,
@@ -32,6 +36,7 @@ const EditBankInfo = ({
   setEditBankInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [selectedBank, setSelectedBank] = useState<BankAccount | null>(null);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
   const { register, handleSubmit, reset } = useForm<BankDetailsProps>({
     defaultValues: {
       accountName: '',
@@ -60,21 +65,34 @@ const EditBankInfo = ({
     setSelectedBank(bank);
   };
 
-  const { addBankDetails } = useAddBankDetails();
+  const { addBankDetails, isPending } = useAddBankDetails();
   const { updateBankDetais } = useUpdateBankDetails();
   const { data } = useGetAllBankDetials();
   const { setActiveBank } = useSetActiveBank();
+  const { deleBankDetails, isDeleting } = useDeleteBankDetails();
 
   const handleAddBankDetails = async (data: BankDetailsProps) => {
     try {
       if (selectedBank) {
         await updateBankDetais({ values: data, id: selectedBank._id });
+        reset();
         setSelectedBank(null);
       } else {
         await addBankDetails(data);
+        reset();
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleDeleteBank = async (id: string) => {
+    // e.preventDefault();
+    try {
+      const response = await deleBankDetails({ id });
+      console.log(response, 'update address');
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -121,11 +139,11 @@ const EditBankInfo = ({
           </SheetHeader>
 
           <section className="space-y-4 h-full mb-3">
-            {(data ?? []).map((bank: BankAccount) => (
+            {(data ?? []).map((bank: BankAccount, index) => (
               <div
                 key={bank._id}
                 className={cn(
-                  'flex gap-4 border cursor-pointer border-neutral-100 rounded-md mt-4 px-4 py-2',
+                  'flex items-center justify-center  gap-4 border cursor-pointer border-neutral-100 rounded-md mt-4 px-4 py-2',
                   {
                     'outline outline-[4px]  outline-[#0382c8]/25 border-secondary-500':
                       bank.isActive,
@@ -141,15 +159,35 @@ const EditBankInfo = ({
                   )}
                   onClick={(e) => handleSetActiveBank(e, bank._id as string)}
                 ></div>
-                <div
-                  onClick={() => handleBankSelection(bank)}
-                  className="w-full text-sm flex items-center"
-                >
+                <div className="w-full text-sm flex items-center">
                   <div>
                     <h1 className="font-semibold">{bank.bankName}</h1>
                     <p className="text-neutral-700">{bank.accountNumber}</p>
                     <p className="text-neutral-700 capitalize">{bank.accountName}</p>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Image
+                    onClick={() => handleBankSelection(bank)}
+                    src={Edit}
+                    width={20}
+                    height={20}
+                    alt="edit"
+                    className="cursor-pointer"
+                  />
+                  {isDeleting && index === deleteIndex ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <Trash2
+                      onClick={() => {
+                        handleDeleteBank(bank._id as string);
+                        setDeleteIndex(index);
+                      }}
+                      size={30}
+                      className="cursor-pointer"
+                    />
+                  )}
                 </div>
               </div>
             ))}
@@ -224,7 +262,10 @@ const EditBankInfo = ({
                 <div className="flex items-center  gap-4 h-full w-full">
                   <SheetClose
                     className="bg-neutral-300 px-4 py-2 rounded-sm "
-                    onClick={() => setSelectedBank(null)}
+                    onClick={() => {
+                      setSelectedBank(null);
+                      reset();
+                    }}
                   >
                     Discard
                   </SheetClose>
@@ -233,7 +274,7 @@ const EditBankInfo = ({
                     type="submit"
                     className="bg-secondary-700 w-full text-white rounded-sm text-center px-4 py-2"
                   >
-                    Save Changes
+                    {isPending ? 'Updating...' : 'Save Changes'}
                   </button>
                 </div>
               </div>

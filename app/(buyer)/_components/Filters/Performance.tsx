@@ -139,7 +139,7 @@ const Performance = () => {
                       value={filters.fuel_type}
                       onChange={() => handleCheckboxChange(fuelType.name, 'fuel_type')}
                       className="h-5 w-5"
-                      checked={filters.fuel_type === fuelType.name.toLowerCase()}
+                      checked={filters.fuel_type === fuelType.name}
                     />
                     <span className="">{fuelType.name}</span>
                   </p>

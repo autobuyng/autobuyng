@@ -1,6 +1,6 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 
@@ -18,7 +18,7 @@ import ArrowLeft from '@/app/(buyer)/assets/ArrowLeft.svg';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/Photo.svg';
 import { cn } from '@/lib/utils';
-import Autobuy from '@/app/assets/Autobuy.svg';
+import Autobuy from '../../../../public/icons/buyer.svg';
 import useIsMobile from '@/hooks/useIsMobile';
 import useDetectOS from '@/hooks/useDetectOs';
 
@@ -49,6 +49,22 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
       setCurrentIndex((currentIndex) => currentIndex - 1);
     }
   };
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        showPrevImage();
+      } else if (event.key === 'ArrowRight') {
+        showNextImage();
+      }
+    },
+    [showNextImage, showPrevImage],
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div className="w-full">
@@ -129,10 +145,16 @@ type ImageSliderModalProps = {
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProps) => {
+const ImageSliderModal = ({
+  isOpen,
+  setIsOpen,
+  ImageUrls,
+  currentIndex,
+  setCurrentIndex,
+}: ImageSliderModalProps) => {
   const [disableLeftButton, setDisableLeftButton] = useState(true);
   const [disableRightButton, setDisableRightButton] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [currentIndex, setCurrentIndex] = useState(0);
   const { isMobile } = useIsMobile();
   const os = useDetectOS();
 
@@ -153,28 +175,41 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
       setCurrentIndex((currentIndex) => currentIndex - 1);
     }
   };
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        showPrevImage();
+      } else if (event.key === 'ArrowRight') {
+        showNextImage();
+      }
+    },
+    [showNextImage, showPrevImage],
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div>
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
-        {/* <DialogTrigger>Open</DialogTrigger> */}
         <DialogContent
-          className={cn('overflow-auto ', {
+          className={cn('overflow-y-auto max-h-[95vh] outline-none', {
             'max-w-[48rem]': os === 'macOS',
-            'max-w-[560px]': os === 'Windows',
+            'max-w-[600px]': os === 'Windows',
           })}
         >
           <DialogTitle className="-mt-4 w-1/2">
             <div className="flex items-center justify-between bg-white">
               <Image src={Autobuy} alt="Autobuy" />
               <p>
-                {currentIndex + 1}/{25}
+                {currentIndex + 1}/{ImageUrls.length}
               </p>
-              {/* <DialogClose asChild>cancel</DialogClose> */}
             </div>
           </DialogTitle>
           <DialogDescription></DialogDescription>
-          <div className="px-10">
+          <div className="px">
             <div className="overflow-hidden relative">
               <div
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -186,9 +221,10 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
                       src={image}
                       alt="image slider"
                       key={index}
+                      // fill
+                      width={760}
                       height={333}
-                      width={600}
-                      className="cursor-pointer flex-shrink-0"
+                      className="cursor-pointer flex-shrink-0 object-cover  h-[333px] w-[760px]"
                     />
                   ))}
               </div>
@@ -224,12 +260,12 @@ const ImageSliderModal = ({ isOpen, setIsOpen, ImageUrls }: ImageSliderModalProp
             </div>
           </div>
 
-          <div className="grid grid-cols-4 mt-4 gap-4 w-full">
+          <div className="grid grid-cols-4 mt-4  gap-2 w-full">
             {ImageUrls &&
               ImageUrls.map((image, index) => (
                 <div
                   key={index}
-                  className={cn('relative  w-[100px] h-[100px] flex-shrink-0', {
+                  className={cn('relative  w-[130px] h-[100px] flex-shrink-0', {
                     'border-2 border-black': currentIndex === index,
                   })}
                   onClick={() => setCurrentIndex(index)}

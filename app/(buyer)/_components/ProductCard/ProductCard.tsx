@@ -84,7 +84,8 @@ export const ProductCard = ({
         </button>
 
         <button className="absolute bottom-2 right-2  text-white rounded-[30px] bg-black/55 p-1 flex items-center text-sm justify-center">
-          <span className="px-2">25</span> <Image src={Photo} alt="Photo" className="px-1 w-auto" />
+          <span className="px-2">{images.length}</span>{' '}
+          <Image src={Photo} alt="Photo" className="px-1 w-auto" />
         </button>
       </div>
 
@@ -99,7 +100,7 @@ export const ProductCard = ({
           </p>
           <p className="flex text-center items-center justify-start gap-2">
             <span className="capitalize text-primary-900  pl-2  font-[500] leading-6">
-              {mileage}
+              {`${Number(mileage) / 1000}${mileage ? 'k Miles' : ''}`}
             </span>
           </p>
         </div>

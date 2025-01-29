@@ -41,7 +41,7 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
 
             <div>
               <h1 className="text-[20px] leading-[25px] font-medium">
-                {vehicleData?.driveTrain || 'N/A'}
+                {capitalizeFirstLetter(vehicleData?.driveTrain) || 'N/A'}
               </h1>
               <p className="bg-primary-100 text-primary-900 w-[80px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Drive train

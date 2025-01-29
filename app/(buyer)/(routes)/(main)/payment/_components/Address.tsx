@@ -24,6 +24,7 @@ const Address = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [isActiveAddress, setIsActiveAddress] = useState(true);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
 
   console.log(loading, isLoading, 'loading');
   const [addressFields, setAddressFields] = useState<Address>({
@@ -34,9 +35,9 @@ const Address = () => {
   const { addAddress, isPending: Adding } = useAddAddress();
   const { getUser } = useGetUser();
   const { updateAddress } = useUpdateAddAddress();
-  const { deleteAddress } = useDeleteAddress();
+  const { deleteAddress, isDeleting } = useDeleteAddress();
   const { setActiveAddress, isPending } = useSetActiveAddress();
-  const { register, handleSubmit } = useForm<Address>({});
+  const { register, handleSubmit, reset } = useForm<Address>({});
 
   const updateUserData = async () => {
     try {
@@ -54,6 +55,7 @@ const Address = () => {
     try {
       const response = await addAddress(data);
       await updateUserData();
+      reset();
       console.log(response, 'add address');
     } catch (error) {
       console.log(error);
@@ -141,10 +143,13 @@ const Address = () => {
               Edit
             </span>
             <span
-              onClick={(e) => handleDeleteAddress(e, { id: data._id! })}
+              onClick={(e) => {
+                handleDeleteAddress(e, { id: data._id! });
+                setDeleteIndex(index);
+              }}
               className="text-sm cursor-pointer"
             >
-              Delete
+              {isDeleting && deleteIndex === index ? 'Deleting...' : 'Delete'}
             </span>
           </div>
         </div>
@@ -188,7 +193,7 @@ const Address = () => {
       <div className="space-y-4">
         {Addresses?.map((data, index) => {
           return (
-            <React.Fragment key={data._id}>
+            <React.Fragment key={index}>
               {editingIndex != index ? (
                 <div>
                   {isActiveAddress && data.isActive && <ShowAddress data={data} index={index} />}

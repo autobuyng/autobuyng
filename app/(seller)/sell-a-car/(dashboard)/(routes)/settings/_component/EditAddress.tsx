@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Sheet,
@@ -10,13 +10,21 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 
+import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
 import { useForm } from 'react-hook-form';
-import { useAddAddress, useGetUser, useSetActiveAddress } from '@/app/(seller)/api/user';
+import {
+  useAddAddress,
+  useDeleteAddress,
+  useGetUser,
+  useSetActiveAddress,
+} from '@/app/(seller)/api/user';
 import { Address } from '@/types/types';
+import Edit from '@/app/(seller)/sell-a-car/(dashboard)/(routes)/settings/assets/edit.svg';
+import { Loader2, Trash2 } from 'lucide-react';
 
 const EditAddress = ({
   editAddressModal,
@@ -26,11 +34,14 @@ const EditAddress = ({
   setEditAddressModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { sellerAddress, setSeller, setSellerProfile, setSellerAddress } = useStore();
-  const { handleSubmit, register } = useForm<Address>();
+  const { handleSubmit, register, reset } = useForm<Address>();
+
+  const [deleteIndex, setDeleteIndex] = useState(-1);
 
   const { addAddress, isPending } = useAddAddress();
   const { getUser } = useGetUser();
   const { setActiveAddress } = useSetActiveAddress();
+  const { deleteAddress, isDeleting } = useDeleteAddress();
 
   const updateUserData = async () => {
     try {
@@ -48,12 +59,26 @@ const EditAddress = ({
     try {
       const response = await addAddress(data);
       await updateUserData();
+      reset();
       console.log(response, 'add address');
     } catch (error) {
       console.log(error);
     }
     // setAddressFields(data);
   };
+
+  const handleDeleteAddress = async (e: React.MouseEvent<SVGSVGElement>, data: { id: string }) => {
+    e.preventDefault();
+    try {
+      const response = await deleteAddress({ id: data.id });
+      await updateUserData();
+      console.log(response, 'update address');
+      setDeleteIndex(-1);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSetActiveAddress = async (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
 
@@ -97,13 +122,16 @@ const EditAddress = ({
           </SheetHeader>
 
           <section className="space-y-4 h-full mb-3">
-            {sellerAddress?.map((address, index) => (
+            {sellerAddress?.map((address: Address, index) => (
               <div
                 key={index}
-                className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
-                  'outline outline-[4px]  outline-[#e16045]/25 border-secondary-500':
-                    address.isActive,
-                })}
+                className={cn(
+                  'flex items-center justify-between gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2',
+                  {
+                    'outline outline-[4px]  outline-[#e16045]/25 border-secondary-500':
+                      address.isActive,
+                  },
+                )}
               >
                 <div
                   onClick={(e) => handleSetActiveAddress(e, address._id as string)}
@@ -114,7 +142,23 @@ const EditAddress = ({
                     },
                   )}
                 ></div>
-                <p className="w-full text-sm flex items-center">{address.address}</p>
+                <p className="w-full text-sm flex flex-1 items-center">{`${address.address} ${address.city} ${address.region}`}</p>
+
+                <div className="flex items-center gap-2">
+                  <Image src={Edit} width={20} height={20} alt="edit" className="cursor-pointer" />
+                  {isDeleting && index === deleteIndex ? (
+                    <Loader2 className="animate-spin" size={20} />
+                  ) : (
+                    <Trash2
+                      onClick={(e) => {
+                        handleDeleteAddress(e, { id: address._id! });
+                        setDeleteIndex(index);
+                      }}
+                      size={20}
+                      className="cursor-pointer"
+                    />
+                  )}
+                </div>
               </div>
             ))}
           </section>

@@ -10,7 +10,11 @@ import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
 
-const Menucontent = () => {
+
+type MenucontentProps = {
+  setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const Menucontent = ({ setShowPopover }: MenucontentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const router = useRouter();
@@ -24,15 +28,17 @@ const Menucontent = () => {
     if (!user) {
       setIsOpen(true);
       setType('signin');
-    }
-    {
+      setShowPopover(false);
+    } else {
       router.push('/settings');
+      setShowPopover(false);
     }
   };
 
   const handleMenuClick = (path: string) => {
     router.push(`/${path}`);
     setIsOpen(false);
+    setShowPopover(false);
   };
 
   const MENU_ITEMS = [
@@ -48,24 +54,6 @@ const Menucontent = () => {
       </div>
 
       <div className="flex flex-col gap-3 mt-4">
-        {/* {!user && (
-          <div className="flex flex-col gap-3 border-b border-neutral-100 pb-2">
-            <div className="w-full">
-              <button onClick={handleSignUpClick} className="flex">
-                Sign up
-              </button>
-            </div>
-            <div className="w-full">
-              <button onClick={handleSignInClick} className="flex">
-                Sign in
-              </button>
-            </div>
-            <div className="w-full">
-              <button className="flex">Sell your vehicle</button>
-            </div>
-          </div>
-        )} */}
-
         {user && (
           <div className="flex flex-col gap-3  pb-2">
             {MENU_ITEMS.map((item) => (

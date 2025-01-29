@@ -99,6 +99,7 @@ const EditPersonalInfo = ({
                     type="text"
                     id="firstname"
                     {...register('firstName')}
+                    disabled
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -113,6 +114,7 @@ const EditPersonalInfo = ({
                     type="text"
                     id="lastname"
                     {...register('lastName')}
+                    disabled
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 border border-neutral-900 py-2 sm:text-sm"
                   />
@@ -129,6 +131,7 @@ const EditPersonalInfo = ({
                     type="email"
                     id="email"
                     {...register('email')}
+                    disabled
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                   />

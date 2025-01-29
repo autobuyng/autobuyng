@@ -202,7 +202,7 @@ export function useDeleteAddress() {
     any,
     { id: string }
   >({
-    mutationFn: ({ id }) => mutator({ method: 'DELETE', url: endpoints.user.updateAddress(id) }),
+    mutationFn: ({ id }) => mutator({ method: 'DELETE', url: endpoints.user.deleteAddress(id) }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
@@ -211,6 +211,32 @@ export function useDeleteAddress() {
   return useMemo(
     () => ({
       deleteAddress: mutateAsync,
+      data,
+      isDeleting: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useDeleteBankDetails() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    AddressResponse,
+    any,
+    { id: string }
+  >({
+    mutationFn: ({ id }) =>
+      mutator({ method: 'DELETE', url: endpoints.user.deleteBankDetails(id) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getBankDetails });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      deleBankDetails: mutateAsync,
       data,
       isDeleting: isPending,
       error,
