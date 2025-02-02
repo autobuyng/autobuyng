@@ -63,10 +63,16 @@ const EditPersonalInfo = ({
         title: 'Profile updated successfully',
         description: 'Your profile has been updated successfully.',
         variant: 'success',
-        position: 'top-right',
-        duration: 3000,
       });
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = Array.isArray(error?.message)
+        ? error.message.join(', ')
+        : error?.message || 'An unexpected error occurred';
+
+      toast({
+        variant: 'destructive',
+        description: errorMessage,
+      });
       console.error(error);
     }
   };

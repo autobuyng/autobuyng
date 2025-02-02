@@ -20,7 +20,6 @@ import Photo from '@/app/(buyer)/assets/Photo.svg';
 import { cn } from '@/lib/utils';
 import Autobuy from '../../../../public/icons/buyer.svg';
 import useIsMobile from '@/hooks/useIsMobile';
-import useDetectOS from '@/hooks/useDetectOs';
 
 type ImageSliderProp = {
   ImageUrls: (StaticImageData | string)[];
@@ -156,7 +155,6 @@ const ImageSliderModal = ({
   const [disableRightButton, setDisableRightButton] = useState(false);
   // const [currentIndex, setCurrentIndex] = useState(0);
   const { isMobile } = useIsMobile();
-  const os = useDetectOS();
 
   const showNextImage = () => {
     setDisableLeftButton(false);
@@ -195,9 +193,9 @@ const ImageSliderModal = ({
     <div>
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         <DialogContent
-          className={cn('overflow-y-auto max-h-[95vh] outline-none', {
-            'max-w-[48rem]': os === 'macOS',
-            'max-w-[600px]': os === 'Windows',
+          className={cn('overflow-y-auto max-h-[95vh] outline-none max-w-[600px]', {
+            // 'max-w-[48rem]': os === 'macOS',
+            // 'max-w-[600px]': os === 'Windows',
           })}
         >
           <DialogTitle className="-mt-4 w-1/2">

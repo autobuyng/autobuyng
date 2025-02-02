@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
@@ -21,49 +21,26 @@ import useIsMobile from '@/hooks/useIsMobile';
 
 const Results = () => {
   const pathname = usePathname();
-  const { filters } = useStore();
+  const { filters, homePageSearchResult } = useStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
-  // const [sortQuery, setSortQuery] = useState('');
-  // const [filters, setFilters] = useState<FilterProps>(DEFAULT_FILTERS);
+
   const { isTablet } = useIsMobile();
-  // const [filterQuery, setFilterQuery] = useState<(string | number)[]>([]);
 
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
+
+  const prevFilters = useRef(filters);
 
   const { search, isPending, isError, error } = useSearchVehicle();
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword');
-  // const mileage = searchParams.get('mileage') ?? undefined;
-  // const price = searchParams.get('price') ?? undefined;
-  // const condition = searchParams.get('vehicle_condition') ?? undefined;
-  // const minYear = searchParams.get('min_year') ?? undefined;
-  // const maxYear = searchParams.get('max_year') ?? undefined;
 
-  // console.log(condition, 'condition');
-
-  // const handlesort = (input: string) => {
-  //   console.log(input);
-  // };
-
-  // const handleQuery = (query: string | number) => {
-  //   const queryIndex = filterQuery?.indexOf(query);
-  //   setFilterQuery(filterQuery.filter((item) => filterQuery.indexOf(item) !== queryIndex));
-  // };
   const handleSearch = async (data: SearchQuery) => {
-    // console.log(data, 'data');
-    // const entriesArray = Object.entries({});
-
-    // entriesArray.forEach(([, value]) => {
-    //   setFilterQuery((prev) => [...prev, value]);
-    // });
-
     try {
       const response = await search(data);
       setSearchResult(response.data);
       console.log(response.data, 'response');
-      // router.push(`/results/keyword=${data.keyword}`);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -91,11 +68,16 @@ const Results = () => {
       ...(filters.vehicle_type ? { type: filters.vehicle_type.toLowerCase() } : {}),
     };
 
-    handleSearch(searchParams);
+    if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
+      console.log('making search request');
+      handleSearch(searchParams);
+    }
 
     setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
+
+
 
   return (
     <main className="mb-24">
@@ -212,7 +194,7 @@ const Results = () => {
             <div className="w-full">
               <Result
                 isPending={isPending}
-                searchResult={searchResult}
+                searchResult={searchResult || homePageSearchResult}
                 setSearchResult={setSearchResult}
                 isError={isError}
                 error={error}

@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 
 import {
   Sheet,
@@ -14,10 +15,14 @@ import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
-import { useAddAddress, useSetActiveAddress } from '@/app/(buyer)/api/user';
+import { useAddAddress, useDeleteAddress, useSetActiveAddress } from '@/app/(buyer)/api/user';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useForm } from 'react-hook-form';
 import { Address } from '@/types/types';
+import { useToast } from '@/hooks/use-toast';
+import Edit from '@/app/(seller)/sell-a-car/(dashboard)/(routes)/settings/assets/edit.svg';
+import Image from 'next/image';
+import { Loader2, Trash2 } from 'lucide-react';
 
 const EditAddress = ({
   editAddressModal,
@@ -26,11 +31,14 @@ const EditAddress = ({
   editAddressModal: boolean;
   setEditAddressModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  // const [activeChoice, setActiveChoice] = useState(1);
-  const { register, handleSubmit } = useForm<Address>();
+  const { toast } = useToast();
+  const [deleteIndex, setDeleteIndex] = useState(-1);
+  const { register, handleSubmit, reset } = useForm<Address>();
   const { address, setUser, setProfile, setAddress } = useStore();
   const { setActiveAddress } = useSetActiveAddress();
   const { addAddress, isPending } = useAddAddress();
+  const { deleteAddress, isDeleting } = useDeleteAddress();
+
   const { getUser } = useGetUser();
 
   const updateUserData = async () => {
@@ -45,12 +53,33 @@ const EditAddress = ({
     }
   };
 
+  const handleDeleteAddress = async (e: React.MouseEvent<SVGSVGElement>, data: { id: string }) => {
+    e.preventDefault();
+    try {
+      const response = await deleteAddress({ id: data.id });
+      await updateUserData();
+      console.log(response, 'update address');
+      setDeleteIndex(-1);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSubmitForm = async (data: Address) => {
     try {
       const response = await addAddress(data);
       await updateUserData();
+      reset();
       console.log(response, 'add address');
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = Array.isArray(error?.message)
+        ? error.message.join(', ')
+        : error?.message || 'An unexpected error occurred';
+
+      toast({
+        variant: 'destructive',
+        description: errorMessage,
+      });
       console.log(error);
     }
     // setAddressFields(data);
@@ -103,9 +132,12 @@ const EditAddress = ({
               return (
                 <div
                   key={index}
-                  className={cn('flex gap-4 border border-neutral-100 rounded-md mt-4 px-4 py-2', {
-                    'outline outline-[4px]  outline-[#0382c8]/25': address.isActive,
-                  })}
+                  className={cn(
+                    'flex items-center justify-  border border-neutral-100 rounded-md mt-4 px-4 py-2',
+                    {
+                      'outline outline-[4px]  outline-[#0382c8]/25': address.isActive,
+                    },
+                  )}
                 >
                   <div
                     onClick={(e) => handleSetActiveAddress(e, address._id as string)}
@@ -116,7 +148,28 @@ const EditAddress = ({
                       },
                     )}
                   ></div>
-                  <p className="w-full text-sm flex items-center">{address.address}</p>
+                  <p className="w-full text-sm flex-1 items-center">{`${address.address} ${address.city} ${address.region}`}</p>
+                  <div className="flex  justify-between items-center gap-2">
+                    <Image
+                      src={Edit}
+                      width={20}
+                      height={20}
+                      alt="edit"
+                      className="cursor-pointer"
+                    />
+                    {isDeleting && index === deleteIndex ? (
+                      <Loader2 className="animate-spin" size={20} />
+                    ) : (
+                      <Trash2
+                        onClick={(e) => {
+                          handleDeleteAddress(e, { id: address._id! });
+                          setDeleteIndex(index);
+                        }}
+                        size={20}
+                        className="cursor-pointer"
+                      />
+                    )}
+                  </div>
                 </div>
               );
             })}

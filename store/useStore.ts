@@ -1,5 +1,5 @@
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { Address, FilterProps, Profile, User } from '@/types/types';
+import { Address, FilterProps, Profile, SearchResponseData, User } from '@/types/types';
 import { create } from 'zustand';
 
 const default_filters = getSessionItem('filters');
@@ -13,7 +13,6 @@ const DEFAULT_FILTERS: FilterProps = {
   },
   ...default_filters,
 };
-
 type State = {
   user: User | null;
   isLoading: boolean;
@@ -33,6 +32,8 @@ type State = {
   setSellerAddress: (address: Address[] | null) => void;
   filters: FilterProps;
   setFilters: (filters: FilterProps | ((prev: FilterProps) => FilterProps)) => void;
+  homePageSearchResult: SearchResponseData | null;
+  setHomePageSearchResult: (homePageSearchResult: SearchResponseData | null) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -58,6 +59,9 @@ export const useStore = create<State>((set) => ({
 
   sellerAddress: null,
   setSellerAddress: (sellerAddress) => set({ sellerAddress }),
+
+  homePageSearchResult: null,
+  setHomePageSearchResult: (homePageSearchResult) => set({ homePageSearchResult }),
 
   filters: DEFAULT_FILTERS,
   setFilters: (update) =>

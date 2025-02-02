@@ -10,7 +10,6 @@ import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
 
-
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
 };

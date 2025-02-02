@@ -128,7 +128,6 @@ const Filters = () => {
               title="Highest"
               defaultValue={filters.year.min_year}
               setSelectedInput={(input) => {
-                // router.push(pathname + '?' + createQueryString('min_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,

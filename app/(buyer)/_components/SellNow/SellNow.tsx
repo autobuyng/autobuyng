@@ -10,7 +10,7 @@ const SellNow = () => {
   const { isMobile } = useIsMobile();
   return (
     <MaxWidthWrapper>
-      <div className=" relative rounded-[30px]  w-full h-[360px] justify-between gap-8">
+      <div className=" relative rounded-[30px] mt-28 flex  w-full h-[360px] justify-between gap-8">
         <Image
           src={
             isMobile

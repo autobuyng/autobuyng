@@ -3,31 +3,36 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import SelectInput from '@/components/SelectInput/SelectInput';
 import { CAR_BRANDS, PRICE_RANGE, YEAR } from '@/constants/constants';
 import useDetectOS from '@/hooks/useDetectOs';
 import { useForm } from 'react-hook-form';
-import { SearchQuery } from '@/types/types';
+import { FilterProps, SearchQuery } from '@/types/types';
+import { useSearchVehicle } from '../../api/search';
+import { useStore } from '@/store/useStore';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
-  const [price, setPrice] = useState<string>('');
-  const [brand, setBrand] = useState<string>('');
-  const [year, setYear] = useState<string>('');
+  // const [price, setPrice] = useState<string>('');
+  // const [brand, setBrand] = useState<string>('');
+  // const [year, setYear] = useState<string>('');
 
-  // const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
   const router = useRouter();
   const os = useDetectOS();
-
+  const { setHomePageSearchResult } = useStore();
   const { register, handleSubmit } = useForm<SearchQuery>();
+  const { search, isPending } = useSearchVehicle();
+  const { setFilters, filters } = useStore();
 
-  const handleSearch = (data: SearchQuery) => {
+  const handleSearch = async () => {
     try {
-      // const response = await search(data);
-      // setSearchResult(response.data);
-      router.push(`/results/keyword=${data.keyword}`);
-      // router.push('results/make-BMW?mileage=2-598899')}
-      // console.log(response);
+      const updatedData = {
+        ...(filters.make && { make: filters.make }),
+        ...(filters.model && { model: filters.model }),
+        ...(filters.year && { yearMax: filters.year.max_year }),
+      };
+      const response = await search(updatedData);
+      setHomePageSearchResult(response.data);
+      router.push(`/results/keyword=${filters.make}`);
     } catch (error) {
       console.log(error);
     }
@@ -94,35 +99,130 @@ const HomeSearch = () => {
         <div className="flex flex-col gap-4 items-center justify-between mt-4">
           <div className="flex flex-col items-center w-full gap-4 ">
             <div className="w-full">
-              <SelectInput
+              <select
+                id="vehicleType"
+                onChange={(input) => {
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      make: input.target.value,
+                    }),
+                  );
+                }}
+                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
+              >
+                <option value="">Select vehicle make</option>
+
+                {CAR_BRANDS.map((type, index) => (
+                  <option key={index} value={type.name}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+              {/* <SelectInput
                 list={CAR_BRANDS}
-                title="Brand/Model"
-                setSelectedInput={setBrand}
-                selectedInput={brand}
+                title="Make/Model"
+                setSelectedInput={(input) => {
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      make: input as string,
+                    }),
+                  );
+                }}
+                selectedInput={filters.make as string}
                 width="w-full"
                 height="h-12"
-              />
+              /> */}
             </div>
             {/* <div className="flex w-full gap-3"> */}
             <div className="w-full">
-              <SelectInput
+              <select
+                id="vehicleType"
+                onChange={(input) => {
+                  console.log(input, 'input');
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      price: {
+                        max_price: Number(input.target.value),
+                      },
+                    }),
+                  );
+                }}
+                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
+              >
+                <option value="">Select vehicle price</option>
+
+                {PRICE_RANGE.map((type, index) => (
+                  <option key={index} value={type.label}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+              {/* <SelectInput
                 list={PRICE_RANGE}
-                title="Price Range"
-                setSelectedInput={setPrice}
-                selectedInput={price}
+                title="Price"
+                setSelectedInput={(input) => {
+                  // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      price: {
+                        max_price: Number(input),
+                      },
+                    }),
+                  );
+                }}
+                selectedInput={String(filters.price.max_price)}
                 width="w-full "
                 height="h-12"
-              />
+              /> */}
             </div>
             <div className="w-full">
-              <SelectInput
+              <select
+                id="vehicleType"
+                onChange={(input) => {
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      year: {
+                        ...prev.year,
+                        max_year: input.target.value,
+                      },
+                    }),
+                  );
+                }}
+                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none  "
+              >
+                <option className="text-gray-400" value="">
+                  Select vehicle year
+                </option>
+
+                {YEAR.map((type, index) => (
+                  <option key={index} value={type.name}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+              {/* <SelectInput
                 list={YEAR}
                 title="Year"
-                setSelectedInput={setYear}
-                selectedInput={year}
+                setSelectedInput={(input) => {
+                  setFilters(
+                    (prev: FilterProps): FilterProps => ({
+                      ...prev,
+                      year: {
+                        ...prev.year,
+                        max_year: input as string,
+                      },
+                    }),
+                  );
+                }}
+                selectedInput={filters.year.max_year}
                 width="w-full "
                 height="h-12"
-              />
+              /> */}
             </div>
             {/* </div> */}
           </div>
@@ -133,7 +233,7 @@ const HomeSearch = () => {
                 'bg-primary-700 text-white font-semibold h-12 w-full rounded-[10px] flex items-center justify-center',
               )}
             >
-              {'Search inventory'}
+              {isPending ? 'Searching...' : 'Search inventory'}
             </button>
           </div>
         </div>

@@ -154,25 +154,30 @@ export const CAR_BRANDS = [
 ];
 
 export const PRICE_RANGE = [
-  {
-    id: 1,
-    name: 'Under 5 million',
-  },
+  // {
+  //   id: 1,
+  //   name: 'Under 5 million',
+  //   label:"5000000"
+  // },
   {
     id: 2,
     name: 'Under 10 million',
+    label: '10000000',
   },
   {
     id: 3,
     name: 'Under 15 million',
+    label: '15000000',
   },
   {
     id: 4,
     name: 'Under 20 million',
+    label: '20000000',
   },
   {
     id: 5,
     name: 'Under 25 million',
+    label: '25000000',
   },
 ];
 
