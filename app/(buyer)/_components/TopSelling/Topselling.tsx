@@ -168,22 +168,23 @@ const Topselling = () => {
       TOP_SELLING_VEHICLE?.slice(0, visibleCar).map((result) => (
         <ProductCard
           key={result._id}
-          make={result.make}
-          images={result.images}
-          vehicleModel={result.vehicleModel}
-          mileage={result.mileage}
-          vehicleType={result.vehicleType}
-          price={result.price}
-          engine={result.engine}
-          transmission={result.transmission}
-          vin={result.vin}
-          fuelConsumption={result.fuelConsumption}
-          exteriorColor={result.exteriorColor}
-          interiorColor={result.interiorColor}
-          fuelType={result.fuelType}
-          vehicleYear={result.vehicleYear}
-          condition={result.condition}
-          _id={result._id}
+          vehicle={result}
+          // make={result.make}
+          // images={result.images}
+          // vehicleModel={result.vehicleModel}
+          // mileage={result.mileage}
+          // vehicleType={result.vehicleType}
+          // price={result.price}
+          // engine={result.engine}
+          // transmission={result.transmission}
+          // vin={result.vin}
+          // fuelConsumption={result.fuelConsumption}
+          // exteriorColor={result.exteriorColor}
+          // interiorColor={result.interiorColor}
+          // fuelType={result.fuelType}
+          // vehicleYear={result.vehicleYear}
+          // condition={result.condition}
+          // _id={result._id}
         />
       )),
     [TOP_SELLING_VEHICLE, visibleCar],
