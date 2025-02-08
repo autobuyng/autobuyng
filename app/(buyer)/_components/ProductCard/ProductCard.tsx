@@ -13,28 +13,32 @@ import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
 
-export const ProductCard = ({
-  _id,
-  make,
-  images,
-  vehicleModel,
-  condition,
-  liked,
-  // vehicleYear,
-  // vehicleTypeId,
-  mileage,
-  // vin,
-  // fuelType,
-  // transmission,
-  // exteriorColor,
-  // interiorColor,
-  price,
-  // fuelConsumption,
-}: Vehicle) => {
+type ProductCardProps = {
+  vehicle: Vehicle;
+  likedVehicle?: Set<string>;
+};
+export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
+  const {
+    _id,
+    make,
+    images,
+    vehicleModel,
+    condition,
+
+    // vehicleYear,
+    // vehicleTypeId,
+    mileage,
+    // vin,
+    // fuelType,
+    // transmission,
+    // exteriorColor,
+    // interiorColor,
+    price,
+    // fuelConsumption
+  } = vehicle;
   const router = useRouter();
   const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
-  const [isLiked, setIsLiked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
 
@@ -54,17 +58,14 @@ export const ProductCard = ({
       return;
     }
 
-    const newLikedState = !liked;
-    setIsLiked(newLikedState);
     try {
       const response = await likeVehicle({ vehicleId: id });
       console.log(response);
     } catch (error) {
-      setIsLiked(!newLikedState);
       console.log(error, 'error');
     }
   };
-  console.log(liked, 'liked');
+
   return (
     <div className="rounded-[12px] shadow-md">
       <div className="relative max-w-full md:max-w-full w-full h-[230px]">
@@ -76,8 +77,8 @@ export const ProductCard = ({
         >
           <Heart
             className={cn({
-              'text-red-500 fill-current': liked || isLiked,
-              '': !liked || isLiked,
+              'text-red-500 fill-current': likedVehicle?.has(_id),
+              '': !likedVehicle?.has(_id),
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}

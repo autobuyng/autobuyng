@@ -49,8 +49,9 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       if (response && (response.status === 401 || response.status === 403)) {
         const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
         const isSeller = currentPath.startsWith('/sell-a-car');
+        const isBuyerPrivate = currentPath.startsWith('/payment/');
 
-        console.log(currentPath, 'currentPath');
+        console.log(isBuyerPrivate, currentPath, 'currentPath');
 
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
@@ -59,7 +60,9 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
             (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
         } else {
           removeSessionItem('accessToken');
-          window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+          if (isBuyerPrivate) {
+            window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+          }
         }
       }
 

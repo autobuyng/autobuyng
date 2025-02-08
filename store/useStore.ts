@@ -3,10 +3,9 @@ import { Address, FilterProps, Profile, SearchResponseData, User } from '@/types
 import { create } from 'zustand';
 
 const default_filters = getSessionItem('filters');
-const DEFAULT_FILTERS: FilterProps = {
+export const DEFAULT_FILTERS: FilterProps = {
   year: {
     min_year: '2009',
-    max_year: '',
   },
   price: {
     min_price: 5000000,

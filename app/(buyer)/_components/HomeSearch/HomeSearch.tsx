@@ -8,7 +8,7 @@ import useDetectOS from '@/hooks/useDetectOs';
 import { useForm } from 'react-hook-form';
 import { FilterProps, SearchQuery } from '@/types/types';
 import { useSearchVehicle } from '../../api/search';
-import { useStore } from '@/store/useStore';
+import { DEFAULT_FILTERS, useStore } from '@/store/useStore';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -25,16 +25,19 @@ const HomeSearch = () => {
 
   const handleSearch = async () => {
     try {
-      const updatedData = {
+      const updatedData: Partial<SearchQuery> = {
+        yearMin: DEFAULT_FILTERS.year.min_year,
         ...(filters.make && { make: filters.make }),
         ...(filters.model && { model: filters.model }),
-        ...(filters.year && { yearMax: filters.year.max_year }),
+        ...(filters.year.max_year && { yearMax: filters.year.max_year }),
       };
+
       const response = await search(updatedData);
       setHomePageSearchResult(response.data);
-      router.push(`/results/keyword=${filters.make}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      router.push(`/results/keyword=${filters.make ? filters.make : ''}`);
     }
   };
 

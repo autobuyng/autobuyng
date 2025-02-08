@@ -1,13 +1,12 @@
 'use client';
-import React, { Suspense, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+// import { v4 as uuidv4 } from 'uuid';
+// import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import '../vehicle.css';
-import { AppContext } from '@/context/AppContext';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
 // import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
@@ -37,7 +36,7 @@ import { useStore } from '@/store/useStore';
 import VehicleDetailsError from '@/constants/TableData';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
-  const { vehicleList, vehicleId, setVehicleId } = useContext(AppContext);
+  // const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
   const pathname = usePathname();
   const { isMobile } = useIsMobile();
@@ -52,7 +51,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   // const [userData, setUserData] = useState<User | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
-  const { getVehicle, isPending, isError, error } = useGetVehicle();
+  const { getVehicle, getCachedVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
   // const { getUser } = useGetUser();
 
@@ -62,8 +61,14 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handleGetVehicle = async () => {
     try {
-      const response = await getVehicle({ vehicleId: params.id });
-      setVehicleData(response.data);
+      const response1 = getCachedVehicle(params.id);
+
+      if (response1) {
+        setVehicleData(response1.data);
+      } else {
+        const response = await getVehicle({ vehicleId: params.id });
+        setVehicleData(response.data);
+      }
     } catch (error) {
       console.log(error, 'error');
     }
@@ -109,10 +114,10 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     setIsOpen(false);
   };
 
-  const handleView = (id: string) => {
-    setVehicleId(id);
-    router.push(`/vehicle/${uuidv4()}`);
-  };
+  // const handleView = (id: string) => {
+  //   setVehicleId(id);
+  //   router.push(`/vehicle/${uuidv4()}`);
+  // };
 
   if (isError) {
     return <VehicleDetailsError error={error.message} />;
@@ -120,14 +125,15 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full mb-32">
-      <div className="hidden  min-[1124px]:flex items-center bg-[#EDF4FF80]  h-[180px]">
+      <div className="hidden  min-[1124px]:flex items-center bg-[#EDF4FF80]">
         <MaxWidthWrapper>
           <div>
-            <h1>
-              Home/Search Result/ <span className="font-semibold">{vehicleData?.make}</span>
+            <h1 className="py-4">
+              Home/Search Result/ <span className="font-semibold">{vehicleData?.make}</span>/{' '}
+              <span className="font-semibold">{vehicleData?.vin}</span>
             </h1>
 
-            <Suspense
+            {/* <Suspense
               fallback={
                 <div className="h-full w-full flex justify-center items-center text-4xl font-bold">
                   Loading...
@@ -169,7 +175,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   <button>Next</button> <ArrowRight />
                 </div>
               </div>
-            </Suspense>
+            </Suspense> */}
           </div>
         </MaxWidthWrapper>
       </div>
@@ -178,14 +184,14 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
         <MaxWidthWrapper>
           {(isLoading || isPending) && <LoadingSkeleton />}
           {!isLoading && !isPending && (
-            <div className=" w-full flex flex-col md:flex-row justify-center gap-4">
+            <div className=" w-full px-4 flex flex-col md:flex-row justify-center gap-4">
               <div className="bg-white px-4 flex-[3]">
                 <div
                   className={cn('max-w-[800px] h-fit ', {
                     'max-w-[900px] h-fit  ': os === 'macOS',
                   })}
                 >
-                  <ImageSlider ImageUrls={vehicleData?.images as string[]} />
+                  <ImageSlider ImageUrls={vehicleData?.images as string[]} id={params.id} />
                 </div>
                 <div className="my-2 space-y-2">
                   <div className="flex items-center justify-between">
@@ -198,7 +204,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   </div>
 
                   <div className="space-x-1 flex items-center">
-                    <span className="text-neutral-700 font-semibold">{vehicleData?.mileage}</span>
+                    <span className="text-neutral-700 font-semibold">
+                      {Number(vehicleData?.mileage) / 1000}k miles
+                    </span>
                     <span>|</span>
                     <span className="text-xl font-bold tracking-wide">
                       {formatCurrency(vehicleData?.price)}
@@ -206,7 +214,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   </div>
 
                   <div className="   min-[480px]:flex space-y-2 items-center justify-between">
-                    <p className="flex items-center justify-center gap-2 bg-[#CCE0FF] px-2 w-fit h-[29px] rounded-[50px] text-sm">
+                    <p className="flex items-center justify-center gap-2 border border-[#CCE0FF] px-2 w-fit h-[29px] rounded-[50px] text-sm">
                       <span className="text-primary-900">VIN</span>
                       <span>{vehicleData?.vin}</span>
                     </p>
@@ -355,26 +363,28 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  gap-y-10 gap-x-8 sm:gap-4 ">
                 {!similarVehicleLoading &&
                   similarVehicle &&
-                  similarVehicle?.map((result) => {
+                  similarVehicle?.map((result, index) => {
                     return (
                       <ProductCard
-                        key={result._id}
-                        make={result.make}
-                        images={result.images}
-                        vehicleModel={result.vehicleModel}
-                        mileage={result.mileage}
-                        vehicleType={[]}
-                        price={result.price}
-                        engine={result.engine}
-                        transmission={result.transmission}
-                        vin={result.vin}
-                        fuelConsumption={result.fuelConsumption}
-                        exteriorColor={result.exteriorColor}
-                        interiorColor={result.interiorColor}
-                        fuelType={result.fuelType}
-                        vehicleYear={result.vehicleYear}
-                        condition={result.condition}
-                        _id={result._id}
+                        key={index}
+                        vehicle={result}
+                        // key={result._id}
+                        // make={result.make}
+                        // images={result.images}
+                        // vehicleModel={result.vehicleModel}
+                        // mileage={result.mileage}
+                        // vehicleType={[]}
+                        // price={result.price}
+                        // engine={result.engine}
+                        // transmission={result.transmission}
+                        // vin={result.vin}
+                        // fuelConsumption={result.fuelConsumption}
+                        // exteriorColor={result.exteriorColor}
+                        // interiorColor={result.interiorColor}
+                        // fuelType={result.fuelType}
+                        // vehicleYear={result.vehicleYear}
+                        // condition={result.condition}
+                        // _id={result._id}
                       />
                     );
                   })}

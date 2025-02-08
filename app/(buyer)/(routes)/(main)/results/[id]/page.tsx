@@ -31,7 +31,6 @@ const Results = () => {
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
   const prevFilters = useRef(filters);
-
   const { search, isPending, isError, error } = useSearchVehicle();
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword');
@@ -40,8 +39,6 @@ const Results = () => {
     try {
       const response = await search(data);
       setSearchResult(response.data);
-      console.log(response.data, 'response');
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -76,8 +73,6 @@ const Results = () => {
     setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
-
-
 
   return (
     <main className="mb-24">

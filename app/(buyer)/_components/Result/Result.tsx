@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { SkeletonCard } from '@/components/Loader/SkeletonCard';
 import { SearchResponseData } from '@/types/types';
+import { useGetFavoriteVehicle } from '@/app/(buyer)/api/user';
 
 type ResultProps = {
   isPending: boolean;
@@ -17,6 +18,16 @@ type ResultProps = {
 const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
   const { isMobile } = useIsMobile();
   const displayFormat = true;
+  const [likedVehicle, setLikedVehicle] = useState<Set<string>>(new Set());
+
+  const { data: favoriteVehicle } = useGetFavoriteVehicle();
+
+  useEffect(() => {
+    if (favoriteVehicle) {
+      const likedCars = new Set(favoriteVehicle?.likedVehicles.map(({ _id }) => _id));
+      setLikedVehicle(likedCars);
+    }
+  }, [searchResult, favoriteVehicle]);
 
   if (isPending) {
     return (
@@ -62,24 +73,26 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
             return (
               <div key={result._id}>
                 <ProductCard
-                  key={result._id}
-                  make={result.make}
-                  images={result.images}
-                  vehicleModel={result.vehicleModel}
-                  mileage={result.mileage}
-                  vehicleType={result.vehicleType}
-                  price={result.price}
-                  engine={result.engine}
-                  transmission={result.transmission}
-                  vin={result.vin}
-                  fuelConsumption={result.fuelConsumption}
-                  exteriorColor={result.exteriorColor}
-                  interiorColor={result.interiorColor}
-                  fuelType={result.fuelType}
-                  vehicleYear={result.vehicleYear}
-                  condition={result.condition}
-                  liked={result.liked}
-                  _id={result._id}
+                  vehicle={result}
+                  likedVehicle={likedVehicle}
+                  // key={result._id}
+                  // make={result.make}
+                  // images={result.images}
+                  // vehicleModel={result.vehicleModel}
+                  // mileage={result.mileage}
+                  // vehicleType={result.vehicleType}
+                  // price={result.price}
+                  // engine={result.engine}
+                  // transmission={result.transmission}
+                  // vin={result.vin}
+                  // fuelConsumption={result.fuelConsumption}
+                  // exteriorColor={result.exteriorColor}
+                  // interiorColor={result.interiorColor}
+                  // fuelType={result.fuelType}
+                  // vehicleYear={result.vehicleYear}
+                  // condition={result.condition}
+                  // liked={result.liked}
+                  // _id={result._id}
                 />
               </div>
             );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import Profile from '@/components/Navbar/assets/Profile.svg';
@@ -9,6 +9,7 @@ import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
+import { clearSessionStorage } from '@/lib/Sessionstorage';
 
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,7 +18,8 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
   const router = useRouter();
-  const { user } = useStore();
+  const pathName = usePathname();
+  const { user, setUser } = useStore();
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -45,6 +47,15 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
     { id: '2', text: 'favorites', path: 'favorites', Icon: Save },
     // { id: '3', text: 'My Account', path: 'accounts', Icon: Profile },
   ];
+
+  const handleLogOut = () => {
+    if (pathName.startsWith('/payment')) {
+      router.push('/results/keyword');
+    }
+    setUser(null);
+    window.location.reload();
+    clearSessionStorage();
+  };
 
   return (
     <div className="mt-8 md:mt-0">
@@ -84,7 +95,10 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
         )}
 
         {user && (
-          <button className="w-full block bg-primary-900 text-white items-center py-2.5 rounded-md">
+          <button
+            onClick={handleLogOut}
+            className="w-full block bg-primary-900 text-white items-center py-2.5 rounded-md"
+          >
             Log out
           </button>
         )}

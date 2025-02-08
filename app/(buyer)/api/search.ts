@@ -1,11 +1,11 @@
-import { endpoints, mutator } from '@/axios';
+import { endpoints, mutator, queryKeys } from '@/axios';
 import {
   ApiResponse,
   SearchQuery,
   SimilarVehicleApiResponse,
   SingleVehicleResponse,
 } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useSearchVehicle() {
@@ -35,7 +35,7 @@ export function useSearchVehicle() {
 }
 
 export function useLikeVehicle() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, error, isError } = useMutation<
     ApiResponse,
     any,
@@ -44,7 +44,7 @@ export function useLikeVehicle() {
     mutationFn: (values: { vehicleId: string }) =>
       mutator({ method: 'PUT', data: values, url: endpoints.search.likevehicle(values) }),
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getFavoriteVehicle });
     },
   });
 
@@ -60,7 +60,7 @@ export function useLikeVehicle() {
   );
 }
 export function useGetVehicle() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, error, isError } = useMutation<
     SingleVehicleResponse,
     any,
@@ -68,16 +68,19 @@ export function useGetVehicle() {
   >({
     mutationFn: (values: { vehicleId: string }) =>
       mutator({ method: 'GET', data: values, url: endpoints.search.getvehicle(values) }),
-    onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(['vehicle', variables.vehicleId], data); // Cache result
     },
   });
 
-  console.log(isError, 'from searchapi');
+  const getCachedVehicle = (vehicleId: string) => {
+    return queryClient.getQueryData<SingleVehicleResponse>(['vehicle', vehicleId]);
+  };
 
   return useMemo(
     () => ({
       getVehicle: mutateAsync,
+      getCachedVehicle,
       data,
       isPending,
       error,

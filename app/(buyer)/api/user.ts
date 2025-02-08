@@ -144,7 +144,7 @@ export function useGetFavoriteVehicle() {
   return useMemo(
     () => ({
       data,
-      userRefetch: refetch,
+      refetch,
       isError,
       isLoading,
     }),

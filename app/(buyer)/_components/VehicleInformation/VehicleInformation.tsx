@@ -32,6 +32,14 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-6">
             <div>
               <h1 className="text-[20px] leading-[25px] font-medium">
+                {capitalizeFirstLetter(vehicleData?.vehicleType) || 'N/A'}
+              </h1>
+              <p className="bg-primary-100 text-primary-900 w-[101px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
+                Body type
+              </p>
+            </div>
+            <div>
+              <h1 className="text-[20px] leading-[25px] font-medium">
                 {capitalizeFirstLetter(vehicleData?.interiorColor) || 'N/A'}
               </h1>
               <p className="bg-primary-100 text-primary-900 w-[101px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
@@ -67,7 +75,9 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
             </div>
 
             <div>
-              <h1 className="text-[20px] leading-[25px] font-medium">{'N/A'}</h1>
+              <h1 className="text-[20px] leading-[25px] font-medium">
+                {capitalizeFirstLetter(vehicleData?.exteriorColor) || 'N/A'}
+              </h1>
               <p className="bg-primary-100 text-primary-900 w-[101px] h-[25px] flex items-center justify-center text-sm rounded-[50px]">
                 Exterior color
               </p>

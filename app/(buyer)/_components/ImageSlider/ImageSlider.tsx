@@ -15,21 +15,40 @@ import {
 
 import ArrowRight from '@/app/(buyer)/assets/ArrowRight.svg';
 import ArrowLeft from '@/app/(buyer)/assets/ArrowLeft.svg';
-import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/Photo.svg';
 import { cn } from '@/lib/utils';
 import Autobuy from '../../../../public/icons/buyer.svg';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useStore } from '@/store/useStore';
+import { useLikeVehicle } from '../../api/search';
+import AuthDialog from '@/app/auth';
+import { useGetFavoriteVehicle } from '@/app/(seller)/api/user';
+import { Heart } from 'lucide-react';
 
 type ImageSliderProp = {
   ImageUrls: (StaticImageData | string)[];
+  id: string;
 };
 
-const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
+const ImageSlider = ({ ImageUrls, id }: ImageSliderProp) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disableLeftButton, setDisableLeftButton] = useState(true);
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [showSliderModal, setShowSlidermodal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [likedVehicle, setLikedVehicle] = useState<Set<string>>(new Set());
+  const [type, setType] = useState('signin');
+  const { user } = useStore();
+  const { likeVehicle } = useLikeVehicle();
+
+  const { data: favoriteVehicle } = useGetFavoriteVehicle();
+
+  useEffect(() => {
+    if (favoriteVehicle) {
+      const likedCars = new Set(favoriteVehicle?.likedVehicles.map(({ _id }) => _id));
+      setLikedVehicle(likedCars);
+    }
+  }, [favoriteVehicle]);
 
   const showNextImage = () => {
     setDisableLeftButton(false);
@@ -64,6 +83,23 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
+
+  const handleLikeVehhicle = async () => {
+    if (!user) {
+      setIsOpen(true);
+      return;
+    }
+
+    // const newLikedState = !liked;
+    // setIsLiked(newLikedState);
+    try {
+      const response = await likeVehicle({ vehicleId: id });
+      console.log(response);
+    } catch (error) {
+      // setIsLiked(!newLikedState);
+      console.log(error, 'error');
+    }
+  };
 
   return (
     <div className="w-full">
@@ -112,8 +148,16 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
           </button>
         </div>
 
-        <button className="absolute top-4 right-5 h-8 w-8  rounded-[50%] bg-black/55 p-1 flex items-center justify-center">
-          <Image src={Save} alt="Save" />
+        <button
+          onClick={handleLikeVehhicle}
+          className="absolute top-4 right-5 h-8 w-8  rounded-[50%] bg-black/55 p-1 flex items-center justify-center"
+        >
+          <Heart
+            className={cn({
+              'text-red-500 fill-current': likedVehicle?.has(id),
+              '': !likedVehicle?.has(id),
+            })}
+          />
         </button>
         <button className="absolute bottom-2 right-4  text-white rounded-[30px] bg-[#00000073] p-1 flex items-center justify-center gap-1.5">
           <span>
@@ -129,6 +173,14 @@ const ImageSlider = ({ ImageUrls }: ImageSliderProp) => {
         setIsOpen={setShowSlidermodal}
         ImageUrls={ImageUrls}
         setCurrentIndex={setCurrentIndex}
+      />
+
+      <AuthDialog
+        isOpen={isOpen}
+        handleOpenChange={() => setIsOpen(false)}
+        setIsOpen={setIsOpen}
+        type={type}
+        setType={setType}
       />
     </div>
   );
