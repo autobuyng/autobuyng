@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { FilterProps, SearchQuery } from '@/types/types';
 import { useSearchVehicle } from '../../api/search';
 import { DEFAULT_FILTERS, useStore } from '@/store/useStore';
+import { EnhancedSearchableDropdown } from '@/components/SearchableDropdown/SearchableDropdown';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -46,7 +47,7 @@ const HomeSearch = () => {
     { id: 2, text: 'New', key: 'new' },
     { id: 3, text: 'Used', key: 'used' },
   ];
-
+  console.log(filters, 'searchable');
   return (
     <main
       className={cn(
@@ -84,12 +85,12 @@ const HomeSearch = () => {
           })}
         </div>
 
-        <div className="w-full py-2">
+        <div className="w-full py-1">
           <input
             {...register('keyword')}
             type="text"
             placeholder="Search by make or model"
-            className="block w-full h-[56px] px-5 border border-neutral-700 outline-none rounded-md placeholder:text-xs"
+            className="block w-full h-[40px] px-5 border border-neutral-700 outline-none rounded-md placeholder:text-xs"
           />
         </div>
 
@@ -102,72 +103,25 @@ const HomeSearch = () => {
         <div className="flex flex-col gap-4 items-center justify-between mt-4">
           <div className="flex flex-col items-center w-full gap-4 ">
             <div className="w-full">
-              <select
-                id="vehicleType"
+              <EnhancedSearchableDropdown
+                options={CAR_BRANDS}
+                placeholder="Select vehicle make"
                 onChange={(input) => {
                   setFilters(
                     (prev: FilterProps): FilterProps => ({
                       ...prev,
-                      make: input.target.value,
+                      make: input,
                     }),
                   );
                 }}
-                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
-              >
-                <option value="">Select vehicle make</option>
-
-                {CAR_BRANDS.map((type, index) => (
-                  <option key={index} value={type.name}>
-                    {type.name}
-                  </option>
-                ))}
-              </select>
-              {/* <SelectInput
-                list={CAR_BRANDS}
-                title="Make/Model"
-                setSelectedInput={(input) => {
-                  setFilters(
-                    (prev: FilterProps): FilterProps => ({
-                      ...prev,
-                      make: input as string,
-                    }),
-                  );
-                }}
-                selectedInput={filters.make as string}
-                width="w-full"
-                height="h-12"
-              /> */}
+              />
             </div>
-            {/* <div className="flex w-full gap-3"> */}
-            <div className="w-full">
-              <select
-                id="vehicleType"
-                onChange={(input) => {
-                  console.log(input, 'input');
-                  setFilters(
-                    (prev: FilterProps): FilterProps => ({
-                      ...prev,
-                      price: {
-                        max_price: Number(input.target.value),
-                      },
-                    }),
-                  );
-                }}
-                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none "
-              >
-                <option value="">Select vehicle price</option>
 
-                {PRICE_RANGE.map((type, index) => (
-                  <option key={index} value={type.label}>
-                    {type.name}
-                  </option>
-                ))}
-              </select>
-              {/* <SelectInput
-                list={PRICE_RANGE}
-                title="Price"
-                setSelectedInput={(input) => {
-                  // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
+            <div className="w-full">
+              <EnhancedSearchableDropdown
+                options={PRICE_RANGE}
+                placeholder="Select price range"
+                onChange={(input) => {
                   setFilters(
                     (prev: FilterProps): FilterProps => ({
                       ...prev,
@@ -177,55 +131,25 @@ const HomeSearch = () => {
                     }),
                   );
                 }}
-                selectedInput={String(filters.price.max_price)}
-                width="w-full "
-                height="h-12"
-              /> */}
+              />
             </div>
+
             <div className="w-full">
-              <select
-                id="vehicleType"
+              <EnhancedSearchableDropdown
+                options={YEAR}
+                placeholder="Select vehicle year"
                 onChange={(input) => {
                   setFilters(
                     (prev: FilterProps): FilterProps => ({
                       ...prev,
                       year: {
                         ...prev.year,
-                        max_year: input.target.value,
+                        max_year: input,
                       },
                     }),
                   );
                 }}
-                className="block w-full rounded-md  px-2 py-[9px] mt-1  text-black  border border-neutral-900  text-sm outline-none  "
-              >
-                <option className="text-gray-400" value="">
-                  Select vehicle year
-                </option>
-
-                {YEAR.map((type, index) => (
-                  <option key={index} value={type.name}>
-                    {type.name}
-                  </option>
-                ))}
-              </select>
-              {/* <SelectInput
-                list={YEAR}
-                title="Year"
-                setSelectedInput={(input) => {
-                  setFilters(
-                    (prev: FilterProps): FilterProps => ({
-                      ...prev,
-                      year: {
-                        ...prev.year,
-                        max_year: input as string,
-                      },
-                    }),
-                  );
-                }}
-                selectedInput={filters.year.max_year}
-                width="w-full "
-                height="h-12"
-              /> */}
+              />
             </div>
             {/* </div> */}
           </div>

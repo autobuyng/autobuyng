@@ -26,8 +26,8 @@ export type VEHICLE_SEARCH_RESULTS_PROPS = {
 export type FilterProps = {
   [key: string]: any;
   year: {
-    min_year: string; // Corresponds to yearMin in the query
-    max_year: string; // Corresponds to yearMax in the query
+    min_year?: string; // Corresponds to yearMin in the query
+    max_year?: string; // Corresponds to yearMax in the query
   };
   make?: string; // Corresponds to make in the query
   model?: string; // Corresponds to vehicleModel in the query

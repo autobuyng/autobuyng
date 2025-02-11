@@ -61,6 +61,55 @@ export function useRegister() {
     [mutateAsync, data, isPending, error, isError],
   );
 }
+export function useRegisterWithGoogle() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    IAccountCreationResponse,
+    any
+  >({
+    mutationFn: () =>
+      mutator({ method: 'GET', url: 'https://autobuy-latest.onrender.com/api/v1/auth/google' }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      googleSignup: mutateAsync,
+      data,
+      isRegistering: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useRegisterWithFaceBook() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    IAccountCreationResponse,
+    any,
+    IRegistrationPayload
+  >({
+    mutationFn: (values: IRegistrationPayload) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.register }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      signup: mutateAsync,
+      data,
+      isRegistering: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
 export function useGetUser() {
   // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<UserResponse, any>({

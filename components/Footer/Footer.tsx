@@ -68,7 +68,7 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
             <p className="flex flex-col md:flex-row items-start gap-2 md:gap-6 ">
               <Link href={'/terms-and-condition'}> Terms and condition</Link>
               <span className="text-primary-500 hidden md:block">|</span>
-              <Link href={'/terms-and-condition'}> Responsible Disclosure</Link>
+              <Link href={'/responsible-disclosure'}> Responsible Disclosure</Link>
               <span className="text-primary-500 hidden md:block">|</span>
               <Link href={'/terms-and-condition'}> Provacy Policy</Link>
             </p>

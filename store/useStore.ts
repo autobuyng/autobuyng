@@ -8,7 +8,7 @@ export const DEFAULT_FILTERS: FilterProps = {
     min_year: '2009',
   },
   price: {
-    min_price: 5000000,
+    // min_price: 5000000,
   },
   ...default_filters,
 };

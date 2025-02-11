@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
+import MobileLogo from '../../public/icons/buyer.svg';
 
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
@@ -91,14 +92,15 @@ const Navbar = () => {
     <header className="h-[60px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 relative h-10 w-10  md:w-32 md:h-16">
             <Image
-              src={Autobuy}
+              src={isMobile ? MobileLogo : Autobuy}
               alt="Autobuy"
-              width={168}
-              height={56}
+              // width={168}
+              // height={56}
+              fill
               priority
-              className="cursor-pointer"
+              className="cursor-pointer w-full h-full"
               onClick={() => router.push('/')}
             />
           </div>

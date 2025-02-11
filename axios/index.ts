@@ -105,6 +105,8 @@ export const endpoints = {
   auth: {
     login: '/auth/login',
     register: '/auth/register/buyer',
+    registerWithGoogle: '/auth/google',
+    registerWithFacebook: '/auth/facebook',
     registerseller: 'auth/register/seller',
     resentToken: '/auth/resend-token',
     currentUser: '/auth/profile',
