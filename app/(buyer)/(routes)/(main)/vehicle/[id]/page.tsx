@@ -184,8 +184,8 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
         <MaxWidthWrapper>
           {(isLoading || isPending) && <LoadingSkeleton />}
           {!isLoading && !isPending && (
-            <div className=" w-full px-4 flex flex-col md:flex-row justify-center gap-4">
-              <div className="bg-white px-4 flex-[3]">
+            <div className=" w-full   md:px-4 flex flex-col lg:flex-row justify-center gap-4">
+              <div className="bg-white md:px-4 flex-[3]">
                 <div
                   className={cn('max-w-[800px] h-fit ', {
                     'max-w-[900px] h-fit  ': os === 'macOS',
@@ -198,7 +198,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     <p className="font-[600] text-2xl">
                       {vehicleData?.make} {vehicleData?.vehicleModel}
                     </p>
-                    <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+                    <p className="text-white bg-primary-700 px-3 py-1 rounded-tl-[10px] rounded-br-[10px]">
                       {capitalizeFirstLetter(vehicleData?.condition)}
                     </p>
                   </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import Image, { StaticImageData } from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -106,7 +107,7 @@ const ImageSlider = ({ ImageUrls, id }: ImageSliderProp) => {
       <div className="w-full relative overflow-hidden">
         <div
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          className="flex w-full h-[500px]   items-center transition-transform duration-500 ease-in-out "
+          className="flex w-full h-[350px]  md:h-[500px]   items-center transition-transform duration-500 ease-in-out "
         >
           {ImageUrls &&
             ImageUrls.map((image, index) => {
@@ -153,7 +154,7 @@ const ImageSlider = ({ ImageUrls, id }: ImageSliderProp) => {
           className="absolute top-4 right-5 h-8 w-8  rounded-[50%] bg-black/55 p-1 flex items-center justify-center"
         >
           <Heart
-            className={cn({
+            className={cn(`text-white`, {
               'text-red-500 fill-current': likedVehicle?.has(id),
               '': !likedVehicle?.has(id),
             })}

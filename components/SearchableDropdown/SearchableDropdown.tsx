@@ -62,7 +62,7 @@ export function EnhancedSearchableDropdown({
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.name);
+    setSearchTerm(e.target.value);
     setHighlightedIndex(-1);
   };
 

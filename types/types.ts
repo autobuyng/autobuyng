@@ -166,6 +166,22 @@ interface VehicleReliabilityScore {
   accessories: number;
 }
 
+type Features = {
+  comfort: string[];
+  entertainment: string[];
+  tech: string[];
+  interior: string[];
+  exterior: string[];
+  mechanical: string[];
+  safety: string[];
+  performance: string[];
+  convenience: string[];
+  offRoad: string[];
+  sustainabilityAndEfficiency: string[];
+  advancedDriverAssistanceSystems: string[];
+  luxury: string[];
+};
+
 export type VehicleData = {
   _id: string;
   sellerId: string;
@@ -183,7 +199,7 @@ export type VehicleData = {
   driveTrain: string;
   price: number;
   fuelConsumption: string;
-  features: string[];
+  features: Features;
   reliabilityScore: VehicleReliabilityScore;
   images: string[];
   note: string | null;
