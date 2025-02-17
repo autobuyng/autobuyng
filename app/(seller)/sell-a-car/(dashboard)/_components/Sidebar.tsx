@@ -2,7 +2,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import Logout from '@/app/(seller)/sell-a-car/(dashboard)/assets/logout.svg';
 
 import {

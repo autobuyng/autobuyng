@@ -4,6 +4,7 @@ import './globals.css';
 import AppProvider from '@/context/AppContext';
 import { ReactQuery } from '@/Providers/QueryProvider';
 import { Toaster } from '@/components/ui/toaster';
+import NextProgressBar from '@/Providers/NextProgressBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,8 +23,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQuery>
           <AppProvider>
-            {children}
-            <Toaster />
+            <NextProgressBar>
+              {children}
+              <Toaster />
+            </NextProgressBar>
           </AppProvider>
         </ReactQuery>
       </body>

@@ -34,6 +34,7 @@ const SelectInput = ({
   width,
   height,
 }: SelectInputProps) => {
+  console.log(selectedInput, 'selectedINput');
   return (
     <Select
       value={selectedInput}

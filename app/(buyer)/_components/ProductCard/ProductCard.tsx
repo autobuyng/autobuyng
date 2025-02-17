@@ -1,12 +1,11 @@
 'use client';
 import Image from 'next/image';
-import React, { useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useRouter } from 'next-nprogress-bar';
 
 import { Vehicle } from '@/types/types';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
-import { AppContext } from '@/context/AppContext';
 import { Heart } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
 import { useLikeVehicle } from '../../api/search';
@@ -37,17 +36,16 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     // fuelConsumption
   } = vehicle;
   const router = useRouter();
-  const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
 
   const { likeVehicle } = useLikeVehicle();
-  const handleOnViewDetails = (id: string) => {
-    setVehicleId(id);
+  // const handleOnViewDetails = (id: string) => {
+  //   setVehicleId(id);
 
-    router.push(`/vehicle/${_id}`);
-  };
+  //   router.push(`/vehicle/${_id}`);
+  // };
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -110,7 +108,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
 
         <div className="w-full cursor-pointer">
           <button
-            onClick={() => handleOnViewDetails(_id)}
+            onClick={() => router.push(`/vehicle/${_id}`)}
             className=" text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
           >
             View Details

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
@@ -84,7 +84,7 @@ const Navbar = () => {
     {
       id: '3',
       text: 'About Us',
-      path: 'about-us',
+      path: '/about-us',
     },
   ];
 

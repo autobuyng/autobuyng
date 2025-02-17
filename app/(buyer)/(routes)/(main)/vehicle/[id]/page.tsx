@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+
 // import { v4 as uuidv4 } from 'uuid';
 // import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -34,6 +35,7 @@ import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
 import VehicleDetailsError from '@/constants/TableData';
+import { useRouter } from 'next-nprogress-bar';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   // const { setVehicleId } = useContext(AppContext);

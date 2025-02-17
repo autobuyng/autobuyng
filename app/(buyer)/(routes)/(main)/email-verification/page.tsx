@@ -6,9 +6,9 @@ import { useVerifyEmail } from '@/app/(buyer)/api/auth';
 import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { getLocalItem } from '@/lib/localStorage';
-import { useRouter } from 'next/navigation';
 import { useStore } from '@/store/useStore';
 import { setSessionItem } from '@/lib/Sessionstorage';
+import { useRouter } from 'next-nprogress-bar';
 
 function VerifyEmailPage() {
   const { toast } = useToast();

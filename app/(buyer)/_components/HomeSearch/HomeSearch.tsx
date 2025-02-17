@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { CAR_BRANDS, PRICE_RANGE, YEAR } from '@/constants/constants';
@@ -10,6 +9,7 @@ import { FilterProps, SearchQuery } from '@/types/types';
 import { useSearchVehicle } from '../../api/search';
 import { DEFAULT_FILTERS, useStore } from '@/store/useStore';
 import { EnhancedSearchableDropdown } from '@/components/SearchableDropdown/SearchableDropdown';
+import { useRouter } from 'next-nprogress-bar';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
