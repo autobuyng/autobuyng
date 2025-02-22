@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
-import { usePathname, } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { setLocalItem } from '@/lib/localStorage';
 import { FilterProps } from '@/types/types';
 import { useStore } from '@/store/useStore';
@@ -16,7 +16,6 @@ const VehicleTypeFilters = () => {
   const { setFilters } = useStore();
   // const [, setVehicleType] = useState<string>('');
   const [visibleCards, setVisibleCards] = useState<number>(14);
-
 
   const showMoreCards = () => {
     setVisibleCards(Number(VEHICLE_BRAND.length));

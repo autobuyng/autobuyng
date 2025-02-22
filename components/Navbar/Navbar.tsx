@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
@@ -27,8 +27,8 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
-  const searchParams = useSearchParams()
-  const token = searchParams.get("token")
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
@@ -51,18 +51,17 @@ const Navbar = () => {
 
   const getUserData = async () => {
     setIsLoading(true);
-    console.log(token, "token")
+    console.log(token, 'token');
     try {
-
       if (token) {
-        console.log("token is true")
+        console.log('token is true');
         setLocalItem('accessToken', token);
         const response = await getUser();
         setUser(response.data.user);
         setProfile(response.data.profile);
         setAddress(response.data.addresses);
       } else {
-        console.log("token is not true")
+        console.log('token is not true');
         const response = await getUser();
         setUser(response.data.user);
         setProfile(response.data.profile);
@@ -91,10 +90,8 @@ const Navbar = () => {
   // }, [])
 
   useEffect(() => {
-
     setIsLoading(true);
     getUserData();
-
   }, []);
 
   const NAV_ITEMS = [
@@ -219,4 +216,13 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+// export default Navbar;
+
+
+const NavbarSuspenseWrapper = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <Navbar />
+  </Suspense>
+);
+
+export default NavbarSuspenseWrapper;

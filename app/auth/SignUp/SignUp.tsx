@@ -37,7 +37,7 @@ const SignUp = ({
   const os = useDetectOS();
   const { isMobile } = useIsMobile();
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -63,18 +63,15 @@ const SignUp = ({
   };
 
   const googleLogin = () => {
-    router.push("https://autobuy-latest.onrender.com/api/v1/auth/google");
+    router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
   };
   const faceBookLogin = () => {
-    router.push("https://autobuy-latest.onrender.com/api/v1/auth/facebook");
-
+    router.push('https://autobuy-latest.onrender.com/api/v1/auth/facebook');
   };
-
 
   const handlSocialSignup = (type: string) => {
     try {
       type === 'google' ? googleLogin() : faceBookLogin();
-
     } catch (error) {
       console.log(error);
     }
