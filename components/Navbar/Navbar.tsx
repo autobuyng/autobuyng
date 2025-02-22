@@ -17,7 +17,7 @@ import useIsMobile from '@/hooks/useIsMobile';
 import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
-import { setLocalItem } from '@/lib/localStorage';
+import { setSessionItem } from '@/lib/Sessionstorage';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 // import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
 // import { User } from '@/types/types';
@@ -46,35 +46,32 @@ const Navbar = () => {
   useEffect(() => {
     setLoading(isLoading);
   }, []);
-
   const getUserData = async () => {
     setIsLoading(true);
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
 
     try {
-      if (token) {
-        console.log('token is true');
-        setLocalItem('accessToken', token);
-        const response = await getUser();
-        setUser(response.data.user);
-        setProfile(response.data.profile);
-        setAddress(response.data.addresses);
-      } else {
-        console.log('token is not true');
-        const response = await getUser();
-        setUser(response.data.user);
-        setProfile(response.data.profile);
-        setAddress(response.data.addresses);
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
 
-        console.log(response.data.user);
+      if (token) {
+        setSessionItem("accessToken", token);
       }
+
+      // Fetch user data only once
+      const response = await getUser();
+      const { user, profile, addresses } = response.data;
+
+      // Set state
+      setUser(user);
+      setProfile(profile);
+      setAddress(addresses);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching user data:", error);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   // const handleGoogleRedirect = async () => {
   //   const token = searchParams.get("token")
