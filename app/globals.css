@@ -137,13 +137,11 @@
   color: black !important;
 } */
 
-
-
 .command-group [cmdk-group-heading] {
-  @apply text-lg font-semibold  ;
+  @apply text-lg font-semibold;
   font-size: 1.125rem !important;
   line-height: 1.75rem !important;
-  color: black!important;
+  color: black !important;
 }
 
 .command-group [cmdk-group] {
@@ -169,5 +167,3 @@
 [cmdk-empty] {
   @apply px-3 py-2 text-gray-500;
 }
-
-

@@ -1,6 +1,6 @@
 'use client';
 
-import {  useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next-nprogress-bar';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { Suspense, useEffect, useState } from 'react';

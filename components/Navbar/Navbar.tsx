@@ -17,6 +17,8 @@ import useIsMobile from '@/hooks/useIsMobile';
 import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
+import { useSearchParams } from 'next/navigation';
+import { setLocalItem } from '@/lib/localStorage';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 // import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
 // import { User } from '@/types/types';
@@ -25,6 +27,8 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
+  const searchParams = useSearchParams()
+  const token = searchParams.get("token")
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
@@ -47,14 +51,25 @@ const Navbar = () => {
 
   const getUserData = async () => {
     setIsLoading(true);
+    console.log(token, "token")
     try {
-      const response = await getUser();
-      if (response.status) {
+
+      if (token) {
+        console.log("token is true")
+        setLocalItem('accessToken', token);
+        const response = await getUser();
         setUser(response.data.user);
         setProfile(response.data.profile);
         setAddress(response.data.addresses);
+      } else {
+        console.log("token is not true")
+        const response = await getUser();
+        setUser(response.data.user);
+        setProfile(response.data.profile);
+        setAddress(response.data.addresses);
+
+        console.log(response.data.user);
       }
-      console.log(response.data.user);
     } catch (error) {
       console.log(error);
     } finally {
@@ -62,12 +77,24 @@ const Navbar = () => {
     }
   };
 
+  // const handleGoogleRedirect = async () => {
+  //   const token = searchParams.get("token")
+  //   console.log(token, "token")
+  //   if (token) {
+  //     setLocalItem('accessToken', token);
+
+  //     await getUser()
+  //   }
+  // }
+  // useEffect(() => {
+  //   handleGoogleRedirect()
+  // }, [])
+
   useEffect(() => {
-    // const accessToken = getSessionItem('accessToken');
-    // if (accessToken) {
+
     setIsLoading(true);
     getUserData();
-    // }
+
   }, []);
 
   const NAV_ITEMS = [

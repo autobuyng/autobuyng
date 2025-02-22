@@ -7,13 +7,18 @@ import Facebook from '@/components/Navbar/assets/Facebook.svg';
 
 import { cn } from '@/lib/utils';
 import { IRegistrationPayload, RegistrationSchema } from '@/Schema/authSchema';
-import { useRegister, useRegisterWithGoogle } from '@/app/(buyer)/api/auth';
+import {
+  useRegister,
+  // useRegisterWithFaceBook,
+  // useRegisterWithGoogle,
+} from '@/app/(buyer)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import Image from 'next/image';
 import useDetectOS from '@/hooks/useDetectOs';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useRouter } from 'next/navigation';
 
 const SignUp = ({
   setType,
@@ -32,11 +37,13 @@ const SignUp = ({
   const os = useDetectOS();
   const { isMobile } = useIsMobile();
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter()
 
   const { toast } = useToast();
 
   const { signup, isRegistering } = useRegister();
-  const { googleSignup } = useRegisterWithGoogle();
+  // const { googleSignup } = useRegisterWithGoogle();
+  // const { faceBookSignup } = useRegisterWithFaceBook();
 
   const handleRegisterUser: SubmitHandler<IRegistrationPayload> = async (data) => {
     setSignupData(data);
@@ -55,9 +62,19 @@ const SignUp = ({
     // Implement your registration logic here
   };
 
-  const handlSocialSignup = async () => {
+  const googleLogin = () => {
+    router.push("https://autobuy-latest.onrender.com/api/v1/auth/google");
+  };
+  const faceBookLogin = () => {
+    router.push("https://autobuy-latest.onrender.com/api/v1/auth/facebook");
+
+  };
+
+
+  const handlSocialSignup = (type: string) => {
     try {
-      await googleSignup();
+      type === 'google' ? googleLogin() : faceBookLogin();
+
     } catch (error) {
       console.log(error);
     }
@@ -215,7 +232,7 @@ const SignUp = ({
           >
             <div className="w-full">
               <button
-                onClick={handlSocialSignup}
+                onClick={() => handlSocialSignup('google')}
                 className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6"
               >
                 <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
@@ -223,7 +240,10 @@ const SignUp = ({
             </div>
 
             <div className="w-full">
-              <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
+              <button
+                onClick={() => handlSocialSignup('facebook')}
+                className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap"
+              >
                 <Image src={Facebook} alt="Facebook" />
                 <span> Sign up with Facebook</span>
               </button>

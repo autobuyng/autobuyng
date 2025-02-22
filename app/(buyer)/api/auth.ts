@@ -67,8 +67,7 @@ export function useRegisterWithGoogle() {
     IAccountCreationResponse,
     any
   >({
-    mutationFn: () =>
-      mutator({ method: 'GET', url: 'https://autobuy-latest.onrender.com/api/v1/auth/google' }),
+    mutationFn: () => mutator({ method: 'GET', url: endpoints.auth.registerWithGoogle }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
@@ -89,11 +88,9 @@ export function useRegisterWithFaceBook() {
   // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<
     IAccountCreationResponse,
-    any,
-    IRegistrationPayload
+    any
   >({
-    mutationFn: (values: IRegistrationPayload) =>
-      mutator({ method: 'POST', data: values, url: endpoints.auth.register }),
+    mutationFn: () => mutator({ method: 'GET', url: endpoints.auth.registerWithFacebook }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
@@ -101,7 +98,7 @@ export function useRegisterWithFaceBook() {
 
   return useMemo(
     () => ({
-      signup: mutateAsync,
+      faceBookSignup: mutateAsync,
       data,
       isRegistering: isPending,
       error,
