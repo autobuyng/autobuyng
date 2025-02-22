@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
@@ -17,7 +17,6 @@ import useIsMobile from '@/hooks/useIsMobile';
 import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
-import { useSearchParams } from 'next/navigation';
 import { setLocalItem } from '@/lib/localStorage';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 // import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
@@ -27,8 +26,7 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
@@ -51,7 +49,9 @@ const Navbar = () => {
 
   const getUserData = async () => {
     setIsLoading(true);
-    console.log(token, 'token');
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
     try {
       if (token) {
         console.log('token is true');
@@ -218,11 +218,10 @@ const Navbar = () => {
 
 // export default Navbar;
 
+// const NavbarSuspenseWrapper = () => (
+//   <Suspense fallback={<p>Loading...</p>}>
+//     <Navbar />
+//   </Suspense>
+// );
 
-const NavbarSuspenseWrapper = () => (
-  <Suspense fallback={<p>Loading...</p>}>
-    <Navbar />
-  </Suspense>
-);
-
-export default NavbarSuspenseWrapper;
+export default Navbar;
