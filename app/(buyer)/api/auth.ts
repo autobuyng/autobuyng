@@ -135,11 +135,10 @@ export function useGetAuthenticatedUser() {
     enabled: !!accessToken,
     queryFn: () => fetcher(endpoints.auth.currentUser),
   });
-  console.log(data, 'datra');
 
   return useMemo(
     () => ({
-      data: data?.user,
+      data: data,
       userRefetch: refetch,
       isLoading,
     }),

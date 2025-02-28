@@ -21,14 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextProgressBar>
         <ReactQuery>
-          <AppProvider>
-            <NextProgressBar>
+            <AppProvider>
               {children}
               <Toaster />
-            </NextProgressBar>
           </AppProvider>
         </ReactQuery>
+        </NextProgressBar>
       </body>
     </html>
   );

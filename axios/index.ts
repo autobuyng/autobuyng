@@ -51,13 +51,11 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
         const isSeller = currentPath.startsWith('/sell-a-car');
         const isBuyerPrivate = currentPath.startsWith('/payment/');
 
-        console.log(isBuyerPrivate, currentPath, 'currentPath');
-
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
-          removeSessionItem('sellerAccessToken');
-          currentPath !== '/sell-a-car' &&
-            (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
+          // removeSessionItem('sellerAccessToken');
+          // currentPath !==( '/sell-a-car') &&
+          //   (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
         } else {
           removeSessionItem('accessToken');
           if (isBuyerPrivate) {
@@ -78,7 +76,6 @@ export const usermgtApi = createAxiosInstance(ApiType.AUTOBUY);
 
 // Generic fetcher with improved type safety
 export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
-  console.log(url, 'userMgtApi');
   try {
     const res = await usermgtApi.get(url, { ...config });
     return res.data.data;

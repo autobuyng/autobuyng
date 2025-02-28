@@ -23,7 +23,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     images,
     vehicleModel,
     condition,
-
+    // liked,
     // vehicleYear,
     // vehicleTypeId,
     mileage,
@@ -41,28 +41,36 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
   const [type, setType] = useState('signin');
 
   const { likeVehicle } = useLikeVehicle();
-  // const handleOnViewDetails = (id: string) => {
-  //   setVehicleId(id);
 
-  //   router.push(`/vehicle/${_id}`);
-  // };
+
+
+  function toggleItem(set: Set<string> | undefined, item: string) {
+    if (set?.has(item)) {
+      set?.delete(item);
+    } else {
+      set?.add(item);
+    }
+  }
 
   const handleOpenChange = () => {
     setIsOpen(false);
   };
   const handleLikeVehhicle = async (id: string) => {
+
     if (!user) {
       setIsOpen(true);
       return;
     }
 
     try {
-      const response = await likeVehicle({ vehicleId: id });
-      console.log(response);
+      toggleItem(likedVehicle, id)
+      await likeVehicle({ vehicleId: id });
     } catch (error) {
+      likedVehicle?.delete(id)
       console.log(error, 'error');
     }
   };
+
 
   return (
     <div className="rounded-[12px] shadow-md">
@@ -76,7 +84,6 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
           <Heart
             className={cn({
               'text-red-500 fill-current': likedVehicle?.has(_id),
-              '': !likedVehicle?.has(_id),
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}

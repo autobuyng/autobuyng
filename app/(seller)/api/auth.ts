@@ -140,9 +140,9 @@ export function useResetPassword() {
   const { mutateAsync, data, isPending, isError, error } = useMutation<
     any,
     any,
-    { email: string; password: string }
+    { token: string; password: string }
   >({
-    mutationFn: (values: { email: string; password: string }) =>
+    mutationFn: (values: { token: string; password: string }) =>
       mutator({ method: 'POST', data: values, url: endpoints.auth.resetPassword }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });

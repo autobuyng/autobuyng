@@ -109,8 +109,7 @@ const Settings = () => {
               <h1 className=" font-bold text-xl mb-4">Secure your Account</h1>
 
               <div className="space-y-2 text-secondary-500">
-                <h1 className="">Change your password</h1>
-                <p className="">Forgot your password?</p>
+                <p className="cursor-pointer">Change your password</p>
               </div>
             </div>
           </div>

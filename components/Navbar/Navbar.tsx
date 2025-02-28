@@ -18,9 +18,7 @@ import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
 import { setSessionItem } from '@/lib/Sessionstorage';
-// import { getSessionItem } from '@/lib/Sessionstorage';
-// import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
-// import { User } from '@/types/types';
+
 
 const Navbar = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +31,8 @@ const Navbar = () => {
   const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
 
   const { getUser } = useGetUser();
+  // const { data,isLoading:isfetchingUser } = useGetAuthenticatedUser()
+  // console.log(data, "data")
 
   const handleOpenChange = () => {
     setIsOpen(false);
@@ -51,10 +51,10 @@ const Navbar = () => {
 
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get("token");
+      const token = urlParams.get('token');
 
       if (token) {
-        setSessionItem("accessToken", token);
+        setSessionItem('accessToken', decodeURIComponent(token));
       }
 
       // Fetch user data only once
@@ -66,12 +66,11 @@ const Navbar = () => {
       setProfile(profile);
       setAddress(addresses);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error('Error fetching user data:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
 
   // const handleGoogleRedirect = async () => {
   //   const token = searchParams.get("token")
@@ -181,7 +180,10 @@ const Navbar = () => {
                 </div>
               </div>
             ) : isLoading || loading ? (
-              <div className="flex gap-8">Loading...</div> // Replace with your loading indicator
+                <div className="flex items-center gap-2">
+                  <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
+                  <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
+                </div>
             ) : (
               <div className="flex gap-8">
                 <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">

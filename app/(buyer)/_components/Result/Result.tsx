@@ -34,8 +34,6 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
       <div className="grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, index) => (
           <SkeletonCard key={index} />
-          // <div key={index} className="h-40 bg-gray-200 animate-pulse rounded-lg">
-          // </div>
         ))}
       </div>
     );
@@ -75,24 +73,6 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
                 <ProductCard
                   vehicle={result}
                   likedVehicle={likedVehicle}
-                  // key={result._id}
-                  // make={result.make}
-                  // images={result.images}
-                  // vehicleModel={result.vehicleModel}
-                  // mileage={result.mileage}
-                  // vehicleType={result.vehicleType}
-                  // price={result.price}
-                  // engine={result.engine}
-                  // transmission={result.transmission}
-                  // vin={result.vin}
-                  // fuelConsumption={result.fuelConsumption}
-                  // exteriorColor={result.exteriorColor}
-                  // interiorColor={result.interiorColor}
-                  // fuelType={result.fuelType}
-                  // vehicleYear={result.vehicleYear}
-                  // condition={result.condition}
-                  // liked={result.liked}
-                  // _id={result._id}
                 />
               </div>
             );
