@@ -18,7 +18,7 @@ const ResetPassword = () => {
   } = useForm<IPassword>({ resolver: zodResolver(PasswordSchema) });
 
   const { toast } = useToast();
-  const searchParams = new URLSearchParams(document.location.search);
+  const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
 
   const { resetPassword } = useResetPassword();
