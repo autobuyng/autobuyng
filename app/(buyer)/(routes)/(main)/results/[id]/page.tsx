@@ -88,7 +88,6 @@ const Results = () => {
         <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={searchQuery} setSearch={setSearchQuery} />
-
           </div>
 
           <div className="flex items-start justify-between mt-6 w-full">

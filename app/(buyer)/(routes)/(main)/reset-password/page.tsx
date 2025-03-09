@@ -5,7 +5,6 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/app/(buyer)/api/auth';
-import { useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { IPassword, PasswordSchema } from '@/Schema/authSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +18,7 @@ const ResetPassword = () => {
   } = useForm<IPassword>({ resolver: zodResolver(PasswordSchema) });
 
   const { toast } = useToast();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(document.location.search);
   const token = searchParams.get('token');
 
   const { resetPassword } = useResetPassword();

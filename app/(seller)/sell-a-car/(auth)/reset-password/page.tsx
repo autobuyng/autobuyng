@@ -59,8 +59,8 @@ const ResetPassword = () => {
                   <div className="text-center pb-2">
                     <h1 className="font-medium text-[28px] sm:text-3xl">Reset your password?</h1>
                     <p>
-                      Enter your account&apos;s email address below and we&apos;ll send you an email to reset
-                      your password
+                      Enter your account&apos;s email address below and we&apos;ll send you an email
+                      to reset your password
                     </p>
                   </div>
 
