@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Steptop from '@/app/(seller)/assets/vectortop.svg';
 import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
-import { useSearchParams } from 'next/navigation';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
@@ -24,7 +23,7 @@ const ResetPassword = () => {
   } = useForm<IPassword>({ resolver: zodResolver(PasswordSchema) });
 
   const { toast } = useToast();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(document.location.search);
   const token = searchParams.get('token');
 
   const { resetPassword, isPending } = useResetPassword();
