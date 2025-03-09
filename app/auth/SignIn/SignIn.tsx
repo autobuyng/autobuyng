@@ -47,7 +47,7 @@ const SignIn = ({
       const response = await login(data);
       if (response.status === true) {
         toast({
-          description: "Logged in Successfully",
+          description: 'Logged in Successfully',
           position: 'top-right',
         });
         setUser(response.data.user);
@@ -119,7 +119,7 @@ const SignIn = ({
           <p
             onClick={() => {
               router.push('/forgot-password');
-              setIsOpen(false)
+              setIsOpen(false);
             }}
             className="text-xs text-primary-700 cursor-pointer"
           >

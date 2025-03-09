@@ -53,9 +53,9 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
 
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
-          // removeSessionItem('sellerAccessToken');
-          // currentPath !==( '/sell-a-car') &&
-          //   (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
+          removeSessionItem('sellerAccessToken');
+          currentPath !== '/sell-a-car' &&
+            (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
         } else {
           removeSessionItem('accessToken');
           if (isBuyerPrivate) {

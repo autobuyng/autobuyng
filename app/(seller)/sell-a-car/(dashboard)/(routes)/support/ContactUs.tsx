@@ -1,26 +1,26 @@
-"use client"
+'use client';
 
-import { useForm } from "react-hook-form"
-import { MessageCircle } from "lucide-react"
+import { useForm } from 'react-hook-form';
+import { MessageCircle } from 'lucide-react';
 
 type FormData = {
-  fullName: string
-  email: string
-  phone: string
-  message: string
-}
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
+};
 
 const ContactForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
+    console.log(data);
     // Handle form submission
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
@@ -43,9 +43,11 @@ const ContactForm = () => {
                   id="fullName"
                   placeholder="John Doe"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E85D4C] focus:border-transparent outline-none transition"
-                  {...register("fullName", { required: true })}
+                  {...register('fullName', { required: true })}
                 />
-                {errors.fullName && <span className="text-sm text-red-500">This field is required</span>}
+                {errors.fullName && (
+                  <span className="text-sm text-red-500">This field is required</span>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -57,14 +59,16 @@ const ContactForm = () => {
                   id="email"
                   placeholder="mail@example.com"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E85D4C] focus:border-transparent outline-none transition"
-                  {...register("email", {
+                  {...register('email', {
                     required: true,
                     pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   })}
                 />
                 {errors.email && (
                   <span className="text-sm text-red-500">
-                    {errors.email.type === "pattern" ? "Invalid email address" : "This field is required"}
+                    {errors.email.type === 'pattern'
+                      ? 'Invalid email address'
+                      : 'This field is required'}
                   </span>
                 )}
               </div>
@@ -78,9 +82,11 @@ const ContactForm = () => {
                   id="phone"
                   placeholder="081000111000"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E85D4C] focus:border-transparent outline-none transition"
-                  {...register("phone", { required: true })}
+                  {...register('phone', { required: true })}
                 />
-                {errors.phone && <span className="text-sm text-red-500">This field is required</span>}
+                {errors.phone && (
+                  <span className="text-sm text-red-500">This field is required</span>
+                )}
               </div>
             </div>
 
@@ -93,9 +99,11 @@ const ContactForm = () => {
                 id="message"
                 placeholder="Write your message here"
                 className="w-full h-[calc(100%-2rem)] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E85D4C] focus:border-transparent outline-none transition resize-none"
-                {...register("message", { required: true })}
+                {...register('message', { required: true })}
               />
-              {errors.message && <span className="text-sm text-red-500">This field is required</span>}
+              {errors.message && (
+                <span className="text-sm text-red-500">This field is required</span>
+              )}
             </div>
           </div>
 
@@ -124,8 +132,7 @@ const ContactForm = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ContactForm;
-

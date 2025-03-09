@@ -13,7 +13,12 @@ import { Loader } from 'lucide-react';
 
 const ForgotPassword = () => {
   const { toast } = useToast();
-  const { register, reset, handleSubmit, formState: { errors } } = useForm<{ email: string }>();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ email: string }>();
 
   const { forgotPassword, isPending } = useForgotPassword();
 
@@ -26,7 +31,7 @@ const ForgotPassword = () => {
         position: 'top-right',
       });
 
-      reset()
+      reset();
     } catch (error) {
       toast({
         title: 'failed',
@@ -61,7 +66,7 @@ const ForgotPassword = () => {
                     <div className="w-full">
                       <input
                         type="email"
-                        {...register("email", { required: "Email is required" })} 
+                        {...register('email', { required: 'Email is required' })}
                         id="email"
                         placeholder="email"
                         className="  px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
@@ -72,7 +77,7 @@ const ForgotPassword = () => {
 
                   <div className="w-full">
                     <button className="w-full bg-secondary-700 mt-4 text-white px-3 py-3 rounded-sm font-bold">
-                      {isPending ? <Loader className='mx-auto animate-spin' /> : " Proceed"}
+                      {isPending ? <Loader className="mx-auto animate-spin" /> : ' Proceed'}
                     </button>
                   </div>
                 </div>

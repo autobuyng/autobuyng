@@ -42,8 +42,6 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
 
   const { likeVehicle } = useLikeVehicle();
 
-
-
   function toggleItem(set: Set<string> | undefined, item: string) {
     if (set?.has(item)) {
       set?.delete(item);
@@ -56,21 +54,19 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     setIsOpen(false);
   };
   const handleLikeVehhicle = async (id: string) => {
-
     if (!user) {
       setIsOpen(true);
       return;
     }
 
     try {
-      toggleItem(likedVehicle, id)
+      toggleItem(likedVehicle, id);
       await likeVehicle({ vehicleId: id });
     } catch (error) {
-      likedVehicle?.delete(id)
+      likedVehicle?.delete(id);
       console.log(error, 'error');
     }
   };
-
 
   return (
     <div className="rounded-[12px] shadow-md">

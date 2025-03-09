@@ -70,10 +70,7 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
           {searchResult?.vehicles.map((result) => {
             return (
               <div key={result._id}>
-                <ProductCard
-                  vehicle={result}
-                  likedVehicle={likedVehicle}
-                />
+                <ProductCard vehicle={result} likedVehicle={likedVehicle} />
               </div>
             );
           })}

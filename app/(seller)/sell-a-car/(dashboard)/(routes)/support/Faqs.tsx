@@ -1,22 +1,21 @@
 import React from 'react';
 
-import { FileText, MessageCircle } from "lucide-react"
-
+import { FileText, MessageCircle } from 'lucide-react';
 
 type FaqTypes = {
-  setStep: React.Dispatch<React.SetStateAction<string>>
-}
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+};
 const Faqs = ({ setStep }: FaqTypes) => {
   const faqItems = [
-    "How do I upload a vehicle for sale on the platform?",
-    "How do buyers book an inspection for my listed vehicle?",
-    "How do I upload a vehicle for sale on the platform?",
-    "How do I upload a vehicle for sale on the platform?",
-    "How do I upload a vehicle for sale on the platform?",
-    "How do I upload a vehicle for sale on the platform?",
-    "How do I upload a vehicle for sale on the platform?",
-    "How do I upload a vehicle for sale on the platform?",
-  ]
+    'How do I upload a vehicle for sale on the platform?',
+    'How do buyers book an inspection for my listed vehicle?',
+    'How do I upload a vehicle for sale on the platform?',
+    'How do I upload a vehicle for sale on the platform?',
+    'How do I upload a vehicle for sale on the platform?',
+    'How do I upload a vehicle for sale on the platform?',
+    'How do I upload a vehicle for sale on the platform?',
+    'How do I upload a vehicle for sale on the platform?',
+  ];
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8">
@@ -42,7 +41,10 @@ const Faqs = ({ setStep }: FaqTypes) => {
           <button className="px-6 py-3 bg-[#E85D4C] text-white rounded-lg hover:bg-[#d54c3b] transition-colors duration-200">
             Resolve an issue
           </button>
-          <button onClick={() => setStep("contactus")} className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+          <button
+            onClick={() => setStep('contactus')}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+          >
             Contact us
           </button>
         </div>
@@ -53,7 +55,7 @@ const Faqs = ({ setStep }: FaqTypes) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Faqs;

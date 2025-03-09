@@ -9,7 +9,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 const ForgotPassword = () => {
   const { toast } = useToast();
-  const { register, handleSubmit, formState: { errors } } = useForm<{ email: string }>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ email: string }>();
 
   const { forgotPassword, isPending } = useForgotPassword();
 
@@ -53,7 +57,7 @@ const ForgotPassword = () => {
                 Email
               </label>
               <input
-                {...register("email", { required: "Email is required" })} 
+                {...register('email', { required: 'Email is required' })}
                 type="email"
                 id="email"
                 placeholder="abc@gmail.com"
@@ -61,7 +65,6 @@ const ForgotPassword = () => {
               />
               {errors?.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
-
 
             <div className="w-full ">
               <button className="w-full bg-primary-700 mt-2 text-white px-3 py-3 rounded-sm font-bold">
