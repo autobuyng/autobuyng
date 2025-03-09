@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
 import Steptop from '@/app/(seller)/assets/vectortop.svg';
 import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
@@ -12,6 +12,7 @@ import { Eye, EyeOff, Loader } from 'lucide-react';
 import { useResetPassword } from '@/app/(seller)/api/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IPassword, PasswordSchema } from '@/Schema/authSchema';
+import { useSearchParams } from 'next/navigation';
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,9 +22,8 @@ const ResetPassword = () => {
     reset,
     formState: { errors },
   } = useForm<IPassword>({ resolver: zodResolver(PasswordSchema) });
-
+  const searchParams = useSearchParams()
   const { toast } = useToast();
-  const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
 
   const { resetPassword, isPending } = useResetPassword();
@@ -159,4 +159,11 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+
+export default function Page() {
+  return (
+    <Suspense >
+      <ResetPassword />
+    </Suspense>
+  )
+}
