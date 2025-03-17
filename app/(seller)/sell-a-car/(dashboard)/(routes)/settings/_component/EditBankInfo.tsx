@@ -16,7 +16,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { BANK_LIST } from '@/lib/BankList';
 import { useForm } from 'react-hook-form';
-import { BankAccount, BankDetailsProps, } from '@/types/types';
+import { BankAccount, BankDetailsProps } from '@/types/types';
 import {
   useAddBankDetails,
   useDeleteBankDetails,
@@ -46,8 +46,6 @@ const EditBankInfo = ({
     },
   });
 
-
-
   useEffect(() => {
     if (selectedBank) {
       reset({
@@ -64,27 +62,21 @@ const EditBankInfo = ({
     }
   }, [selectedBank, reset]);
 
-
   useEffect(() => {
-
     const fetchBankDetails = async () => {
-
-
-      const selectedBankName = getValues("bankName");
+      const selectedBankName = getValues('bankName');
       if (!selectedBankName) return;
 
-
       const selected = BANK_LIST.find((bank) => bank.bankName === selectedBankName);
-      console.log(selected, "selectedBank");
+      console.log(selected, 'selectedBank');
 
       if (selected) {
-        setValue("bankCode", selected.bankCode);
-        console.log("Bank Code Set:", selected.bankCode);
+        setValue('bankCode', selected.bankCode);
+        console.log('Bank Code Set:', selected.bankCode);
       }
 
-
-      const bankCode = getValues("bankCode");
-      const accountNumber = getValues("accountNumber")
+      const bankCode = getValues('bankCode');
+      const accountNumber = getValues('accountNumber');
       if (!bankCode || !accountNumber) return;
 
       try {
@@ -94,18 +86,17 @@ const EditBankInfo = ({
             headers: {
               Authorization: `Bearer sk_test_081b9aeac2d10c570a8eb0aef0e2a8ff4f61803f`,
             },
-          }
+          },
         );
         // setBankDetails(response.data);
-        setValue("accountName", response.data.data.account_name)
+        setValue('accountName', response.data.data.account_name);
       } catch (err: any) {
-        console.log("Error fetching bank details:", err.message);
+        console.log('Error fetching bank details:', err.message);
       }
     };
 
     fetchBankDetails();
-  }, [watch("bankName"), setValue, getValues]);
-
+  }, [watch('bankName'), setValue, getValues]);
 
   const handleBankSelection = (bank: BankAccount) => {
     setSelectedBank(bank);
@@ -285,7 +276,7 @@ const EditBankInfo = ({
                     ))}
                   </select>
                 </div>
-                <input type="hidden" {...register("bankCode")} />
+                <input type="hidden" {...register('bankCode')} />
               </section>
 
               <section className="flex items-center gap-4 w-full">
@@ -303,8 +294,6 @@ const EditBankInfo = ({
                   />
                 </div>
               </section>
-
-
             </div>
             <SheetFooter className="w-full">
               <div className="w-full  ">

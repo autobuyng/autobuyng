@@ -26,69 +26,108 @@ export default function AboutPage() {
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">Who are we?</h2>
             <p className="text-gray-700">
-              Autobuy was established to address the evolving needs of today’s car shoppers. Based in, Nigeria, we recognized that the traditional car buying process was often complex and frustrating. With a focus on creating a safe, secure, and user-friendly experience, our platform appraises vehicles using cutting-edge technology, captures high-quality imagery, and provides detailed information—all to empower you to make informed decisions from the comfort of your home.
+              Autobuy was established to address the evolving needs of today’s car shoppers. Based
+              in, Nigeria, we recognized that the traditional car buying process was often complex
+              and frustrating. With a focus on creating a safe, secure, and user-friendly
+              experience, our platform appraises vehicles using cutting-edge technology, captures
+              high-quality imagery, and provides detailed information—all to empower you to make
+              informed decisions from the comfort of your home.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">Our Vision and Mission</h2>
             <p className="text-gray-700">
-              <span className='font-bold'> Vision:</span> To redefine car buying and selling with innovation and transparency, creating a secure, data-driven marketplace that empowers every consumer and builds lasting trust.
+              <span className="font-bold"> Vision:</span> To redefine car buying and selling with
+              innovation and transparency, creating a secure, data-driven marketplace that empowers
+              every consumer and builds lasting trust.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">What we offer</h2>
             <p className="text-gray-700">
-              Our fully automated system streamlines every step of the vehicle buying journey. From digital appraisals at designated testing centers to data-driven recommendations and trusted dealer reviews, we ensure every transaction is transparent and hassle-free. Whether you&apos;re searching for a new ride or a pre-owned vehicle that fits your lifestyle, our innovative platform connects you with the best options on the market.
-
+              Our fully automated system streamlines every step of the vehicle buying journey. From
+              digital appraisals at designated testing centers to data-driven recommendations and
+              trusted dealer reviews, we ensure every transaction is transparent and hassle-free.
+              Whether you&apos;re searching for a new ride or a pre-owned vehicle that fits your
+              lifestyle, our innovative platform connects you with the best options on the market.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">Why Choose us</h2>
             <p className="text-gray-700">
-              Wer&apos;e the pioneer car marketplace In Nigeria and Africa at large; we&apos;re a trusted partner dedicated to simplifying your car buying journey. Our platform is designed to offer a rich, customer-centric experience that stands out in today&apos;s fast-paced digital world. With Autobuy, you gain access to a secure environment where cutting-edge technology meets the human touch—ensuring that every purchase is as reliable as it is convenient.
+              Wer&apos;e the pioneer car marketplace In Nigeria and Africa at large; we&apos;re a
+              trusted partner dedicated to simplifying your car buying journey. Our platform is
+              designed to offer a rich, customer-centric experience that stands out in today&apos;s
+              fast-paced digital world. With Autobuy, you gain access to a secure environment where
+              cutting-edge technology meets the human touch—ensuring that every purchase is as
+              reliable as it is convenient.
               <br />
               <br />
-              Join us as we revolutionize automotive e-commerce in Nigeria and beyond. Experience a new era of car shopping where innovation drives your journey and every vehicle is just a click away.
+              Join us as we revolutionize automotive e-commerce in Nigeria and beyond. Experience a
+              new era of car shopping where innovation drives your journey and every vehicle is just
+              a click away.
             </p>
           </section>
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">How it works</h2>
             <p className="text-gray-700">
-              At Autobuy, our process is designed with simplicity and transparency in mind. Our advanced digital platform takes you step‐by‐step through a seamless vehicle buying and selling journey:
+              At Autobuy, our process is designed with simplicity and transparency in mind. Our
+              advanced digital platform takes you step‐by‐step through a seamless vehicle buying and
+              selling journey:
             </p>
-            <ol className='space-y-3 list-disc mt-3 ml-4'>
+            <ol className="space-y-3 list-disc mt-3 ml-4">
               <li>
-                <span className='font-bold'>Automated Appraisal:</span> Every vehicle is first appraised using state-of-the technology at our designated centers. This ensures an accurate, data-driven valuation that reflects the true market value.
+                <span className="font-bold">Automated Appraisal:</span> Every vehicle is first
+                appraised using state-of-the technology at our designated centers. This ensures an
+                accurate, data-driven valuation that reflects the true market value.
               </li>
               <li>
-                <span className='font-bold'>Comprehensive Listing:</span> Once appraised, high-quality images and detailed vehicle information are captured and uploaded onto our marketplace. Our smart algorithm then curates listings to match buyers’ precise specifications.
+                <span className="font-bold">Comprehensive Listing:</span> Once appraised,
+                high-quality images and detailed vehicle information are captured and uploaded onto
+                our marketplace. Our smart algorithm then curates listings to match buyers’ precise
+                specifications.
               </li>
               <li>
-                <span className='font-bold'>Smart Recommendations:</span> Smart Recommendations: Our platform leverages real-time data to offer personalized suggestions, making it easy to compare options, verify pricing, and find the perfect match—all from the comfort of your home.
+                <span className="font-bold">Smart Recommendations:</span> Smart Recommendations: Our
+                platform leverages real-time data to offer personalized suggestions, making it easy
+                to compare options, verify pricing, and find the perfect match—all from the comfort
+                of your home.
               </li>
               <li>
-                <span className='font-bold'> Secure Transactions: </span>  Secure Transactions: With a strong emphasis on security, every transaction is managed in a safe, reliable environment. From digital contracts to secure payment gateways, we ensure that your information and funds are always protected.
+                <span className="font-bold"> Secure Transactions: </span> Secure Transactions: With
+                a strong emphasis on security, every transaction is managed in a safe, reliable
+                environment. From digital contracts to secure payment gateways, we ensure that your
+                information and funds are always protected.
               </li>
             </ol>
-
           </section>
           <section>
             <h2 className="text-2xl font-bold text-blue-600 mb-4">Our core values</h2>
-            <p className="text-gray-700">
-              At the heart of Autobuy is a commitment to:
-            </p>
+            <p className="text-gray-700">At the heart of Autobuy is a commitment to:</p>
 
-            <ol className='space-y-3 list-disc mt-3 ml-4'>
-              <li><span className='font-bold'> Transparency:</span> We provide clear pricing indicators and an open review platform, ensuring you have all the information you need.
+            <ol className="space-y-3 list-disc mt-3 ml-4">
+              <li>
+                <span className="font-bold"> Transparency:</span> We provide clear pricing
+                indicators and an open review platform, ensuring you have all the information you
+                need.
               </li>
-              <li> <span className='font-bold'>Innovation: </span>By harnessing advanced algorithms and digital technologies, we deliver personalized car recommendations tailored to your exact needs.
+              <li>
+                {' '}
+                <span className="font-bold">Innovation: </span>By harnessing advanced algorithms and
+                digital technologies, we deliver personalized car recommendations tailored to your
+                exact needs.
               </li>
-              <li><span className='font-bold'> Customer Satisfaction:</span> Our goal is to exceed your expectations through seamless service, making every interaction as enjoyable and efficient as possible.
+              <li>
+                <span className="font-bold"> Customer Satisfaction:</span> Our goal is to exceed
+                your expectations through seamless service, making every interaction as enjoyable
+                and efficient as possible.
               </li>
-              <li><span className='font-bold'> Integrity:</span> We pride ourselves on ethical practices and accountability, treating every customer like family.
+              <li>
+                <span className="font-bold"> Integrity:</span> We pride ourselves on ethical
+                practices and accountability, treating every customer like family.
               </li>
             </ol>
           </section>

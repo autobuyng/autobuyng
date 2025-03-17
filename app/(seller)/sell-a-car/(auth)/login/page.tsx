@@ -46,7 +46,6 @@ const Login = () => {
         title: 'Failed',
         description: error.message,
       });
-
     }
   };
   return (
