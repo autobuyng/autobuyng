@@ -50,11 +50,11 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
         const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
         const isSeller = currentPath.startsWith('/sell-a-car');
         const isBuyerPrivate = currentPath.startsWith('/payment/');
-
         // Clear the relevant token and redirect to the appropriate login page
         if (isSeller) {
           removeSessionItem('sellerAccessToken');
           currentPath !== '/sell-a-car' &&
+            currentPath !== '/sell-a-car/login' &&
             (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
         } else {
           removeSessionItem('accessToken');
@@ -72,7 +72,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
 };
 
 export const usermgtApi = createAxiosInstance(ApiType.AUTOBUY);
-// export const newsmgtApi = createAxiosInstance(ApiType.NEWSMGT);
 
 // Generic fetcher with improved type safety
 export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
@@ -146,15 +145,14 @@ export const endpoints = {
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
-    // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
   },
 };
 
 const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
   const params = Object.entries(data)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .filter(([_, value]) => value !== undefined && value !== null) // Exclude undefined and null values
-    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`) // Encode and format key-value pairs
+    .filter(([_, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
     .join('&');
 
   return `${basePath}?${params}`;

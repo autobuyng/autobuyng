@@ -351,6 +351,7 @@ export type BankDetailsProps = {
   accountNumber: string;
   bankName: string;
   accountName: string;
+  bankCode?: string;
 };
 
 export type BankAccount = {
@@ -359,6 +360,7 @@ export type BankAccount = {
   bankName: string;
   accountName: string;
   accountNumber: string;
+  bankCode?: string;
   isActive: boolean;
   createdAt: string; // Use `Date` if you want to parse this string into a Date object
   updatedAt: string; // Use `Date` if you want to parse this string into a Date object
@@ -480,4 +482,14 @@ export type VehicleFile = {
   fileType: string;
   file: string;
   vehicleId: string;
+};
+
+export type ResolveBankResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    account_number: string;
+    account_name: string;
+    bank_id: number;
+  };
 };

@@ -22,7 +22,7 @@ const ResetPassword = () => {
     reset,
     formState: { errors },
   } = useForm<IPassword>({ resolver: zodResolver(PasswordSchema) });
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const token = searchParams.get('token');
 
@@ -159,11 +159,10 @@ const ResetPassword = () => {
   );
 };
 
-
 export default function Page() {
   return (
-    <Suspense >
+    <Suspense>
       <ResetPassword />
     </Suspense>
-  )
+  );
 }

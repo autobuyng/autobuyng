@@ -35,13 +35,11 @@ const Login = () => {
   const handleLogin = async (data: ILoginPayload) => {
     try {
       const response = await login(data);
-      console.log(response);
       setSessionItem('sellerAccessToken', response.data.accessToken);
       toast({
         title: 'Success',
         description: response.data.message,
       });
-
       router.push('/sell-a-car/dashboard');
     } catch (error: any) {
       toast({
@@ -49,7 +47,6 @@ const Login = () => {
         description: error.message,
       });
 
-      console.log(error);
     }
   };
   return (
