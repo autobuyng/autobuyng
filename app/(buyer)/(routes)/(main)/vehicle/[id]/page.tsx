@@ -193,7 +193,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     'max-w-[900px] h-fit  ': os === 'macOS',
                   })}
                 >
-                  <ImageSlider ImageUrls={vehicleData?.images as string[]} id={params.id} />
+                  <ImageSlider ImageUrls={vehicleData?.images as string[]} id={params.id} make={vehicleData?.make} model={vehicleData?.vehicleModel} />
                 </div>
                 <div className="my-2 space-y-2">
                   <div className="flex items-center justify-between">

@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription } from '@/components/ui/dialog';
 
 import {
   AlertDialog,
@@ -18,20 +18,23 @@ import ArrowRight from '@/app/(buyer)/assets/ArrowRight.svg';
 import ArrowLeft from '@/app/(buyer)/assets/ArrowLeft.svg';
 import Photo from '@/app/(buyer)/assets/Photo.svg';
 import { cn } from '@/lib/utils';
-import Autobuy from '../../../../public/icons/buyer.svg';
+// import Autobuy from '../../../../public/icons/buyer.svg';
 import useIsMobile from '@/hooks/useIsMobile';
 import { useStore } from '@/store/useStore';
 import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useGetFavoriteVehicle } from '@/app/(seller)/api/user';
-import { Heart } from 'lucide-react';
+import { Heart, X } from 'lucide-react';
+import { Degrees } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 
 type ImageSliderProp = {
   ImageUrls: (StaticImageData | string)[];
   id: string;
+  make: string | undefined;
+  model: string | undefined;
 };
 
-const ImageSlider = ({ ImageUrls, id }: ImageSliderProp) => {
+const ImageSlider = ({ ImageUrls, id, make, model }: ImageSliderProp) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [disableLeftButton, setDisableLeftButton] = useState(true);
   const [disableRightButton, setDisableRightButton] = useState(false);
@@ -174,6 +177,8 @@ const ImageSlider = ({ ImageUrls, id }: ImageSliderProp) => {
         setIsOpen={setShowSlidermodal}
         ImageUrls={ImageUrls}
         setCurrentIndex={setCurrentIndex}
+        make={make}
+        model={model}
       />
 
       <AuthDialog
@@ -195,6 +200,8 @@ type ImageSliderModalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   ImageUrls: (StaticImageData | string)[];
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  make: string | undefined;
+  model: string | undefined;
 };
 
 const ImageSliderModal = ({
@@ -203,6 +210,8 @@ const ImageSliderModal = ({
   ImageUrls,
   currentIndex,
   setCurrentIndex,
+  make,
+  model,
 }: ImageSliderModalProps) => {
   const [disableLeftButton, setDisableLeftButton] = useState(true);
   const [disableRightButton, setDisableRightButton] = useState(false);
@@ -243,97 +252,112 @@ const ImageSliderModal = ({
   }, [handleKeyDown]);
 
   return (
-    <div>
+    <div className='overflow-auto'>
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         <DialogContent
-          className={cn('overflow-y-auto max-h-[95vh] outline-none max-w-[600px]', {
+          className={cn(' max-h-[98vh] mt-2 max-w-7xl border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ', {
             // 'max-w-[48rem]': os === 'macOS',
             // 'max-w-[600px]': os === 'Windows',
           })}
         >
-          <DialogTitle className="-mt-4 w-1/2">
+          {/* <DialogTitle className="-mt-8 w-1/2">
             <div className="flex items-center justify-between bg-white">
               <Image src={Autobuy} alt="Autobuy" />
               <p>
                 {currentIndex + 1}/{ImageUrls.length}
               </p>
             </div>
-          </DialogTitle>
+          </DialogTitle> */}
           <DialogDescription></DialogDescription>
-          <div className="px">
-            <div className="overflow-hidden relative">
-              <div
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                className="flex  transition-transform duration-500 ease-in-out "
-              >
-                {ImageUrls &&
-                  ImageUrls.map((image, index) => (
-                    <Image
-                      src={image}
-                      alt="image slider"
-                      key={index}
-                      // fill
-                      width={760}
-                      height={333}
-                      className="cursor-pointer flex-shrink-0 object-cover  h-[333px] w-[760px]"
-                    />
-                  ))}
-              </div>
-              <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
-                <button
-                  onClick={showPrevImage}
-                  disabled={disableLeftButton}
-                  className={cn(
-                    'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
-                    {
-                      'cursor-not-allowed': disableLeftButton,
-                    },
-                  )}
-                >
-                  <Image src={ArrowLeft} alt="Arrow left" />
-                </button>
-              </div>
+          <div className='flex items-center justify-between'>
+            <p className='text-white font-bold text-2xl'>{`${make} ${model}`}</p>
+            <X onClick={() => setIsOpen(false)} size={30} className='text-white font-bold cursor-pointer' />
+          </div>
+          <div className=' flex items-start justify-between gap-8 '>
 
-              <div className="absolute h-full top-0 right-0 flex items-center pr-4 ">
-                <button
-                  onClick={showNextImage}
-                  disabled={disableRightButton}
-                  className={cn(
-                    'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
-                    {
-                      'cursor-not-allowed': disableRightButton,
-                    },
-                  )}
+            <div className=" max-w-[700px] h-[450px]">
+              <div className="overflow-hidden relative">
+                <div
+                  style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                  className="flex  transition-transform duration-500 ease-in-out "
                 >
-                  <Image src={ArrowRight} alt="Arrow Right" />
-                </button>
+                  {ImageUrls &&
+                    ImageUrls.map((image, index) => (
+                      <Image
+                        src={image}
+                        alt="image slider"
+                        key={index}
+          // fill
+                        width={860}
+                        height={433}
+                        className="cursor-pointer flex-shrink-0 object-cover  h-[483px] w-[860px]"
+                      />
+                    ))}
+                </div>
+                <div className="absolute h-full  top-0 left-0 flex items-center pl-4">
+                  <button
+                    onClick={showPrevImage}
+                    disabled={disableLeftButton}
+                    className={cn(
+                      'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
+                      {
+                        'cursor-not-allowed': disableLeftButton,
+                      },
+                    )}
+                  >
+                    <Image src={ArrowLeft} alt="Arrow left" />
+                  </button>
+                </div>
+
+                <div className="absolute h-full top-0 right-0 flex items-center pr-4 ">
+                  <button
+                    onClick={showNextImage}
+                    disabled={disableRightButton}
+                    className={cn(
+                      'h-10 w-10 bg-white/90 flex items-center justify-center rounded-[50%]',
+                      {
+                        'cursor-not-allowed': disableRightButton,
+                      },
+                    )}
+                  >
+                    <Image src={ArrowRight} alt="Arrow Right" />
+                  </button>
+                </div>
+                <div className='text-white text-center max-w-[100px] mx-auto mt-4 bg-black rounded-sm px-2 py-2'>  {currentIndex + 1}/{ImageUrls.length}</div>
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-4 mt-4  gap-2 w-full">
-            {ImageUrls &&
-              ImageUrls.map((image, index) => (
-                <div
-                  key={index}
-                  className={cn('relative  w-[130px] h-[100px] flex-shrink-0', {
-                    'border-2 border-black': currentIndex === index,
-                  })}
-                  onClick={() => setCurrentIndex(index)}
-                >
-                  <Image
-                    src={image}
-                    fill
-                    alt="image slider"
-                    key={index}
-                    className="cursor-pointer w-[100px]"
-                  />
-                </div>
-              ))}
+            <div>
+              <div className='flex gap-3'>
+                <p className='bg-primary-900 text-white px-6 py-2 rounded-full'>All Photos</p>
+                <Degrees />
+              </div>
+              <div className="grid grid-cols-3 xl:grid-cols-4 mt-4  gap-2 w-full ">
+                {ImageUrls &&
+                  ImageUrls.map((image, index) => (
+                    <div
+                      key={index}
+                      className={cn('relative  w-[110px] h-[100px] flex-shrink-0', {
+                        'border-4 border-primary-900': currentIndex === index,
+                      })}
+                      onClick={() => setCurrentIndex(index)}
+                    >
+                      <Image
+                        src={image}
+                        fill
+                        alt="image slider"
+                        key={index}
+                        className="cursor-pointer w-[100px] flex-shrink-0"
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
 
+      {/* mobile */}
       <AlertDialog open={isOpen && isMobile} onOpenChange={() => setIsOpen(false)}>
         {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
         <AlertDialogContent className="max-w-full p-0 border-none">
