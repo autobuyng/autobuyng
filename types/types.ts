@@ -493,3 +493,12 @@ export type ResolveBankResponse = {
     bank_id: number;
   };
 };
+
+export type AccountOrder = {
+  data: {
+    orderId: string;
+    accountNumber: string;
+    initiationRef: string;
+    accountName: string;
+  };
+};

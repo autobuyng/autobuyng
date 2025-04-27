@@ -146,6 +146,9 @@ export const endpoints = {
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
   },
+  payment: {
+    createOrder: (data: { vehicleId: string }) => `/order/create-order/${data.vehicleId}`,
+  },
 };
 
 const buildSearchUrl = (basePath: string, data: SearchQuery): string => {

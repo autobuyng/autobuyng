@@ -252,13 +252,16 @@ const ImageSliderModal = ({
   }, [handleKeyDown]);
 
   return (
-    <div className='overflow-auto'>
+    <div className="overflow-auto">
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         <DialogContent
-          className={cn(' max-h-[98vh] mt-2 max-w-7xl border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ', {
-            // 'max-w-[48rem]': os === 'macOS',
-            // 'max-w-[600px]': os === 'Windows',
-          })}
+          className={cn(
+            ' max-h-[98vh] mt-2 max-w-7xl border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ',
+            {
+              // 'max-w-[48rem]': os === 'macOS',
+              // 'max-w-[600px]': os === 'Windows',
+            },
+          )}
         >
           {/* <DialogTitle className="-mt-8 w-1/2">
             <div className="flex items-center justify-between bg-white">
@@ -269,12 +272,15 @@ const ImageSliderModal = ({
             </div>
           </DialogTitle> */}
           <DialogDescription></DialogDescription>
-          <div className='flex items-center justify-between'>
-            <p className='text-white font-bold text-2xl'>{`${make} ${model}`}</p>
-            <X onClick={() => setIsOpen(false)} size={30} className='text-white font-bold cursor-pointer' />
+          <div className="flex items-center justify-between">
+            <p className="text-white font-bold text-2xl">{`${make} ${model}`}</p>
+            <X
+              onClick={() => setIsOpen(false)}
+              size={30}
+              className="text-white font-bold cursor-pointer"
+            />
           </div>
-          <div className=' flex items-start justify-between gap-8 '>
-
+          <div className=" flex items-start justify-between gap-8 ">
             <div className=" max-w-[700px] h-[450px]">
               <div className="overflow-hidden relative">
                 <div
@@ -287,7 +293,7 @@ const ImageSliderModal = ({
                         src={image}
                         alt="image slider"
                         key={index}
-          // fill
+                        // fill
                         width={860}
                         height={433}
                         className="cursor-pointer flex-shrink-0 object-cover  h-[483px] w-[860px]"
@@ -323,13 +329,16 @@ const ImageSliderModal = ({
                     <Image src={ArrowRight} alt="Arrow Right" />
                   </button>
                 </div>
-                <div className='text-white text-center max-w-[100px] mx-auto mt-4 bg-black rounded-sm px-2 py-2'>  {currentIndex + 1}/{ImageUrls.length}</div>
+                <div className="text-white text-center max-w-[100px] mx-auto mt-4 bg-black rounded-sm px-2 py-2">
+                  {' '}
+                  {currentIndex + 1}/{ImageUrls.length}
+                </div>
               </div>
             </div>
 
             <div>
-              <div className='flex gap-3'>
-                <p className='bg-primary-900 text-white px-6 py-2 rounded-full'>All Photos</p>
+              <div className="flex gap-3">
+                <p className="bg-primary-900 text-white px-6 py-2 rounded-full">All Photos</p>
                 <Degrees />
               </div>
               <div className="grid grid-cols-3 xl:grid-cols-4 mt-4  gap-2 w-full ">

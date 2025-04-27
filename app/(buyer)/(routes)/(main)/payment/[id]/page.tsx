@@ -30,12 +30,12 @@ const Payment = () => {
                 href="/results/make-BMW?mileage=2-598899"
                 className="flex items-center  gap-2 text-primary-700"
               >
-                <ArrowLeft /> <span>Go back and continue shoppine</span>
+                <ArrowLeft /> <span>Go back and continue shopping</span>
               </Link>
             </p>
           </div>
 
-          <div className="flex-[1] bg-primary-900  text-white h-fit pb-4 mb-4 md:min-h-screen px-8">
+          <div className="flex-[1] bg-primary-900  text-white h-fit pb-4 mb-4 md:min-h-screen px-4">
             <OrderSummary />
           </div>
         </div>
@@ -45,3 +45,15 @@ const Payment = () => {
 };
 
 export default Payment;
+
+
+// {
+//   "status": true,
+//     "message": "Request Successful",
+//       "data": {
+//     "orderId": "680de1015e3c1d5df772fda0",
+//       "accountNumber": "9977576479",
+//         "initiationRef": "merchant2504270847135706",
+//           "accountName": "Emmanuel"
+//   }
+// }
