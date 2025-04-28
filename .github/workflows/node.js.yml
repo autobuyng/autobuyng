@@ -24,6 +24,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     # - run: cp example.env .env
-    # - run: npm install
-    # - run: npm run build
-    # - run: pm2 restart autobuy-frontend
+    - run: npm install
+    - run: npm run build
+    - run: pm2 restart autobuy-frontend
