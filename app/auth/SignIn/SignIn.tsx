@@ -68,7 +68,7 @@ const SignIn = ({
   return (
     <div>
       <form onSubmit={handleSubmit(handleLoginUser)}>
-        <div className="space-y-4 w-full mx-auto">
+        <div className="space-y-4 w-full mx-auto bg-red-500">
           <div>
             <label
               // htmlFor="UserEmail"
