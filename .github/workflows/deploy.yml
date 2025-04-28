@@ -1,87 +1,87 @@
-# .github/workflows/deploy.yml
-name: Deploy to EC2
+# # .github/workflows/deploy.yml
+# name: Deploy to EC2
 
-on:
-  push:
-    branches: [ main ] 
-  workflow_dispatch:
-  pull_request:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ] 
+#   workflow_dispatch:
+#   pull_request:
+#     branches: [ main ]
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-        cache: 'npm'
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: '20'
+#         cache: 'npm'
         
-    - name: Install dependencies
-      run: npm ci
+#     - name: Install dependencies
+#       run: npm ci
       
-    - name: Build
-      run: npm run build
+#     - name: Build
+#       run: npm run build
       
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+#     - name: Setup SSH
+#       run: |
+#         mkdir -p ~/.ssh
+#         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+#         chmod 600 ~/.ssh/id_rsa
+#         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
         
-    - name: Deploy to EC2
-      run: |
-        DEPLOY_PACKAGE="deploy.tar.gz"
+#     - name: Deploy to EC2
+#       run: |
+#         DEPLOY_PACKAGE="deploy.tar.gz"
 
-        # Create a tar of the build files (excluding node_modules and .git)
-        tar -czf $DEPLOY_PACKAGE --exclude=node_modules --exclude=.git --ignore-failed-read .
+#         # Create a tar of the build files (excluding node_modules and .git)
+#         tar -czf $DEPLOY_PACKAGE --exclude=node_modules --exclude=.git --ignore-failed-read .
         
-        # Copy the tar to the EC2 instance
-        scp $DEPLOY_PACKAGE ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/
+#         # Copy the tar to the EC2 instance
+#         scp $DEPLOY_PACKAGE ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/
         
-        # SSH into the EC2 instance and extract files to the target directory
-        ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOL'
-          set -e  # Exit on any error
+#         # SSH into the EC2 instance and extract files to the target directory
+#         ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOL'
+#           set -e  # Exit on any error
 
-          FRONTEND_DIR=${{ secrets.TARGET_DIRECTORY }}
-          DEPLOY_PACKAGE="/tmp/deploy.tar.gz"
+#           FRONTEND_DIR=${{ secrets.TARGET_DIRECTORY }}
+#           DEPLOY_PACKAGE="/tmp/deploy.tar.gz"
           
-          # Backup existing frontend directory
-          echo ">>> Backing up current frontend..."
-          if [ -d "$FRONTEND_DIR" ]; then
-              BACKUP_DIR="${FRONTEND_DIR}_backup_$(date +%Y%m%d_%H%M%S)"
-              cp -r "$FRONTEND_DIR" "$BACKUP_DIR"
-          fi
+#           # Backup existing frontend directory
+#           echo ">>> Backing up current frontend..."
+#           if [ -d "$FRONTEND_DIR" ]; then
+#               BACKUP_DIR="${FRONTEND_DIR}_backup_$(date +%Y%m%d_%H%M%S)"
+#               cp -r "$FRONTEND_DIR" "$BACKUP_DIR"
+#           fi
 
-          # Delete existing frontend directory before extracting new one (optional but clean)
-          echo ">>> Removing old frontend..."
-          rm -rf "$FRONTEND_DIR"
+#           # Delete existing frontend directory before extracting new one (optional but clean)
+#           echo ">>> Removing old frontend..."
+#           rm -rf "$FRONTEND_DIR"
 
-          # Extract new files
-          echo ">>> Extracting new build..."
-          mkdir -p "$FRONTEND_DIR"
-          tar -xzf $DEPLOY_PACKAGE -C "$FRONTEND_DIR" --strip-components=0
+#           # Extract new files
+#           echo ">>> Extracting new build..."
+#           mkdir -p "$FRONTEND_DIR"
+#           tar -xzf $DEPLOY_PACKAGE -C "$FRONTEND_DIR" --strip-components=0
           
-          # Install production dependencies
-          echo ">>> Installing production dependencies..."
-          cd "$FRONTEND_DIR"
-          npm ci --production
+#           # Install production dependencies
+#           echo ">>> Installing production dependencies..."
+#           cd "$FRONTEND_DIR"
+#           npm ci --production
           
-          # Restart your application (adjust as needed)
-          echo ">>> Restarting frontend app with PM2..."
-          pm2 reload autobuy-frontend
+#           # Restart your application (adjust as needed)
+#           echo ">>> Restarting frontend app with PM2..."
+#           pm2 reload autobuy-frontend
           
-          echo ">>> Cleaning up deployment package..."
-          rm -f $DEPLOY_PACKAGE
+#           echo ">>> Cleaning up deployment package..."
+#           rm -f $DEPLOY_PACKAGE
 
-          echo ">>> Cleaning old backups (keep latest 3 backups)..."
-          ls -dt /home/ubuntu/app/frontend_backup_* | tail -n +4 | xargs -r rm -rf || true
+#           echo ">>> Cleaning old backups (keep latest 3 backups)..."
+#           ls -dt /home/ubuntu/app/frontend_backup_* | tail -n +4 | xargs -r rm -rf || true
 
-          echo ">>> Deployment finished successfully!"
-        EOL
+#           echo ">>> Deployment finished successfully!"
+#         EOL
