@@ -2,13 +2,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "staging" ]
+    branches: ['staging']
   pull_request:
-    branches: [ "staging" ]
+    branches: ['staging']
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     strategy:
@@ -17,13 +16,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # - run: cp example.env .env
-    - run: npm install
-    - run: npm run build
-    - run: pm2 restart autobuy-frontend
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      # - run: cp example.env .env
+      - run: npm install
+      - run: npm run build
+      - run: |
+          if pm2 list | grep -q "autobuy-frontend"; then
+            pm2 restart autobuy-frontend
+          else
+            pm2 start npm --name "autobuy-frontend" -- run start
+          fi
