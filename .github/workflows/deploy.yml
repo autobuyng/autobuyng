@@ -40,7 +40,7 @@ jobs:
         DEPLOY_PACKAGE="deploy.tar.gz"
 
         # Create a tar of the build files (excluding node_modules and .git)
-        tar -czf $DEPLOY_PACKAGE --exclude=node_modules --exclude=.git .
+        tar -czf $DEPLOY_PACKAGE --exclude=node_modules --exclude=.git --ignore-failed-read .
         
         # Copy the tar to the EC2 instance
         scp $DEPLOY_PACKAGE ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/
