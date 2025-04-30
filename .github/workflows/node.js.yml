@@ -25,9 +25,6 @@ jobs:
       # - run: cp example.env .env
       - run: npm install
       - run: npm run build
-      - name: Copy .example.env to .env
-        run: |
-          cp -f example.env .env
       - run: |
           if pm2 list | grep -q "autobuy-frontend"; then
             pm2 restart autobuy-frontend
