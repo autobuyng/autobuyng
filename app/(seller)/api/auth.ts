@@ -8,8 +8,10 @@ import {
   EmailverificationResponse,
   ILoginPayload,
   ISellerRegistrationResponse,
+  NinDataResponse,
 } from '@/types/types';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 export function useLogin() {
@@ -161,20 +163,38 @@ export function useResetPassword() {
   );
 }
 export function useResendEmail() {
-  // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { email: string }>(
     {
       mutationFn: (values: { email: string }) =>
         mutator({ method: 'POST', data: values, url: endpoints.auth.resendEmail }),
-      onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
-      },
     },
   );
 
   return useMemo(
     () => ({
       resendEmail: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useVerifyIdentity() {
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    NinDataResponse,
+    AxiosError,
+    { nin: string }
+  >({
+    mutationFn: (values: { nin: string }) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.verifyIdentity }),
+  });
+
+  return useMemo(
+    () => ({
+      verifyIdentity: mutateAsync,
       data,
       isPending,
       error,

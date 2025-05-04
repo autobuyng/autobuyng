@@ -46,7 +46,6 @@ const Payment = () => {
 
 export default Payment;
 
-
 // {
 //   "status": true,
 //     "message": "Request Successful",

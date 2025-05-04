@@ -1,6 +1,7 @@
-import { endpoints, mutator } from '@/axios';
+import { endpoints, fetcher, mutator } from '@/axios';
+import { getSessionItem } from '@/lib/Sessionstorage';
 import { AccountOrder } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useCreateOrder() {
@@ -22,5 +23,23 @@ export function useCreateOrder() {
       isError,
     }),
     [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useGetAuthenticatedUser() {
+  const accessToken = getSessionItem('accessToken');
+  const { data, isLoading, refetch } = useQuery<any>({
+    queryKey: ['payment'],
+    enabled: !!accessToken,
+    queryFn: () => fetcher(endpoints.auth.currentUser),
+  });
+
+  return useMemo(
+    () => ({
+      data: data,
+      userRefetch: refetch,
+      isLoading,
+    }),
+    [data, isLoading, refetch],
   );
 }

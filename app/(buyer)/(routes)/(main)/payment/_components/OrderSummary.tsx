@@ -1,11 +1,11 @@
-"use client";
+'use client';
 import { useStore } from '@/store/useStore';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
 const OrderSummary = () => {
-  const { vehicleDetails } = useStore()
-  const router = useRouter()
+  const { vehicleDetails } = useStore();
+  const router = useRouter();
   return (
     <div className=" mt-6  md:mt-16 px-5  ">
       <h1 className="font-bold text-2xl py-2">Order Summary</h1>
@@ -30,7 +30,12 @@ const OrderSummary = () => {
       </div>
 
       <div>
-        <button onClick={() => router.push(`/create-order/${vehicleDetails?._id}`)} className='text-white font-bold uppercase bg-[#7AAECA] w-full py-2 mt-3 rounded-md text-center'>Confirm Order</button>
+        <button
+          onClick={() => router.push(`/create-order/${vehicleDetails?._id}`)}
+          className="text-white font-bold uppercase bg-[#7AAECA] w-full py-2 mt-3 rounded-md text-center"
+        >
+          Confirm Order
+        </button>
       </div>
     </div>
   );

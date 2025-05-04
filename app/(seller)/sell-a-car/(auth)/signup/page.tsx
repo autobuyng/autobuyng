@@ -71,7 +71,7 @@ const Signup = () => {
                 </section>
                 <Separator />
 
-                <section>{SELECT_CONDITION[condition]?.component}</section>
+                <section className='w-full'>{SELECT_CONDITION[condition]?.component}</section>
               </div>
               <div>
                 <p className="text-center text-sm mt-4">

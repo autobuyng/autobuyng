@@ -12,7 +12,7 @@ const ShipmentDetails = () => {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setVehicleDetails } = useStore()
+  const { setVehicleDetails } = useStore();
 
   const { getVehicle, isPending } = useGetVehicle();
 
@@ -23,7 +23,7 @@ const ShipmentDetails = () => {
       });
 
       setVehicleData(response.data);
-      setVehicleDetails(response.data)
+      setVehicleDetails(response.data);
     } catch (error) {
       console.log(error, 'error');
     } finally {

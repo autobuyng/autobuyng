@@ -3,13 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-// import { v4 as uuidv4 } from 'uuid';
-// import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 import '../vehicle.css';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
-// import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/VehicleInformation';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
@@ -21,7 +18,6 @@ import SemiCircleProgressBar, {
   ProgressBar,
 } from '@/app/(buyer)/_components/ProgressBar/ProgressBar';
 
-// import Appraisal from '@/app/(buyer)/assets/appraisal.svg';
 import Info from '../assets/info.svg';
 import Car from '../assets/car.svg';
 import Engine from '../assets/engine.svg';
@@ -31,14 +27,12 @@ import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
 import { Vehicle, VehicleData } from '@/types/types';
 import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
-// import { useGetUser } from '@/app/(buyer)/api/auth';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
 import VehicleDetailsError from '@/constants/TableData';
 import { useRouter } from 'next-nprogress-bar';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
-  // const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
   const pathname = usePathname();
   const { isMobile } = useIsMobile();
@@ -50,12 +44,10 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [userData, setUserData] = useState<User | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
   const { getVehicle, getCachedVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
-  // const { getUser } = useGetUser();
 
   useEffect(() => {
     setIsLoading(isPending);
@@ -84,15 +76,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  // const handleGetUser = async () => {
-  //   try {
-  //     const response1 = await getUser();
-  //     setUserData(response1.data.user);
-  //     setUser(response1.data.user);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     handleGetVehicle();
@@ -134,50 +117,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
               Home/Search Result/ <span className="font-semibold">{vehicleData?.make}</span>/{' '}
               <span className="font-semibold">{vehicleData?.vin}</span>
             </h1>
-
-            {/* <Suspense
-              fallback={
-                <div className="h-full w-full flex justify-center items-center text-4xl font-bold">
-                  Loading...
-                </div>
-              }
-            >
-              <div className="flex items-center justify-center gap-8 w-full h-full">
-                <div className="flex items-center gap-1.5 text-sm">
-                  <ArrowLeft />
-                  <button>Prev</button>
-                </div>
-
-                <div className="flex items-center justify-center gap-4 py-4">
-                  {vehicleList.map((vehicle) => {
-                    const isActive = vehicle.id === vehicleId;
-                    return (
-                      <div
-                        onClick={() => handleView(vehicle.id)}
-                        key={vehicle.id}
-                        className={cn('cursor-pointer', {
-                          'border-2 border-primary-900 p-1.5': isActive,
-                        })}
-                      >
-                        <div className="relative aspect-[75/90] w-24 h-24">
-                          <Image
-                            src={vehicle.Img}
-                            alt={vehicle.name}
-                            width={96}
-                            height={96}
-                            className="mx-auto w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="flex items-center gap-1.5 text-sm">
-                  <button>Next</button> <ArrowRight />
-                </div>
-              </div>
-            </Suspense> */}
           </div>
         </MaxWidthWrapper>
       </div>

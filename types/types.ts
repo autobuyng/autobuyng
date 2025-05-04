@@ -502,3 +502,58 @@ export type AccountOrder = {
     accountName: string;
   };
 };
+
+export type NinDataResponse = {
+  status: boolean;
+  message: string;
+  data: UserData;
+};
+
+export type UserData = {
+  firstname: string;
+  surname: string;
+  middlename: string;
+  birthdate: string;
+  userid: string;
+  gender: string;
+  telephoneno: string;
+  vnin: string;
+  self_origin_lga: string;
+  heigth: string;
+  birthstate: string;
+  signature: string | null;
+  religion: string;
+  educationallevel: string;
+  maritalstatus: string;
+  self_origin_state: string;
+  spoken_language: string;
+  self_origin_place: string;
+  residence_town: string;
+  nok_town: string;
+  residence_state: string;
+  residence_address: string;
+  birthcountry: string;
+  psurname: string;
+  pfirstname: string;
+  nok_lga: string;
+  nok_address2: string;
+  nok_state: string;
+  nok_surname: string;
+  nok_firstname: string;
+  ospokenlang: string;
+  residencestatus: string;
+  pmiddlename: string;
+  email: string;
+  nok_postalcode: string;
+  nin: string;
+  employmentstatus: string;
+  birthlga: string;
+  residence_lga: string;
+  title: string;
+  profession: string;
+  nok_address1: string;
+  photo: string | null;
+  nok_middlename: string;
+  tracking_id: string;
+  central_iD: string;
+};

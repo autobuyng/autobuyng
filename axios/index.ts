@@ -15,7 +15,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     baseURL: baseUrls[baseUrlKey],
     withCredentials: true,
     // Add timeout to prevent hanging requests
-    timeout: 50000,
+    timeout: 500000,
   });
 
   // const accessToken = getSessionItem('accessToken');
@@ -112,6 +112,7 @@ export const endpoints = {
     verifyForgetPassword: '/auth/verify-password-reset-token',
     resetPassword: '/auth/reset-password',
     resendEmail: '/auth/resend-verification-email',
+    verifyIdentity: '/auth/verify-identity',
   },
   user: {
     profile: '/user',
@@ -148,6 +149,8 @@ export const endpoints = {
   },
   payment: {
     createOrder: (data: { vehicleId: string }) => `/order/create-order/${data.vehicleId}`,
+    serverSideEvent: (data: { merchantId: string }) =>
+      `order/transaction/notifications/${data.merchantId}`,
   },
 };
 
