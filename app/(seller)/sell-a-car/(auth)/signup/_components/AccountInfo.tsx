@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -7,10 +7,12 @@ import {
   SellerRegistrationSchemaDealer,
 } from '@/Schema/authSchema';
 import { useToast } from '@/hooks/use-toast';
-import { useRegisterBusiness } from '@/app/(seller)/api/auth';
+import { useRegisterBusiness, useVerifyIdentity } from '@/app/(seller)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import Verification from './Verification';
 import { cn } from '@/lib/utils';
+import { useDebounce } from 'use-debounce';
+import { CompanyData } from '@/types/types';
 
 const AccountInfo = () => {
   const { toast } = useToast();
@@ -18,15 +20,29 @@ const AccountInfo = () => {
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = useForm<ISellerRegistrationPayloadDealer>({
     resolver: zodResolver(SellerRegistrationSchemaDealer),
   });
-
+  const cac = watch("cac")
   const { signup, isRegistering } = useRegisterBusiness();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayloadDealer | null>(null);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [cacData, setCacData] = useState<CompanyData | null>(null);
+  const [debouncedCac] = useDebounce(cac, 1000);
+  const lastCac = useRef<string | null>(null);
+  const { verifyIdentity } = useVerifyIdentity();
+
+
+  useEffect(() => {
+    reset({
+      companyName: cacData?.approved_name,
+
+    });
+  }, [cacData]);
 
   const handleRegister = async (data: ISellerRegistrationPayloadDealer) => {
     try {
@@ -46,13 +62,30 @@ const AccountInfo = () => {
     }
   };
 
+  const NinLookup = async () => {
+    try {
+      const response = await verifyIdentity({ cac });
+      setCacData(response.data as CompanyData);
+    } catch (error) {
+      console.log(error);
+      // reset();
+    }
+  };
+
+  useEffect(() => {
+    if (!debouncedCac || debouncedCac === lastCac.current) return;
+
+    lastCac.current = debouncedCac;
+    console.log('again');
+    NinLookup();
+  }, [debouncedCac]);
+
   return (
-    <div className='max-w-[458px] mx-auto w-full'>
+    <div className="max-w-[458px] mx-auto w-full">
       <div className="  mx-auto w-full grid place-items-center ">
         <form onSubmit={handleSubmit(handleRegister)} className="w-full space-y-4 mt-4">
           <div className="w-full space-y-4">
             <section className="flex flex-col items-center gap-4 w-full">
-
               <div className="w-full">
                 <label htmlFor="cacNumber" className="block text-xs font-medium text-gray-700">
                   CAC Number
@@ -159,8 +192,6 @@ const AccountInfo = () => {
                   <p className="text-red-500 text-sm pt-1">{errors.phoneNumber.message}</p>
                 )}
               </div>
-
-
             </section>
 
             <section className="flex flex-col items-center gap-4 w-full">

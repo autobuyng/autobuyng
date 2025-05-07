@@ -5,6 +5,7 @@ import {
   ISellerRegistrationPayloadDealer,
 } from '@/Schema/authSchema';
 import {
+  CacDataResponse,
   EmailverificationResponse,
   ILoginPayload,
   ISellerRegistrationResponse,
@@ -184,11 +185,11 @@ export function useResendEmail() {
 
 export function useVerifyIdentity() {
   const { mutateAsync, data, isPending, isError, error } = useMutation<
-    NinDataResponse,
+    NinDataResponse | CacDataResponse,
     AxiosError,
-    { nin: string }
+    { nin?: string; cac?: string }
   >({
-    mutationFn: (values: { nin: string }) =>
+    mutationFn: (values: { nin?: string; cac?: string }) =>
       mutator({ method: 'POST', data: values, url: endpoints.auth.verifyIdentity }),
   });
 

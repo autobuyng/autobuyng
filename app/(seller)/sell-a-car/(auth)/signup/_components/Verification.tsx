@@ -20,7 +20,6 @@ const Verification = ({ signupData, isModalOpen, setIsModalOpen }: VerificationP
   const [, setResendResponse] = useState();
   const { handleSubmit } = useForm<{ email: string }>();
 
-
   const { resendEmail, isPending } = useResendEmail();
   const handleResedEmail = async () => {
     try {

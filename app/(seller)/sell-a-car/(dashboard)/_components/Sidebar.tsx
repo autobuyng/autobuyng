@@ -32,7 +32,7 @@ const Sidebar = () => {
   // const currentPath = pathname.split('/');
 
   const handleLogOut = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     router.push('/sell-a-car/login');
     toast({
       title: 'Success',

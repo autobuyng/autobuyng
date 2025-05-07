@@ -14,7 +14,7 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { useLogin } from '@/app/(seller)/api/auth';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useToast } from '@/hooks/use-toast';
-import { setSessionItem } from '@/lib/Sessionstorage';
+import { setLocalItem } from '@/lib/localStorage';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +35,7 @@ const Login = () => {
   const handleLogin = async (data: ILoginPayload) => {
     try {
       const response = await login(data);
-      setSessionItem('sellerAccessToken', response.data.accessToken);
+      setLocalItem('sellerAccessToken', response.data.accessToken);
       toast({
         title: 'Success',
         description: response.data.message,

@@ -1,5 +1,5 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
-import { getSessionItem } from '@/lib/Sessionstorage';
+// import { getLocalItem } from '@/lib/localStorage';
 import { IRegistrationPayload } from '@/Schema/authSchema';
 import {
   EmailverificationResponse,
@@ -129,20 +129,22 @@ export function useGetUser() {
 }
 
 export function useGetAuthenticatedUser() {
-  const accessToken = getSessionItem('accessToken');
-  const { data, isLoading, refetch } = useQuery<any>({
+  // const accessToken = getLocalItem('accessToken');
+  const { data, isLoading, isError, error, refetch } = useQuery<any>({
     queryKey: queryKeys.user.root,
-    enabled: !!accessToken,
+    // enabled: !!accessToken,
     queryFn: () => fetcher(endpoints.auth.currentUser),
   });
 
   return useMemo(
     () => ({
       data: data,
+      isError,
+      error,
       userRefetch: refetch,
       isLoading,
     }),
-    [data, isLoading, refetch],
+    [data, isLoading, error, isError, refetch],
   );
 }
 

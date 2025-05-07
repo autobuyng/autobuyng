@@ -10,15 +10,13 @@ import { useCreateOrder } from '@/app/(buyer)/api/payment';
 // import { endpoints } from '@/axios';
 import { Failure, Success } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 
-
-
 export default function CreateOrder() {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [mainImage, setMainImage] = useState(vehicleData?.images[0]);
   const [copied, setCopied] = useState<string | null>(null);
   const [orderDetails, setOrderDetails] = useState<any>('');
-  const [step, setStep] = useState("payentscreen")
+  const [step, setStep] = useState('payentscreen');
   const pathname = usePathname();
   const { getVehicle } = useGetVehicle();
   const { createOrder, isPending } = useCreateOrder();
@@ -28,7 +26,7 @@ export default function CreateOrder() {
       const response = await getVehicle({
         vehicleId: pathname.split('/').at(-1) as string,
       });
-      setMainImage(response.data.images[0])
+      setMainImage(response.data.images[0]);
       setVehicleData(response.data);
     } catch (error) {
       console.log(error, 'error');
@@ -57,7 +55,7 @@ export default function CreateOrder() {
   useEffect(() => {
     // Guard clause with better logging
     if (!orderDetails.initiationRef) {
-      console.log("No initiation reference available yet, skipping SSE setup");
+      console.log('No initiation reference available yet, skipping SSE setup');
       return;
     }
 
@@ -78,23 +76,22 @@ export default function CreateOrder() {
 
         eventSource = new EventSource(
           `https://autobuy-latest.onrender.com/api/v1/order/transaction/notifications/${orderDetails.initiationRef}`,
-
         );
 
-        console.log("SSE connection attempt started");
+        console.log('SSE connection attempt started');
 
         // Connection opened successfully
         eventSource.onopen = () => {
-          console.log("SSE connection established successfully");
+          console.log('SSE connection established successfully');
           retryCount = 0; // Reset retry count on successful connection
         };
 
         // Handle incoming messages
-        eventSource.onmessage = (event: { data: string; }) => {
+        eventSource.onmessage = (event: { data: string }) => {
           try {
             // Check if data is available
             if (!event.data) {
-              console.warn("Received SSE event with empty data");
+              console.warn('Received SSE event with empty data');
               return;
             }
 
@@ -104,11 +101,11 @@ export default function CreateOrder() {
 
             if (parsed.status === 'success') {
               console.log('Payment successful:', parsed);
-              setStep("paymentFailure")
+              setStep('paymentFailure');
               eventSource.close();
             } else if (parsed.status === 'failed' || parsed.status === 'REJECTED') {
               console.log('Payment failed:', parsed.message);
-              setStep("paymentFailure")
+              setStep('paymentFailure');
 
               eventSource.close();
             }
@@ -123,7 +120,7 @@ export default function CreateOrder() {
 
           // Check readyState (0=connecting, 1=open, 2=closed)
           if (eventSource.readyState === EventSource.CLOSED) {
-            console.log("Connection closed, readyState:", eventSource.readyState);
+            console.log('Connection closed, readyState:', eventSource.readyState);
 
             // Implement retry logic
             if (retryCount < maxRetries) {
@@ -134,30 +131,28 @@ export default function CreateOrder() {
               console.error(`Max retries (${maxRetries}) reached. Giving up on SSE connection.`);
             }
           } else if (eventSource.readyState === EventSource.CONNECTING) {
-            console.log("Still trying to connect...");
+            console.log('Still trying to connect...');
           }
         };
-
       } catch (err) {
-        console.error("Error setting up EventSource:", err);
+        console.error('Error setting up EventSource:', err);
       }
     };
 
     setupEventSource();
 
     return () => {
-      console.log("Cleaning up SSE connection");
+      console.log('Cleaning up SSE connection');
       if (eventSource) {
         eventSource.close();
         eventSource = null;
-        console.log("SSE connection closed");
+        console.log('SSE connection closed');
       }
     };
   }, [orderDetails.initiationRef]);
 
-
   if (isLoading || isPending) {
-    return <h1 className='min-h-[95vh] grid place-items-center'>loading</h1>;
+    return <h1 className="min-h-[95vh] grid place-items-center font-bold capitalize text-2xl">loading...</h1>;
   }
 
   const handleThumbnailClick = (image: string) => {
@@ -201,7 +196,10 @@ export default function CreateOrder() {
         </div>
 
         <div className="md:w-1/2 space-y-4">
-          <h2 className="text-3xl font-bold mb-2">  {` ${vehicleData?.make} ${vehicleData?.vehicleModel}`}</h2>
+          <h2 className="text-3xl font-bold mb-2">
+            {' '}
+            {` ${vehicleData?.make} ${vehicleData?.vehicleModel}`}
+          </h2>
           <div className=" text-sm space-y-5">
             <p>
               <span className="font-medium">Mileage:</span> {vehicleData?.mileage}
@@ -226,64 +224,77 @@ export default function CreateOrder() {
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const PayentSuccess = () => {
     return (
-      <div className=' h-full'>
-
+      <div className=" h-full">
         <div className="border-2 border-dashed border-blue-300 rounded-2xl p-6 bg-white">
-          <div className='flex items-center justify-center mb-4'>
+          <div className="flex items-center justify-center mb-4">
             <Success />
           </div>
           <VehiclDetails />
 
-          <div className='mt-4'>
-            <h1 className='font-bold text-xl'>Email Instructions</h1>
+          <div className="mt-4">
+            <h1 className="font-bold text-xl">Email Instructions</h1>
             <p>Please check your email for further instructions on your purchase!</p>
           </div>
 
-
-          <div className='flex items-center justify-center mt-8'>
-            <button className='bg-primary-900 text-white px-14 py-2 rounded-sm'>Go To Portal</button>
+          <div className="flex items-center justify-center mt-8">
+            <button className="bg-primary-900 text-white px-14 py-2 rounded-sm">
+              Go To Portal
+            </button>
           </div>
         </div>
 
-        <div className='mt-16'>
-          <h1 className='font-bold text-2xl  mb-4'>Simplify Your Vehicle Ownership Transfer with Us</h1>
-          <p className='text-justify text-sm'>We understand that transferring vehicle ownership can be a complex and time-consuming process, which is why we’re here to help you with every step. From verifying documents like registration certificates and proof of ownership to ensuring the chassis and engine numbers are accurate and confirming the vehicle isn’t listed as stolen, we handle all the paperwork and legal requirements. Our expert team will guide you through the process, saving you time and effort while ensuring everything is done correctly. With our service, you can have peace of mind knowing the transfer will be smooth and hassle-free. Ready to transfer your ownership? Let us take care of the details so you can enjoy your new vehicle without worry.</p>
+        <div className="mt-16">
+          <h1 className="font-bold text-2xl  mb-4">
+            Simplify Your Vehicle Ownership Transfer with Us
+          </h1>
+          <p className="text-justify text-sm">
+            We understand that transferring vehicle ownership can be a complex and time-consuming
+            process, which is why we’re here to help you with every step. From verifying documents
+            like registration certificates and proof of ownership to ensuring the chassis and engine
+            numbers are accurate and confirming the vehicle isn’t listed as stolen, we handle all
+            the paperwork and legal requirements. Our expert team will guide you through the
+            process, saving you time and effort while ensuring everything is done correctly. With
+            our service, you can have peace of mind knowing the transfer will be smooth and
+            hassle-free. Ready to transfer your ownership? Let us take care of the details so you
+            can enjoy your new vehicle without worry.
+          </p>
         </div>
-        <p className='flex items-center text-sm gap-2 mt-4'><span>Read more </span><ArrowRight size={15} /></p>
+        <p className="flex items-center text-sm gap-2 mt-4">
+          <span>Read more </span>
+          <ArrowRight size={15} />
+        </p>
       </div>
-    )
-  }
-
+    );
+  };
 
   const PaymentFailure = () => {
-
     return (
       <div className="border-2 border-dashed border-blue-300 rounded-2xl p-6 bg-white">
-        <div className='flex items-center justify-center mb-4'>
+        <div className="flex items-center justify-center mb-4">
           <Failure />
         </div>
         <VehiclDetails />
 
-        <div className='mt-4'>
-          <h1 className='font-bold text-xl'>Email Instructions</h1>
+        <div className="mt-4">
+          <h1 className="font-bold text-xl">Email Instructions</h1>
           <p>Please check your email for further instructions on your purchase!</p>
         </div>
 
-        <div className='flex items-center justify-center mt-8'>
-          <button className='bg-primary-900 text-white px-14 py-2 rounded-sm'>Retry</button>
+        <div className="flex items-center justify-center mt-8">
+          <button className="bg-primary-900 text-white px-14 py-2 rounded-sm">Retry</button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const OrderDetails = () => {
     return (
-      <div className='py-4 h-full'>
+      <div className="py-4 h-full">
         <div className="flex justify-center items-center mt-8 mb-2">
           <span className="text-2xl font-medium">{orderDetails.accountNumber}</span>
           <button
@@ -325,9 +336,8 @@ export default function CreateOrder() {
           </div>
         </div>
       </div>
-    )
-  }
-
+    );
+  };
 
   const PaymentScreen = () => {
     return (
@@ -336,19 +346,13 @@ export default function CreateOrder() {
         <VehiclDetails />
         <OrderDetails />
       </div>
-    )
-  }
+    );
+  };
 
   const paymentSteps: { [key: string]: JSX.Element } = {
     payentscreen: <PaymentScreen />,
     paymentStatus: <PayentSuccess />,
-    paymentFailure: <PaymentFailure />
-  }
-  return (
-    <div className="max-w-3xl h-full mx-auto my-8">
-      {paymentSteps[step]}
-    </div>
-  );
+    paymentFailure: <PaymentFailure />,
+  };
+  return <div className="max-w-3xl h-full mx-auto my-8">{paymentSteps[step]}</div>;
 }
-
-

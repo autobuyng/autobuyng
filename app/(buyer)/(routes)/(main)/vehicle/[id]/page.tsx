@@ -76,7 +76,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-
   useEffect(() => {
     handleGetVehicle();
     handleGetSimilarVehicle();

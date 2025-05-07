@@ -1,4 +1,5 @@
-import { getSessionItem, removeSessionItem } from '@/lib/Sessionstorage';
+import { getLocalItem } from '@/lib/localStorage';
+import { removeSessionItem } from '@/lib/Sessionstorage';
 import { SearchQuery } from '@/types/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
@@ -15,7 +16,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     baseURL: baseUrls[baseUrlKey],
     withCredentials: true,
     // Add timeout to prevent hanging requests
-    timeout: 500000,
+    timeout: 200000,
   });
 
   // const accessToken = getSessionItem('accessToken');
@@ -25,8 +26,8 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
       const isSeller = currentPath.includes('sell-a-car');
       const accessToken = isSeller
-        ? getSessionItem('sellerAccessToken')
-        : getSessionItem('accessToken');
+        ? getLocalItem('sellerAccessToken')
+        : getLocalItem('accessToken');
 
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -46,23 +47,23 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       const { response } = error;
 
       // Handle Unauthorized Errors
-      if (response && (response.status === 401 || response.status === 403)) {
-        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-        const isSeller = currentPath.startsWith('/sell-a-car');
-        const isBuyerPrivate = currentPath.startsWith('/payment/');
-        // Clear the relevant token and redirect to the appropriate login page
-        if (isSeller) {
-          removeSessionItem('sellerAccessToken');
-          currentPath !== '/sell-a-car' &&
-            currentPath !== '/sell-a-car/login' &&
-            (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
-        } else {
-          removeSessionItem('accessToken');
-          if (isBuyerPrivate) {
-            window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
-          }
-        }
-      }
+      // if (response && (response.status === 401 || response.status === 403)) {
+      //   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+      //   const isSeller = currentPath.startsWith('/sell-a-car');
+      //   const isBuyerPrivate = currentPath.startsWith('/payment/');
+      //   // Clear the relevant token and redirect to the appropriate login page
+      //   if (isSeller) {
+      //     removeSessionItem('sellerAccessToken');
+      //     currentPath !== '/sell-a-car' &&
+      //       currentPath !== '/sell-a-car/login' &&
+      //       (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
+      //   } else {
+      //     removeSessionItem('accessToken');
+      //     if (isBuyerPrivate) {
+      //       window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+      //     }
+      //   }
+      // }
 
       return Promise.reject(error);
     },

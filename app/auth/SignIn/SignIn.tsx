@@ -12,9 +12,9 @@ import { useToast } from '@/hooks/use-toast';
 // import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 // import { useContext } from 'react';
-import { setSessionItem } from '@/lib/Sessionstorage';
 import { useStore } from '@/store/useStore';
 import { useState } from 'react';
+import { setLocalItem } from '@/lib/localStorage';
 
 const SignIn = ({
   setType,
@@ -51,7 +51,7 @@ const SignIn = ({
           position: 'top-right',
         });
         setUser(response.data.user);
-        setSessionItem('accessToken', response.data.accessToken);
+        setLocalItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
     } catch (error: any) {

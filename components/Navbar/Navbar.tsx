@@ -20,7 +20,7 @@ import { useStore } from '@/store/useStore';
 import { setSessionItem } from '@/lib/Sessionstorage';
 
 const Navbar = () => {
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
 
@@ -30,9 +30,6 @@ const Navbar = () => {
   const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
 
   const { getUser } = useGetUser();
-  // const { data,isLoading:isfetchingUser } = useGetAuthenticatedUser()
-  // console.log(data, "data")
-
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -71,18 +68,6 @@ const Navbar = () => {
     }
   };
 
-  // const handleGoogleRedirect = async () => {
-  //   const token = searchParams.get("token")
-  //   console.log(token, "token")
-  //   if (token) {
-  //     setLocalItem('accessToken', token);
-
-  //     await getUser()
-  //   }
-  // }
-  // useEffect(() => {
-  //   handleGoogleRedirect()
-  // }, [])
 
   useEffect(() => {
     setIsLoading(true);
@@ -178,12 +163,16 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            ) : isLoading || loading ? (
-              <div className="flex items-center gap-2">
-                <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
-                <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
-              </div>
-            ) : (
+            )
+
+              // : isLoading || loading ? (
+              //   <div className="flex items-center gap-2">
+              //     <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
+              //     <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
+              //   </div>
+              // )
+
+              : (
               <div className="flex gap-8">
                 <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
                   Login

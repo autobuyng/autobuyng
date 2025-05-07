@@ -557,3 +557,33 @@ export type UserData = {
   tracking_id: string;
   central_iD: string;
 };
+
+
+export type CacDataResponse = {
+  status: boolean;
+  message: string;
+  data: CompanyData;
+};
+
+export type CompanyData = {
+  id: number;
+  rc_number: string;
+  registration_date: string;
+  registration_approved: boolean;
+  active: boolean;
+  classification: string;
+  classification_id: number;
+  company_type_name: string;
+  nature_of_business_name: string;
+  objectives: string | null;
+  delisting_status: string | null;
+  approved_name: string;
+  email: string;
+  state: string;
+  city: string;
+  lga: string;
+  address: string;
+  branch_address: string;
+  head_office_address: string;
+  business_commencement_date: string | null;
+};
