@@ -74,7 +74,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
 
 export const usermgtApi = createAxiosInstance(ApiType.AUTOBUY);
 
-// Generic fetcher with improved type safety
 export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
   try {
     const res = await usermgtApi.get(url, { ...config });
@@ -147,6 +146,9 @@ export const endpoints = {
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
+  },
+  dashboard: {
+    getAnalytics: '/seller/analytics',
   },
   payment: {
     createOrder: (data: { vehicleId: string }) => `/order/create-order/${data.vehicleId}`,

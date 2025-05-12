@@ -68,7 +68,6 @@ const Navbar = () => {
     }
   };
 
-
   useEffect(() => {
     setIsLoading(true);
     getUserData();
@@ -163,8 +162,7 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            )
-
+            ) : (
               // : isLoading || loading ? (
               //   <div className="flex items-center gap-2">
               //     <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
@@ -172,7 +170,6 @@ const Navbar = () => {
               //   </div>
               // )
 
-              : (
               <div className="flex gap-8">
                 <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
                   Login

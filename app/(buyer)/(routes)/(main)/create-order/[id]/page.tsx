@@ -9,6 +9,7 @@ import { VehicleData } from '@/types/types';
 import { useCreateOrder } from '@/app/(buyer)/api/payment';
 // import { endpoints } from '@/axios';
 import { Failure, Success } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
+import { formatCurrency } from '@/lib/utils';
 
 export default function CreateOrder() {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
@@ -53,23 +54,18 @@ export default function CreateOrder() {
   }, []);
 
   useEffect(() => {
-    // Guard clause with better logging
     if (!orderDetails.initiationRef) {
       console.log('No initiation reference available yet, skipping SSE setup');
       return;
     }
-
-    // Log before attempting to create connection
     console.log(`Setting up SSE connection for ref: ${orderDetails.initiationRef}`);
 
     let eventSource: any = null;
     let retryCount = 0;
     const maxRetries = 3;
 
-    // Create and configure EventSource with retry logic
     const setupEventSource = () => {
       try {
-        // Close existing connection if any
         if (eventSource) {
           eventSource.close();
         }
@@ -80,7 +76,6 @@ export default function CreateOrder() {
 
         console.log('SSE connection attempt started');
 
-        // Connection opened successfully
         eventSource.onopen = () => {
           console.log('SSE connection established successfully');
           retryCount = 0; // Reset retry count on successful connection
@@ -99,12 +94,10 @@ export default function CreateOrder() {
             const parsed = JSON.parse(data.data);
             console.log('Payment successful:', parsed);
 
-            if (parsed.status === 'success') {
-              console.log('Payment successful:', parsed);
+            if (parsed.status === 'success' || parsed.status === 'completed') {
               setStep('paymentFailure');
               eventSource.close();
             } else if (parsed.status === 'failed' || parsed.status === 'REJECTED') {
-              console.log('Payment failed:', parsed.message);
               setStep('paymentFailure');
 
               eventSource.close();
@@ -152,7 +145,11 @@ export default function CreateOrder() {
   }, [orderDetails.initiationRef]);
 
   if (isLoading || isPending) {
-    return <h1 className="min-h-[95vh] grid place-items-center font-bold capitalize text-2xl">loading...</h1>;
+    return (
+      <h1 className="min-h-[95vh] grid place-items-center font-bold capitalize text-2xl">
+        loading...
+      </h1>
+    );
   }
 
   const handleThumbnailClick = (image: string) => {
@@ -212,7 +209,7 @@ export default function CreateOrder() {
             </p>
             <p>
               <span className="font-medium">Amount:</span>{' '}
-              <span className="text-green-600 font-bold">{vehicleData?.price}</span>
+              <span className="text-green-600 font-bold">{formatCurrency(vehicleData?.price)}</span>
             </p>
 
             <p>

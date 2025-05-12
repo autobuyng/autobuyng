@@ -182,8 +182,14 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
 
-              <div className="h-fit  space-y-10  flex-[2] ">
-                <div className="shadow-[0px_2px_14px_0px_#0000001A] bg-white px-6 pb-4 pt-12">
+              <div className="h-fit   space-y-10   flex-[2] ">
+                <div className=" relative shadow-[0px_2px_14px_0px_#0000001A] rounded-lg bg-white px-6 pb-4 pt-12">
+                  <div className='absolute top-0 left-0 right-0 w-full h-full bg-black/60 z-10 rounded-xl text-white grid place-items-center text-4xl font-bold'> <div>
+                    <Image src={"/img/commingsoon.png"} alt='comming soon' width={150} height={150} className='mx-auto' />
+                    <h1>COMMING SOON</h1>
+                  </div>
+                  </div>
+
                   <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
                     Autobuy Reliability Score{' '}
                   </h1>

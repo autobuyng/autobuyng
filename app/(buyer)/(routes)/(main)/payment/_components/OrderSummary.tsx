@@ -1,4 +1,5 @@
 'use client';
+import { formatCurrency } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
@@ -13,7 +14,7 @@ const OrderSummary = () => {
       <section className="border-b space-y-3 border-[#7AAECA]/50 pb-2">
         <div className="flex items-center justify-between">
           <span>vehicle Total</span>
-          <span>{vehicleDetails?.price}</span>
+          <span>{formatCurrency(vehicleDetails?.price)}</span>
         </div>
         <div className="flex items-center justify-between">
           <span>Tax</span>
@@ -26,7 +27,7 @@ const OrderSummary = () => {
       </section>
       <div className="flex items-center justify-between">
         <span>Total</span>
-        <span>{vehicleDetails?.price}</span>
+        <span>{formatCurrency(vehicleDetails?.price)}</span>
       </div>
 
       <div>

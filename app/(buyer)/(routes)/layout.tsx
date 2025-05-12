@@ -16,7 +16,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <BuyerLayout>{children}</BuyerLayout>
-  );
+  return <BuyerLayout>{children}</BuyerLayout>;
 }

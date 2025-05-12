@@ -68,10 +68,10 @@ const BusinessInfo = () => {
     } catch (error) {
       console.log(error);
       reset({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
       });
     }
   };

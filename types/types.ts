@@ -558,7 +558,6 @@ export type UserData = {
   central_iD: string;
 };
 
-
 export type CacDataResponse = {
   status: boolean;
   message: string;
@@ -587,3 +586,23 @@ export type CompanyData = {
   head_office_address: string;
   business_commencement_date: string | null;
 };
+
+export type DashboardStatsResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    totalUploaded: {
+      count: number;
+      percentageChange: number;
+    };
+    totalSold: {
+      count: number;
+      percentageChange: number;
+    };
+    totalPending: {
+      count: number;
+      percentageChange: number;
+    };
+  };
+};
+

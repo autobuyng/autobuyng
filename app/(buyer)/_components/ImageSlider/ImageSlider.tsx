@@ -121,7 +121,7 @@ const ImageSlider = ({ ImageUrls, id, make, model }: ImageSliderProp) => {
                     alt={`Slide ${index + 1}`}
                     width={800}
                     height={600}
-                    className="w-full h-full  object-cover cursor-pointer"
+                    className="w-full h-full rounded-lg  object-cover cursor-pointer"
                     onClick={() => setShowSlidermodal(true)}
                   />
                 </div>
@@ -256,7 +256,7 @@ const ImageSliderModal = ({
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         <DialogContent
           className={cn(
-            ' max-h-[98vh] mt-2 max-w-7xl border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ',
+            ' max-h-[100vh] mt-2 max-w-[1336px] border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ',
             {
               // 'max-w-[48rem]': os === 'macOS',
               // 'max-w-[600px]': os === 'Windows',
@@ -281,7 +281,7 @@ const ImageSliderModal = ({
             />
           </div>
           <div className=" flex items-start justify-between gap-8 ">
-            <div className=" max-w-[700px] h-[450px]">
+            <div className=" max-w-[850px] h-[500px]">
               <div className="overflow-hidden relative">
                 <div
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -294,9 +294,9 @@ const ImageSliderModal = ({
                         alt="image slider"
                         key={index}
                         // fill
-                        width={860}
-                        height={433}
-                        className="cursor-pointer flex-shrink-0 object-cover  h-[483px] w-[860px]"
+                        width={960}
+                        height={480}
+                        className="cursor-pointer flex-shrink-0 object-cover  h-[500px] w-[960px]"
                       />
                     ))}
                 </div>
@@ -341,7 +341,7 @@ const ImageSliderModal = ({
                 <p className="bg-primary-900 text-white px-6 py-2 rounded-full">All Photos</p>
                 <Degrees />
               </div>
-              <div className="grid grid-cols-3 xl:grid-cols-4 mt-4  gap-2 w-full ">
+              <div className="grid grid-cols-3 mt-4  gap-2 w-full ">
                 {ImageUrls &&
                   ImageUrls.map((image, index) => (
                     <div

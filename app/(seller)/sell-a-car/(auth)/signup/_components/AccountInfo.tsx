@@ -26,7 +26,7 @@ const AccountInfo = () => {
   } = useForm<ISellerRegistrationPayloadDealer>({
     resolver: zodResolver(SellerRegistrationSchemaDealer),
   });
-  const cac = watch("cac")
+  const cac = watch('cac');
   const { signup, isRegistering } = useRegisterBusiness();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayloadDealer | null>(null);
@@ -36,11 +36,9 @@ const AccountInfo = () => {
   const lastCac = useRef<string | null>(null);
   const { verifyIdentity } = useVerifyIdentity();
 
-
   useEffect(() => {
     reset({
       companyName: cacData?.approved_name,
-
     });
   }, [cacData]);
 

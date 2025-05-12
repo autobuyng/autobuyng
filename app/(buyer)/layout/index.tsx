@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import Navbar from '@/components/Navbar/Navbar';
 import React, { useEffect } from 'react';
 import { useGetAuthenticatedUser } from '../api/auth';
@@ -18,7 +18,7 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   }, [data, setUser, setProfile, setAddress]);
 
   if (isLoading) {
-    return <div className="min-h-[90vh] font-bold text-2xl grid place-item-center">Loading...</div>;
+    return <div className="min-h-screen font-bold text-2xl grid place-item-center">Loading...</div>;
   }
 
   if (isError) {

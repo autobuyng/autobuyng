@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
-
 type BasicInfoProps = {
   step: string;
   setStep: React.Dispatch<React.SetStateAction<string>>;
@@ -14,13 +13,11 @@ type BasicInfoProps = {
 const BasicInfo = ({ setStep, setSelectedOption, selectedOption }: BasicInfoProps) => {
   const [activeChoice, setActiveChoice] = useState(1);
 
-
   const handleOptionSelect = (option: string, index: number) => {
     console.log(selectedOption, 'selectedOption');
     setSelectedOption(option);
     setActiveChoice(index);
   };
-
 
   return (
     <div>
