@@ -43,3 +43,19 @@ export function useGetAuthenticatedUser() {
     [data, isLoading, refetch],
   );
 }
+
+export function useGetOrderLists() {
+  const { data, isLoading, refetch } = useQuery<any>({
+    queryKey: ['orderlist'],
+    queryFn: () => fetcher(endpoints.payment.orderList),
+  });
+
+  return useMemo(
+    () => ({
+      data,
+      refetch,
+      isLoading,
+    }),
+    [data, isLoading, refetch],
+  );
+}

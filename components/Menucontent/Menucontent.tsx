@@ -10,7 +10,7 @@ import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
-import { clearSessionStorage } from '@/lib/Sessionstorage';
+import { clearLocalStorage } from '@/lib/localStorage';
 
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,7 +55,7 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
     }
     setUser(null);
     window.location.reload();
-    clearSessionStorage();
+    clearLocalStorage();
   };
 
   return (

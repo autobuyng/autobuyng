@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next-nprogress-bar';
 
 import { Vehicle } from '@/types/types';
@@ -11,12 +11,21 @@ import { cn, formatCurrency } from '@/lib/utils';
 import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
 
 type ProductCardProps = {
   vehicle: Vehicle;
   likedVehicle?: Set<string>;
+  localLikedVehicle?: string[];
 };
 export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
+  const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>([]);
+
+  useEffect(() => {
+    const localLikedVehicles: string[] = getLocalItem("localLikedVehicles");
+    setLocalLikedVehicle(localLikedVehicles || [])
+  }, [])
+
   const {
     _id,
     make,
@@ -54,16 +63,27 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     setIsOpen(false);
   };
   const handleLikeVehhicle = async (id: string) => {
-    if (!user) {
-      setIsOpen(true);
-      return;
-    }
+    // if (!user) {
+    //   setIsOpen(true);
+    //   return;
+    // }
 
     try {
-      toggleItem(likedVehicle, id);
-      await likeVehicle({ vehicleId: id });
+      if (user) {
+        toggleItem(likedVehicle, id);
+        await likeVehicle({ vehicleId: id });
+      } else {
+        const localLikedVehicles: string[] = getLocalItem("localLikedVehicles") || []
+        const alreadyLiked = localLikedVehicles.includes(id)
+        const updated = alreadyLiked ? localLikedVehicles?.filter((storedId: string) => storedId !== id) : [...localLikedVehicles, id]
+        setLocalLikedVehicle(updated)
+        setLocalItem("localLikedVehicles", updated)
+      }
     } catch (error) {
       likedVehicle?.delete(id);
+      const updated = getLocalItem("localLikedVehicles").filter((storedId: string) => storedId !== id)
+      setLocalItem("localLikedVehicles", updated)
+      setLocalLikedVehicle(updated)
       console.log(error, 'error');
     }
   };
@@ -79,7 +99,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
         >
           <Heart
             className={cn({
-              'text-red-500 fill-current': likedVehicle?.has(_id),
+              'text-red-500 fill-current': likedVehicle?.has(_id) || localLikedVehicle?.includes(_id),
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}

@@ -143,6 +143,7 @@ export const endpoints = {
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
     likevehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}/like`,
+    likeMultipleVehicle: (vehicles: string[]) => `/vehicles/like/offline`,
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
@@ -154,6 +155,7 @@ export const endpoints = {
     createOrder: (data: { vehicleId: string }) => `/order/create-order/${data.vehicleId}`,
     serverSideEvent: (data: { merchantId: string }) =>
       `order/transaction/notifications/${data.merchantId}`,
+    orderList: '/order/vehicle',
   },
 };
 

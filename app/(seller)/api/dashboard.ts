@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useGetDashboardAnalytics() {
-  const { data, isLoading, refetch } = useQuery<DashboardStatsResponse>({
+  const { data, isLoading, refetch } = useQuery<DashboardStatsResponse[]>({
     queryKey: queryKeys.vehicle.getAllVehicle,
     queryFn: () => fetcher(endpoints.dashboard.getAnalytics),
   });

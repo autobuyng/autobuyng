@@ -41,5 +41,5 @@ export default function StatsSkeletonLoader() {
         <div className="animate-pulse h-5 w-24 bg-gray-200 rounded"></div>
       </div>
     </div>
-  )
+  );
 }

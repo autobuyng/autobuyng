@@ -6,8 +6,7 @@ import { useStore } from '@/store/useStore';
 
 const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const { setUser, setProfile, setAddress } = useStore();
-  const { data, isLoading, error, isError } = useGetAuthenticatedUser();
-
+  const { data, error, isLoading, isError } = useGetAuthenticatedUser();
   useEffect(() => {
     if (data) {
       const { user, profile, addresses } = data;
@@ -18,7 +17,9 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   }, [data, setUser, setProfile, setAddress]);
 
   if (isLoading) {
-    return <div className="min-h-screen font-bold text-2xl grid place-item-center">Loading...</div>;
+    return <div className="min-h-screen h-full font-bold text-2xl flex items-center justify-center">
+      <h1>Loading...</h1>
+    </div>
   }
 
   if (isError) {

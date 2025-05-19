@@ -92,10 +92,9 @@ export default function CreateOrder() {
 
             const data = JSON.parse(event.data);
             const parsed = JSON.parse(data.data);
-            console.log('Payment successful:', parsed);
 
             if (parsed.status === 'success' || parsed.status === 'completed') {
-              setStep('paymentFailure');
+              setStep('paymentSuccess');
               eventSource.close();
             } else if (parsed.status === 'failed' || parsed.status === 'REJECTED') {
               setStep('paymentFailure');
@@ -164,16 +163,16 @@ export default function CreateOrder() {
 
   const VehiclDetails = () => {
     return (
-      <div className="flex flex-col min-h-full  md:flex-row gap-8 mb-4">
-        <div className="md:w-1/2">
+      <div className=" flex-[2] flex flex-col min-h-full border border-blue-500 rounded-xl p-4   gap-8 mb-4">
+        <div className="w-full">
           <Image
             src={mainImage as string}
             alt={vehicleData?.vehicleModel as string}
-            width={400}
-            height={300}
-            className="w-full h-auto object-cover rounded-md"
+            width={600}
+            height={400}
+            className="w-full h-full object-cover rounded-md"
           />
-          <div className="grid grid-cols-4 gap-2 mt-2">
+          {/* <div className="w-full grid grid-cols-4 gap-2 mt-2">
             {vehicleData?.images.slice(1, 5).map((image, index) => (
               <div
                 key={index}
@@ -189,12 +188,11 @@ export default function CreateOrder() {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
-        <div className="md:w-1/2 space-y-4">
+        <div className="w-full space-y-4">
           <h2 className="text-3xl font-bold mb-2">
-            {' '}
             {` ${vehicleData?.make} ${vehicleData?.vehicleModel}`}
           </h2>
           <div className=" text-sm space-y-5">
@@ -291,9 +289,14 @@ export default function CreateOrder() {
 
   const OrderDetails = () => {
     return (
-      <div className="py-4 h-full">
+      <div className=" h-full flex-[3]">
+        <h1 className='font-bold text-lg text-center mb-2'>Importance Payment Notice</h1>
+        <p>The account number provided is valid for 24 hours only. Please make payment within this timeframe to secure your purchase—after which the vehicle may be released to another buyer.
+        </p>
+        <p>  This car is reserved for you only during this 24-hour window.
+          We also recommend copying and saving the account number, as the page may refresh. If lost, you may need to restart your request (subject to availability).</p>
         <div className="flex justify-center items-center mt-8 mb-2">
-          <span className="text-2xl font-medium">{orderDetails.accountNumber}</span>
+          <span className="text-2xl font-medium text-primary-900 ">{orderDetails.accountNumber}</span>
           <button
             onClick={() => copyToClipboard(orderDetails.accountNumber, 'transactionId')}
             className="ml-2 text-gray-500 hover:text-gray-700"
@@ -311,14 +314,14 @@ export default function CreateOrder() {
         </div>
 
         <div className="max-w-md mx-auto">
-          <div className="grid grid-cols-2 gap-2  space-y-2">
+          <div className="grid grid-cols-2  space-y-2">
             <div className="text-left">Initiations Refrence</div>
             <div className="text-right">{orderDetails.initiationRef}</div>
 
             <div className="text-left">Amount</div>
             <div className="text-right">{vehicleData?.price}</div>
-            <div className="text-left font-bold pt-2 border-t">Total</div>
-            <div className="text-right font-bold pt-2 border-t flex justify-end items-center">
+            <div className="text-left font-bold pt-2 border-t border-primary-900">Total</div>
+            <div className="text-right font-bold pt-2 border-t border-primary-900 flex justify-end items-center">
               {vehicleData?.price}
               <button
                 onClick={() =>
@@ -338,18 +341,19 @@ export default function CreateOrder() {
 
   const PaymentScreen = () => {
     return (
-      <div className="border-2 border-dashed border-blue-300 rounded-2xl p-6 bg-white">
-        <h1 className="text-2xl font-bold text-center mb-6">AutoBuy Secure Gateway</h1>
+      <div className="w-full p-6 bg-white">
+        <div className='w-full flex flex-col sm:flex-row gap-6 justify-center'>
         <VehiclDetails />
         <OrderDetails />
+        </div>
       </div>
     );
   };
 
   const paymentSteps: { [key: string]: JSX.Element } = {
     payentscreen: <PaymentScreen />,
-    paymentStatus: <PayentSuccess />,
+    paymentSuccess: <PayentSuccess />,
     paymentFailure: <PaymentFailure />,
   };
-  return <div className="max-w-3xl h-full mx-auto my-8">{paymentSteps[step]}</div>;
+  return <div className="max-w-5xl h-full mx-auto my-8 flex items-center justify-center">{paymentSteps[step]}</div>;
 }

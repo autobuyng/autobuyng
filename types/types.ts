@@ -588,21 +588,7 @@ export type CompanyData = {
 };
 
 export type DashboardStatsResponse = {
-  status: boolean;
-  message: string;
-  data: {
-    totalUploaded: {
-      count: number;
-      percentageChange: number;
-    };
-    totalSold: {
-      count: number;
-      percentageChange: number;
-    };
-    totalPending: {
-      count: number;
-      percentageChange: number;
-    };
-  };
+  type: string;
+  count: number;
+  percentageChange: number;
 };
-

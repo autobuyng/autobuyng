@@ -3,18 +3,15 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-// import useIsMobile from '@/hooks/useIsMobile';
-// import { AppContext } from '@/context/AppContext';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useLogin } from '@/app/(buyer)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-// import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
-// import { useContext } from 'react';
 import { useStore } from '@/store/useStore';
-import { useState } from 'react';
-import { setLocalItem } from '@/lib/localStorage';
+import { useEffect, useState } from 'react';
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
+import { useLikeMultipleVehicle } from '@/app/(buyer)/api/search';
 
 const SignIn = ({
   setType,
@@ -33,14 +30,13 @@ const SignIn = ({
 
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
-  // const os = useDetectOS();
-  // const { isMobile } = useIsMobile();
-  // const { user, setUser } = useContext(AppContext);
+  const [likeMultipleVehicles, setLikeMultipleVehicles] = useState(false);
   const { setUser } = useStore();
 
   const router = useRouter();
 
   const { login, isLoggingIn } = useLogin();
+  const { likeMultipleVehicle } = useLikeMultipleVehicle()
 
   const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
     try {
@@ -51,6 +47,7 @@ const SignIn = ({
           position: 'top-right',
         });
         setUser(response.data.user);
+        setLikeMultipleVehicles(true)
         setLocalItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
@@ -61,6 +58,13 @@ const SignIn = ({
       });
     }
   };
+
+  useEffect(() => {
+    const localLikeMultipleVehicles: string[] = getLocalItem('likeMultipleVehicles')
+    if (likeMultipleVehicles && localLikeMultipleVehicles) {
+      likeMultipleVehicle({ vehicles: localLikeMultipleVehicles })
+    }
+  }, [likeMultipleVehicles])
 
   return (
     <div>
