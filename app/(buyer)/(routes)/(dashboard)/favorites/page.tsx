@@ -10,13 +10,12 @@ import { getLocalItem } from '@/lib/localStorage';
 const Saved = () => {
   const [isClient, setIsClient] = useState(false);
   const [likedVehicle, setLikedVehicle] = useState<Set<string>>(new Set());
-  const localLikedVehicles: string[] = getLocalItem("localLikedVehicles");
+  const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
   const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>(localLikedVehicles);
   const { data, isLoading, isError } = useGetFavoriteVehicle();
 
   useEffect(() => {
     setIsClient(true);
-
   }, [data]);
 
   useEffect(() => {
@@ -27,11 +26,10 @@ const Saved = () => {
       // const likedCars = new Set(localLikedVehicles?.map((id: string) => id));
       setLocalLikedVehicle(localLikedVehicles || []);
     }
-
   }, [data]);
 
   if (!isClient) {
-    return null; 
+    return null;
   }
 
   if (isLoading) {

@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import Image from 'next/image';
 import React from 'react';
 
@@ -7,15 +7,11 @@ import { cn } from '@/lib/utils';
 import { useGetOrderLists } from '@/app/(buyer)/api/payment';
 
 const Orders = () => {
-  const { data, isLoading } = useGetOrderLists()
-  console.log(data, "data")
+  const { data, isLoading } = useGetOrderLists();
+  console.log(data, 'data');
 
   if (isLoading) {
-    return (
-      <div>
-        Loading ....
-      </div>
-    )
+    return <div>Loading ....</div>;
   }
   const ORDERS = [
     {

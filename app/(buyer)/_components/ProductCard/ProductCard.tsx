@@ -22,9 +22,9 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
   const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>([]);
 
   useEffect(() => {
-    const localLikedVehicles: string[] = getLocalItem("localLikedVehicles");
-    setLocalLikedVehicle(localLikedVehicles || [])
-  }, [])
+    const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
+    setLocalLikedVehicle(localLikedVehicles || []);
+  }, []);
 
   const {
     _id,
@@ -73,17 +73,21 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
         toggleItem(likedVehicle, id);
         await likeVehicle({ vehicleId: id });
       } else {
-        const localLikedVehicles: string[] = getLocalItem("localLikedVehicles") || []
-        const alreadyLiked = localLikedVehicles.includes(id)
-        const updated = alreadyLiked ? localLikedVehicles?.filter((storedId: string) => storedId !== id) : [...localLikedVehicles, id]
-        setLocalLikedVehicle(updated)
-        setLocalItem("localLikedVehicles", updated)
+        const localLikedVehicles: string[] = getLocalItem('localLikedVehicles') || [];
+        const alreadyLiked = localLikedVehicles.includes(id);
+        const updated = alreadyLiked
+          ? localLikedVehicles?.filter((storedId: string) => storedId !== id)
+          : [...localLikedVehicles, id];
+        setLocalLikedVehicle(updated);
+        setLocalItem('localLikedVehicles', updated);
       }
     } catch (error) {
       likedVehicle?.delete(id);
-      const updated = getLocalItem("localLikedVehicles").filter((storedId: string) => storedId !== id)
-      setLocalItem("localLikedVehicles", updated)
-      setLocalLikedVehicle(updated)
+      const updated = getLocalItem('localLikedVehicles').filter(
+        (storedId: string) => storedId !== id,
+      );
+      setLocalItem('localLikedVehicles', updated);
+      setLocalLikedVehicle(updated);
       console.log(error, 'error');
     }
   };
@@ -99,7 +103,8 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
         >
           <Heart
             className={cn({
-              'text-red-500 fill-current': likedVehicle?.has(_id) || localLikedVehicle?.includes(_id),
+              'text-red-500 fill-current':
+                likedVehicle?.has(_id) || localLikedVehicle?.includes(_id),
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}

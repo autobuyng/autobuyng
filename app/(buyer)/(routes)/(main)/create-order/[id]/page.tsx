@@ -151,9 +151,9 @@ export default function CreateOrder() {
     );
   }
 
-  const handleThumbnailClick = (image: string) => {
-    setMainImage(image);
-  };
+  // const handleThumbnailClick = (image: string) => {
+  //   setMainImage(image);
+  // };
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -290,13 +290,22 @@ export default function CreateOrder() {
   const OrderDetails = () => {
     return (
       <div className=" h-full flex-[3]">
-        <h1 className='font-bold text-lg text-center mb-2'>Importance Payment Notice</h1>
-        <p>The account number provided is valid for 24 hours only. Please make payment within this timeframe to secure your purchase—after which the vehicle may be released to another buyer.
+        <h1 className="font-bold text-lg text-center mb-2">Importance Payment Notice</h1>
+        <p>
+          The account number provided is valid for 24 hours only. Please make payment within this
+          timeframe to secure your purchase—after which the vehicle may be released to another
+          buyer.
         </p>
-        <p>  This car is reserved for you only during this 24-hour window.
-          We also recommend copying and saving the account number, as the page may refresh. If lost, you may need to restart your request (subject to availability).</p>
+        <p>
+          {' '}
+          This car is reserved for you only during this 24-hour window. We also recommend copying
+          and saving the account number, as the page may refresh. If lost, you may need to restart
+          your request (subject to availability).
+        </p>
         <div className="flex justify-center items-center mt-8 mb-2">
-          <span className="text-2xl font-medium text-primary-900 ">{orderDetails.accountNumber}</span>
+          <span className="text-2xl font-medium text-primary-900 ">
+            {orderDetails.accountNumber}
+          </span>
           <button
             onClick={() => copyToClipboard(orderDetails.accountNumber, 'transactionId')}
             className="ml-2 text-gray-500 hover:text-gray-700"
@@ -342,9 +351,9 @@ export default function CreateOrder() {
   const PaymentScreen = () => {
     return (
       <div className="w-full p-6 bg-white">
-        <div className='w-full flex flex-col sm:flex-row gap-6 justify-center'>
-        <VehiclDetails />
-        <OrderDetails />
+        <div className="w-full flex flex-col sm:flex-row gap-6 justify-center">
+          <VehiclDetails />
+          <OrderDetails />
         </div>
       </div>
     );
@@ -355,5 +364,9 @@ export default function CreateOrder() {
     paymentSuccess: <PayentSuccess />,
     paymentFailure: <PaymentFailure />,
   };
-  return <div className="max-w-5xl h-full mx-auto my-8 flex items-center justify-center">{paymentSteps[step]}</div>;
+  return (
+    <div className="max-w-5xl h-full mx-auto my-8 flex items-center justify-center">
+      {paymentSteps[step]}
+    </div>
+  );
 }

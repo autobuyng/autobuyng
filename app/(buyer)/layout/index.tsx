@@ -17,9 +17,11 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   }, [data, setUser, setProfile, setAddress]);
 
   if (isLoading) {
-    return <div className="min-h-screen h-full font-bold text-2xl flex items-center justify-center">
-      <h1>Loading...</h1>
-    </div>
+    return (
+      <div className="min-h-screen h-full font-bold text-2xl flex items-center justify-center">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
 
   if (isError) {

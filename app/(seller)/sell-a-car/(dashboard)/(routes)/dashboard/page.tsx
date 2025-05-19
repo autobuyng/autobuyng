@@ -17,7 +17,7 @@ import StatsSkeletonLoader from '@/components/Loader/analyticesloader';
 const Dashboard = () => {
   const [selectedChart, setSelectedChart] = useState('bar');
   const { data, isLoading } = useGetDashboardAnalytics();
-  console.log(data, "data")
+  console.log(data, 'data');
 
   // const STATS = [
   //   { id: '1', value: '500', text: 'Total Upload', percent: '0%', icon: Uploads },
@@ -44,10 +44,8 @@ const Dashboard = () => {
         <StatsSkeletonLoader />
       ) : (
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-8 lg:grid-cols-4">
-            {data?.map((stat) => (
-              <StartCard key={stat.type} {...stat} />
-          ))}
-          </div>
+          {data?.map((stat) => <StartCard key={stat.type} {...stat} />)}
+        </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-14 w-full">

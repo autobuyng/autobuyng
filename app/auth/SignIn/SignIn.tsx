@@ -36,7 +36,7 @@ const SignIn = ({
   const router = useRouter();
 
   const { login, isLoggingIn } = useLogin();
-  const { likeMultipleVehicle } = useLikeMultipleVehicle()
+  const { likeMultipleVehicle } = useLikeMultipleVehicle();
 
   const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
     try {
@@ -47,7 +47,7 @@ const SignIn = ({
           position: 'top-right',
         });
         setUser(response.data.user);
-        setLikeMultipleVehicles(true)
+        setLikeMultipleVehicles(true);
         setLocalItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
@@ -60,11 +60,11 @@ const SignIn = ({
   };
 
   useEffect(() => {
-    const localLikeMultipleVehicles: string[] = getLocalItem('likeMultipleVehicles')
+    const localLikeMultipleVehicles: string[] = getLocalItem('likeMultipleVehicles');
     if (likeMultipleVehicles && localLikeMultipleVehicles) {
-      likeMultipleVehicle({ vehicles: localLikeMultipleVehicles })
+      likeMultipleVehicle({ vehicles: localLikeMultipleVehicles });
     }
-  }, [likeMultipleVehicles])
+  }, [likeMultipleVehicles]);
 
   return (
     <div>
