@@ -17,10 +17,8 @@ type VerificationProps = {
 };
 
 const Verification = ({ signupData, isModalOpen, setIsModalOpen }: VerificationProps) => {
-  const [resendResponse, setResendResponse] = useState();
+  const [, setResendResponse] = useState();
   const { handleSubmit } = useForm<{ email: string }>();
-
-  console.log(resendResponse);
 
   const { resendEmail, isPending } = useResendEmail();
   const handleResedEmail = async () => {

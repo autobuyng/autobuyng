@@ -1,5 +1,5 @@
-import Navbar from '@/components/Navbar/Navbar';
 import type { Metadata } from 'next';
+import BuyerLayout from '../layout';
 
 export const metadata: Metadata = {
   title: 'Autobuy',
@@ -16,10 +16,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <main>
-      <Navbar />
-      <main>{children}</main>
-    </main>
-  );
+  return <BuyerLayout>{children}</BuyerLayout>;
 }

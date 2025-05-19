@@ -1,17 +1,18 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-// import samlplevehicle from '@/app/(buyer)/_components/ImageSlider/assets/car7.avif';
 import { VehicleData } from '@/types/types';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
 import { usePathname } from 'next/navigation';
 import { capitalizeFirstLetter } from '@/lib/utils';
+import { useStore } from '@/store/useStore';
 
 const ShipmentDetails = () => {
   const pathname = usePathname();
-  console.log(pathname.split('/').at(-1), 'pathname');
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { setVehicleDetails } = useStore();
 
   const { getVehicle, isPending } = useGetVehicle();
 
@@ -22,6 +23,7 @@ const ShipmentDetails = () => {
       });
 
       setVehicleData(response.data);
+      setVehicleDetails(response.data);
     } catch (error) {
       console.log(error, 'error');
     } finally {

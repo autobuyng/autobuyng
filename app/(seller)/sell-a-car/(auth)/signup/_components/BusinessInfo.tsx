@@ -1,40 +1,54 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, Loader, Loader2 } from 'lucide-react';
+import { useDebounce } from 'use-debounce';
 
-import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { ISellerRegistrationPayload, SellerRegistrationSchema } from '@/Schema/authSchema';
-import { useRegister } from '@/app/(seller)/api/auth';
+import { useRegister, useVerifyIdentity } from '@/app/(seller)/api/auth';
 import { useToast } from '@/hooks/use-toast';
 import Verification from './Verification';
 import { cn } from '@/lib/utils';
+import { UserData } from '@/types/types';
 
 const BusinessInfo = () => {
   const { toast } = useToast();
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [signupData, setSignUpData] = React.useState<ISellerRegistrationPayload | null>(null);
-  const [showPassword, setShowPassword] = React.useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [signupData, setSignUpData] = useState<ISellerRegistrationPayload | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [ninData, setNinData] = useState<UserData | null>(null);
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = useForm<ISellerRegistrationPayload>({
     resolver: zodResolver(SellerRegistrationSchema),
   });
-
+  const nin = watch('nin');
+  const [debouncedNin] = useDebounce(nin, 1000);
+  const lastNin = useRef<string | null>(null);
   const { signup, isRegistering } = useRegister();
+  const { verifyIdentity, isPending } = useVerifyIdentity();
+
+  useEffect(() => {
+    reset({
+      firstName: ninData?.firstname,
+      lastName: ninData?.surname,
+      email: ninData?.email,
+      phoneNumber: ninData?.telephoneno,
+    });
+  }, [ninData]);
 
   const handleRegister = async (data: ISellerRegistrationPayload) => {
     try {
       const response = await signup(data);
       setSignUpData(data);
       setIsModalOpen(true);
-
       toast({
         title: 'Success',
         description: response.data.message,
@@ -44,16 +58,56 @@ const BusinessInfo = () => {
         title: 'Failed',
         description: error.message,
       });
-
-      console.log(error);
     }
   };
 
+  const NinLookup = async () => {
+    try {
+      const response = await verifyIdentity({ nin });
+      setNinData(response.data as UserData);
+    } catch (error) {
+      console.log(error);
+      reset({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!debouncedNin || debouncedNin === lastNin.current) return;
+
+    lastNin.current = debouncedNin;
+    console.log('again');
+    NinLookup();
+  }, [debouncedNin]);
+
   return (
-    <MaxWidthWrapper>
-      <div className=" max-w-[458px] mx-auto w-full grid place-items-center ">
+    <div className="max-w-[458px] mx-auto w-full">
+      <div className="  w-full grid place-items-center ">
         <form onSubmit={handleSubmit(handleRegister)} className="w-full space-y-4 mt-4">
           <div className="w-full space-y-4">
+            <div className="w-full">
+              <label htmlFor="ninorcac" className="block text-xs font-medium text-gray-700">
+                National Identification Number (NIN)
+              </label>
+              <div className="flex items-center justify-between border border-neutral-900 rounded-sm">
+                <div>
+                  <input
+                    {...register('nin')}
+                    type="text"
+                    id="ninorcac"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border-none  sm:text-sm"
+                  />
+                  {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
+                </div>
+                {isPending ? <Loader2 className="animate-spin" /> : null}
+              </div>
+            </div>
+
             <section className="flex items-center gap-4 w-full">
               <div className="w-full  ">
                 <label htmlFor="firstname" className="block  text-xs font-medium text-gray-700">
@@ -119,21 +173,6 @@ const BusinessInfo = () => {
 
             <section className="flex flex-col items-center gap-4 w-full">
               <div className="w-full">
-                <label htmlFor="ninorcac" className="block text-xs font-medium text-gray-700">
-                  National Identification Number (NIN)
-                </label>
-
-                <input
-                  {...register('nin')}
-                  type="text"
-                  id="ninorcac"
-                  placeholder=""
-                  className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                />
-                {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
-              </div>
-
-              <div className="w-full">
                 <label htmlFor="city" className="block text-xs font-medium text-gray-700">
                   Password
                 </label>
@@ -183,7 +222,7 @@ const BusinessInfo = () => {
           setIsModalOpen={setIsModalOpen}
         />
       </div>
-    </MaxWidthWrapper>
+    </div>
   );
 };
 

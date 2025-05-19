@@ -1,10 +1,18 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 
 import Test from '@/app/(buyer)/assets/vehice1.avif';
 import { cn } from '@/lib/utils';
+import { useGetOrderLists } from '@/app/(buyer)/api/payment';
 
 const Orders = () => {
+  const { data, isLoading } = useGetOrderLists();
+  console.log(data, 'data');
+
+  if (isLoading) {
+    return <div>Loading ....</div>;
+  }
   const ORDERS = [
     {
       id: '1',

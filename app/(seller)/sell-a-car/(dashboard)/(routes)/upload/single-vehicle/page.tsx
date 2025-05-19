@@ -51,7 +51,6 @@ const SingleVehicle = () => {
   const [vehicleLicense, setVehicleLicense] = useState<File[]>([]);
 
   const { uploadVehicle, isPending } = useUploadVehicle();
-  console.log(getValues('make'), 'outside');
 
   useEffect(() => {
     setVehicleMake(getValues('make'));

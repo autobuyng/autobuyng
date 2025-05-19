@@ -140,53 +140,37 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
                   <CommandInput placeholder="Type a command or search..." />
                   <CommandList className="max-h-[300px]">
                     <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Installed Upgrades">
-                      <CommandItem>Automated Cruise Control</CommandItem>
-                      <CommandItem>Auxiliary Audio Iinputs</CommandItem>
-                      <CommandItem>Cloth Seats</CommandItem>
-                      <CommandItem>Driver Adjustable Lumbar</CommandItem>
-                      <CommandItem>Front Heat Seaters</CommandItem>
+                    <CommandGroup className="command-group" heading="Comfort">
+                      {vehicleData?.features.comfort?.map((item, index) => (
+                        <CommandItem key={index}>{item}</CommandItem>
+                      ))}
                     </CommandGroup>
 
-                    {/* <CommandSeparator /> */}
-
-                    <CommandGroup heading="Tech">
-                      <CommandItem>Automatic Highbeams</CommandItem>
-                      <CommandItem>Blindspot Monitor</CommandItem>
-                      <CommandItem>Bluetooth Technology</CommandItem>
-                      <CommandItem>Parking Sensors</CommandItem>
-                      <CommandItem>Rear View Camera</CommandItem>
-                      <CommandItem>Remote Start</CommandItem>
+                    <CommandGroup className="command-group" heading="Tech">
+                      {vehicleData?.features.tech?.map((item, index) => (
+                        <CommandItem key={index}>{item}</CommandItem>
+                      ))}
                     </CommandGroup>
 
-                    <CommandGroup heading="Interior">
-                      <CommandItem>Overhead Airbags</CommandItem>
-                      <CommandItem>Power Locks</CommandItem>
-                      <CommandItem>Power Mirror</CommandItem>
-                      <CommandItem>Power Seats</CommandItem>
-                      <CommandItem>Power Windows</CommandItem>
-                      <CommandItem>Side Airbags</CommandItem>
+                    <CommandGroup className="command-group" heading="Interior">
+                      {vehicleData?.features.interior?.map((item, index) => (
+                        <CommandItem key={index}>{item}</CommandItem>
+                      ))}
+                      <CommandEmpty>No results found.</CommandEmpty>
                     </CommandGroup>
 
-                    <CommandGroup heading="Exterior & Mechanical">
-                      <CommandItem>ABS Brakes</CommandItem>
-                      <CommandItem>Allow Wheels</CommandItem>
-                      <CommandItem>Daytime Running Light</CommandItem>
-                      <CommandItem>Traction Control</CommandItem>
-                      <CommandItem>Automatic Transsmission</CommandItem>
-                      <CommandItem>Side Airbags</CommandItem>
+                    <CommandGroup className="command-group" heading="Exterior & Mechanical">
+                      {vehicleData?.features.mechanical?.map((item, index) => (
+                        <CommandItem key={index}>{item}</CommandItem>
+                      ))}
+
+                      <CommandEmpty>No results found.</CommandEmpty>
                     </CommandGroup>
 
-                    <CommandGroup heading="Conforts">
-                      <CommandItem>Air Conditoning</CommandItem>
-                      <CommandItem>Auxilliary Audio input</CommandItem>
-                    </CommandGroup>
-
-                    <CommandGroup heading="Entertainment">
-                      <CommandItem>AM/FM Stereo</CommandItem>
-                      <CommandItem>Android Auto </CommandItem>
-                      <CommandItem>Apple CarPlay</CommandItem>
-                      <CommandItem>Satellite Radio</CommandItem>
+                    <CommandGroup className="command-group" heading="Entertainment">
+                      {vehicleData?.features.entertainment?.map((item, index) => (
+                        <CommandItem key={index}>{item}</CommandItem>
+                      ))}
                     </CommandGroup>
                   </CommandList>
                 </Command>

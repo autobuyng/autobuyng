@@ -185,66 +185,82 @@ export const YEAR = [
   {
     id: 1,
     name: '2009',
+    label: '2009',
   },
   {
     id: 2,
     name: '2010',
+    label: '2010',
   },
   {
     id: 3,
     name: '2011',
+    label: '2011',
   },
   {
     id: 4,
     name: '2012',
+    label: '2012',
   },
   {
     id: 5,
     name: '2013',
+    label: '2013',
   },
   {
     id: 6,
     name: '2014',
+    label: '2014',
   },
   {
     id: 7,
     name: '2015',
+    label: '2015',
   },
   {
     id: 8,
     name: '2016',
+    label: '2016',
   },
   {
     id: 9,
     name: '2017',
+    label: '2017',
   },
   {
     id: 10,
     name: '2018',
+    label: '2018',
   },
   {
     id: 11,
     name: '2019',
+    label: '2019',
   },
   {
     id: 12,
     name: '2020',
+    label: '2020',
   },
   {
     id: 13,
     name: '2021',
+    label: '2021',
   },
   {
     id: 14,
     name: '2022',
+    label: '2022',
   },
   {
     id: 15,
     name: '2023',
+    label: '2023',
   },
   {
     id: 16,
     name: '2024',
+    label: '2024',
   },
 ];
 
@@ -533,20 +549,20 @@ export const MAX_YEAR = [
   { id: '10', name: '2018' },
   { id: '11', name: '2019' },
   { id: '12', name: '2020' },
-  { id: '13', name: '2012' },
+  { id: '13', name: '2021' },
   { id: '14', name: '2022' },
   { id: '15', name: '2023' },
   { id: '16', name: '2024' },
 ];
 
 export const MILEAGE = [
-  { id: '1', name: '10000 ' },
-  { id: '2', name: '20000 ' },
-  { id: '3', name: '30000 ' },
-  { id: '4', name: '40000 ' },
-  { id: '5', name: '50000' },
-  { id: '6', name: '60000 ' },
-  { id: '7', name: '70000 ' },
+  { id: '1', name: '0 - 30000 ' },
+  { id: '2', name: '30000 - 60000 ' },
+  { id: '3', name: '60000 - 90000 ' },
+  { id: '4', name: '90000 - 120000 ' },
+  { id: '5', name: '12000 - 150000' },
+  { id: '6', name: 'Above 150000' },
+  // { id: '7', name: '70000 ' },
   // { id: '8', name: '2016' },
   // { id: '9', name: '2017' },
   // { id: '10', name: '2018' },

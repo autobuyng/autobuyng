@@ -1,14 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-// import { v4 as uuidv4 } from 'uuid';
-// import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+
 import Link from 'next/link';
 
 import '../vehicle.css';
 import ImageSlider from '@/app/(buyer)/_components/ImageSlider/ImageSlider';
-// import { IMAGES } from '@/constants/constants';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import VehicleInformation from '@/app/(buyer)/_components/VehicleInformation/VehicleInformation';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
@@ -20,7 +18,6 @@ import SemiCircleProgressBar, {
   ProgressBar,
 } from '@/app/(buyer)/_components/ProgressBar/ProgressBar';
 
-// import Appraisal from '@/app/(buyer)/assets/appraisal.svg';
 import Info from '../assets/info.svg';
 import Car from '../assets/car.svg';
 import Engine from '../assets/engine.svg';
@@ -30,13 +27,12 @@ import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
 import AuthDialog from '@/app/auth';
 import { Vehicle, VehicleData } from '@/types/types';
 import { useGetSimilarVehicle, useGetVehicle } from '@/app/(buyer)/api/search';
-// import { useGetUser } from '@/app/(buyer)/api/auth';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
 import VehicleDetailsError from '@/constants/TableData';
+import { useRouter } from 'next-nprogress-bar';
 
 const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
-  // const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
   const pathname = usePathname();
   const { isMobile } = useIsMobile();
@@ -48,12 +44,10 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [userData, setUserData] = useState<User | null>(null);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
 
   const { getVehicle, getCachedVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
-  // const { getUser } = useGetUser();
 
   useEffect(() => {
     setIsLoading(isPending);
@@ -81,16 +75,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
       console.log(error, 'error');
     }
   };
-
-  // const handleGetUser = async () => {
-  //   try {
-  //     const response1 = await getUser();
-  //     setUserData(response1.data.user);
-  //     setUser(response1.data.user);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     handleGetVehicle();
@@ -132,50 +116,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
               Home/Search Result/ <span className="font-semibold">{vehicleData?.make}</span>/{' '}
               <span className="font-semibold">{vehicleData?.vin}</span>
             </h1>
-
-            {/* <Suspense
-              fallback={
-                <div className="h-full w-full flex justify-center items-center text-4xl font-bold">
-                  Loading...
-                </div>
-              }
-            >
-              <div className="flex items-center justify-center gap-8 w-full h-full">
-                <div className="flex items-center gap-1.5 text-sm">
-                  <ArrowLeft />
-                  <button>Prev</button>
-                </div>
-
-                <div className="flex items-center justify-center gap-4 py-4">
-                  {vehicleList.map((vehicle) => {
-                    const isActive = vehicle.id === vehicleId;
-                    return (
-                      <div
-                        onClick={() => handleView(vehicle.id)}
-                        key={vehicle.id}
-                        className={cn('cursor-pointer', {
-                          'border-2 border-primary-900 p-1.5': isActive,
-                        })}
-                      >
-                        <div className="relative aspect-[75/90] w-24 h-24">
-                          <Image
-                            src={vehicle.Img}
-                            alt={vehicle.name}
-                            width={96}
-                            height={96}
-                            className="mx-auto w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="flex items-center gap-1.5 text-sm">
-                  <button>Next</button> <ArrowRight />
-                </div>
-              </div>
-            </Suspense> */}
           </div>
         </MaxWidthWrapper>
       </div>
@@ -184,21 +124,26 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
         <MaxWidthWrapper>
           {(isLoading || isPending) && <LoadingSkeleton />}
           {!isLoading && !isPending && (
-            <div className=" w-full px-4 flex flex-col md:flex-row justify-center gap-4">
-              <div className="bg-white px-4 flex-[3]">
+            <div className=" w-full   md:px-4 flex flex-col lg:flex-row justify-center gap-4">
+              <div className="bg-white md:px-4 flex-[3]">
                 <div
                   className={cn('max-w-[800px] h-fit ', {
                     'max-w-[900px] h-fit  ': os === 'macOS',
                   })}
                 >
-                  <ImageSlider ImageUrls={vehicleData?.images as string[]} id={params.id} />
+                  <ImageSlider
+                    ImageUrls={vehicleData?.images as string[]}
+                    id={params.id}
+                    make={vehicleData?.make}
+                    model={vehicleData?.vehicleModel}
+                  />
                 </div>
                 <div className="my-2 space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="font-[600] text-2xl">
                       {vehicleData?.make} {vehicleData?.vehicleModel}
                     </p>
-                    <p className="text-white bg-primary-700 px-1 py-1 rounded-tl-[10px] rounded-br-[10px]">
+                    <p className="text-white bg-primary-700 px-3 py-1 rounded-tl-[10px] rounded-br-[10px]">
                       {capitalizeFirstLetter(vehicleData?.condition)}
                     </p>
                   </div>
@@ -237,8 +182,22 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
 
-              <div className="h-fit  space-y-10  flex-[2] ">
-                <div className="shadow-[0px_2px_14px_0px_#0000001A] bg-white px-6 pb-4 pt-12">
+              <div className="h-fit   space-y-10   flex-[2] ">
+                <div className=" relative shadow-[0px_2px_14px_0px_#0000001A] rounded-lg bg-white px-6 pb-4 pt-12">
+                  <div className="absolute top-0 left-0 right-0 w-full h-full bg-black/60 z-10 rounded-xl text-white grid place-items-center text-4xl font-bold">
+                    {' '}
+                    <div>
+                      <Image
+                        src={'/img/commingsoon.png'}
+                        alt="comming soon"
+                        width={150}
+                        height={150}
+                        className="mx-auto"
+                      />
+                      <h1>COMMING SOON</h1>
+                    </div>
+                  </div>
+
                   <h1 className="font-bold text-2xl leading-8 capitalize mb-8">
                     Autobuy Reliability Score{' '}
                   </h1>

@@ -1,5 +1,12 @@
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { Address, FilterProps, Profile, SearchResponseData, User } from '@/types/types';
+import {
+  Address,
+  FilterProps,
+  Profile,
+  SearchResponseData,
+  User,
+  VehicleData,
+} from '@/types/types';
 import { create } from 'zustand';
 
 const default_filters = getSessionItem('filters');
@@ -8,7 +15,7 @@ export const DEFAULT_FILTERS: FilterProps = {
     min_year: '2009',
   },
   price: {
-    min_price: 5000000,
+    // min_price: 5000000,
   },
   ...default_filters,
 };
@@ -33,6 +40,8 @@ type State = {
   setFilters: (filters: FilterProps | ((prev: FilterProps) => FilterProps)) => void;
   homePageSearchResult: SearchResponseData | null;
   setHomePageSearchResult: (homePageSearchResult: SearchResponseData | null) => void;
+  vehicleDetails: VehicleData | null;
+  setVehicleDetails: (vehicleData: VehicleData | null) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -61,6 +70,9 @@ export const useStore = create<State>((set) => ({
 
   homePageSearchResult: null,
   setHomePageSearchResult: (homePageSearchResult) => set({ homePageSearchResult }),
+
+  vehicleDetails: null,
+  setVehicleDetails: (vehicleDetails) => set({ vehicleDetails }),
 
   filters: DEFAULT_FILTERS,
   setFilters: (update) =>

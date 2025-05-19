@@ -3,18 +3,15 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-// import useIsMobile from '@/hooks/useIsMobile';
-// import { AppContext } from '@/context/AppContext';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useLogin } from '@/app/(buyer)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-// import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
-// import { useContext } from 'react';
-import { setSessionItem } from '@/lib/Sessionstorage';
 import { useStore } from '@/store/useStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
+import { useLikeMultipleVehicle } from '@/app/(buyer)/api/search';
 
 const SignIn = ({
   setType,
@@ -33,26 +30,25 @@ const SignIn = ({
 
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
-  // const os = useDetectOS();
-  // const { isMobile } = useIsMobile();
-  // const { user, setUser } = useContext(AppContext);
+  const [likeMultipleVehicles, setLikeMultipleVehicles] = useState(false);
   const { setUser } = useStore();
 
   const router = useRouter();
 
   const { login, isLoggingIn } = useLogin();
+  const { likeMultipleVehicle } = useLikeMultipleVehicle();
 
   const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
     try {
       const response = await login(data);
       if (response.status === true) {
         toast({
-          title: 'Success',
-          description: response.message,
+          description: 'Logged in Successfully',
           position: 'top-right',
         });
         setUser(response.data.user);
-        setSessionItem('accessToken', response.data.accessToken);
+        setLikeMultipleVehicles(true);
+        setLocalItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
     } catch (error: any) {
@@ -61,9 +57,14 @@ const SignIn = ({
         description: error.message,
       });
     }
-    console.log(data);
-    // Implement your registration logic here
   };
+
+  useEffect(() => {
+    const localLikeMultipleVehicles: string[] = getLocalItem('likeMultipleVehicles');
+    if (likeMultipleVehicles && localLikeMultipleVehicles) {
+      likeMultipleVehicle({ vehicles: localLikeMultipleVehicles });
+    }
+  }, [likeMultipleVehicles]);
 
   return (
     <div>
@@ -122,6 +123,7 @@ const SignIn = ({
           <p
             onClick={() => {
               router.push('/forgot-password');
+              setIsOpen(false);
             }}
             className="text-xs text-primary-700 cursor-pointer"
           >

@@ -88,40 +88,6 @@ const Results = () => {
         <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={searchQuery} setSearch={setSearchQuery} />
-
-            {/* <div className="hidden md:flex items-center gap-4 w-[240px]">
-              <div>
-                <SelectInput
-                  list={SORT_LIST}
-                  title="Sort by"
-                  setSelectedInput={(input) => {
-                    if (typeof input != 'string') return;
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                    const parameter = input.split(' ');
-                    setFilters((prev: FilterProps) => ({
-                      ...prev,
-                      sortParameter: parameter[1].toLowerCase() as string,
-                      sortOrder: parameter[0] === 'Highest' ? 'desc' : 'asc',
-                      sort: input,
-                    }));
-                  }}
-                  selectedInput={filters?.sort as string}
-                  defaultValue={filters.sort}
-                  width="w-full md:w-[155px]"
-                  height="h-10"
-                />
-              </div>
-
-              <div className="h-8 w-8 rounded-sm border border-neutral-500 flex items-center justify-center">
-                <button onClick={() => setDisplayFormat(!displayFormat)}>
-                  {displayFormat ? (
-                    <Image src={Flex} alt="Flex format" />
-                  ) : (
-                    <Image src={GridFormat} alt="Grid format" />
-                  )}
-                </button>
-              </div>
-            </div> */}
           </div>
 
           <div className="flex items-start justify-between mt-6 w-full">

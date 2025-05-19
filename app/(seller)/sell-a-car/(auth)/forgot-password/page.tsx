@@ -6,15 +6,47 @@ import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import Image from 'next/image';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForgotPassword } from '@/app/(buyer)/api/auth';
+import { useToast } from '@/hooks/use-toast';
+import { Loader } from 'lucide-react';
 
 const ForgotPassword = () => {
+  const { toast } = useToast();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ email: string }>();
+
+  const { forgotPassword, isPending } = useForgotPassword();
+
+  const handleForgotPassword: SubmitHandler<{ email: string }> = async (data) => {
+    try {
+      const response = await forgotPassword(data);
+      toast({
+        title: 'Success',
+        description: response.data.message,
+        position: 'top-right',
+      });
+
+      reset();
+    } catch (error) {
+      toast({
+        title: 'failed',
+        description: 'Something went wrong',
+      });
+      console.log(error);
+    }
+  };
   return (
     <div className="flex">
       <div className="flex-[1] flex justify-center h-full">
         <MaxWidthWrapper>
           <div className="w-full flex justify-center sm:items-center min-h-[calc(100vh_-_76px)] mt-10 sm:mt-0">
             <div>
-              <form action="" className="flex justify-center">
+              <form onSubmit={handleSubmit(handleForgotPassword)} className="flex justify-center">
                 <div className="w-[85vw] sm:max-w-[458px] space-y-4 pb-2">
                   <div className="text-center pb-2">
                     <h1 className="font-medium text-[28px] sm:text-3xl">Forgot your password?</h1>
@@ -34,16 +66,18 @@ const ForgotPassword = () => {
                     <div className="w-full">
                       <input
                         type="email"
+                        {...register('email', { required: 'Email is required' })}
                         id="email"
                         placeholder="email"
                         className="  px-2  border rounded-md border-neutral-700 shadow-sm w-full h-full py-3  outline-none sm:text-sm"
                       />
+                      {errors?.email && <p className="text-red-500">{errors.email.message}</p>}
                     </div>
                   </div>
 
                   <div className="w-full">
                     <button className="w-full bg-secondary-700 mt-4 text-white px-3 py-3 rounded-sm font-bold">
-                      Reset Password
+                      {isPending ? <Loader className="mx-auto animate-spin" /> : ' Proceed'}
                     </button>
                   </div>
                 </div>
@@ -51,7 +85,7 @@ const ForgotPassword = () => {
 
               <div>
                 <p className="text-center mt-3 font-medium">
-                  Remember your password??{' '}
+                  Remember your password?{' '}
                   <Link className="text-secondary-700 font-semibold" href="/sell-a-car/login">
                     Login
                   </Link>

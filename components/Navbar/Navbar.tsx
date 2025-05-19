@@ -2,10 +2,11 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
+import MobileLogo from '../../public/icons/buyer.svg';
 
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
@@ -16,21 +17,19 @@ import useIsMobile from '@/hooks/useIsMobile';
 import AuthDialog from '@/app/auth';
 import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
-// import { getSessionItem } from '@/lib/Sessionstorage';
-// import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
-// import { User } from '@/types/types';
+import { setSessionItem } from '@/lib/Sessionstorage';
 
 const Navbar = () => {
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
+
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
   const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
 
   const { getUser } = useGetUser();
-
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -43,30 +42,35 @@ const Navbar = () => {
   useEffect(() => {
     setLoading(isLoading);
   }, []);
-
   const getUserData = async () => {
     setIsLoading(true);
+
     try {
-      const response = await getUser();
-      if (response.status) {
-        setUser(response.data.user);
-        setProfile(response.data.profile);
-        setAddress(response.data.addresses);
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+
+      if (token) {
+        setSessionItem('accessToken', decodeURIComponent(token));
       }
-      console.log(response.data.user);
+
+      // Fetch user data only once
+      const response = await getUser();
+      const { user, profile, addresses } = response.data;
+
+      // Set state
+      setUser(user);
+      setProfile(profile);
+      setAddress(addresses);
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching user data:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    // const accessToken = getSessionItem('accessToken');
-    // if (accessToken) {
     setIsLoading(true);
     getUserData();
-    // }
   }, []);
 
   const NAV_ITEMS = [
@@ -83,7 +87,7 @@ const Navbar = () => {
     {
       id: '3',
       text: 'About Us',
-      path: 'about-us',
+      path: '/about-us',
     },
   ];
 
@@ -91,14 +95,15 @@ const Navbar = () => {
     <header className="h-[60px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 relative h-10 w-10  md:w-32 md:h-16">
             <Image
-              src={Autobuy}
+              src={isMobile ? MobileLogo : Autobuy}
               alt="Autobuy"
-              width={168}
-              height={56}
+              // width={168}
+              // height={56}
+              fill
               priority
-              className="cursor-pointer"
+              className="cursor-pointer w-full h-full"
               onClick={() => router.push('/')}
             />
           </div>
@@ -157,9 +162,14 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            ) : isLoading || loading ? (
-              <div className="flex gap-8">Loading...</div> // Replace with your loading indicator
             ) : (
+              // : isLoading || loading ? (
+              //   <div className="flex items-center gap-2">
+              //     <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
+              //     <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
+              //   </div>
+              // )
+
               <div className="flex gap-8">
                 <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
                   Login
@@ -189,5 +199,13 @@ const Navbar = () => {
     </header>
   );
 };
+
+// export default Navbar;
+
+// const NavbarSuspenseWrapper = () => (
+//   <Suspense fallback={<p>Loading...</p>}>
+//     <Navbar />
+//   </Suspense>
+// );
 
 export default Navbar;

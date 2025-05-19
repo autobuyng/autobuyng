@@ -27,6 +27,7 @@ import {
 import Edit from '@/app/(seller)/sell-a-car/(dashboard)/(routes)/settings/assets/edit.svg';
 import { Loader2, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import axios from 'axios';
 
 const EditBankInfo = ({
   editBankInfoModal,
@@ -37,7 +38,7 @@ const EditBankInfo = ({
 }) => {
   const [selectedBank, setSelectedBank] = useState<BankAccount | null>(null);
   const [deleteIndex, setDeleteIndex] = useState(-1);
-  const { register, handleSubmit, reset } = useForm<BankDetailsProps>({
+  const { register, handleSubmit, setValue, getValues, watch, reset } = useForm<BankDetailsProps>({
     defaultValues: {
       accountName: '',
       accountNumber: '',
@@ -60,6 +61,42 @@ const EditBankInfo = ({
       });
     }
   }, [selectedBank, reset]);
+
+  useEffect(() => {
+    const fetchBankDetails = async () => {
+      const selectedBankName = getValues('bankName');
+      if (!selectedBankName) return;
+
+      const selected = BANK_LIST.find((bank) => bank.bankName === selectedBankName);
+      console.log(selected, 'selectedBank');
+
+      if (selected) {
+        setValue('bankCode', selected.bankCode);
+        console.log('Bank Code Set:', selected.bankCode);
+      }
+
+      const bankCode = getValues('bankCode');
+      const accountNumber = getValues('accountNumber');
+      if (!bankCode || !accountNumber) return;
+
+      try {
+        const response: any = await axios.get(
+          `https://api.paystack.co/bank/resolve?account_number=${accountNumber}&bank_code=${bankCode}`,
+          {
+            headers: {
+              Authorization: `Bearer sk_test_081b9aeac2d10c570a8eb0aef0e2a8ff4f61803f`,
+            },
+          },
+        );
+        // setBankDetails(response.data);
+        setValue('accountName', response.data.data.account_name);
+      } catch (err: any) {
+        console.log('Error fetching bank details:', err.message);
+      }
+    };
+
+    fetchBankDetails();
+  }, [watch('bankName'), setValue, getValues]);
 
   const handleBankSelection = (bank: BankAccount) => {
     setSelectedBank(bank);
@@ -219,22 +256,6 @@ const EditBankInfo = ({
                 </div>
               </section>
 
-              <section className="flex items-center gap-4 w-full">
-                <div className="w-full">
-                  <label htmlFor="accountname" className="block text-xs font-medium text-gray-700">
-                    Account Name
-                  </label>
-
-                  <input
-                    type="text"
-                    {...register('accountName')}
-                    id="accountname"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
-                  />
-                </div>
-              </section>
-
               <section className="flex flex-col  gap-4 w-full">
                 <div className="w-full  ">
                   <label htmlFor="accountname" className="block text-xs font-medium text-gray-700">
@@ -254,6 +275,23 @@ const EditBankInfo = ({
                       </option>
                     ))}
                   </select>
+                </div>
+                <input type="hidden" {...register('bankCode')} />
+              </section>
+
+              <section className="flex items-center gap-4 w-full">
+                <div className="w-full">
+                  <label htmlFor="accountname" className="block text-xs font-medium text-gray-700">
+                    Account Name
+                  </label>
+
+                  <input
+                    type="text"
+                    {...register('accountName')}
+                    id="accountname"
+                    placeholder=""
+                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
+                  />
                 </div>
               </section>
             </div>

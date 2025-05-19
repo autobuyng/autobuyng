@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
 
 import Profile from '@/components/Navbar/assets/Profile.svg';
@@ -9,7 +10,7 @@ import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
-import { clearSessionStorage } from '@/lib/Sessionstorage';
+import { clearLocalStorage } from '@/lib/localStorage';
 
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +55,7 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
     }
     setUser(null);
     window.location.reload();
-    clearSessionStorage();
+    clearLocalStorage();
   };
 
   return (

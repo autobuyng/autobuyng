@@ -4,10 +4,11 @@ import Image from 'next/image';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { setLocalItem } from '@/lib/localStorage';
 import { FilterProps } from '@/types/types';
 import { useStore } from '@/store/useStore';
+import { useRouter } from 'next-nprogress-bar';
 
 const VehicleTypeFilters = () => {
   const pathname = usePathname();

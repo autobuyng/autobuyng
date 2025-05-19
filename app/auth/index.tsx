@@ -43,7 +43,7 @@ export default function AuthDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-[90%] mx-auto sm:max-w-[552px]">
+      <DialogContent className="max-w-[90%] max-h-[98vh] overflow-y-auto rounded-lg mx-auto sm:max-w-[552px]">
         <DialogHeader>
           <DialogTitle className="text-center">
             <h1 className="text-2xl md:text-3xl text-primary-700 py-4 mb-4">

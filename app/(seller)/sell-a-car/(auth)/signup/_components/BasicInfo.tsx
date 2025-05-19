@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
 
-import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
-
 import { cn } from '@/lib/utils';
 
 type BasicInfoProps = {
@@ -22,8 +20,8 @@ const BasicInfo = ({ setStep, setSelectedOption, selectedOption }: BasicInfoProp
   };
 
   return (
-    <MaxWidthWrapper>
-      <div className="max-w-[458px] w-full mx-auto">
+    <div>
+      <div className="w-full ">
         <h1 className="font-bold text-3xl capitalize">Select your preferred option</h1>
         <p className="mb-10 text-sm text-center">Are you an Individual or a Business owner?</p>
 
@@ -80,7 +78,7 @@ const BasicInfo = ({ setStep, setSelectedOption, selectedOption }: BasicInfoProp
           </button>
         </div>
       </div>
-    </MaxWidthWrapper>
+    </div>
   );
 };
 

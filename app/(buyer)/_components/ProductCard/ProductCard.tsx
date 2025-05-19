@@ -1,30 +1,38 @@
 'use client';
 import Image from 'next/image';
-import React, { useContext, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next-nprogress-bar';
 
 import { Vehicle } from '@/types/types';
 import Save from '@/app/(buyer)/assets/save.svg';
 import Photo from '@/app/(buyer)/assets/photos.svg';
-import { AppContext } from '@/context/AppContext';
 import { Heart } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
 import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
 
 type ProductCardProps = {
   vehicle: Vehicle;
   likedVehicle?: Set<string>;
+  localLikedVehicle?: string[];
 };
 export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
+  const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>([]);
+
+  useEffect(() => {
+    const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
+    setLocalLikedVehicle(localLikedVehicles || []);
+  }, []);
+
   const {
     _id,
     make,
     images,
     vehicleModel,
     condition,
-
+    // liked,
     // vehicleYear,
     // vehicleTypeId,
     mileage,
@@ -37,31 +45,49 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     // fuelConsumption
   } = vehicle;
   const router = useRouter();
-  const { setVehicleId } = useContext(AppContext);
   const { user } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
 
   const { likeVehicle } = useLikeVehicle();
-  const handleOnViewDetails = (id: string) => {
-    setVehicleId(id);
 
-    router.push(`/vehicle/${_id}`);
-  };
+  function toggleItem(set: Set<string> | undefined, item: string) {
+    if (set?.has(item)) {
+      set?.delete(item);
+    } else {
+      set?.add(item);
+    }
+  }
 
   const handleOpenChange = () => {
     setIsOpen(false);
   };
   const handleLikeVehhicle = async (id: string) => {
-    if (!user) {
-      setIsOpen(true);
-      return;
-    }
+    // if (!user) {
+    //   setIsOpen(true);
+    //   return;
+    // }
 
     try {
-      const response = await likeVehicle({ vehicleId: id });
-      console.log(response);
+      if (user) {
+        toggleItem(likedVehicle, id);
+        await likeVehicle({ vehicleId: id });
+      } else {
+        const localLikedVehicles: string[] = getLocalItem('localLikedVehicles') || [];
+        const alreadyLiked = localLikedVehicles.includes(id);
+        const updated = alreadyLiked
+          ? localLikedVehicles?.filter((storedId: string) => storedId !== id)
+          : [...localLikedVehicles, id];
+        setLocalLikedVehicle(updated);
+        setLocalItem('localLikedVehicles', updated);
+      }
     } catch (error) {
+      likedVehicle?.delete(id);
+      const updated = getLocalItem('localLikedVehicles').filter(
+        (storedId: string) => storedId !== id,
+      );
+      setLocalItem('localLikedVehicles', updated);
+      setLocalLikedVehicle(updated);
       console.log(error, 'error');
     }
   };
@@ -77,8 +103,8 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
         >
           <Heart
             className={cn({
-              'text-red-500 fill-current': likedVehicle?.has(_id),
-              '': !likedVehicle?.has(_id),
+              'text-red-500 fill-current':
+                likedVehicle?.has(_id) || localLikedVehicle?.includes(_id),
             })}
           />
           {/* <Image src={Save} alt="Save" /> */}
@@ -110,7 +136,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
 
         <div className="w-full cursor-pointer">
           <button
-            onClick={() => handleOnViewDetails(_id)}
+            onClick={() => router.push(`/vehicle/${_id}`)}
             className=" text-white rounded-md py-2 px-4 bg-primary-900 text-center w-full  mb-2.5"
           >
             View Details
