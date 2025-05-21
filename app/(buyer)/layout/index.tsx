@@ -15,7 +15,7 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  const { data, isLoading, isError } = useGetAuthenticatedUser();
+  const { data, isLoading, isError, userRefetch } = useGetAuthenticatedUser();
 
   useEffect(() => {
     if (data) {
@@ -27,6 +27,7 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (token) {
       localStorage.setItem('accessToken', token);
+      userRefetch()
     }
   }, [data, setUser, setProfile, setAddress, token]);
 

@@ -20,9 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <Suspense fallback={<Loader />}>
-      <BuyerLayout>
-        {children}
-      </BuyerLayout>
+      <BuyerLayout>{children}</BuyerLayout>
     </Suspense>
   );
 }
