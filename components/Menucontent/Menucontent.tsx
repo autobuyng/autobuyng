@@ -60,12 +60,11 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
 
   return (
     <div className="mt-8 md:mt-0">
-      <div>
-        <h1 className="font-semibold text-lg text-primary-700">Hi {user?.firstName}</h1>
-      </div>
 
       <div className="flex flex-col gap-3 mt-4">
         {user && (
+          <>
+            <h1 className="font-semibold text-lg text-primary-700">Hi {user?.firstName}</h1>
           <div className="flex flex-col gap-3  pb-2">
             {MENU_ITEMS.map((item) => (
               <div key={item.id} className="w-full">
@@ -79,6 +78,7 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
               </div>
             ))}
           </div>
+          </>
         )}
 
         {user && (
@@ -102,6 +102,28 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
           >
             Log out
           </button>
+        )}
+
+        {!user && (
+          <div className="flex flex-col gap-8">
+            <button onClick={() => {
+              setType('signin');
+              setIsOpen(true);
+              // setShowPopover(false)
+            }} className="text-primary-700 text-[14px]">
+              Login
+            </button>
+            <button
+              onClick={() => {
+                setType('signup');
+                setIsOpen(true);
+                // setShowPopover(false)
+              }}
+              className=" h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+            >
+              Create Account
+            </button>
+          </div>
         )}
       </div>
 

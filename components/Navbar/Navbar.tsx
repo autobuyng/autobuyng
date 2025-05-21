@@ -95,7 +95,7 @@ const Navbar = () => {
     <header className="h-[60px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
-          <div className="flex items-center gap-8 relative h-10 w-10  md:w-32 md:h-16">
+          <div className="flex items-center gap-8 relative h-8 w-8  md:w-32 md:h-16">
             <Image
               src={isMobile ? MobileLogo : Autobuy}
               alt="Autobuy"
@@ -163,27 +163,37 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              // : isLoading || loading ? (
-              //   <div className="flex items-center gap-2">
-              //     <div className="h-8 bg-gray-200 rounded-md w-28 animate-pulse hidden md:block"></div>
-              //     <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
-              //   </div>
-              // )
+                <>
+                  {isMobile && (
+                    <Sheet open={showPopover} onOpenChange={setShowPopover}>
+                      <SheetTrigger>
+                        <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
+                          <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
+                        </p>
+                      </SheetTrigger>
+                      <SheetContent>
+                        <Menucontent setShowPopover={setShowPopover} />
+                      </SheetContent>
+                    </Sheet>
+                  )}
 
-              <div className="flex gap-8">
-                <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
-                  Login
-                </button>
-                <button
-                  onClick={() => {
-                    setType('signup');
-                    setIsOpen(true);
-                  }}
-                  className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
-                >
-                  Create Account
-                </button>
-              </div>
+                  {!isMobile && 
+                    <div className="flex gap-8">
+                      <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
+                        Login
+                      </button>
+                      <button
+                        onClick={() => {
+                          setType('signup');
+                          setIsOpen(true);
+                        }}
+                        className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+                      >
+                        Create Account
+                      </button>
+                    </div>}
+                </>
+
             )}
           </div>
         </nav>
