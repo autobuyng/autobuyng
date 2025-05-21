@@ -18,9 +18,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <BuyerLayout>
+  return (
     <Suspense fallback={<Loader />}>
-      {children}
+      <BuyerLayout>
+        {children}
+      </BuyerLayout>
     </Suspense>
-  </BuyerLayout>;
+  );
 }

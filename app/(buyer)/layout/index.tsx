@@ -14,7 +14,6 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const protectedRoutes = ['payment', 'create-order', 'orders', 'favorites', 'settings'];
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  console.log(token, 'token');
 
   const { data, isLoading, isError } = useGetAuthenticatedUser();
 
@@ -41,7 +40,7 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
             alt="buyer"
             width={40}
             height={40}
-            className="mx-auto animate-scalePulse "
+            className="mx-auto animate-scalePulse"
           />
         </div>
       </div>

@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from 'next/image';
+import React from 'react';
 
 const Loader = () => {
   return (
@@ -15,7 +15,7 @@ const Loader = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;
