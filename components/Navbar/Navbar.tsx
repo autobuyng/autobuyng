@@ -163,37 +163,37 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-                <>
-                  {isMobile && (
-                    <Sheet open={showPopover} onOpenChange={setShowPopover}>
-                      <SheetTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
-                          <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
-                        </p>
-                      </SheetTrigger>
-                      <SheetContent>
-                        <Menucontent setShowPopover={setShowPopover} />
-                      </SheetContent>
-                    </Sheet>
-                  )}
+              <>
+                {isMobile && (
+                  <Sheet open={showPopover} onOpenChange={setShowPopover}>
+                    <SheetTrigger>
+                      <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
+                        <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
+                      </p>
+                    </SheetTrigger>
+                    <SheetContent>
+                      <Menucontent setShowPopover={setShowPopover} />
+                    </SheetContent>
+                  </Sheet>
+                )}
 
-                  {!isMobile && 
-                    <div className="flex gap-8">
-                      <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
-                        Login
-                      </button>
-                      <button
-                        onClick={() => {
-                          setType('signup');
-                          setIsOpen(true);
-                        }}
-                        className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
-                      >
-                        Create Account
-                      </button>
-                    </div>}
-                </>
-
+                {!isMobile && (
+                  <div className="flex gap-8">
+                    <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
+                      Login
+                    </button>
+                    <button
+                      onClick={() => {
+                        setType('signup');
+                        setIsOpen(true);
+                      }}
+                      className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+                    >
+                      Create Account
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </nav>
