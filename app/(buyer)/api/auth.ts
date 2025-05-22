@@ -128,11 +128,11 @@ export function useGetUser() {
   );
 }
 
-export function useGetAuthenticatedUser() {
+export function useGetAuthenticatedUser({ enabled }: { enabled: boolean }) {
   // const accessToken = getLocalItem('accessToken');
   const { data, isLoading, isError, error, refetch } = useQuery<any>({
     queryKey: queryKeys.user.root,
-    // enabled: !!accessToken,
+    enabled: enabled,
     queryFn: () => fetcher(endpoints.auth.currentUser),
   });
 

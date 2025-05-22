@@ -1,11 +1,12 @@
 'use client';
 import Navbar from '@/components/Navbar/Navbar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetAuthenticatedUser } from '../api/auth';
 import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { removeLocalItem } from '@/lib/localStorage';
 
 const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const { setUser, setProfile, setAddress } = useStore();
@@ -14,8 +15,19 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const protectedRoutes = ['payment', 'create-order', 'orders', 'favorites', 'settings'];
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
+  const [tokenProcessed, setTokenProcessed] = useState(false);
 
-  const { data, isLoading, isError, userRefetch } = useGetAuthenticatedUser();
+  useEffect(() => {
+    if (token && !tokenProcessed) {
+      localStorage.setItem('accessToken', token);
+      setTokenProcessed(true);
+    }
+  }, [token, tokenProcessed]);
+
+  const shouldFetchUser = !!token || tokenProcessed;
+  const { data, isLoading, isError } = useGetAuthenticatedUser({
+    enabled: shouldFetchUser
+  });
 
   useEffect(() => {
     if (data) {
@@ -24,18 +36,28 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
       setProfile(profile);
       setAddress(addresses);
     }
+  }, [data, setUser, setProfile, setAddress]);
 
-    if (token) {
-      localStorage.setItem('accessToken', token);
-      userRefetch()
+  // Handle authentication errors
+  useEffect(() => {
+    const currentRoute = pathname.split('/')[1] as string;
+    const isProtectedRoute = protectedRoutes.includes(currentRoute);
+
+    if (isError && isProtectedRoute) {
+      toast({
+        variant: 'destructive',
+        title: 'Unauthorized, redirecting....',
+      });
+      removeLocalItem("accessToken");
+      redirect(`${window.location.origin}/results/keyword=`);
     }
-  }, [data, setUser, setProfile, setAddress, token]);
+  }, [isError, pathname, protectedRoutes, toast]);
 
   if (isLoading) {
     return (
       <div className="min-h-screen h-full font-bold text-2xl flex items-center justify-center">
         <div className="relative flex items-center justify-center">
-          <span className=" absolute  h-20 w-20 border-t-4 border-l-4 border-b-2 border-r-2 border-b-gray-200 border-r-gray-200 border-t-primary-900 border-l-primary-900 p-4 rounded-full animate-spin"></span>
+          <span className="absolute h-20 w-20 border-t-4 border-l-4 border-b-2 border-r-2 border-b-gray-200 border-r-gray-200 border-t-primary-900 border-l-primary-900 p-4 rounded-full animate-spin"></span>
           <Image
             src="/icons/buyer.svg"
             alt="buyer"
@@ -46,14 +68,6 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
     );
-  }
-
-  if (isError && protectedRoutes.includes(pathname.split('/')[1] as string)) {
-    toast({
-      variant: 'destructive',
-      title: 'Unauthorized, redirecting....',
-    });
-    redirect(`${window.location.origin}/results/keyword=`);
   }
 
   return (
