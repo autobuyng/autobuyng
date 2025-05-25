@@ -373,7 +373,7 @@ const ImageSliderModal = ({
           <AlertDialogTitle></AlertDialogTitle>
           <AlertDialogHeader className="relative">
             <AlertDialogCancel className="absolute top-8 right-8 outline-none border-none bg-[#D9D9D9] rounded-[50%]">
-              X
+              <X />
             </AlertDialogCancel>
 
             <AlertDialogDescription className="h-[100vh] overflow-y-auto">

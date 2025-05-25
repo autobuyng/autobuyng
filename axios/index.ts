@@ -1,7 +1,7 @@
 import { getLocalItem } from '@/lib/localStorage';
 import { removeSessionItem } from '@/lib/Sessionstorage';
 import { SearchQuery } from '@/types/types';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 export enum ApiType {
   AUTOBUY = 'AUTOBUY',
@@ -28,7 +28,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       const accessToken = isSeller
         ? getLocalItem('sellerAccessToken')
         : getLocalItem('accessToken');
-
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
@@ -78,9 +77,13 @@ export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Prom
   try {
     const res = await usermgtApi.get(url, { ...config });
     return res.data.data;
-  } catch (error) {
-    // Add error handling
-    console.error('Fetcher error:', error);
+  } catch (error: AxiosError | any) {
+    console.error('Fetcher error:', {
+      status: error.response?.status,
+      message: error.message,
+      url: url,
+    });
+
     throw error;
   }
 };

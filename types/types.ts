@@ -114,6 +114,11 @@ export type Vehicle = {
   images: string[];
   engine: string;
   liked?: boolean;
+  exteriorImages?: string[];
+  interiorImages?: string[];
+  tyreImages?: string[];
+  trunkImages?: string[];
+  engineImages?: string[];
   vehicleType: VehicleType[];
 };
 
@@ -591,4 +596,26 @@ export type DashboardStatsResponse = {
   type: string;
   count: number;
   percentageChange: number;
+};
+
+// Base Vehicle Type
+
+// Main Data Item Type
+export type OrderDetails = {
+  reminderSent: boolean;
+  _id: string;
+  vehicleId: Vehicle;
+  buyerId: string;
+  amount: number;
+  status: string;
+  accountNumber: string;
+  initiationRef: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+// Root Data Structure
+export type OrderListResponse = {
+  data: OrderDetails[];
 };

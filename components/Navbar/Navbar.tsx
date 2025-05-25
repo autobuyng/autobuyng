@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next-nprogress-bar';
@@ -15,21 +15,19 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
 
 import AuthDialog from '@/app/auth';
-import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
-import { setSessionItem } from '@/lib/Sessionstorage';
 
 const Navbar = () => {
-  const [, setLoading] = useState(true);
+  // const [, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
 
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
-  const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
+  const { user } = useStore();
 
-  const { getUser } = useGetUser();
+  // const { getUser } = useGetUser();
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -39,39 +37,39 @@ const Navbar = () => {
     setType('signin');
   };
 
-  useEffect(() => {
-    setLoading(isLoading);
-  }, []);
-  const getUserData = async () => {
-    setIsLoading(true);
+  // useEffect(() => {
+  //   setLoading(isLoading);
+  // }, []);
+  // const getUserData = async () => {
+  //   setIsLoading(true);
 
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
+  //   try {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const token = urlParams.get('token');
 
-      if (token) {
-        setSessionItem('accessToken', decodeURIComponent(token));
-      }
+  //     if (token) {
+  //       setSessionItem('accessToken', decodeURIComponent(token));
+  //     }
 
-      // Fetch user data only once
-      const response = await getUser();
-      const { user, profile, addresses } = response.data;
+  //     // Fetch user data only once
+  //     const response = await getUser();
+  //     const { user, profile, addresses } = response.data;
 
-      // Set state
-      setUser(user);
-      setProfile(profile);
-      setAddress(addresses);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     // Set state
+  //     setUser(user);
+  //     setProfile(profile);
+  //     setAddress(addresses);
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    setIsLoading(true);
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getUserData();
+  // }, []);
 
   const NAV_ITEMS = [
     {

@@ -1,7 +1,8 @@
+import Loader from '@/LoadingSkeleton/loader';
 import React from 'react';
 
 const Loading = () => {
-  return <div className="min-h-screen grid place-items-center text-4xl font-bold">Loading...</div>;
+  return <Loader />
 };
 
 export default Loading;

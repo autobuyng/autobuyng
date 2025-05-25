@@ -129,13 +129,13 @@ export function useGetUser() {
 }
 
 export function useGetAuthenticatedUser({ enabled }: { enabled: boolean }) {
-  // const accessToken = getLocalItem('accessToken');
   const { data, isLoading, isError, error, refetch } = useQuery<any>({
     queryKey: queryKeys.user.root,
     enabled: enabled,
     queryFn: () => fetcher(endpoints.auth.currentUser),
+    refetchOnWindowFocus: false,
   });
-
+  console.log(isError, 'from api', error, 'error');
   return useMemo(
     () => ({
       data: data,

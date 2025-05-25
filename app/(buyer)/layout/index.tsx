@@ -6,7 +6,7 @@ import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { removeLocalItem } from '@/lib/localStorage';
+import { removeLocalItem, setLocalItem } from '@/lib/localStorage';
 
 const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const { setUser, setProfile, setAddress } = useStore();
@@ -16,18 +16,21 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const [tokenProcessed, setTokenProcessed] = useState(false);
-
+  const { data, isLoading, isError, userRefetch } = useGetAuthenticatedUser({
+    enabled: true,
+  });
   useEffect(() => {
     if (token && !tokenProcessed) {
-      localStorage.setItem('accessToken', token);
+      setLocalItem('accessToken', token);
       setTokenProcessed(true);
+      userRefetch();
     }
   }, [token, tokenProcessed]);
 
-  const shouldFetchUser = !!token || tokenProcessed;
-  const { data, isLoading, isError } = useGetAuthenticatedUser({
-    enabled: shouldFetchUser
-  });
+  // const shouldFetchUser = !!token || tokenProcessed;
+  // const { data, isLoading, isError, error, userRefetch } = useGetAuthenticatedUser({
+  //   enabled: true,
+  // });
 
   useEffect(() => {
     if (data) {
@@ -48,10 +51,11 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
         variant: 'destructive',
         title: 'Unauthorized, redirecting....',
       });
-      removeLocalItem("accessToken");
+      removeLocalItem('accessToken');
       redirect(`${window.location.origin}/results/keyword=`);
     }
   }, [isError, pathname, protectedRoutes, toast]);
+
 
   if (isLoading) {
     return (

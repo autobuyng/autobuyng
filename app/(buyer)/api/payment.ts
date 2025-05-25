@@ -1,6 +1,6 @@
 import { endpoints, fetcher, mutator } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { AccountOrder } from '@/types/types';
+import { AccountOrder, OrderListResponse } from '@/types/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -45,7 +45,7 @@ export function useGetAuthenticatedUser() {
 }
 
 export function useGetOrderLists() {
-  const { data, isLoading, refetch } = useQuery<any>({
+  const { data, isLoading, refetch } = useQuery<OrderListResponse>({
     queryKey: ['orderlist'],
     queryFn: () => fetcher(endpoints.payment.orderList),
   });
