@@ -56,7 +56,6 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [isError, pathname, protectedRoutes, toast]);
 
-
   if (isLoading) {
     return (
       <div className="min-h-screen h-full font-bold text-2xl flex items-center justify-center">

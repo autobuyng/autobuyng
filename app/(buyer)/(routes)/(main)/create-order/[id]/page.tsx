@@ -10,6 +10,7 @@ import { useCreateOrder } from '@/app/(buyer)/api/payment';
 // import { endpoints } from '@/axios';
 import { Failure, Success } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 import { formatCurrency } from '@/lib/utils';
+import Loader from '@/LoadingSkeleton/loader';
 
 export default function CreateOrder() {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
@@ -145,9 +146,7 @@ export default function CreateOrder() {
 
   if (isLoading || isPending) {
     return (
-      <h1 className="min-h-[95vh] grid place-items-center font-bold capitalize text-2xl">
-        loading...
-      </h1>
+      <Loader />
     );
   }
 
@@ -328,10 +327,10 @@ export default function CreateOrder() {
             <div className="text-right">{orderDetails.initiationRef}</div>
 
             <div className="text-left">Amount</div>
-            <div className="text-right">{vehicleData?.price}</div>
+            <div className="text-right">{formatCurrency(vehicleData?.price)}</div>
             <div className="text-left font-bold pt-2 border-t border-primary-900">Total</div>
             <div className="text-right font-bold pt-2 border-t border-primary-900 flex justify-end items-center">
-              {vehicleData?.price}
+              {formatCurrency(vehicleData?.price)}
               <button
                 onClick={() =>
                   copyToClipboard(String(vehicleData?.price).replace(' NGN', ''), 'total')

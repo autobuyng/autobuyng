@@ -1,43 +1,45 @@
-"use client"
-import Image from "next/image"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog"
-import { OrderDetails } from "@/types/types"
+'use client';
+import Image from 'next/image';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { OrderDetails } from '@/types/types';
 
 interface PurchaseDetailsProps {
-  isOpen: boolean
-  onOpenChange: (open: boolean) => void
-  car: OrderDetails
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  car: OrderDetails;
 }
 
 export default function PurchaseDetailsDialog({ isOpen, onOpenChange, car }: PurchaseDetailsProps) {
-  console.log(isOpen, "open")
+  console.log(isOpen, 'open');
   const purchase = {
-    carName: "Mercedes Benz CLA300",
-    orderNumber: "#292360137091",
-    price: "₦3,000,000",
-    shippingAddress: "3517 W. Gray St. Utica, Pennsylvania 57867",
-    carImage: "/placeholder.svg?height=200&width=300",
+    carName: 'Mercedes Benz CLA300',
+    orderNumber: '#292360137091',
+    price: '₦3,000,000',
+    shippingAddress: '3517 W. Gray St. Utica, Pennsylvania 57867',
+    carImage: '/placeholder.svg?height=200&width=300',
     carDetails: {
-      vin: "0177279F54",
-      exteriorColor: "Black",
-      fuelType: "PMS",
-      transmission: "Automatic",
-      mileage: "23,000mi",
+      vin: '0177279F54',
+      exteriorColor: 'Black',
+      fuelType: 'PMS',
+      transmission: 'Automatic',
+      mileage: '23,000mi',
     },
     orderStatus: {
-      orderPlaced: { date: "Nov 14", completed: true },
-      processing: { date: "Nov 14", completed: true },
-      shipped: { date: "Nov 14", completed: true },
-      delivered: { date: "Nov 14", completed: true },
+      orderPlaced: { date: 'Nov 14', completed: true },
+      processing: { date: 'Nov 14', completed: true },
+      shipped: { date: 'Nov 14', completed: true },
+      delivered: { date: 'Nov 14', completed: true },
     },
-  }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] p-0 max-h-[90vh] overflow-y-auto">
         <DialogHeader className="p-6 pb-2">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-blue-600 text-xl font-medium">Details of your purchase</DialogTitle>
+            <DialogTitle className="text-blue-600 text-xl font-medium">
+              Details of your purchase
+            </DialogTitle>
             {/* <DialogClose className="h-6 w-6 rounded-full text-gray-500 hover:text-gray-700">
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
@@ -98,17 +100,25 @@ export default function PurchaseDetailsDialog({ isOpen, onOpenChange, car }: Pur
             </div>
 
             <div className="grid grid-cols-4 gap-2 mb-4">
-              <div className="text-center text-sm text-gray-500">{purchase.orderStatus.orderPlaced.date}</div>
-              <div className="text-center text-sm text-gray-500">{purchase.orderStatus.processing.date}</div>
-              <div className="text-center text-sm text-gray-500">{purchase.orderStatus.shipped.date}</div>
-              <div className="text-center text-sm text-gray-500">{purchase.orderStatus.delivered.date}</div>
+              <div className="text-center text-sm text-gray-500">
+                {purchase.orderStatus.orderPlaced.date}
+              </div>
+              <div className="text-center text-sm text-gray-500">
+                {purchase.orderStatus.processing.date}
+              </div>
+              <div className="text-center text-sm text-gray-500">
+                {purchase.orderStatus.shipped.date}
+              </div>
+              <div className="text-center text-sm text-gray-500">
+                {purchase.orderStatus.delivered.date}
+              </div>
             </div>
 
             <div className="relative">
               <div className="absolute top-1/2 left-0 right-0 h-1 bg-blue-100 -translate-y-1/2"></div>
               <div
                 className="absolute top-1/2 left-0 right-0 h-1 bg-blue-600 -translate-y-1/2"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               ></div>
 
               <div className="relative flex justify-between">
@@ -130,5 +140,5 @@ export default function PurchaseDetailsDialog({ isOpen, onOpenChange, car }: Pur
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
