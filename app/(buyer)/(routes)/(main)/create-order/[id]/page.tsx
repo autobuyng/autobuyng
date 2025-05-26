@@ -145,9 +145,7 @@ export default function CreateOrder() {
   }, [orderDetails.initiationRef]);
 
   if (isLoading || isPending) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   // const handleThumbnailClick = (image: string) => {
