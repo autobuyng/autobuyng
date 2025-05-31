@@ -1,4 +1,4 @@
-import { endpoints, mutator } from '@/axios';
+import { endpoints, mutator, queryKeys } from '@/axios';
 import {
   IRegistrationPayload,
   ISellerRegistrationPayload,
@@ -11,17 +11,17 @@ import {
   ISellerRegistrationResponse,
   NinDataResponse,
 } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 export function useLogin() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, error, isError } = useMutation<any, any, ILoginPayload>({
     mutationFn: (values: ILoginPayload) =>
       mutator({ method: 'POST', data: values, url: endpoints.auth.login }),
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
   });
 

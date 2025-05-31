@@ -159,7 +159,6 @@ export function useGetAllBankDetials() {
     queryKey: queryKeys.user.getBankDetails,
     queryFn: () => fetcher(endpoints.user.getBankDetails),
   });
-  console.log(data, 'datra');
 
   return useMemo(
     () => ({
@@ -299,8 +298,6 @@ export function useGetFavoriteVehicle() {
     enabled: !!accessToken,
     queryFn: () => fetcher(endpoints.user.getFavoriteVehicle),
   });
-
-  console.log(data, 'from user.ts');
 
   return useMemo(
     () => ({

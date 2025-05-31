@@ -28,7 +28,6 @@ const FilterDisplay = ({
     const filterValues = Object.values(filters)
       .flatMap((value) => (typeof value === 'object' ? Object.values(value) : value))
       .filter((value) => value);
-    console.log(filterValues, 'filterValues');
     setFilterQuery(filterValues);
   }, [filters]);
 

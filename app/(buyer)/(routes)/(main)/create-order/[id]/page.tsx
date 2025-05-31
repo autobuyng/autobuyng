@@ -42,7 +42,6 @@ export default function CreateOrder() {
         vehicleId: pathname.split('/').at(-1) as string,
       });
       setOrderDetails(res.data);
-      console.log(res, 'res');
     } catch (error) {
       console.log(error);
     }

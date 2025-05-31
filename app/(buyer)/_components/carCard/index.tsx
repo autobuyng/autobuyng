@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { Heart, ImageIcon } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import PurchaseDetailsDialog from './card-details';
 import { useState } from 'react';
 import { OrderDetails } from '@/types/types';
+import { formatCurrency } from '@/lib/utils';
 
 export default function CarCard(car: OrderDetails) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,14 +27,7 @@ export default function CarCard(car: OrderDetails) {
             height={300}
             className="w-full h-56 object-cover"
           />
-          <button
-            // onClick={onFavoriteToggle}
-            className="absolute top-3 right-3 p-2 rounded-full bg-gray-800 bg-opacity-50 hover:bg-opacity-70 transition-all"
-          >
-            <Heart
-              className={`w-6 h-6 ${car.vehicleId ? 'fill-red-500 text-red-500' : 'text-white'}`}
-            />
-          </button>
+
           <div className="absolute bottom-3 right-3 bg-gray-800 bg-opacity-70 text-white px-2 py-1 rounded-md flex items-center">
             <span>{totalImages}</span>
             <ImageIcon className="h-4 w-4 ml-1" />
@@ -46,10 +40,10 @@ export default function CarCard(car: OrderDetails) {
 
           <div className="flex justify-between mb-3 border-b pb-3">
             <span className="text-gray-600">{car.vehicleId.condition}</span>
-            <span className="text-gray-600">{car.vehicleId.mileage}</span>
+            <span className="text-gray-600"> {`${Number(car.vehicleId.mileage) / 1000}${car.vehicleId.mileage ? 'k Miles' : ''}`}</span>
           </div>
 
-          <p className="text-2xl font-bold mb-3">{car.vehicleId.price}</p>
+          <p className="text-2xl font-bold mb-3">{formatCurrency(car.vehicleId.price)}</p>
 
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors">
             View Details

@@ -25,7 +25,6 @@ const Verification = ({ signupData, isModalOpen, setIsModalOpen }: VerificationP
     try {
       const response = await resendEmail({ email: signupData?.email as string });
       setResendResponse(response);
-      console.log(response);
     } catch (error) {
       console.log(error, 'error');
     }

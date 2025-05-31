@@ -18,7 +18,6 @@ function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  console.log(token, 'token');
   const { setUser } = useStore();
 
   const { verifyEmail, isVerifying } = useVerifyEmail();

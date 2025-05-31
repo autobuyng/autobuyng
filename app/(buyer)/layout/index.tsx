@@ -6,7 +6,7 @@ import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { removeLocalItem, setLocalItem } from '@/lib/localStorage';
+import { getLocalItem, removeLocalItem, setLocalItem } from '@/lib/localStorage';
 
 const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const { setUser, setProfile, setAddress } = useStore();
@@ -16,21 +16,16 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const [tokenProcessed, setTokenProcessed] = useState(false);
-  const { data, isLoading, isError, userRefetch } = useGetAuthenticatedUser({
-    enabled: true,
-  });
+  const { data, isLoading, isError, userRefetch } = useGetAuthenticatedUser();
+
   useEffect(() => {
-    if (token && !tokenProcessed) {
+    const accessToken = getLocalItem('accessToken');
+    if ((token && !tokenProcessed) || accessToken) {
       setLocalItem('accessToken', token);
       setTokenProcessed(true);
       userRefetch();
     }
   }, [token, tokenProcessed]);
-
-  // const shouldFetchUser = !!token || tokenProcessed;
-  // const { data, isLoading, isError, error, userRefetch } = useGetAuthenticatedUser({
-  //   enabled: true,
-  // });
 
   useEffect(() => {
     if (data) {
@@ -41,16 +36,19 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [data, setUser, setProfile, setAddress]);
 
-  // Handle authentication errors
+
   useEffect(() => {
+    const accessToken = getLocalItem('accessToken');
     const currentRoute = pathname.split('/')[1] as string;
     const isProtectedRoute = protectedRoutes.includes(currentRoute);
-
-    if (isError && isProtectedRoute) {
+    if (isError && isProtectedRoute && !accessToken) {
       toast({
         variant: 'destructive',
         title: 'Unauthorized, redirecting....',
       });
+      setUser(null);
+      setProfile(null);
+      setAddress(null);
       removeLocalItem('accessToken');
       redirect(`${window.location.origin}/results/keyword=`);
     }

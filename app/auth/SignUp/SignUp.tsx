@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Google from '@/components/Navbar/assets/Google.svg';
-import Facebook from '@/components/Navbar/assets/Facebook.svg';
 
 import { cn } from '@/lib/utils';
 import { IRegistrationPayload, RegistrationSchema } from '@/Schema/authSchema';
@@ -236,7 +235,7 @@ const SignUp = ({
               </button>
             </div>
 
-            <div className="w-full">
+            {/* <div className="w-full">
               <button
                 onClick={() => handlSocialSignup('facebook')}
                 className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap"
@@ -244,7 +243,7 @@ const SignUp = ({
                 <Image src={Facebook} alt="Facebook" />
                 <span> Sign up with Facebook</span>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

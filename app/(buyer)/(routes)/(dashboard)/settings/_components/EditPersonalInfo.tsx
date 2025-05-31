@@ -52,7 +52,6 @@ const EditPersonalInfo = ({
   const { editUserProfile, isPending } = useEditProfile();
 
   const handleOnSubmit = async (data: Profile) => {
-    console.log(data);
     try {
       const response = await editUserProfile(data);
       setUser(response.data.user);

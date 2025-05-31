@@ -7,7 +7,6 @@ import CarCard from '@/app/(buyer)/_components/carCard';
 
 const Orders = () => {
   const { data: orders, isLoading } = useGetOrderLists();
-  console.log(orders, 'orders');
   if (isLoading) {
     return <Loader />;
   }

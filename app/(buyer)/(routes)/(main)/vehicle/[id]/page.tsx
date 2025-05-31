@@ -125,7 +125,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
           {(isLoading || isPending) && <LoadingSkeleton />}
           {!isLoading && !isPending && (
             <div className=" w-full   md:px-4 flex flex-col lg:flex-row justify-center gap-4">
-              <div className="bg-white md:px-4 flex-[3]">
+              <div className="bg-white md:px-4 flex-[2]">
                 <div
                   className={cn('max-w-[800px] h-fit ', {
                     'max-w-[900px] h-fit  ': os === 'macOS',
@@ -182,7 +182,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
               </div>
 
-              <div className="h-fit   space-y-10   flex-[2] ">
+              <div className="h-fit   space-y-10   flex-[1] ">
                 <div className=" relative shadow-[0px_2px_14px_0px_#0000001A] rounded-lg bg-white px-6 pb-4 pt-12">
                   <div className="absolute top-0 left-0 right-0 w-full h-full bg-black/60 z-10 rounded-xl text-white grid place-items-center text-4xl font-bold">
                     {' '}

@@ -97,8 +97,7 @@ const ImageSlider = ({ ImageUrls, id, make, model }: ImageSliderProp) => {
     // const newLikedState = !liked;
     // setIsLiked(newLikedState);
     try {
-      const response = await likeVehicle({ vehicleId: id });
-      console.log(response);
+      await likeVehicle({ vehicleId: id });
     } catch (error) {
       // setIsLiked(!newLikedState);
       console.log(error, 'error');

@@ -26,7 +26,6 @@ const ForgotPassword = () => {
         position: 'top-right',
       });
 
-      console.log(response);
     } catch (error) {
       toast({
         title: 'failed',

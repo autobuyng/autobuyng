@@ -14,7 +14,6 @@ const BasicInfo = ({ setStep, setSelectedOption, selectedOption }: BasicInfoProp
   const [activeChoice, setActiveChoice] = useState(1);
 
   const handleOptionSelect = (option: string, index: number) => {
-    console.log(selectedOption, 'selectedOption');
     setSelectedOption(option);
     setActiveChoice(index);
   };

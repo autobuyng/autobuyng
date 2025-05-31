@@ -128,13 +128,11 @@ export function useGetUser() {
   );
 }
 
-export function useGetAuthenticatedUser({ enabled }: { enabled: boolean }) {
+export function useGetAuthenticatedUser() {
   const { data, isLoading, isError, error, refetch } = useQuery<any>({
     queryKey: queryKeys.user.root,
-    enabled: enabled,
     queryFn: () => fetcher(endpoints.auth.currentUser),
   });
-  console.log(isError, 'from api', error, 'error');
   return useMemo(
     () => ({
       data: data,

@@ -53,6 +53,7 @@ const SignIn = ({
       setIsOpen(false);
     } catch (error: any) {
       toast({
+        variant: "destructive",
         title: 'Failed',
         description: error.message,
       });

@@ -24,7 +24,6 @@ const Sidebar = () => {
       <div className="flex flex-col h-full  gap-4   ">
         {SIDEBAR_ITEMS.map((item) => {
           const isActive = item.path === pathname;
-          console.log(isActive, 'isActive');
           return (
             <Link
               key={item.id}

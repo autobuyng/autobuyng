@@ -74,7 +74,6 @@ const AccountInfo = () => {
     if (!debouncedCac || debouncedCac === lastCac.current) return;
 
     lastCac.current = debouncedCac;
-    console.log('again');
     NinLookup();
   }, [debouncedCac]);
 

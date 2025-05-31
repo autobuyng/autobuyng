@@ -66,7 +66,6 @@ const Results = () => {
     };
 
     if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
-      console.log('making search request');
       handleSearch(searchParams);
     }
 

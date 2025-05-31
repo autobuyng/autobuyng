@@ -47,7 +47,6 @@ const HomeSearch = () => {
     { id: 2, text: 'New', key: 'new' },
     { id: 3, text: 'Used', key: 'used' },
   ];
-  console.log(filters, 'searchable');
   return (
     <main
       className={cn(

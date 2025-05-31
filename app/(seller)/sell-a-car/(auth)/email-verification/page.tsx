@@ -25,7 +25,6 @@ function VerifyEmailPage() {
     try {
       const response = await verifyEmail({ token: decodeURIComponent(token) });
       setData(response);
-      console.log(response.data.accessToken, 'accesstoken', response, 'response');
       if (response.status === true) {
         toast({
           title: 'Success',

@@ -45,14 +45,3 @@ const Payment = () => {
 };
 
 export default Payment;
-
-// {
-//   "status": true,
-//     "message": "Request Successful",
-//       "data": {
-//     "orderId": "680de1015e3c1d5df772fda0",
-//       "accountNumber": "9977576479",
-//         "initiationRef": "merchant2504270847135706",
-//           "accountName": "Emmanuel"
-//   }
-// }

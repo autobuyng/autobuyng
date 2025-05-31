@@ -68,11 +68,9 @@ const EditBankInfo = ({
       if (!selectedBankName) return;
 
       const selected = BANK_LIST.find((bank) => bank.bankName === selectedBankName);
-      console.log(selected, 'selectedBank');
 
       if (selected) {
         setValue('bankCode', selected.bankCode);
-        console.log('Bank Code Set:', selected.bankCode);
       }
 
       const bankCode = getValues('bankCode');
@@ -126,8 +124,7 @@ const EditBankInfo = ({
   const handleDeleteBank = async (id: string) => {
     // e.preventDefault();
     try {
-      const response = await deleBankDetails({ id });
-      console.log(response, 'update address');
+      await deleBankDetails({ id });
     } catch (error) {
       console.error(error);
     }
