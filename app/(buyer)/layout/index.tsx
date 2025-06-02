@@ -36,7 +36,6 @@ const BuyerLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [data, setUser, setProfile, setAddress]);
 
-
   useEffect(() => {
     const accessToken = getLocalItem('accessToken');
     const currentRoute = pathname.split('/')[1] as string;

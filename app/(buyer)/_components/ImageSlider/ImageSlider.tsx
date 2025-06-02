@@ -255,7 +255,7 @@ const ImageSliderModal = ({
       <Dialog open={!isMobile && isOpen} onOpenChange={setIsOpen}>
         <DialogContent
           className={cn(
-            ' max-h-[100vh] mt-2 max-w-[1336px] border-none bg-black/50 outline-none overflow-y-auto overflow-x-auto ',
+            ' max-h-[100vh] -mt-6 max-w-[1336px] p-3 border-none bg-black/50 outline-none  ',
             {
               // 'max-w-[48rem]': os === 'macOS',
               // 'max-w-[600px]': os === 'Windows',
@@ -280,7 +280,7 @@ const ImageSliderModal = ({
             />
           </div>
           <div className=" flex items-start justify-between gap-8 ">
-            <div className=" max-w-[850px] h-[500px]">
+            <div className="sticky top-0 left-0 overflow-hidden max-w-[850px] min-h-[80vh]">
               <div className="overflow-hidden relative">
                 <div
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -335,7 +335,7 @@ const ImageSliderModal = ({
               </div>
             </div>
 
-            <div>
+            <div className='max-h-[90vh] overflow-y-auto pb-8'>
               <div className="flex gap-3">
                 <p className="bg-primary-900 text-white px-6 py-2 rounded-full">All Photos</p>
                 <Degrees />

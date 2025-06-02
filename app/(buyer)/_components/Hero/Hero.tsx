@@ -19,8 +19,7 @@ const Hero = () => {
                     <span className="text-primary-900">Confidence.</span>
                   </h1>
                   <p className="text-[#1A1A1ACC] text-sm min-[375px]:text-base sm:text-lg mt-1">
-                    Lorem ipsum dolor sit amet consectetur. Auctor sed adipiscing aliquet porttitor.
-                    Tempus enim egestas in arcu neque massa morbi augue gravida.
+                    compare and buy your next car-seamless, smart and secure
                   </p>
                 </div>
                 <div className="flex gap-8 sm:gap-10 mx-auto md:mx-0">
@@ -50,7 +49,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="flex-[1] h-full flex items-center justify-center relative py-5 bg-cyan-300">
+            <div className="flex-[1] h-full flex items-center justify-center relative py-5 bg-cyan-300/20">
               <HomeSearch />
               <Image
                 src="https://ik.imagekit.io/wy2wtykti/Autobuy/Frame%201261156761"

@@ -50,7 +50,7 @@ const HomeSearch = () => {
   return (
     <main
       className={cn(
-        'w-[90%] sm:w-[340px] mx-auto px-4  h-fit rounded-[20px] bg-white relative z-10',
+        'w-[90%] sm:w-[340px] mx-auto px-4 py-4  h-fit  bg-white relative z-10',
       )}
     >
       <form onSubmit={handleSubmit(handleSearch)} className="px-4 pt-4 pb-4">

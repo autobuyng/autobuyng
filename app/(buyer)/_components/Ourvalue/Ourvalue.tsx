@@ -14,12 +14,12 @@ const Ourvalue = () => {
     {
       id: '1',
       title: 'Wide Range Of Vehicle Inventory',
-      desc: 'Browse through our extensive inventory of vehicles each with detailed descriptions and photos.',
+      desc: 'We are commited to offering you the best deals in the market',
       Img: Car,
     },
     {
       id: '2',
-      title: 'Wide Range Of Vehicle Inventory',
+      title: 'Best Price Guaranteed',
       desc: 'Browse through our extensive inventory of vehicles each with detailed descriptions and photos.',
       Img: Price,
     },

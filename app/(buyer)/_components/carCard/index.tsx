@@ -40,7 +40,10 @@ export default function CarCard(car: OrderDetails) {
 
           <div className="flex justify-between mb-3 border-b pb-3">
             <span className="text-gray-600">{car.vehicleId.condition}</span>
-            <span className="text-gray-600"> {`${Number(car.vehicleId.mileage) / 1000}${car.vehicleId.mileage ? 'k Miles' : ''}`}</span>
+            <span className="text-gray-600">
+              {' '}
+              {`${Number(car.vehicleId.mileage) / 1000}${car.vehicleId.mileage ? 'k Miles' : ''}`}
+            </span>
           </div>
 
           <p className="text-2xl font-bold mb-3">{formatCurrency(car.vehicleId.price)}</p>

@@ -1,6 +1,8 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
@@ -9,7 +11,8 @@ import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/store/useStore';
-import { useEffect, useState } from 'react';
+import Google from '@/components/Navbar/assets/Google.svg';
+
 import { getLocalItem, setLocalItem } from '@/lib/localStorage';
 import { useLikeMultipleVehicle } from '@/app/(buyer)/api/search';
 
@@ -53,7 +56,7 @@ const SignIn = ({
       setIsOpen(false);
     } catch (error: any) {
       toast({
-        variant: "destructive",
+        variant: 'destructive',
         title: 'Failed',
         description: error.message,
       });
@@ -66,6 +69,19 @@ const SignIn = ({
       likeMultipleVehicle({ vehicles: localLikeMultipleVehicles });
     }
   }, [likeMultipleVehicles]);
+
+  const googleLogin = () => {
+    router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
+  };
+
+
+  const handlSocialSignup = () => {
+    try {
+      googleLogin()
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -145,6 +161,26 @@ const SignIn = ({
           </p>
         </div>
       </form>
+
+      <div className="flex flex-col gap-4">
+        <div className="w-full flex justify-between items-center gap-[5px]">
+          <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+          <span className="text-lg">or</span>
+          <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+        </div>
+
+        <div
+        >
+          <div className="w-full">
+            <button
+              onClick={() => handlSocialSignup()}
+              className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6"
+            >
+              <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

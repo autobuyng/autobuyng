@@ -64,13 +64,10 @@ const SignUp = ({
   const googleLogin = () => {
     router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
   };
-  const faceBookLogin = () => {
-    router.push('https://autobuy-latest.onrender.com/api/v1/auth/facebook');
-  };
 
-  const handlSocialSignup = (type: string) => {
+  const handlSocialSignup = () => {
     try {
-      type === 'google' ? googleLogin() : faceBookLogin();
+      googleLogin() 
     } catch (error) {
       console.log(error);
     }
@@ -228,7 +225,7 @@ const SignUp = ({
           >
             <div className="w-full">
               <button
-                onClick={() => handlSocialSignup('google')}
+                onClick={() => handlSocialSignup()}
                 className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6"
               >
                 <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
