@@ -11,12 +11,12 @@ import { create } from 'zustand';
 
 const default_filters = getSessionItem('filters');
 export const DEFAULT_FILTERS: FilterProps = {
-  year: {
-    min_year: '2009',
-  },
-  price: {
-    // min_price: 5000000,
-  },
+  // year: {
+  //   // min_year: '2009',
+  // },
+  // price: {
+  //   // min_price: 5000000,
+  // },
   ...default_filters,
 };
 type State = {

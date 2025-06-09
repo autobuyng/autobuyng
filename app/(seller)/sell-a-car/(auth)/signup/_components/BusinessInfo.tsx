@@ -1,17 +1,16 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { EyeIcon, EyeOffIcon, Loader, Loader2 } from 'lucide-react';
-import { useDebounce } from 'use-debounce';
+import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
+// import { useDebounce } from 'use-debounce';
 
 import { ISellerRegistrationPayload, SellerRegistrationSchema } from '@/Schema/authSchema';
-import { useRegister, useVerifyIdentity } from '@/app/(seller)/api/auth';
+import { useRegister } from '@/app/(seller)/api/auth';
 import { useToast } from '@/hooks/use-toast';
 import Verification from './Verification';
 import { cn } from '@/lib/utils';
-import { UserData } from '@/types/types';
 
 const BusinessInfo = () => {
   const { toast } = useToast();
@@ -19,30 +18,27 @@ const BusinessInfo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [signupData, setSignUpData] = useState<ISellerRegistrationPayload | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [ninData, setNinData] = useState<UserData | null>(null);
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
     formState: { errors },
   } = useForm<ISellerRegistrationPayload>({
     resolver: zodResolver(SellerRegistrationSchema),
   });
-  const nin = watch('nin');
-  const [debouncedNin] = useDebounce(nin, 1000);
-  const lastNin = useRef<string | null>(null);
   const { signup, isRegistering } = useRegister();
-  const { verifyIdentity, isPending } = useVerifyIdentity();
+  // const nin = watch('nin');
+  // const [debouncedNin] = useDebounce(nin, 1000);
+  // const lastNin = useRef<string | null>(null);
+  // const { verifyIdentity, isPending } = useVerifyIdentity();
 
-  useEffect(() => {
-    reset({
-      firstName: ninData?.firstname,
-      lastName: ninData?.surname,
-      email: ninData?.email,
-      phoneNumber: ninData?.telephoneno,
-    });
-  }, [ninData]);
+  // useEffect(() => {
+  //   reset({
+  //     firstName: ninData?.firstname,
+  //     lastName: ninData?.surname,
+  //     email: ninData?.email,
+  //     phoneNumber: ninData?.telephoneno,
+  //   });
+  // }, [ninData]);
 
   const handleRegister = async (data: ISellerRegistrationPayload) => {
     try {
@@ -61,28 +57,28 @@ const BusinessInfo = () => {
     }
   };
 
-  const NinLookup = async () => {
-    try {
-      const response = await verifyIdentity({ nin });
-      setNinData(response.data as UserData);
-    } catch (error) {
-      console.log(error);
-      reset({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-      });
-    }
-  };
+  // const NinLookup = async () => {
+  //   try {
+  //     const response = await verifyIdentity({ nin });
+  //     setNinData(response.data as UserData);
+  //   } catch (error) {
+  //     console.log(error);
+  //     reset({
+  //       firstName: '',
+  //       lastName: '',
+  //       email: '',
+  //       phoneNumber: '',
+  //     });
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!debouncedNin || debouncedNin === lastNin.current) return;
+  // useEffect(() => {
+  //   if (!debouncedNin || debouncedNin === lastNin.current) return;
 
-    lastNin.current = debouncedNin;
-    console.log('again');
-    NinLookup();
-  }, [debouncedNin]);
+  //   lastNin.current = debouncedNin;
+  //   console.log('again');
+  //   NinLookup();
+  // }, [debouncedNin]);
 
   return (
     <div className="max-w-[458px] mx-auto w-full">
@@ -94,7 +90,6 @@ const BusinessInfo = () => {
                 National Identification Number (NIN)
               </label>
               <div className="flex items-center justify-between border border-neutral-900 rounded-sm">
-                <div>
                   <input
                     {...register('nin')}
                     type="text"
@@ -102,9 +97,7 @@ const BusinessInfo = () => {
                     placeholder=""
                     className="mt-1 w-full rounded-sm outline-none px-2 py-2  border-none  sm:text-sm"
                   />
-                  {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
-                </div>
-                {isPending ? <Loader2 className="animate-spin" /> : null}
+                {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
               </div>
             </div>
 

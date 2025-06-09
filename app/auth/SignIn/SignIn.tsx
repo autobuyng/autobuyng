@@ -74,10 +74,9 @@ const SignIn = ({
     router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
   };
 
-
   const handlSocialSignup = () => {
     try {
-      googleLogin()
+      googleLogin();
     } catch (error) {
       console.log(error);
     }
@@ -169,8 +168,7 @@ const SignIn = ({
           <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
         </div>
 
-        <div
-        >
+        <div>
           <div className="w-full">
             <button
               onClick={() => handlSocialSignup()}

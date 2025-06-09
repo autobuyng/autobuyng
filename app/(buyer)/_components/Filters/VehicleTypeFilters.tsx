@@ -30,12 +30,12 @@ const VehicleTypeFilters = () => {
 
   const handlVehicleTypeClick = (key: string) => {
     setFilters((prev: FilterProps) => ({ ...prev, vehicle_type: key }));
-    router.push(`/results/vehicle_type=${key}`);
+    router.push(`/results/vehicle_type=${key.toLowerCase()}`);
   };
 
   const handleVehicleBrandClick = (key: string) => {
     setFilters((prev: FilterProps) => ({ ...prev, make: key }));
-    router.push(`/results/make=${key}`);
+    router.push(`/results/make=${key.toLowerCase()}`);
   };
 
   const renderCarBrands = useCallback(

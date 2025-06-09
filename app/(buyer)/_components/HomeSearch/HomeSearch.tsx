@@ -13,9 +13,6 @@ import { useRouter } from 'next-nprogress-bar';
 
 const HomeSearch = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
-  // const [price, setPrice] = useState<string>('');
-  // const [brand, setBrand] = useState<string>('');
-  // const [year, setYear] = useState<string>('');
 
   const router = useRouter();
   const os = useDetectOS();
@@ -48,11 +45,7 @@ const HomeSearch = () => {
     { id: 3, text: 'Used', key: 'used' },
   ];
   return (
-    <main
-      className={cn(
-        'w-[90%] sm:w-[340px] mx-auto px-4 py-4  h-fit  bg-white relative z-10',
-      )}
-    >
+    <main className={cn('w-[90%] sm:w-[340px] mx-auto px-4 py-4  h-fit  bg-white relative z-10')}>
       <form onSubmit={handleSubmit(handleSearch)} className="px-4 pt-4 pb-4">
         <div className="text-center  md:text-xl">
           <h1

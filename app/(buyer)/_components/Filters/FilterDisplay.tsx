@@ -8,6 +8,7 @@ import Sort from '@/app/(buyer)/_components/Filters/assets/sort.svg';
 // import { useSearchParams } from 'next/navigation';
 import { useStore } from '@/store/useStore';
 import { FilterProps } from '@/types/types';
+import { removeSessionItem, } from '@/lib/Sessionstorage';
 
 type FilterDisplayProps = {
   isOpen: boolean;
@@ -59,8 +60,34 @@ const FilterDisplay = ({
         return updatedFilters;
       });
     },
-    [setFilters],
+    [filters],
   );
+
+  const handleClearFilters = () => {
+    removeSessionItem('filters');
+    setFilterQuery([]);
+    setFilters(prev => ({
+      ...prev,
+      year: {
+        min_year: "",
+        max_year: ""
+      },
+      vehicle_condition: "",
+      make: '',
+      model: '',
+      vehicle_type: '',
+      transmission: '',
+      drive_train: '',
+      fuel_type: '',
+      exterior_color: '',
+      interior_color: '',
+      body_type: "",
+      cylinders: "",
+      engine: ""
+    }));
+  };
+
+  console.log(filterQuery, "filterQuery")
 
   return (
     <main className="flex items-start justify-between md:gap-8 lg:gap-6">
@@ -89,7 +116,7 @@ const FilterDisplay = ({
       </div>
 
       <div className="hidden md:block">
-        <p className="underline cursor-pointer ">Clear</p>
+        <button onClick={handleClearFilters} className="underline cursor-pointer ">Clear</button>
       </div>
 
       <div className="md:hidden flex items-center gap-1">

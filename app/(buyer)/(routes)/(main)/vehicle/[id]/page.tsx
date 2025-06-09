@@ -45,6 +45,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const { getVehicle, getCachedVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
@@ -288,23 +289,26 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
                 <div className="bg-white shadow-[0px_2px_14px_0px_#0000001A] mt-6 py-4 px-6">
                   <div className="w-full space-y-2 mt-2 ">
-                    <h1 className="text-2xl font-bold">Proceed with your purchase</h1>
+                    <h1 className="text-xl font-bold">Proceed with your purchase</h1>
                     <p className="w-full text-xs leading-[18px] max-w-full text-wrap  rounded-sm   whitespace-nowrap ">
                       Proceed to buy this vehicle and get it delivered to your doorstep or pickup at
-                      Autobuy registered outlets
+                      Autobuy Xperience Center
                     </p>
+                    <div className="flex  gap-2 mt-2 text-sm">
+                      <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} />
+                      <p className='text-xs'>I acknowledge that have read through the details on the appraisal report and I am satisfied to proceed with payment</p>
+                    </div>
                     <button
+                      disabled={!acceptTerms}
                       onClick={() => handleSignInClick(vehicleData?._id as string)}
-                      className="w-full py-2 text-white rounded-sm  bg-primary-900"
+                      className={cn("w-full py-2 text-white rounded-sm  bg-primary-900", {
+                        'opacity-50 cursor-not-allowed': !acceptTerms
+                      })}
                     >
                       Continue
                     </button>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-2 text-sm">
-                    <input type="checkbox" />
-                    <p>Lorem ipsum dolor sit amet consectetur </p>
-                  </div>
                 </div>
               </div>
 
@@ -327,23 +331,6 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                       <ProductCard
                         key={index}
                         vehicle={result}
-                        // key={result._id}
-                        // make={result.make}
-                        // images={result.images}
-                        // vehicleModel={result.vehicleModel}
-                        // mileage={result.mileage}
-                        // vehicleType={[]}
-                        // price={result.price}
-                        // engine={result.engine}
-                        // transmission={result.transmission}
-                        // vin={result.vin}
-                        // fuelConsumption={result.fuelConsumption}
-                        // exteriorColor={result.exteriorColor}
-                        // interiorColor={result.interiorColor}
-                        // fuelType={result.fuelType}
-                        // vehicleYear={result.vehicleYear}
-                        // condition={result.condition}
-                        // _id={result._id}
                       />
                     );
                   })}

@@ -335,7 +335,7 @@ const ImageSliderModal = ({
               </div>
             </div>
 
-            <div className='max-h-[90vh] overflow-y-auto pb-8'>
+            <div className="max-h-[90vh] overflow-y-auto pb-8">
               <div className="flex gap-3">
                 <p className="bg-primary-900 text-white px-6 py-2 rounded-full">All Photos</p>
                 <Degrees />

@@ -137,7 +137,7 @@ const Navbar = () => {
                           <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </SheetTrigger>
-                      <SheetContent>
+                      <SheetContent className='max-w-[80%]'>
                         <Menucontent setShowPopover={setShowPopover} />
                       </SheetContent>
                     </Sheet>
@@ -146,7 +146,7 @@ const Navbar = () => {
                   {!isMobile && (
                     <Popover open={showPopover} onOpenChange={setShowPopover}>
                       <PopoverTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
+                        <p className="flex items-center gap-1.5  px-1 py-1 ">
                           <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </PopoverTrigger>

@@ -2,15 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { ArrowRight, Copy } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { VehicleData } from '@/types/types';
 import { useCreateOrder } from '@/app/(buyer)/api/payment';
 // import { endpoints } from '@/axios';
 import { Failure, Success } from '@/app/(seller)/sell-a-car/(dashboard)/_components/Icons/icon';
 import { formatCurrency } from '@/lib/utils';
 import Loader from '@/LoadingSkeleton/loader';
+import { useToast } from '@/hooks/use-toast';
+import CountdownTimer from '@/app/(buyer)/_components/CountDownTimer';
+import { getSessionItem, setSessionItem } from '@/lib/Sessionstorage';
+import { removeLocalItem } from '@/lib/localStorage';
 
 export default function CreateOrder() {
   const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
@@ -20,8 +24,11 @@ export default function CreateOrder() {
   const [orderDetails, setOrderDetails] = useState<any>('');
   const [step, setStep] = useState('payentscreen');
   const pathname = usePathname();
+  const router = useRouter()
+  const { toast } = useToast();
   const { getVehicle } = useGetVehicle();
   const { createOrder, isPending } = useCreateOrder();
+  const paymentDetails = getSessionItem("paymetDetails")
 
   const handleGetVehicle = async () => {
     try {
@@ -30,11 +37,11 @@ export default function CreateOrder() {
       });
       setMainImage(response.data.images[0]);
       setVehicleData(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error, 'error');
-    } finally {
-      setIsLoading(isPending);
     }
+    setIsLoading(isPending);
+
   };
   const CreateOrder = async () => {
     try {
@@ -42,23 +49,36 @@ export default function CreateOrder() {
         vehicleId: pathname.split('/').at(-1) as string,
       });
       setOrderDetails(res.data);
-    } catch (error) {
+      setSessionItem("paymetDetails", {
+        accountNumber: res.data.accountNumber,
+        initiationRef: res.data.initiationRef,
+        accountName: res.data.accountName
+      })
+    } catch (error: any) {
       console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Failed',
+        description: error.message,
+      })
     }
   };
 
   useEffect(() => {
     handleGetVehicle();
-    CreateOrder();
+    if (!paymentDetails.initiationRef) {
+      CreateOrder();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (!orderDetails.initiationRef) {
+    if (!orderDetails.initiationRef && !paymentDetails.initiationRef) {
       console.log('No initiation reference available yet, skipping SSE setup');
+      removeLocalItem("dataExpiration_24h")
       return;
     }
-    console.log(`Setting up SSE connection for ref: ${orderDetails.initiationRef}`);
+    console.log(`Setting up SSE connection for ref: ${orderDetails.initiationRef || paymentDetails.initiationRef}`);
 
     let eventSource: any = null;
     let retryCount = 0;
@@ -71,7 +91,7 @@ export default function CreateOrder() {
         }
 
         eventSource = new EventSource(
-          `https://autobuy-latest.onrender.com/api/v1/order/transaction/notifications/${orderDetails.initiationRef}`,
+          `https://autobuy-latest.onrender.com/api/v1/order/transaction/notifications/${orderDetails.initiationRef || paymentDetails.initiationRef}`,
         );
 
         console.log('SSE connection attempt started');
@@ -141,7 +161,7 @@ export default function CreateOrder() {
         console.log('SSE connection closed');
       }
     };
-  }, [orderDetails.initiationRef]);
+  }, [orderDetails.initiationRef, paymentDetails.initiationRef]);
 
   if (isLoading || isPending) {
     return <Loader />;
@@ -157,9 +177,9 @@ export default function CreateOrder() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const VehiclDetails = () => {
+  const VehiclDetails = ({ orientation }: { orientation?: string }) => {
     return (
-      <div className=" flex-[2] flex flex-col min-h-full border border-blue-500 rounded-xl p-4   gap-8 mb-4">
+      <div className={`flex-[2] flex flex-col ${orientation == "row" ? "md:flex-row" : "flex-col"}   h-fit border border-blue-500 rounded-xl p-4   gap-8 mb-4`}>
         <div className="w-full">
           <Image
             src={mainImage as string}
@@ -168,23 +188,6 @@ export default function CreateOrder() {
             height={400}
             className="w-full h-full object-cover rounded-md"
           />
-          {/* <div className="w-full grid grid-cols-4 gap-2 mt-2">
-            {vehicleData?.images.slice(1, 5).map((image, index) => (
-              <div
-                key={index}
-                className="cursor-pointer"
-                onClick={() => handleThumbnailClick(image)}
-              >
-                <Image
-                  src={image || '/placeholder.svg'}
-                  alt={`${vehicleData.vehicleModel} view ${index + 1}`}
-                  width={100}
-                  height={100}
-                  className="w-full h-auto object-cover rounded-md"
-                />
-              </div>
-            ))}
-          </div> */}
         </div>
 
         <div className="w-full space-y-4">
@@ -225,7 +228,7 @@ export default function CreateOrder() {
           <div className="flex items-center justify-center mb-4">
             <Success />
           </div>
-          <VehiclDetails />
+          <VehiclDetails orientation='row' />
 
           <div className="mt-4">
             <h1 className="font-bold text-xl">Email Instructions</h1>
@@ -233,13 +236,13 @@ export default function CreateOrder() {
           </div>
 
           <div className="flex items-center justify-center mt-8">
-            <button className="bg-primary-900 text-white px-14 py-2 rounded-sm">
+            <button onClick={() => router.push("/orders")} className="bg-primary-900 text-white px-14 py-2 rounded-sm">
               Go To Portal
             </button>
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-16 px-4">
           <h1 className="font-bold text-2xl  mb-4">
             Simplify Your Vehicle Ownership Transfer with Us
           </h1>
@@ -255,10 +258,10 @@ export default function CreateOrder() {
             can enjoy your new vehicle without worry.
           </p>
         </div>
-        <p className="flex items-center text-sm gap-2 mt-4">
+        {/* <p className="flex items-center text-sm gap-2 mt-4">
           <span>Read more </span>
           <ArrowRight size={15} />
-        </p>
+        </p> */}
       </div>
     );
   };
@@ -300,10 +303,10 @@ export default function CreateOrder() {
         </p>
         <div className="flex justify-center items-center mt-8 mb-2">
           <span className="text-2xl font-medium text-primary-900 ">
-            {orderDetails.accountNumber}
+            {orderDetails.accountNumber || paymentDetails.accountNumber}
           </span>
           <button
-            onClick={() => copyToClipboard(orderDetails.accountNumber, 'transactionId')}
+            onClick={() => copyToClipboard(orderDetails.accountNumber || paymentDetails.accountNumber, 'transactionId')}
             className="ml-2 text-gray-500 hover:text-gray-700"
           >
             <Copy size={16} />
@@ -314,14 +317,14 @@ export default function CreateOrder() {
         </div>
 
         <div className="text-center mb-8">
-          <p className="text-2xl font-medium">{orderDetails.accountName}</p>
+          <p className="text-2xl font-medium">{orderDetails.accountName || paymentDetails.accountName}</p>
           <p className="text-2xl font-medium">Providus Bank</p>
         </div>
 
         <div className="max-w-md mx-auto">
           <div className="grid grid-cols-2  space-y-2">
-            <div className="text-left">Initiations Refrence</div>
-            <div className="text-right">{orderDetails.initiationRef}</div>
+            <div className="text-left"> Refrence</div>
+            <div className="text-right">{orderDetails.initiationRef || paymentDetails.initiationRef}</div>
 
             <div className="text-left">Amount</div>
             <div className="text-right">{formatCurrency(vehicleData?.price)}</div>
@@ -340,6 +343,9 @@ export default function CreateOrder() {
             </div>
           </div>
         </div>
+        {!isPending &&
+          <CountdownTimer hours={orderDetails.duration ?? 24} />
+        }
       </div>
     );
   };

@@ -76,13 +76,13 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
           </div>
 
           <div className=" flex gap-4 py-3 md:py-0 items-start">
-            <Link href={'/facebook'}>
+            <Link href={'https://www.facebook.com/share/19L8XJAKby/'} target='_blank'>
               <Image src={Facbook} alt="facebook" />
             </Link>
-            <Link href={'/facebook'}>
-              <Image src={Instagram} alt="facebook" />
+            <Link href={'https://www.instagram.com/autobuyng?igsh=MWg2dW51N3EyOWlkag=='} target='_blank'>
+              <Image src={Instagram} alt="Instagram" />
             </Link>
-            <Link href={'/facebook'}>
+            <Link href={'https://x.com/Autobuyng?t=Alqcg1RBLgPTTFFVlpJw4Q&s=09'} target='_blank'>
               <Image src={Twitter} alt="facebook" />
             </Link>
           </div>
