@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import './page.css';
-import Marquee from "react-fast-marquee";
+import Marquee from 'react-fast-marquee';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SellerStep from '@/app/(seller)/_components/SellerStep/SellerStep';
@@ -73,7 +73,11 @@ const Seller = () => {
               You don’t just sell, we help you track and manage every sale in one place!
             </h1>
             <p className="text-sm md:text-base">
-              You don’t just sell—manage every sale in one place! Our platform lets you track your listings, monitor offers, and handle transactions effortlessly. From used cars for sale to trucks for sale, every detail—from verified car history to secure payments—is organized for a seamless sell car experience. Join the trusted network for buying and selling cars in Nigeria and stay in control of every sale.
+              You don’t just sell—manage every sale in one place! Our platform lets you track your
+              listings, monitor offers, and handle transactions effortlessly. From used cars for
+              sale to trucks for sale, every detail—from verified car history to secure payments—is
+              organized for a seamless sell car experience. Join the trusted network for buying and
+              selling cars in Nigeria and stay in control of every sale.
             </p>
           </div>
           <div className="flex flex-col lg:flex-row lg:h-[360px]">
@@ -139,19 +143,20 @@ const Seller = () => {
           <div className="flex w-full overflow-y-auto gap-4 ">
             <Marquee>
               {reviews.map((item) => (
-                <div key={item.name} className="w-[400px] bg-white rounded-lg  shadow-sm px-6 py-8 my-8 mx-4 space-y-4">
+                <div
+                  key={item.name}
+                  className="w-[400px] bg-white rounded-lg  shadow-sm px-6 py-8 my-8 mx-4 space-y-4"
+                >
                   <div className="flex items-start gap-2">
-                  <div>
+                    <div>
                       <p className="font-bold">{item.name}</p>
                       <p className="text-neutral-500">{item.date}</p>
+                    </div>
                   </div>
-                </div>
 
-                <p>
-                    {item.content}
-                </p>
-              </div>
-            ))}
+                  <p>{item.content}</p>
+                </div>
+              ))}
             </Marquee>
           </div>
           <p className="underline text-secondary-700 text-lg cursor-pointer mt-3">
@@ -185,7 +190,9 @@ const Seller = () => {
                     How does the car inspection process work?
                   </AccordionTriggerTwo>
                   <AccordionContent className="w-full">
-                    During the inspection, our experts will physically examine your vehicle to assess its overall condition. This includes checking the exterior, interior, engine, tires, lights, and other key components. 
+                    During the inspection, our experts will physically examine your vehicle to
+                    assess its overall condition. This includes checking the exterior, interior,
+                    engine, tires, lights, and other key components.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -194,7 +201,9 @@ const Seller = () => {
                     How long does the inspection take?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    The vehicle inspection typically takes between 30 to 45 minutes, depending on the car’s condition and documentation. Our team conducts a thorough check to ensure all details match the submitted information.
+                    The vehicle inspection typically takes between 30 to 45 minutes, depending on
+                    the car’s condition and documentation. Our team conducts a thorough check to
+                    ensure all details match the submitted information.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -203,7 +212,8 @@ const Seller = () => {
                     Can I sell my car without an inspection?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    No,an inspection is required to verify the vehicle’s condition and confirm its value.
+                    No,an inspection is required to verify the vehicle’s condition and confirm its
+                    value.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -212,7 +222,12 @@ const Seller = () => {
                     How does the AI-generated vehicle appraisal work?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    Our AI appraisal system works by connecting a specialized AI tool to your vehicle’s OBD (On-Board Diagnostics) port. The tool automatically retrieves key data from the car—such as mileage, engine health, fault codes, and other system metrics—and compares it with factory specifications stored in the AI database. This allows for a fast, accurate, and unbiased valuation based on the vehicle’s actual condition.
+                    Our AI appraisal system works by connecting a specialized AI tool to your
+                    vehicle’s OBD (On-Board Diagnostics) port. The tool automatically retrieves key
+                    data from the car—such as mileage, engine health, fault codes, and other system
+                    metrics—and compares it with factory specifications stored in the AI database.
+                    This allows for a fast, accurate, and unbiased valuation based on the vehicle’s
+                    actual condition.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -223,18 +238,13 @@ const Seller = () => {
                   <AccordionContent>
                     <ul>
                       <li> Valid ID (e.g., driver’s license or national ID)</li>
-                      <li>   Vehicle registration document  </li>
+                      <li> Vehicle registration document </li>
+                      <li>Proof of ownership (if different from registration)</li>
+                      <li>Service or maintenance records (if available)</li>
+                      <li>Any accessories or spare keys included in the sale</li>
                       <li>
-                        Proof of ownership (if different from registration)
-                      </li>
-                      <li>
-                        Service or maintenance records (if available)
-                      </li>
-                      <li>
-                        Any accessories or spare keys included in the sale
-                      </li>
-                      <li>
-                        Bringing complete documentation helps speed up the inspection and ensures a smoother appraisal process.
+                        Bringing complete documentation helps speed up the inspection and ensures a
+                        smoother appraisal process.
                       </li>
                     </ul>
                   </AccordionContent>

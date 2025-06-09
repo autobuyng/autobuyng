@@ -90,13 +90,13 @@ const BusinessInfo = () => {
                 National Identification Number (NIN)
               </label>
               <div className="flex items-center justify-between border border-neutral-900 rounded-sm">
-                  <input
-                    {...register('nin')}
-                    type="text"
-                    id="ninorcac"
-                    placeholder=""
-                    className="mt-1 w-full rounded-sm outline-none px-2 py-2  border-none  sm:text-sm"
-                  />
+                <input
+                  {...register('nin')}
+                  type="text"
+                  id="ninorcac"
+                  placeholder=""
+                  className="mt-1 w-full rounded-sm outline-none px-2 py-2  border-none  sm:text-sm"
+                />
                 {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
               </div>
             </div>

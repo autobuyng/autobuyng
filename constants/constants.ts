@@ -695,7 +695,6 @@ export const DOORCOUNTOPTIONS = [
   { id: '8-doors', name: '8 doors' },
 ];
 
-
 export const reviews = [
   {
     name: 'Chinedu Adeyemi, Lagos',

@@ -24,11 +24,11 @@ export default function CreateOrder() {
   const [orderDetails, setOrderDetails] = useState<any>('');
   const [step, setStep] = useState('payentscreen');
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
   const { toast } = useToast();
   const { getVehicle } = useGetVehicle();
   const { createOrder, isPending } = useCreateOrder();
-  const paymentDetails = getSessionItem("paymetDetails")
+  const paymentDetails = getSessionItem('paymetDetails');
 
   const handleGetVehicle = async () => {
     try {
@@ -41,7 +41,6 @@ export default function CreateOrder() {
       console.log(error, 'error');
     }
     setIsLoading(isPending);
-
   };
   const CreateOrder = async () => {
     try {
@@ -49,18 +48,18 @@ export default function CreateOrder() {
         vehicleId: pathname.split('/').at(-1) as string,
       });
       setOrderDetails(res.data);
-      setSessionItem("paymetDetails", {
+      setSessionItem('paymetDetails', {
         accountNumber: res.data.accountNumber,
         initiationRef: res.data.initiationRef,
-        accountName: res.data.accountName
-      })
+        accountName: res.data.accountName,
+      });
     } catch (error: any) {
       console.log(error);
       toast({
         variant: 'destructive',
         title: 'Failed',
         description: error.message,
-      })
+      });
     }
   };
 
@@ -75,10 +74,12 @@ export default function CreateOrder() {
   useEffect(() => {
     if (!orderDetails.initiationRef && !paymentDetails.initiationRef) {
       console.log('No initiation reference available yet, skipping SSE setup');
-      removeLocalItem("dataExpiration_24h")
+      removeLocalItem('dataExpiration_24h');
       return;
     }
-    console.log(`Setting up SSE connection for ref: ${orderDetails.initiationRef || paymentDetails.initiationRef}`);
+    console.log(
+      `Setting up SSE connection for ref: ${orderDetails.initiationRef || paymentDetails.initiationRef}`,
+    );
 
     let eventSource: any = null;
     let retryCount = 0;
@@ -179,7 +180,9 @@ export default function CreateOrder() {
 
   const VehiclDetails = ({ orientation }: { orientation?: string }) => {
     return (
-      <div className={`flex-[2] flex flex-col ${orientation == "row" ? "md:flex-row" : "flex-col"}   h-fit border border-blue-500 rounded-xl p-4   gap-8 mb-4`}>
+      <div
+        className={`flex-[2] flex flex-col ${orientation == 'row' ? 'md:flex-row' : 'flex-col'}   h-fit border border-blue-500 rounded-xl p-4   gap-8 mb-4`}
+      >
         <div className="w-full">
           <Image
             src={mainImage as string}
@@ -228,7 +231,7 @@ export default function CreateOrder() {
           <div className="flex items-center justify-center mb-4">
             <Success />
           </div>
-          <VehiclDetails orientation='row' />
+          <VehiclDetails orientation="row" />
 
           <div className="mt-4">
             <h1 className="font-bold text-xl">Email Instructions</h1>
@@ -236,7 +239,10 @@ export default function CreateOrder() {
           </div>
 
           <div className="flex items-center justify-center mt-8">
-            <button onClick={() => router.push("/orders")} className="bg-primary-900 text-white px-14 py-2 rounded-sm">
+            <button
+              onClick={() => router.push('/orders')}
+              className="bg-primary-900 text-white px-14 py-2 rounded-sm"
+            >
               Go To Portal
             </button>
           </div>
@@ -306,7 +312,12 @@ export default function CreateOrder() {
             {orderDetails.accountNumber || paymentDetails.accountNumber}
           </span>
           <button
-            onClick={() => copyToClipboard(orderDetails.accountNumber || paymentDetails.accountNumber, 'transactionId')}
+            onClick={() =>
+              copyToClipboard(
+                orderDetails.accountNumber || paymentDetails.accountNumber,
+                'transactionId',
+              )
+            }
             className="ml-2 text-gray-500 hover:text-gray-700"
           >
             <Copy size={16} />
@@ -317,14 +328,18 @@ export default function CreateOrder() {
         </div>
 
         <div className="text-center mb-8">
-          <p className="text-2xl font-medium">{orderDetails.accountName || paymentDetails.accountName}</p>
+          <p className="text-2xl font-medium">
+            {orderDetails.accountName || paymentDetails.accountName}
+          </p>
           <p className="text-2xl font-medium">Providus Bank</p>
         </div>
 
         <div className="max-w-md mx-auto">
           <div className="grid grid-cols-2  space-y-2">
             <div className="text-left"> Refrence</div>
-            <div className="text-right">{orderDetails.initiationRef || paymentDetails.initiationRef}</div>
+            <div className="text-right">
+              {orderDetails.initiationRef || paymentDetails.initiationRef}
+            </div>
 
             <div className="text-left">Amount</div>
             <div className="text-right">{formatCurrency(vehicleData?.price)}</div>
@@ -343,9 +358,7 @@ export default function CreateOrder() {
             </div>
           </div>
         </div>
-        {!isPending &&
-          <CountdownTimer hours={orderDetails.duration ?? 24} />
-        }
+        {!isPending && <CountdownTimer hours={orderDetails.duration ?? 24} />}
       </div>
     );
   };

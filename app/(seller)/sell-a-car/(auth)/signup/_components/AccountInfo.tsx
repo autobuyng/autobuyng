@@ -12,7 +12,6 @@ import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import Verification from './Verification';
 import { cn } from '@/lib/utils';
 
-
 const AccountInfo = () => {
   const { toast } = useToast();
 

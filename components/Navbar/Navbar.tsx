@@ -137,7 +137,7 @@ const Navbar = () => {
                           <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </SheetTrigger>
-                      <SheetContent className='max-w-[80%]'>
+                      <SheetContent className="max-w-[80%]">
                         <Menucontent setShowPopover={setShowPopover} />
                       </SheetContent>
                     </Sheet>

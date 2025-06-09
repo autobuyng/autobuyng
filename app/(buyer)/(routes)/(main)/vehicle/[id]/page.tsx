@@ -296,19 +296,21 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     </p>
                     <div className="flex  gap-2 mt-2 text-sm">
                       <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} />
-                      <p className='text-xs'>I acknowledge that have read through the details on the appraisal report and I am satisfied to proceed with payment</p>
+                      <p className="text-xs">
+                        I acknowledge that have read through the details on the appraisal report and
+                        I am satisfied to proceed with payment
+                      </p>
                     </div>
                     <button
                       disabled={!acceptTerms}
                       onClick={() => handleSignInClick(vehicleData?._id as string)}
-                      className={cn("w-full py-2 text-white rounded-sm  bg-primary-900", {
-                        'opacity-50 cursor-not-allowed': !acceptTerms
+                      className={cn('w-full py-2 text-white rounded-sm  bg-primary-900', {
+                        'opacity-50 cursor-not-allowed': !acceptTerms,
                       })}
                     >
                       Continue
                     </button>
                   </div>
-
                 </div>
               </div>
 
@@ -327,12 +329,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 {!similarVehicleLoading &&
                   similarVehicle &&
                   similarVehicle?.map((result, index) => {
-                    return (
-                      <ProductCard
-                        key={index}
-                        vehicle={result}
-                      />
-                    );
+                    return <ProductCard key={index} vehicle={result} />;
                   })}
               </div>
             </div>

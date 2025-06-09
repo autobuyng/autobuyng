@@ -39,7 +39,8 @@ const SellerStep = () => {
                     Register
                   </h1>
                   <p className="text-neutral-700">
-                    Take the first step towards a better car buying and selling experience. Register now and join the premier destination for car enthusiasts in Nigeria.
+                    Take the first step towards a better car buying and selling experience. Register
+                    now and join the premier destination for car enthusiasts in Nigeria.
                   </p>
                 </div>
               </div>
@@ -50,7 +51,8 @@ const SellerStep = () => {
                     We Inspect
                   </h1>
                   <p className="text-neutral-700">
-                    We provide transparent car history to build trust. From sedans to trucks for sale, enjoy a seamless, hassle-free experience. Turn your car into cash today!
+                    We provide transparent car history to build trust. From sedans to trucks for
+                    sale, enjoy a seamless, hassle-free experience. Turn your car into cash today!
                   </p>
                 </div>
               </div>
@@ -66,7 +68,9 @@ const SellerStep = () => {
                     Book Inspection
                   </h1>
                   <p className="text-neutral-700">
-                    Our AI-powered diagnostic software performs a thorough inspection and instantly delivers an accurate appraisal, boosting buyer confidence and maximizing your car&apos;s value.
+                    Our AI-powered diagnostic software performs a thorough inspection and instantly
+                    delivers an accurate appraisal, boosting buyer confidence and maximizing your
+                    car&apos;s value.
                   </p>
                 </div>
               </div>
@@ -77,7 +81,9 @@ const SellerStep = () => {
                     Get Paid
                   </h1>
                   <p className="text-neutral-700">
-                    After AI-powered appraisal, your vehicle is listed instantly. Once sold, you receive fast, secure payment. Whether it&apos;s used cars or trucks for sale, we ensure top value through a seamless process..
+                    After AI-powered appraisal, your vehicle is listed instantly. Once sold, you
+                    receive fast, secure payment. Whether it&apos;s used cars or trucks for sale, we
+                    ensure top value through a seamless process..
                   </p>
                 </div>
               </div>

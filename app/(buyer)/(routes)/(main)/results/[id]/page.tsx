@@ -6,14 +6,14 @@ import { Sheet, SheetContent } from '@/components/ui/sheet';
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { SearchQuery, SearchResponseData, } from '@/types/types';
+import { SearchQuery, SearchResponseData } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
 // import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
-import { usePathname, } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
@@ -38,7 +38,7 @@ const Results = () => {
   // const keyword = searchParams.get('keyword');
 
   const handleSearch = async (data: SearchQuery) => {
-    console.log(data, "params data")
+    console.log(data, 'params data');
     try {
       const response = await search(data);
       setSearchResult(response.data);
@@ -70,7 +70,7 @@ const Results = () => {
     };
 
     // if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
-      handleSearch(searchParams);
+    handleSearch(searchParams);
     // }
 
     setLocalItem('previousPage', pathname);

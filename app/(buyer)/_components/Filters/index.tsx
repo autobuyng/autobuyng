@@ -21,12 +21,10 @@ const Filters = () => {
   const { isMobile } = useIsMobile();
   const { filters, setFilters } = useStore();
 
-
   useEffect(() => {
     setSessionItem('filters', filters);
-    console.log("updated")
+    console.log('updated');
   }, [filters]);
-
 
   return (
     <main className=" w-full  ">
