@@ -53,7 +53,7 @@ const Results = () => {
       ...(filters.mileage ? { mileage: filters.mileage } : {}),
       ...(filters.vehicle_condition ? { condition: filters.vehicle_condition } : {}),
       ...(filters.year.min_year ? { yearMin: filters.year.min_year } : {}),
-      ...(filters.year.max_year ? { yearMax: filters.year.max_year } : {}),
+      ...(filters.year?.max_year ? { yearMax: filters?.year?.max_year } : {}),
       ...(filters.price.min_price ? { priceMin: filters.price.min_price } : {}),
       ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
       ...(filters.body_type ? { vehicleType: filters.body_type.toLowerCase() } : {}),
