@@ -29,7 +29,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
         ? getLocalItem('sellerAccessToken')
         : getLocalItem('accessToken');
       if (accessToken) {
-        console.log(accessToken, 'from interceptor');
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
       return config;

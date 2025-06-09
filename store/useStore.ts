@@ -14,9 +14,9 @@ export const DEFAULT_FILTERS: FilterProps = {
   year: {
     min_year: '',
   },
-  // price: {
-  //   // min_price: 5000000,
-  // },
+  price: {
+    // min_price: 5000000,
+  },
   ...default_filters,
 };
 type State = {
