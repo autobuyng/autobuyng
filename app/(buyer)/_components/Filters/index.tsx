@@ -20,10 +20,10 @@ import { useStore } from '@/store/useStore';
 const Filters = () => {
   const { isMobile } = useIsMobile();
   const { filters, setFilters } = useStore();
+  console.log(filters, 'filters');
 
   useEffect(() => {
     setSessionItem('filters', filters);
-    console.log('updated');
   }, [filters]);
 
   return (
