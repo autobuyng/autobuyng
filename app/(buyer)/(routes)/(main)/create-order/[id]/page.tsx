@@ -65,20 +65,20 @@ export default function CreateOrder() {
 
   useEffect(() => {
     handleGetVehicle();
-    if (!paymentDetails.initiationRef) {
+    if (!paymentDetails?.initiationRef) {
       CreateOrder();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (!orderDetails.initiationRef && !paymentDetails.initiationRef) {
+    if (!orderDetails.initiationRef && !paymentDetails?.initiationRef) {
       console.log('No initiation reference available yet, skipping SSE setup');
       removeLocalItem('dataExpiration_24h');
       return;
     }
     console.log(
-      `Setting up SSE connection for ref: ${orderDetails.initiationRef || paymentDetails.initiationRef}`,
+      `Setting up SSE connection for ref: ${orderDetails.initiationRef || paymentDetails?.initiationRef}`,
     );
 
     let eventSource: any = null;
@@ -92,7 +92,7 @@ export default function CreateOrder() {
         }
 
         eventSource = new EventSource(
-          `https://autobuy-latest.onrender.com/api/v1/order/transaction/notifications/${orderDetails.initiationRef || paymentDetails.initiationRef}`,
+          `https://autobuy-latest.onrender.com/api/v1/order/transaction/notifications/${orderDetails.initiationRef || paymentDetails?.initiationRef}`,
         );
 
         console.log('SSE connection attempt started');
@@ -162,7 +162,7 @@ export default function CreateOrder() {
         console.log('SSE connection closed');
       }
     };
-  }, [orderDetails.initiationRef, paymentDetails.initiationRef]);
+  }, [orderDetails.initiationRef, paymentDetails?.initiationRef]);
 
   if (isLoading || isPending) {
     return <Loader />;
@@ -309,12 +309,12 @@ export default function CreateOrder() {
         </p>
         <div className="flex justify-center items-center mt-8 mb-2">
           <span className="text-2xl font-medium text-primary-900 ">
-            {orderDetails.accountNumber || paymentDetails.accountNumber}
+            {orderDetails.accountNumber || paymentDetails?.accountNumber}
           </span>
           <button
             onClick={() =>
               copyToClipboard(
-                orderDetails.accountNumber || paymentDetails.accountNumber,
+                orderDetails.accountNumber || paymentDetails?.accountNumber,
                 'transactionId',
               )
             }
@@ -329,7 +329,7 @@ export default function CreateOrder() {
 
         <div className="text-center mb-8">
           <p className="text-2xl font-medium">
-            {orderDetails.accountName || paymentDetails.accountName}
+            {orderDetails.accountName || paymentDetails?.accountName}
           </p>
           <p className="text-2xl font-medium">Providus Bank</p>
         </div>
@@ -338,7 +338,7 @@ export default function CreateOrder() {
           <div className="grid grid-cols-2  space-y-2">
             <div className="text-left"> Refrence</div>
             <div className="text-right">
-              {orderDetails.initiationRef || paymentDetails.initiationRef}
+              {orderDetails.initiationRef || paymentDetails?.initiationRef}
             </div>
 
             <div className="text-left">Amount</div>
