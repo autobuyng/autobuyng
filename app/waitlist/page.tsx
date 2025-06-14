@@ -1,27 +1,27 @@
-"use client"
+'use client';
 
-import type React from "react"
-import { useState } from "react"
-import { Send } from "lucide-react"
-import Image from "next/image"
-import Autobuy from "@/app/assets/Autobuy.svg"
-import { useToast } from "@/hooks/use-toast"
-import { useWaitlist } from "../(buyer)/api/auth"
+import type React from 'react';
+import { useState } from 'react';
+import { Send } from 'lucide-react';
+import Image from 'next/image';
+import Autobuy from '@/app/assets/Autobuy.svg';
+import { useToast } from '@/hooks/use-toast';
+import { useWaitlist } from '../(buyer)/api/auth';
 
 export default function AutobuyLanding() {
-  const [email, setEmail] = useState("")
-  const { toast } = useToast()
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
 
-  const { waitlist, isPending } = useWaitlist()
+  const { waitlist, isPending } = useWaitlist();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await waitlist({ email })
+      await waitlist({ email });
       toast({
-        title: "Success",
-        description: "You have been added to the waitlist.",
+        title: 'Success',
+        description: 'You have been added to the waitlist.',
       });
-      setEmail("");
+      setEmail('');
     } catch (error) {
       console.error(error);
     }
@@ -38,17 +38,18 @@ export default function AutobuyLanding() {
       <main className="">
         <div className="w-full">
           <div className="relative mb-16 flex items-center justify-center">
-            <div
-              className="w-full h-[40rem] bg-[url('/img/waitlist.png')] bg-no-repeat bg-cover bg-center"
-            ></div>
+            <div className="w-full h-[40rem] bg-[url('/img/waitlist.png')] bg-no-repeat bg-cover bg-center"></div>
             <div className="absolute top-8 z-10 mx-auto max-w-4xl">
               <div className="relative h-80 bg-cover bg-center flex items-center justify-center">
                 <div className="relative z-10 text-center text-white px-8 -mt-12">
                   <h1 className="text-3xl text-center md:text-4xl font-bold mb-4">
-                    AutoBuy: The Safer, Smarter Way  <br />
+                    AutoBuy: The Safer, Smarter Way <br />
                     to Buy Cars in <span className="text-primary-700">Africa</span>
                   </h1>
-                  <p className="text-lg opacity-90 max-w-[600px] mx-auto text-white">AutoBuy is building Africas most trusted car-buying platform with verified diagnostics, transparent listings, and secure payments, all in one place.</p>
+                  <p className="text-lg opacity-90 max-w-[600px] mx-auto text-white">
+                    AutoBuy is building Africas most trusted car-buying platform with verified
+                    diagnostics, transparent listings, and secure payments, all in one place.
+                  </p>
                 </div>
               </div>
             </div>
@@ -60,7 +61,7 @@ export default function AutobuyLanding() {
                 <div className="bg-blue-100 p-12 flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-24 h-24 mx-auto mb-4 relative">
-                      <Image src={"/img/glass.png"} alt="waitlist" height={180} width={105} />
+                      <Image src={'/img/glass.png'} alt="waitlist" height={180} width={105} />
                     </div>
                   </div>
                 </div>
@@ -68,7 +69,8 @@ export default function AutobuyLanding() {
                 <div className="bg-white p-8">
                   <h2 className="text-2xl font-bold text-gray-800 mb-4">Join Our Exclusive Beta</h2>
                   <p className="text-gray-600 mb-6 text-sm">
-                    We’re launching soon and we want you to be part of the first wave of users who shape the future of car buying in Africa.
+                    We’re launching soon and we want you to be part of the first wave of users who
+                    shape the future of car buying in Africa.
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -85,14 +87,14 @@ export default function AutobuyLanding() {
                       type="submit"
                       className="w-full text-sm bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
                     >
-                      {
-
-                        isPending ? "Joining waitlist..." :
-                          <span className="flex items-center">
-                            Join the waitlist for priority access
-                            <Send size={16} />
-                          </span>
-                      }
+                      {isPending ? (
+                        'Joining waitlist...'
+                      ) : (
+                        <span className="flex items-center">
+                          Join the waitlist for priority access
+                          <Send size={16} />
+                        </span>
+                      )}
                     </button>
                   </form>
                 </div>
@@ -102,5 +104,5 @@ export default function AutobuyLanding() {
         </div>
       </main>
     </div>
-  )
+  );
 }

@@ -358,7 +358,7 @@ export default function CreateOrder() {
             </div>
           </div>
         </div>
-        {!isPending && !isError && < CountdownTimer hours={orderDetails.duration ?? 24} />}
+        {!isPending && !isError && <CountdownTimer hours={orderDetails.duration ?? 24} />}
       </div>
     );
   };

@@ -288,12 +288,15 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                 </div>
 
                 <div className="bg-white rounded-lg shadow-[0px_2px_14px_0px_#0000001A] mt-6 ">
-                  <h1 className="text-xl font-bold border-b px-3 py-2 ">Proceed with your purchase</h1>
+                  <h1 className="text-xl font-bold border-b px-3 py-2 ">
+                    Proceed with your purchase
+                  </h1>
                   <div className="w-full space-y-2  px-3 py-2 ">
                     <div className="flex  gap-2 text-sm">
                       <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} />
                       <p className="text-[10px] leading-3">
-                        I acknowledge that have read through the details on the appraisal report and I am satisfied to proceed with payment
+                        I acknowledge that have read through the details on the appraisal report and
+                        I am satisfied to proceed with payment
                       </p>
                     </div>
                     <button
