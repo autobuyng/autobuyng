@@ -243,3 +243,26 @@ export function useResendEmail() {
     [mutateAsync, data, isPending, error, isError],
   );
 }
+export function useWaitlist() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { email: string }>(
+    {
+      mutationFn: (values: { email: string }) =>
+        mutator({ method: 'POST', data: values, url: endpoints.waitlist }),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      },
+    },
+  );
+
+  return useMemo(
+    () => ({
+      waitlist: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}

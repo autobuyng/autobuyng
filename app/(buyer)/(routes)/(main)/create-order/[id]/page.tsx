@@ -27,7 +27,7 @@ export default function CreateOrder() {
   const router = useRouter();
   const { toast } = useToast();
   const { getVehicle } = useGetVehicle();
-  const { createOrder, isPending } = useCreateOrder();
+  const { createOrder, isPending, isError } = useCreateOrder();
   const paymentDetails = getSessionItem('paymetDetails');
 
   const handleGetVehicle = async () => {
@@ -358,7 +358,7 @@ export default function CreateOrder() {
             </div>
           </div>
         </div>
-        {!isPending && <CountdownTimer hours={orderDetails.duration ?? 24} />}
+        {!isPending && !isError && < CountdownTimer hours={orderDetails.duration ?? 24} />}
       </div>
     );
   };
