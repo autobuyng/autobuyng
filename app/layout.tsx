@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AppProvider from '@/context/AppContext';
 import { ReactQuery } from '@/Providers/QueryProvider';
 import { Toaster } from '@/components/ui/toaster';
 import NextProgressBar from '@/Providers/NextProgressBar';
@@ -94,10 +93,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextProgressBar>
           <ReactQuery>
-            <AppProvider>
               {children}
-              <Toaster />
-            </AppProvider>
+            <Toaster />
           </ReactQuery>
         </NextProgressBar>
       </body>
