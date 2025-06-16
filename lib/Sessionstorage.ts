@@ -31,7 +31,6 @@ export const setSessionItem = (key: string, value: any): void => {
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export const getSessionItem = (key: string): any | null => {
   if (!isSessionStorageAvailable()) {
-    console.warn('sessionStorage is not available on the server');
     return null;
   }
 

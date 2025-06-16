@@ -93,7 +93,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextProgressBar>
           <ReactQuery>
-              {children}
+            {children}
             <Toaster />
           </ReactQuery>
         </NextProgressBar>
