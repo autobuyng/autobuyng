@@ -47,7 +47,9 @@ export default function AutobuyLanding() {
                     to Buy Cars in <span className="text-primary-700">Africa</span>
                   </h1>
                   <p className="text-lg opacity-90 max-w-[600px] mx-auto text-white">
-                    AutoBuy is building Africa&apos;s most trusted car-buying platform featuring AI-powered diagnostics, the first in Africa, with verified listings, transparent pricing, and secure payments
+                    AutoBuy is building Africa&apos;s most trusted car-buying platform featuring
+                    AI-powered diagnostics, the first in Africa, with verified listings, transparent
+                    pricing, and secure payments
                   </p>
                 </div>
               </div>
