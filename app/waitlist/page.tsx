@@ -19,7 +19,7 @@ export default function AutobuyLanding() {
       await waitlist({ email });
       toast({
         title: 'Success',
-        description: 'You have been added to the waitlist.',
+        description: 'You have been added to the waitlist. We would be in touch, shortly',
       });
       setEmail('');
     } catch (error) {
@@ -43,12 +43,11 @@ export default function AutobuyLanding() {
               <div className="relative h-80 bg-cover bg-center flex items-center justify-center">
                 <div className="relative z-10 text-center text-white px-8 -mt-12">
                   <h1 className="text-3xl text-center md:text-4xl font-bold mb-4">
-                    AutoBuy: The Safer, Smarter Way <br />
+                    Autobuy: The Safer, Smarter Way <br />
                     to Buy Cars in <span className="text-primary-700">Africa</span>
                   </h1>
                   <p className="text-lg opacity-90 max-w-[600px] mx-auto text-white">
-                    AutoBuy is building Africas most trusted car-buying platform with verified
-                    diagnostics, transparent listings, and secure payments, all in one place.
+                    AutoBuy is building Africa&apos;s most trusted car-buying platform featuring AI-powered diagnostics, the first in Africa, with verified listings, transparent pricing, and secure payments
                   </p>
                 </div>
               </div>
