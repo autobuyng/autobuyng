@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import './page.css';
+import Marquee from 'react-fast-marquee';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SellerStep from '@/app/(seller)/_components/SellerStep/SellerStep';
 import HeroImg from '@/app/(seller)/assets/sellerimg.svg';
-import SVector from '@/app/(seller)/assets/seamlessvector.svg';
+// import SVector from '@/app/(seller)/assets/seamlessvector.svg';
 import Track from '@/app/(seller)/assets/track.svg';
 import BgVector from '@/app/(seller)/assets/backgroundvector.svg';
 import MobilAnalytic from '@/app/(seller)/assets/mobileanalytics.svg';
@@ -18,6 +19,7 @@ import {
 } from '@/components/ui/accordion';
 import ModalStepper from '../_components/ModalStepper';
 import DynamicImage from '@/components/DynamicImage/DynamicImage';
+import { reviews } from '@/constants/constants';
 
 export const metadata = {
   title: 'Autobuy',
@@ -28,7 +30,7 @@ const Seller = () => {
   return (
     <div>
       <section className="relative w-full h-full">
-        <div className="grid w-full place-items-center h-auto md:h-[calc(100vh_-_76px)] md:max-h-[738px] bg-gradient-to-b from-[#FC816940] via-[#F199892D] t0-[#FFFFFF1A]">
+        <div className="grid w-full place-items-center h-auto md:h-[calc(100vh_-_76px)] md:max-h-[638px] bg-gradient-to-b from-[#FC816940] via-[#F199892D] t0-[#FFFFFF1A]">
           <MaxWidthWrapper>
             <div className="flex py-6 z-10 relative w-full gap-4 flex-col md:flex-row items-center justify-around">
               <div className="flex flex-col gap-6">
@@ -37,22 +39,22 @@ const Seller = () => {
                 </div>
                 <div className=" max-w-[398px]   min-[430px]:max-w-[658px] text-black text-center md:text-start">
                   <h1 className="font-bold text-3xl md:text-[40px] lg:text-[54px] leading-[40px] md:leading-[70px]">
-                    Experience a{' '}
+                    Sell Your{' '}
                     <span className="px-3 md:px-[15px] relative inline-block">
-                      seamless
-                      <Image
+                      Car
+                      {/* <Image
                         src={SVector}
                         alt="vector"
                         width={275}
                         height={100}
-                        className="absolute -top-[25%] md:-top-[4%] lg:-top-[22%] right-0 w-[98%] md:w-auto"
-                      />
+                        className="absolute -top-[25%] md:-top-[8%] lg:-top-[22%] right-0 w-[98%] md:w-auto"
+                      /> */}
                     </span>{' '}
-                    way to showcase and sell your car.
+                    Quickly and Securely
                   </h1>
-                  <p className="min-[380px]:text-lg mt-2">
+                  {/* <p className="min-[380px]:text-lg mt-2">
                     Where Your Vehicle Finds Its Next Adventure!
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
@@ -67,13 +69,15 @@ const Seller = () => {
       <section className="my-24 relative ">
         <MaxWidthWrapper>
           <div className="text-center md:text-start w-full md:w-[70%] mb-12">
-            <h1 className="font-bold text-3xl md:text-[42px] md:leading-[52px] text-[#1A1A1A] mb-2">
+            <h1 className="font-bold text-2xl md:text-[42px] md:leading-[52px] text-[#1A1A1A] mb-2">
               You don’t just sell, we help you track and manage every sale in one place!
             </h1>
             <p className="text-sm md:text-base">
-              Lorem ipsum dolor sit amet consectetur. Sagittis ac nibh faucibus turpis adipiscing
-              ultricies massa. Gravida viverra nibh bibendum tortor. Non elementum ipsum etiam
-              laoreet ultricies eget.
+              You don’t just sell—manage every sale in one place! Our platform lets you track your
+              listings, monitor offers, and handle transactions effortlessly. From used cars for
+              sale to trucks for sale, every detail—from verified car history to secure payments—is
+              organized for a seamless sell car experience. Join the trusted network for buying and
+              selling cars in Nigeria and stay in control of every sale.
             </p>
           </div>
           <div className="flex flex-col lg:flex-row lg:h-[360px]">
@@ -137,22 +141,23 @@ const Seller = () => {
             what our clients say about us.
           </p>
           <div className="flex w-full overflow-y-auto gap-4 ">
-            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-              <div key={item} className="min-w-[400px] bg-white shadow-sm px-6 py-8 my-8 space-y-4">
-                <div className="flex items-center justify-start gap-2">
-                  <div>
-                    <p className="font-bold">Name</p>
-                    <p className="text-neutral-500">Date of commet</p>
+            <Marquee>
+              {reviews.map((item) => (
+                <div
+                  key={item.name}
+                  className="w-[400px] bg-white rounded-lg  shadow-sm px-6 py-8 my-8 mx-4 space-y-4"
+                >
+                  <div className="flex items-start gap-2">
+                    <div>
+                      <p className="font-bold">{item.name}</p>
+                      <p className="text-neutral-500">{item.date}</p>
+                    </div>
                   </div>
-                </div>
 
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione expedita
-                  reiciendis dicta id? Est sapiente nisi sit enim atque optio vero iste quo, sed
-                  consequuntur laudantium unde amet delectus alias? Cum illo id nemo aut natus
-                </p>
-              </div>
-            ))}
+                  <p>{item.content}</p>
+                </div>
+              ))}
+            </Marquee>
           </div>
           <p className="underline text-secondary-700 text-lg cursor-pointer mt-3">
             See All Reviews
@@ -185,10 +190,9 @@ const Seller = () => {
                     How does the car inspection process work?
                   </AccordionTriggerTwo>
                   <AccordionContent className="w-full">
-                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
-                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
-                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
-                    iaculis integer faucibus sed.
+                    During the inspection, our experts will physically examine your vehicle to
+                    assess its overall condition. This includes checking the exterior, interior,
+                    engine, tires, lights, and other key components.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -197,10 +201,9 @@ const Seller = () => {
                     How long does the inspection take?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
-                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
-                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
-                    iaculis integer faucibus sed.
+                    The vehicle inspection typically takes between 30 to 45 minutes, depending on
+                    the car’s condition and documentation. Our team conducts a thorough check to
+                    ensure all details match the submitted information.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -209,10 +212,8 @@ const Seller = () => {
                     Can I sell my car without an inspection?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
-                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
-                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
-                    iaculis integer faucibus sed.
+                    No,an inspection is required to verify the vehicle’s condition and confirm its
+                    value.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -221,10 +222,12 @@ const Seller = () => {
                     How does the AI-generated vehicle appraisal work?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
-                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
-                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
-                    iaculis integer faucibus sed.
+                    Our AI appraisal system works by connecting a specialized AI tool to your
+                    vehicle’s OBD (On-Board Diagnostics) port. The tool automatically retrieves key
+                    data from the car—such as mileage, engine health, fault codes, and other system
+                    metrics—and compares it with factory specifications stored in the AI database.
+                    This allows for a fast, accurate, and unbiased valuation based on the vehicle’s
+                    actual condition.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -233,10 +236,17 @@ const Seller = () => {
                     What do I need to bring to the inspection appointment?
                   </AccordionTriggerTwo>
                   <AccordionContent>
-                    Lorem ipsum dolor sit amet consectetur. Nisl mi phasellus scelerisque nullam.
-                    Nunc erat viverra pellentesque ac ullamcorper ultrices vel vehicula lobortis. Ac
-                    risus dui lectus porta vestibulum odio massa. Feugiat est lobortis non justo et
-                    iaculis integer faucibus sed.
+                    <ul>
+                      <li> Valid ID (e.g., driver’s license or national ID)</li>
+                      <li> Vehicle registration document </li>
+                      <li>Proof of ownership (if different from registration)</li>
+                      <li>Service or maintenance records (if available)</li>
+                      <li>Any accessories or spare keys included in the sale</li>
+                      <li>
+                        Bringing complete documentation helps speed up the inspection and ensures a
+                        smoother appraisal process.
+                      </li>
+                    </ul>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

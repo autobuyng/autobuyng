@@ -185,66 +185,82 @@ export const YEAR = [
   {
     id: 1,
     name: '2009',
+    label: '2009',
   },
   {
     id: 2,
     name: '2010',
+    label: '2010',
   },
   {
     id: 3,
     name: '2011',
+    label: '2011',
   },
   {
     id: 4,
     name: '2012',
+    label: '2012',
   },
   {
     id: 5,
     name: '2013',
+    label: '2013',
   },
   {
     id: 6,
     name: '2014',
+    label: '2014',
   },
   {
     id: 7,
     name: '2015',
+    label: '2015',
   },
   {
     id: 8,
     name: '2016',
+    label: '2016',
   },
   {
     id: 9,
     name: '2017',
+    label: '2017',
   },
   {
     id: 10,
     name: '2018',
+    label: '2018',
   },
   {
     id: 11,
     name: '2019',
+    label: '2019',
   },
   {
     id: 12,
     name: '2020',
+    label: '2020',
   },
   {
     id: 13,
     name: '2021',
+    label: '2021',
   },
   {
     id: 14,
     name: '2022',
+    label: '2022',
   },
   {
     id: 15,
     name: '2023',
+    label: '2023',
   },
   {
     id: 16,
     name: '2024',
+    label: '2024',
   },
 ];
 
@@ -533,20 +549,20 @@ export const MAX_YEAR = [
   { id: '10', name: '2018' },
   { id: '11', name: '2019' },
   { id: '12', name: '2020' },
-  { id: '13', name: '2012' },
+  { id: '13', name: '2021' },
   { id: '14', name: '2022' },
   { id: '15', name: '2023' },
   { id: '16', name: '2024' },
 ];
 
 export const MILEAGE = [
-  { id: '1', name: '10000 ' },
-  { id: '2', name: '20000 ' },
-  { id: '3', name: '30000 ' },
-  { id: '4', name: '40000 ' },
-  { id: '5', name: '50000' },
-  { id: '6', name: '60000 ' },
-  { id: '7', name: '70000 ' },
+  { id: '1', name: '0 - 30000 ' },
+  { id: '2', name: '30000 - 60000 ' },
+  { id: '3', name: '60000 - 90000 ' },
+  { id: '4', name: '90000 - 120000 ' },
+  { id: '5', name: '12000 - 150000' },
+  { id: '6', name: 'Above 150000' },
+  // { id: '7', name: '70000 ' },
   // { id: '8', name: '2016' },
   // { id: '9', name: '2017' },
   // { id: '10', name: '2018' },
@@ -588,19 +604,22 @@ export const COLORS = [
 ];
 
 export const TRANSMISSION = [
-  { id: '1', name: 'Automamanual' },
+  { id: '1', name: 'manual' },
   { id: '2', name: 'Automatic' },
-  { id: '3', name: 'CVT' },
-  { id: '4', name: 'Manual' },
-  { id: '5', name: 'Unknown' },
+  { id: '2', name: 'Electric' },
+  // { id: '3', name: 'CVT' },
+  // { id: '4', name: 'Manual' },
+  // { id: '5', name: 'Unknown' },
 ];
 
+// front-wheel drive,
+// rear-wheel drive,all-wheel drive
+// four-wheel drive
 export const DRIVE_TRAINS = [
-  { id: '1', name: 'All wheel drive' },
-  { id: '2', name: 'Four wheel drive' },
-  { id: '3', name: 'Front wheel drive' },
-  { id: '4', name: 'Rear wieel' },
-  { id: '5', name: 'unknown' },
+  { id: '1', name: 'all-wheel drive' },
+  { id: '2', name: 'four-wheel drive' },
+  { id: '3', name: 'front-wheel drive' },
+  { id: '4', name: 'rear-wheel drive' },
 ];
 
 export const CYLINDERS = [
@@ -621,14 +640,9 @@ export const CYLINDERS = [
 ];
 
 export const FUEL_TYPE = [
-  { id: 'compressed-natural-gas', name: 'Compressed Natural Gas' },
-  { id: 'diesel', name: 'Diesel' },
-  { id: 'e85-flex-fuel', name: 'E85 Flex Fuel' },
   { id: 'electric', name: 'Electric' },
   { id: 'gasoline', name: 'Gasoline' },
   { id: 'hybrid', name: 'Hybrid' },
-  { id: 'hydrogen-fuel-cell', name: 'Hydrogen Fuel Cell' },
-  { id: 'plug-in-hybrid', name: 'Plug-in Hybrid' },
 ];
 
 export const CONVENIENCEIOPTIONS = [
@@ -679,4 +693,85 @@ export const DOORCOUNTOPTIONS = [
   { id: '6-doors', name: '6 doors' },
   { id: '7-doors', name: '7 doors' },
   { id: '8-doors', name: '8 doors' },
+];
+
+export const reviews = [
+  {
+    name: 'Chinedu Adeyemi, Lagos',
+    date: '2025-06-01',
+    content:
+      'Excellent service from start to finish! I sold my car quickly, thanks to the precise AI-powered appraisal and a seamless listing process. The transparent car history details and fast payment really set this platform apart. Highly recommended for anyone looking to sell their car in Nigeria.',
+  },
+  {
+    name: 'Ngozi Okafor, Abuja',
+    date: '2025-06-02',
+    content:
+      'Listing my vehicle was effortless, and the support I received was exceptional. The platform made tracking every sale a breeze, giving me full control over the process. I got a fair deal, and the experience was truly professional. This is the go-to place for buying and selling cars in Nigeria!',
+  },
+  {
+    name: 'Fatima Bello, Kano',
+    date: '2025-06-03',
+    content:
+      "I was impressed by the reliability and efficiency of this service. From a detailed car history report to a smooth, quick payment upon sale, everything was handled with utmost professionalism. Whether you're selling a car or exploring used cars for sale, this platform is the most trusted in Nigeria.",
+  },
+  {
+    name: 'Chinedu Adeyemi, Lagos',
+    date: '2025-06-04',
+    content:
+      'Excellent service from start to finish! I sold my car quickly with a transparent car history report and swift payment. This platform is a game-changer for selling cars in Nigeria.',
+  },
+  {
+    name: 'Ngozi Okafor, Abuja',
+    date: '2025-06-05',
+    content:
+      'Listing my vehicle was effortless and efficient. The seamless process, from appraisal to payment, gave me full control over my sale. Highly recommended!',
+  },
+  {
+    name: 'Fatima Bello, Kano',
+    date: '2025-06-06',
+    content:
+      'I was impressed by the reliable AI-powered diagnostic and fast payment system. The platform made it simple to sell my car with confidence.',
+  },
+  {
+    name: 'Emeka Okonkwo, Port Harcourt',
+    date: '2025-06-07',
+    content:
+      'Outstanding experience! My vehicle was appraised accurately and listed promptly. The comprehensive car history feature builds trust and ensures a smooth sale.',
+  },
+  {
+    name: 'Aisha Yusuf, Ibadan',
+    date: '2025-06-08',
+    content:
+      'From inspection to secure payment, every step was handled professionally. I felt supported throughout the process, making it the best place to sell my car.',
+  },
+  {
+    name: 'Uche Nwankwo, Enugu',
+    date: '2025-06-09',
+    content:
+      'Top-notch service! The detailed appraisal and transparent car history allowed me to list my car with ease. I received my payment quickly and securely.',
+  },
+  {
+    name: 'Segun Akinyele, Benin City',
+    date: '2025-06-10',
+    content:
+      'An innovative platform that truly simplifies selling cars. The seamless process and real-time tracking of my listing made all the difference.',
+  },
+  {
+    name: 'Ijeoma Nnamdi, Owerri',
+    date: '2025-06-11',
+    content:
+      'Fast, reliable, and hassle-free. The AI-powered inspection provided an accurate appraisal, and I was thrilled with the prompt payment upon sale.',
+  },
+  {
+    name: 'Tunde Balogun, Jos',
+    date: '2025-06-12',
+    content:
+      'A fantastic experience from start to finish! I managed to sell my car quickly, thanks to the clear car history report and efficient transaction process.',
+  },
+  {
+    name: 'Amaka Obi, Warri',
+    date: '2025-06-13',
+    content:
+      'I couldn’t be happier with the service. The platform’s seamless process for listing and selling cars in Nigeria is truly unmatched. Fast, secure, and transparent!',
+  },
 ];

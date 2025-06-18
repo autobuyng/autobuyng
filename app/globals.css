@@ -130,3 +130,40 @@
   transform: skew(0deg, 10deg);
   transform-origin: top left;
 }
+
+/* .command-group [cmdk-group-heading] {
+  font-size: 20 !important;
+  line-height: 700 !important;
+  color: black !important;
+} */
+
+.command-group [cmdk-group-heading] {
+  @apply text-lg font-semibold;
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+  color: black !important;
+}
+
+.command-group [cmdk-group] {
+  @apply mb-4;
+}
+
+.command-group [cmdk-item] {
+  @apply px-3 py-2 rounded-md cursor-pointer transition-colors duration-200;
+}
+
+.command-group [cmdk-item]:hover {
+  @apply bg-blue-100;
+}
+
+[cmdk-input] {
+  @apply w-full px-3 py-2 mb-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+[cmdk-list] {
+  @apply max-h-64 overflow-auto;
+}
+
+[cmdk-empty] {
+  @apply px-3 py-2 text-gray-500;
+}

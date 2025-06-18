@@ -1,5 +1,4 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
-import { getSessionItem } from '@/lib/Sessionstorage';
 import {
   AddressProps,
   AddressResponse,
@@ -132,14 +131,10 @@ export function useSetActiveAddress() {
 }
 
 export function useGetFavoriteVehicle() {
-  const accessToken = getSessionItem('accessToken');
   const { data, isLoading, isError, refetch } = useQuery<FavoriteVehicleResponse>({
     queryKey: queryKeys.user.getFavoriteVehicle,
-    enabled: !!accessToken,
     queryFn: () => fetcher(endpoints.user.getFavoriteVehicle),
   });
-
-  console.log(data, 'from user.ts');
 
   return useMemo(
     () => ({

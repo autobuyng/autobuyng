@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 
 import Steptop from '@/app/(seller)/assets/vectortop.svg';
 import Stepbottom from '@/app/(seller)/assets/vectorbottom.svg';
@@ -14,7 +14,7 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { useLogin } from '@/app/(seller)/api/auth';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useToast } from '@/hooks/use-toast';
-import { setSessionItem } from '@/lib/Sessionstorage';
+import { setLocalItem } from '@/lib/localStorage';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,21 +35,17 @@ const Login = () => {
   const handleLogin = async (data: ILoginPayload) => {
     try {
       const response = await login(data);
-      console.log(response);
-      setSessionItem('sellerAccessToken', response.data.accessToken);
+      setLocalItem('sellerAccessToken', response.data.accessToken);
       toast({
         title: 'Success',
         description: response.data.message,
       });
-
       router.push('/sell-a-car/dashboard');
     } catch (error: any) {
       toast({
         title: 'Failed',
         description: error.message,
       });
-
-      console.log(error);
     }
   };
   return (

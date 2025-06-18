@@ -26,8 +26,8 @@ export type VEHICLE_SEARCH_RESULTS_PROPS = {
 export type FilterProps = {
   [key: string]: any;
   year: {
-    min_year: string; // Corresponds to yearMin in the query
-    max_year: string; // Corresponds to yearMax in the query
+    min_year?: string; // Corresponds to yearMin in the query
+    max_year?: string; // Corresponds to yearMax in the query
   };
   make?: string; // Corresponds to make in the query
   model?: string; // Corresponds to vehicleModel in the query
@@ -114,6 +114,11 @@ export type Vehicle = {
   images: string[];
   engine: string;
   liked?: boolean;
+  exteriorImages?: string[];
+  interiorImages?: string[];
+  tyreImages?: string[];
+  trunkImages?: string[];
+  engineImages?: string[];
   vehicleType: VehicleType[];
 };
 
@@ -166,6 +171,22 @@ interface VehicleReliabilityScore {
   accessories: number;
 }
 
+type Features = {
+  comfort: string[];
+  entertainment: string[];
+  tech: string[];
+  interior: string[];
+  exterior: string[];
+  mechanical: string[];
+  safety: string[];
+  performance: string[];
+  convenience: string[];
+  offRoad: string[];
+  sustainabilityAndEfficiency: string[];
+  advancedDriverAssistanceSystems: string[];
+  luxury: string[];
+};
+
 export type VehicleData = {
   _id: string;
   sellerId: string;
@@ -183,7 +204,7 @@ export type VehicleData = {
   driveTrain: string;
   price: number;
   fuelConsumption: string;
-  features: string[];
+  features: Features;
   reliabilityScore: VehicleReliabilityScore;
   images: string[];
   note: string | null;
@@ -335,6 +356,7 @@ export type BankDetailsProps = {
   accountNumber: string;
   bankName: string;
   accountName: string;
+  bankCode?: string;
 };
 
 export type BankAccount = {
@@ -343,6 +365,7 @@ export type BankAccount = {
   bankName: string;
   accountName: string;
   accountNumber: string;
+  bankCode?: string;
   isActive: boolean;
   createdAt: string; // Use `Date` if you want to parse this string into a Date object
   updatedAt: string; // Use `Date` if you want to parse this string into a Date object
@@ -464,4 +487,135 @@ export type VehicleFile = {
   fileType: string;
   file: string;
   vehicleId: string;
+};
+
+export type ResolveBankResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    account_number: string;
+    account_name: string;
+    bank_id: number;
+  };
+};
+
+export type AccountOrder = {
+  data: {
+    orderId: string;
+    accountNumber: string;
+    initiationRef: string;
+    accountName: string;
+  };
+};
+
+export type NinDataResponse = {
+  status: boolean;
+  message: string;
+  data: UserData;
+};
+
+export type UserData = {
+  firstname: string;
+  surname: string;
+  middlename: string;
+  birthdate: string;
+  userid: string;
+  gender: string;
+  telephoneno: string;
+  vnin: string;
+  self_origin_lga: string;
+  heigth: string;
+  birthstate: string;
+  signature: string | null;
+  religion: string;
+  educationallevel: string;
+  maritalstatus: string;
+  self_origin_state: string;
+  spoken_language: string;
+  self_origin_place: string;
+  residence_town: string;
+  nok_town: string;
+  residence_state: string;
+  residence_address: string;
+  birthcountry: string;
+  psurname: string;
+  pfirstname: string;
+  nok_lga: string;
+  nok_address2: string;
+  nok_state: string;
+  nok_surname: string;
+  nok_firstname: string;
+  ospokenlang: string;
+  residencestatus: string;
+  pmiddlename: string;
+  email: string;
+  nok_postalcode: string;
+  nin: string;
+  employmentstatus: string;
+  birthlga: string;
+  residence_lga: string;
+  title: string;
+  profession: string;
+  nok_address1: string;
+  photo: string | null;
+  nok_middlename: string;
+  tracking_id: string;
+  central_iD: string;
+};
+
+export type CacDataResponse = {
+  status: boolean;
+  message: string;
+  data: CompanyData;
+};
+
+export type CompanyData = {
+  id: number;
+  rc_number: string;
+  registration_date: string;
+  registration_approved: boolean;
+  active: boolean;
+  classification: string;
+  classification_id: number;
+  company_type_name: string;
+  nature_of_business_name: string;
+  objectives: string | null;
+  delisting_status: string | null;
+  approved_name: string;
+  email: string;
+  state: string;
+  city: string;
+  lga: string;
+  address: string;
+  branch_address: string;
+  head_office_address: string;
+  business_commencement_date: string | null;
+};
+
+export type DashboardStatsResponse = {
+  type: string;
+  count: number;
+  percentageChange: number;
+};
+
+// Base Vehicle Type
+
+// Main Data Item Type
+export type OrderDetails = {
+  reminderSent: boolean;
+  _id: string;
+  vehicleId: Vehicle;
+  buyerId: string;
+  amount: number;
+  status: string;
+  accountNumber: string;
+  initiationRef: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+// Root Data Structure
+export type OrderListResponse = {
+  data: OrderDetails[];
 };

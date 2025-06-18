@@ -57,10 +57,9 @@ const EditAddress = ({
 
   const handleSubmitForm = async (data: Address) => {
     try {
-      const response = await addAddress(data);
+      await addAddress(data);
       await updateUserData();
       reset();
-      console.log(response, 'add address');
     } catch (error) {
       console.log(error);
     }
@@ -70,9 +69,8 @@ const EditAddress = ({
   const handleDeleteAddress = async (e: React.MouseEvent<SVGSVGElement>, data: { id: string }) => {
     e.preventDefault();
     try {
-      const response = await deleteAddress({ id: data.id });
+      await deleteAddress({ id: data.id });
       await updateUserData();
-      console.log(response, 'update address');
       setDeleteIndex(-1);
     } catch (error) {
       console.error(error);
@@ -84,7 +82,6 @@ const EditAddress = ({
 
     const activeAddress = sellerAddress?.find((address) => address.isActive);
 
-    console.log(activeAddress, 'activeAddress');
     if (activeAddress) {
       activeAddress.isActive = false;
     }
@@ -94,9 +91,8 @@ const EditAddress = ({
     addressTosetActive.isActive = true;
 
     try {
-      const response = await setActiveAddress({ id });
+      await setActiveAddress({ id });
       await updateUserData();
-      console.log(response, 'update address');
     } catch (error) {
       console.error(error);
       addressTosetActive.isActive = false;

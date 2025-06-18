@@ -4,10 +4,11 @@ import Image from 'next/image';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import { VEHICLE_BRAND, VEHICLE_TYPE } from '@/constants/constants';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { setLocalItem } from '@/lib/localStorage';
 import { FilterProps } from '@/types/types';
 import { useStore } from '@/store/useStore';
+import { useRouter } from 'next-nprogress-bar';
 
 const VehicleTypeFilters = () => {
   const pathname = usePathname();
@@ -29,12 +30,12 @@ const VehicleTypeFilters = () => {
 
   const handlVehicleTypeClick = (key: string) => {
     setFilters((prev: FilterProps) => ({ ...prev, vehicle_type: key }));
-    router.push(`/results/vehicle_type=${key}`);
+    router.push(`/results/vehicle_type=${key.toLowerCase()}`);
   };
 
   const handleVehicleBrandClick = (key: string) => {
     setFilters((prev: FilterProps) => ({ ...prev, make: key }));
-    router.push(`/results/make=${key}`);
+    router.push(`/results/make=${key.toLowerCase()}`);
   };
 
   const renderCarBrands = useCallback(

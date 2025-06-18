@@ -18,7 +18,7 @@ export default function RootLayout({
       <MaxWidthWrapper>
         <div className="relative flex min-h-[90vh] w-full">
           <Sidebar />
-          <div className="w-full     h-full">{children}</div>
+          <div className="w-full h-full">{children}</div>
         </div>
       </MaxWidthWrapper>
       <Footer />

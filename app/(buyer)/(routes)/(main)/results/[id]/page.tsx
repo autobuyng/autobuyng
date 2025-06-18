@@ -1,41 +1,44 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
-import { SearchQuery, SearchResponseData, suggestionList } from '@/types/types';
+import { SearchQuery, SearchResponseData } from '@/types/types';
 import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
 // import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 // import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useDebounce } from 'use-debounce';
 
 const Results = () => {
   const pathname = usePathname();
   const { filters, homePageSearchResult } = useStore();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState<suggestionList | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
+  const [debouncedSearch] = useDebounce(searchQuery, 1000);
 
   const { isTablet } = useIsMobile();
 
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
 
-  const prevFilters = useRef(filters);
+  // const prevFilters = useRef(filters);
   const { search, isPending, isError, error } = useSearchVehicle();
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword');
+  // const searchParams = useSearchParams();
+  // const keyword = searchParams.get('keyword');
 
   const handleSearch = async (data: SearchQuery) => {
+    console.log(data, 'params data');
     try {
       const response = await search(data);
       setSearchResult(response.data);
@@ -46,14 +49,15 @@ const Results = () => {
 
   useEffect(() => {
     const searchParams: Partial<SearchQuery> = {
-      ...(keyword || searchQuery?.label ? { keyword: keyword || searchQuery?.label } : {}),
+      ...(debouncedSearch && { keyword: debouncedSearch }),
       ...(filters.mileage ? { mileage: filters.mileage } : {}),
       ...(filters.vehicle_condition ? { condition: filters.vehicle_condition } : {}),
       ...(filters.year.min_year ? { yearMin: filters.year.min_year } : {}),
-      ...(filters.year.max_year ? { yearMax: filters.year.max_year } : {}),
-      // ...(filters.price.min_price ? { priceMin: filter. } : {}),
+      // ...(filters.year?.max_year ? { yearMax: filters?.year?.max_year } : {}),
+      ...(filters.price.min_price ? { priceMin: filters.price.min_price } : {}),
       ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
-      ...(filters.body_type ? { type: filters.body_type.toLowerCase() } : {}),
+      ...(filters.body_type ? { vehicleType: filters.body_type.toLowerCase() } : {}),
+      ...(filters.cylinders ? { engine: filters.cylinders.toLowerCase() } : {}),
       ...(filters.interior_color ? { interiorColor: filters.interior_color.toLowerCase() } : {}),
       ...(filters.exterior_color ? { exteriorColor: filters.exterior_color.toLowerCase() } : {}),
       ...(filters.drive_train ? { driveTrain: filters.drive_train.toLowerCase() } : {}),
@@ -62,17 +66,16 @@ const Results = () => {
       ...(filters.sortParameter ? { sortParameter: filters.sortParameter } : {}),
       ...(filters.sortOrder ? { sortOrder: filters.sortOrder } : {}),
       ...(filters.make ? { make: filters.make.toLowerCase() } : {}),
-      ...(filters.vehicle_type ? { type: filters.vehicle_type.toLowerCase() } : {}),
+      ...(filters.vehicle_type ? { vehicleType: filters.vehicle_type.toLowerCase() } : {}),
     };
 
-    if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
-      console.log('making search request');
-      handleSearch(searchParams);
-    }
+    // if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
+    handleSearch(searchParams);
+    // }
 
     setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]);
+  }, [filters, debouncedSearch]);
 
   return (
     <main className="mb-24">
@@ -88,40 +91,6 @@ const Results = () => {
         <section className="min-h-screen">
           <div className="mt-8 w-full flex items-center gap-6">
             <SearchInput search={searchQuery} setSearch={setSearchQuery} />
-
-            {/* <div className="hidden md:flex items-center gap-4 w-[240px]">
-              <div>
-                <SelectInput
-                  list={SORT_LIST}
-                  title="Sort by"
-                  setSelectedInput={(input) => {
-                    if (typeof input != 'string') return;
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                    const parameter = input.split(' ');
-                    setFilters((prev: FilterProps) => ({
-                      ...prev,
-                      sortParameter: parameter[1].toLowerCase() as string,
-                      sortOrder: parameter[0] === 'Highest' ? 'desc' : 'asc',
-                      sort: input,
-                    }));
-                  }}
-                  selectedInput={filters?.sort as string}
-                  defaultValue={filters.sort}
-                  width="w-full md:w-[155px]"
-                  height="h-10"
-                />
-              </div>
-
-              <div className="h-8 w-8 rounded-sm border border-neutral-500 flex items-center justify-center">
-                <button onClick={() => setDisplayFormat(!displayFormat)}>
-                  {displayFormat ? (
-                    <Image src={Flex} alt="Flex format" />
-                  ) : (
-                    <Image src={GridFormat} alt="Grid format" />
-                  )}
-                </button>
-              </div>
-            </div> */}
           </div>
 
           <div className="flex items-start justify-between mt-6 w-full">

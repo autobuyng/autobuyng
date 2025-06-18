@@ -1,6 +1,7 @@
-import { getSessionItem, removeSessionItem } from '@/lib/Sessionstorage';
+import { getLocalItem } from '@/lib/localStorage';
+import { removeSessionItem } from '@/lib/Sessionstorage';
 import { SearchQuery } from '@/types/types';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 export enum ApiType {
   AUTOBUY = 'AUTOBUY',
@@ -15,7 +16,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     baseURL: baseUrls[baseUrlKey],
     withCredentials: true,
     // Add timeout to prevent hanging requests
-    timeout: 50000,
+    timeout: 200000,
   });
 
   // const accessToken = getSessionItem('accessToken');
@@ -25,9 +26,8 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
       const isSeller = currentPath.includes('sell-a-car');
       const accessToken = isSeller
-        ? getSessionItem('sellerAccessToken')
-        : getSessionItem('accessToken');
-
+        ? getLocalItem('sellerAccessToken')
+        : getLocalItem('accessToken');
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
@@ -46,25 +46,23 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
       const { response } = error;
 
       // Handle Unauthorized Errors
-      if (response && (response.status === 401 || response.status === 403)) {
-        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-        const isSeller = currentPath.startsWith('/sell-a-car');
-        const isBuyerPrivate = currentPath.startsWith('/payment/');
-
-        console.log(isBuyerPrivate, currentPath, 'currentPath');
-
-        // Clear the relevant token and redirect to the appropriate login page
-        if (isSeller) {
-          removeSessionItem('sellerAccessToken');
-          currentPath !== '/sell-a-car' &&
-            (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
-        } else {
-          removeSessionItem('accessToken');
-          if (isBuyerPrivate) {
-            window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
-          }
-        }
-      }
+      // if (response && (response.status === 401 || response.status === 403)) {
+      //   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+      //   const isSeller = currentPath.startsWith('/sell-a-car');
+      //   const isBuyerPrivate = currentPath.startsWith('/payment/');
+      //   // Clear the relevant token and redirect to the appropriate login page
+      //   if (isSeller) {
+      //     removeSessionItem('sellerAccessToken');
+      //     currentPath !== '/sell-a-car' &&
+      //       currentPath !== '/sell-a-car/login' &&
+      //       (window.location.href = process.env.NEXT_PUBLIC_SELLER_URL!);
+      //   } else {
+      //     removeSessionItem('accessToken');
+      //     if (isBuyerPrivate) {
+      //       window.location.href = process.env.NEXT_PUBLIC_BUYER_URL!;
+      //     }
+      //   }
+      // }
 
       return Promise.reject(error);
     },
@@ -74,17 +72,18 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
 };
 
 export const usermgtApi = createAxiosInstance(ApiType.AUTOBUY);
-// export const newsmgtApi = createAxiosInstance(ApiType.NEWSMGT);
 
-// Generic fetcher with improved type safety
 export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
-  console.log(url, 'userMgtApi');
   try {
     const res = await usermgtApi.get(url, { ...config });
     return res.data.data;
-  } catch (error) {
-    // Add error handling
-    console.error('Fetcher error:', error);
+  } catch (error: AxiosError | any) {
+    console.error('Fetcher error:', {
+      status: error.response?.status,
+      message: error.message,
+      url: url,
+    });
+
     throw error;
   }
 };
@@ -105,6 +104,8 @@ export const endpoints = {
   auth: {
     login: '/auth/login',
     register: '/auth/register/buyer',
+    registerWithGoogle: '/auth/google',
+    registerWithFacebook: '/auth/facebook',
     registerseller: 'auth/register/seller',
     resentToken: '/auth/resend-token',
     currentUser: '/auth/profile',
@@ -114,6 +115,7 @@ export const endpoints = {
     verifyForgetPassword: '/auth/verify-password-reset-token',
     resetPassword: '/auth/reset-password',
     resendEmail: '/auth/resend-verification-email',
+    verifyIdentity: '/auth/verify-identity',
   },
   user: {
     profile: '/user',
@@ -144,18 +146,28 @@ export const endpoints = {
   search: {
     search: (data: SearchQuery) => buildSearchUrl('/search', data),
     likevehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}/like`,
+    likeMultipleVehicle: (vehicles: string[]) => `/vehicles/like/offline`,
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
-    // `/search/?keyword=${data?.keyword}&mileage=${data?.mileage}&vin=${data.vin}&fuelType=${data?.fuelType}&transmission=${data?.transmission}&exteriorColor=${data?.exteriorColor}&interiorColor=${data?.interiorColor}&price=${data?.price}`,
   },
+  dashboard: {
+    getAnalytics: '/seller/analytics',
+  },
+  payment: {
+    createOrder: (data: { vehicleId: string }) => `/order/create-order/${data.vehicleId}`,
+    serverSideEvent: (data: { merchantId: string }) =>
+      `order/transaction/notifications/${data.merchantId}`,
+    orderList: '/order/vehicle',
+  },
+  waitlist: '/waitlist',
 };
 
 const buildSearchUrl = (basePath: string, data: SearchQuery): string => {
   const params = Object.entries(data)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .filter(([_, value]) => value !== undefined && value !== null) // Exclude undefined and null values
-    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`) // Encode and format key-value pairs
+    .filter(([_, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
     .join('&');
 
   return `${basePath}?${params}`;

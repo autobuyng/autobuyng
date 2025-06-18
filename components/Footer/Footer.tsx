@@ -13,7 +13,7 @@ import Instagram from './assets/instagram.svg';
 const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) => {
   const data = new Date();
   return (
-    <main className={cn(' h-fit  py-8', bgColor ? 'bg-[#F7F7F7]' : 'bg-primary-900 text-white')}>
+    <main className={cn('h-fit  py-8', bgColor ? 'bg-[#F7F7F7]' : 'bg-primary-900 text-white')}>
       <MaxWidthWrapper>
         <main className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  w-full gap-10 ">
           <div className="space-y-4">
@@ -66,23 +66,26 @@ const Footer = ({ bgColor, btnColor }: { bgColor?: string; btnColor?: string }) 
         <main className="flex flex-col md:flex-row justify-between mt-10 items-start  text-sm">
           <div className="py-2 md:py-0">
             <p className="flex flex-col md:flex-row items-start gap-2 md:gap-6 ">
-              <Link href={'/terms-and-condition'}> Terms and condition</Link>
+              <Link href={'/terms-of-service'}> Terms and condition</Link>
               <span className="text-primary-500 hidden md:block">|</span>
-              <Link href={'/terms-and-condition'}> Responsible Disclosure</Link>
+              <Link href={'/responsible-disclosure'}> Responsible Disclosure</Link>
               <span className="text-primary-500 hidden md:block">|</span>
-              <Link href={'/terms-and-condition'}> Provacy Policy</Link>
+              <Link href={'/privacy-policy'}> Privacy Policy</Link>
             </p>
             {/* <p>© 2024 Autobuy. All rights reserved</p> */}
           </div>
 
           <div className=" flex gap-4 py-3 md:py-0 items-start">
-            <Link href={'/facebook'}>
+            <Link href={'https://www.facebook.com/share/19L8XJAKby/'} target="_blank">
               <Image src={Facbook} alt="facebook" />
             </Link>
-            <Link href={'/facebook'}>
-              <Image src={Instagram} alt="facebook" />
+            <Link
+              href={'https://www.instagram.com/autobuyng?igsh=MWg2dW51N3EyOWlkag=='}
+              target="_blank"
+            >
+              <Image src={Instagram} alt="Instagram" />
             </Link>
-            <Link href={'/facebook'}>
+            <Link href={'https://x.com/Autobuyng?t=Alqcg1RBLgPTTFFVlpJw4Q&s=09'} target="_blank">
               <Image src={Twitter} alt="facebook" />
             </Link>
           </div>

@@ -16,7 +16,6 @@ export const setLocalItem = (key: string, value: any): void => {
     console.error('Invalid key or value provided for localStorage.setItem');
     return;
   }
-
   try {
     const serializedValue = JSON.stringify(value);
     localStorage.setItem(key, serializedValue);

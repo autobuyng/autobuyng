@@ -8,7 +8,6 @@ import { FilterProps } from '@/types/types';
 import { Slider } from '@/components/ui/slider';
 import StyleType from './StyleType';
 import Performance from './Performance';
-import Features from './Features';
 import useIsMobile from '@/hooks/useIsMobile';
 import { cn } from '@/lib/utils';
 import { setSessionItem } from '@/lib/Sessionstorage';
@@ -21,26 +20,12 @@ import { useStore } from '@/store/useStore';
 const Filters = () => {
   const { isMobile } = useIsMobile();
   const { filters, setFilters } = useStore();
-
-  // const router = useRouter();
-  // const pathname = usePathname();
-  // const searchParams = useSearchParams();
-
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  // const createQueryString = useCallback(
-  //   (name: string, value: string) => {
-  //     const params = new URLSearchParams(searchParams.toString());
-  //     params.set(name, value.trim());
-
-  //     return params.toString();
-  //   },
-  //   [searchParams],
-  // );
+  console.log(filters, 'filters');
 
   useEffect(() => {
     setSessionItem('filters', filters);
   }, [filters]);
+
   return (
     <main className=" w-full  ">
       <section
@@ -172,7 +157,7 @@ const Filters = () => {
                   }),
                 );
               }}
-              defaultValue={[7000000]}
+              defaultValue={[70000000]}
               max={100000000}
               min={5000000}
               step={1000000}
@@ -194,10 +179,10 @@ const Filters = () => {
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
           <Performance />
         </div>
-        <div>
+        {/* <div>
           <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 pt-2 ">Features</p>
           <Features />
-        </div>
+        </div> */}
       </section>
     </main>
   );

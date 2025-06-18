@@ -1,20 +1,20 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
-// import useIsMobile from '@/hooks/useIsMobile';
-// import { AppContext } from '@/context/AppContext';
 import { ILoginPayload, LoginSchema } from '@/Schema/authSchema';
 import { useLogin } from '@/app/(buyer)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-// import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
-// import { useContext } from 'react';
-import { setSessionItem } from '@/lib/Sessionstorage';
 import { useStore } from '@/store/useStore';
-import { useState } from 'react';
+import Google from '@/components/Navbar/assets/Google.svg';
+
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
+import { useLikeMultipleVehicle } from '@/app/(buyer)/api/search';
 
 const SignIn = ({
   setType,
@@ -33,36 +33,53 @@ const SignIn = ({
 
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
-  // const os = useDetectOS();
-  // const { isMobile } = useIsMobile();
-  // const { user, setUser } = useContext(AppContext);
+  const [likeMultipleVehicles, setLikeMultipleVehicles] = useState(false);
   const { setUser } = useStore();
 
   const router = useRouter();
 
   const { login, isLoggingIn } = useLogin();
+  const { likeMultipleVehicle } = useLikeMultipleVehicle();
 
   const handleLoginUser: SubmitHandler<ILoginPayload> = async (data) => {
     try {
       const response = await login(data);
       if (response.status === true) {
         toast({
-          title: 'Success',
-          description: response.message,
+          description: 'Logged in Successfully',
           position: 'top-right',
         });
         setUser(response.data.user);
-        setSessionItem('accessToken', response.data.accessToken);
+        setLikeMultipleVehicles(true);
+        setLocalItem('accessToken', response.data.accessToken);
       }
       setIsOpen(false);
     } catch (error: any) {
       toast({
+        variant: 'destructive',
         title: 'Failed',
         description: error.message,
       });
     }
-    console.log(data);
-    // Implement your registration logic here
+  };
+
+  useEffect(() => {
+    const localLikeMultipleVehicles: string[] = getLocalItem('likeMultipleVehicles');
+    if (likeMultipleVehicles && localLikeMultipleVehicles) {
+      likeMultipleVehicle({ vehicles: localLikeMultipleVehicles });
+    }
+  }, [likeMultipleVehicles]);
+
+  const googleLogin = () => {
+    router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
+  };
+
+  const handlSocialSignup = () => {
+    try {
+      googleLogin();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -122,6 +139,7 @@ const SignIn = ({
           <p
             onClick={() => {
               router.push('/forgot-password');
+              setIsOpen(false);
             }}
             className="text-xs text-primary-700 cursor-pointer"
           >
@@ -142,6 +160,25 @@ const SignIn = ({
           </p>
         </div>
       </form>
+
+      <div className="flex flex-col gap-4">
+        <div className="w-full flex justify-between items-center gap-[5px]">
+          <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+          <span className="text-lg">or</span>
+          <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+        </div>
+
+        <div>
+          <div className="w-full">
+            <button
+              onClick={() => handlSocialSignup()}
+              className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6"
+            >
+              <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

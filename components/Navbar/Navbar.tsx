@@ -1,11 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 
 import MaxWidthWrapper from '../MaxWidthWrapper/MaxWidthWrapper';
 import Autobuy from '@/app/assets/Autobuy.svg';
+import MobileLogo from '../../public/icons/buyer.svg';
 
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
@@ -14,23 +15,19 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useIsMobile from '@/hooks/useIsMobile';
 
 import AuthDialog from '@/app/auth';
-import { useGetUser } from '@/app/(buyer)/api/auth';
 import { useStore } from '@/store/useStore';
-// import { getSessionItem } from '@/lib/Sessionstorage';
-// import { useGetAuthenticatedUser } from '@/app/(buyer)/api/auth';
-// import { User } from '@/types/types';
 
 const Navbar = () => {
-  const [loading, setLoading] = useState(true);
+  // const [, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('');
+
   const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const { isMobile } = useIsMobile();
-  const { user, setUser, isLoading, setIsLoading, setProfile, setAddress } = useStore();
+  const { user } = useStore();
 
-  const { getUser } = useGetUser();
-
+  // const { getUser } = useGetUser();
   const handleOpenChange = () => {
     setIsOpen(false);
   };
@@ -40,34 +37,39 @@ const Navbar = () => {
     setType('signin');
   };
 
-  useEffect(() => {
-    setLoading(isLoading);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(isLoading);
+  // }, []);
+  // const getUserData = async () => {
+  //   setIsLoading(true);
 
-  const getUserData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await getUser();
-      if (response.status) {
-        setUser(response.data.user);
-        setProfile(response.data.profile);
-        setAddress(response.data.addresses);
-      }
-      console.log(response.data.user);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const token = urlParams.get('token');
 
-  useEffect(() => {
-    // const accessToken = getSessionItem('accessToken');
-    // if (accessToken) {
-    setIsLoading(true);
-    getUserData();
-    // }
-  }, []);
+  //     if (token) {
+  //       setSessionItem('accessToken', decodeURIComponent(token));
+  //     }
+
+  //     // Fetch user data only once
+  //     const response = await getUser();
+  //     const { user, profile, addresses } = response.data;
+
+  //     // Set state
+  //     setUser(user);
+  //     setProfile(profile);
+  //     setAddress(addresses);
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getUserData();
+  // }, []);
 
   const NAV_ITEMS = [
     {
@@ -83,7 +85,7 @@ const Navbar = () => {
     {
       id: '3',
       text: 'About Us',
-      path: 'about-us',
+      path: '/about-us',
     },
   ];
 
@@ -91,14 +93,15 @@ const Navbar = () => {
     <header className="h-[60px] w-full flex items-center sticky top-0 left-0 z-50 bg-white shadow-sm">
       <MaxWidthWrapper>
         <nav className="flex items-center justify-between w-full ">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 relative h-8 w-8  md:w-32 md:h-16">
             <Image
-              src={Autobuy}
+              src={isMobile ? MobileLogo : Autobuy}
               alt="Autobuy"
-              width={168}
-              height={56}
+              // width={168}
+              // height={56}
+              fill
               priority
-              className="cursor-pointer"
+              className="cursor-pointer w-full h-full"
               onClick={() => router.push('/')}
             />
           </div>
@@ -134,7 +137,7 @@ const Navbar = () => {
                           <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </SheetTrigger>
-                      <SheetContent>
+                      <SheetContent className="max-w-[80%]">
                         <Menucontent setShowPopover={setShowPopover} />
                       </SheetContent>
                     </Sheet>
@@ -143,7 +146,7 @@ const Navbar = () => {
                   {!isMobile && (
                     <Popover open={showPopover} onOpenChange={setShowPopover}>
                       <PopoverTrigger>
-                        <p className="flex items-center gap-1.5 rounded-[80px]  border-primary-700 px-1 py-1 ">
+                        <p className="flex items-center gap-1.5  px-1 py-1 ">
                           <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
                         </p>
                       </PopoverTrigger>
@@ -157,23 +160,38 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            ) : isLoading || loading ? (
-              <div className="flex gap-8">Loading...</div> // Replace with your loading indicator
             ) : (
-              <div className="flex gap-8">
-                <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
-                  Login
-                </button>
-                <button
-                  onClick={() => {
-                    setType('signup');
-                    setIsOpen(true);
-                  }}
-                  className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
-                >
-                  Create Account
-                </button>
-              </div>
+              <>
+                {isMobile && (
+                  <Sheet open={showPopover} onOpenChange={setShowPopover}>
+                    <SheetTrigger>
+                      <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
+                        <Menu onClick={() => setShowPopover(true)} className="text-primary-900" />
+                      </p>
+                    </SheetTrigger>
+                    <SheetContent>
+                      <Menucontent setShowPopover={setShowPopover} />
+                    </SheetContent>
+                  </Sheet>
+                )}
+
+                {!isMobile && (
+                  <div className="flex gap-8">
+                    <button onClick={handleLoginClick} className="text-primary-700 text-[14px]">
+                      Login
+                    </button>
+                    <button
+                      onClick={() => {
+                        setType('signup');
+                        setIsOpen(true);
+                      }}
+                      className="w-[140px] h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+                    >
+                      Create Account
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </nav>
@@ -189,5 +207,13 @@ const Navbar = () => {
     </header>
   );
 };
+
+// export default Navbar;
+
+// const NavbarSuspenseWrapper = () => (
+//   <Suspense fallback={<p>Loading...</p>}>
+//     <Navbar />
+//   </Suspense>
+// );
 
 export default Navbar;

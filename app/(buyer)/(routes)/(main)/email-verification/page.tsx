@@ -5,10 +5,9 @@ import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useVerifyEmail } from '@/app/(buyer)/api/auth';
 import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { getLocalItem } from '@/lib/localStorage';
-import { useRouter } from 'next/navigation';
+import { getLocalItem, setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
-import { setSessionItem } from '@/lib/Sessionstorage';
+import { useRouter } from 'next-nprogress-bar';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
@@ -19,7 +18,6 @@ function VerifyEmailPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  console.log(token, 'token');
   const { setUser } = useStore();
 
   const { verifyEmail, isVerifying } = useVerifyEmail();
@@ -37,7 +35,7 @@ function VerifyEmailPage() {
           description: response.message,
         });
         setUser(response.data.user);
-        setSessionItem('accessToken', response.data.accessToken);
+        setLocalItem('accessToken', response.data.accessToken);
       }
       router.push(prevPage);
     } catch (error: any) {

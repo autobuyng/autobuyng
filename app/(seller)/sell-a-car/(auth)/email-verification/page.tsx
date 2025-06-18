@@ -1,11 +1,12 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { Suspense, useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { setSessionItem } from '@/lib/Sessionstorage';
 import { useVerifyEmail } from '@/app/(seller)/api/auth';
+import { setLocalItem } from '@/lib/localStorage';
 
 function VerifyEmailPage() {
   const { toast } = useToast();
@@ -24,13 +25,12 @@ function VerifyEmailPage() {
     try {
       const response = await verifyEmail({ token: decodeURIComponent(token) });
       setData(response);
-      console.log(response.data.accessToken, 'accesstoken', response, 'response');
       if (response.status === true) {
         toast({
           title: 'Success',
           description: response.message,
         });
-        setSessionItem('sellerAccessToken', response.data.accessToken);
+        setLocalItem('sellerAccessToken', response.data.accessToken);
         router.push('/sell-a-car/dashboard');
       }
     } catch (error: any) {

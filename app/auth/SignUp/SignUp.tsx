@@ -2,15 +2,22 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-// import Google from '@/components/Navbar/assets/Google.svg';
-// import Facebook from '@/components/Navbar/assets/Facebook.svg';
+import Google from '@/components/Navbar/assets/Google.svg';
 
 import { cn } from '@/lib/utils';
 import { IRegistrationPayload, RegistrationSchema } from '@/Schema/authSchema';
-import { useRegister } from '@/app/(buyer)/api/auth';
+import {
+  useRegister,
+  // useRegisterWithFaceBook,
+  // useRegisterWithGoogle,
+} from '@/app/(buyer)/api/auth';
 import { EyeIcon, EyeOffIcon, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
+import Image from 'next/image';
+import useDetectOS from '@/hooks/useDetectOs';
+import useIsMobile from '@/hooks/useIsMobile';
+import { useRouter } from 'next/navigation';
 
 const SignUp = ({
   setType,
@@ -26,12 +33,16 @@ const SignUp = ({
   } = useForm<IRegistrationPayload>({
     resolver: zodResolver(RegistrationSchema),
   });
-
+  const os = useDetectOS();
+  const { isMobile } = useIsMobile();
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const { toast } = useToast();
 
   const { signup, isRegistering } = useRegister();
+  // const { googleSignup } = useRegisterWithGoogle();
+  // const { faceBookSignup } = useRegisterWithFaceBook();
 
   const handleRegisterUser: SubmitHandler<IRegistrationPayload> = async (data) => {
     setSignupData(data);
@@ -50,53 +61,65 @@ const SignUp = ({
     // Implement your registration logic here
   };
 
+  const googleLogin = () => {
+    router.push('https://autobuy-latest.onrender.com/api/v1/auth/google');
+  };
+
+  const handlSocialSignup = () => {
+    try {
+      googleLogin();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div>
         <form onSubmit={handleSubmit(handleRegisterUser)}>
           <div className="space-y-4 w-full mx-auto">
-            <>
-              <div className="flex items-center gap-3 justify-between ">
-                <div className="w-full">
-                  <label
-                    // htmlFor="UserEmail"
-                    className="block text-left text-xs font-medium text-gray-700"
-                  >
-                    First name
-                  </label>
-                  <input
-                    {...register('firstName')}
-                    type="text"
-                    id="fullName"
-                    placeholder="John"
-                    className={cn(
-                      'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
-                      { 'border border-red-500': errors.firstName },
-                    )}
-                  />
-                </div>
-
-                <div className="w-full">
-                  <label
-                    // htmlFor="UserEmail"
-                    className="block text-left text-xs font-medium text-gray-700"
-                  >
-                    Last name
-                  </label>
-                  <input
-                    {...register('lastName')}
-                    type="text"
-                    id="lastName"
-                    placeholder="Doe"
-                    className={cn(
-                      'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
-                      { 'border border-red-500': errors.lastName },
-                    )}
-                  />
-                </div>
+            <div className="flex flex-col sm:flex-row items-center gap-3 justify-between ">
+              <div className="w-full">
+                <label
+                  // htmlFor="UserEmail"
+                  className="block text-left text-xs font-medium text-gray-700"
+                >
+                  First name
+                </label>
+                <input
+                  {...register('firstName')}
+                  type="text"
+                  id="fullName"
+                  placeholder="John"
+                  className={cn(
+                    'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                    { 'border border-red-500': errors.firstName },
+                  )}
+                />
               </div>
 
-              <div>
+              <div className="w-full">
+                <label
+                  // htmlFor="UserEmail"
+                  className="block text-left text-xs font-medium text-gray-700"
+                >
+                  Last name
+                </label>
+                <input
+                  {...register('lastName')}
+                  type="text"
+                  id="lastName"
+                  placeholder="Doe"
+                  className={cn(
+                    'mt-1 block w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                    { 'border border-red-500': errors.lastName },
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-2">
+              <div className="w-full">
                 <label
                   // htmlFor="UserEmail"
                   className="block text-left text-xs font-medium text-gray-700"
@@ -114,25 +137,25 @@ const SignUp = ({
                   )}
                 />
               </div>
-            </>
 
-            <div>
-              <label
-                // htmlFor="UserEmail"
-                className="block text-left text-xs font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <input
-                {...register('email')}
-                type="email"
-                id="email"
-                placeholder="johndoe@gmail.com"
-                className={cn(
-                  'mt-1 w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
-                  { 'border border-red-500': errors.email },
-                )}
-              />
+              <div className="w-full">
+                <label
+                  // htmlFor="UserEmail"
+                  className="block text-left text-xs font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <input
+                  {...register('email')}
+                  type="email"
+                  id="email"
+                  placeholder="johndoe@gmail.com"
+                  className={cn(
+                    'mt-1 w-full py-1.5 px-2 outline-none border rounded-md border-neutral-700 shadow-sm sm:text-sm',
+                    { 'border border-red-500': errors.email },
+                  )}
+                />
+              </div>
             </div>
 
             <div>
@@ -187,33 +210,39 @@ const SignUp = ({
           </div>
         </form>
 
-        {/* <div className="flex flex-col gap-4">
-              <div className="w-full flex justify-between items-center gap-[5px]">
-                <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-                <span className="text-lg">or</span>
-                <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
-              </div>
+        <div className="flex flex-col gap-4">
+          <div className="w-full flex justify-between items-center gap-[5px]">
+            <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+            <span className="text-lg">or</span>
+            <span className="border-t-[1.5px] border-[#C0C0C0] w-full"></span>
+          </div>
 
-              <div
-                className={cn('flex  gap-4', {
-                  'sm:flex-col': os === 'macOS',
-                  'flex-col': isMobile,
-                })}
+          <div
+            className={cn('flex  gap-4', {
+              'sm:flex-col': os === 'macOS',
+              'flex-col': isMobile,
+            })}
+          >
+            <div className="w-full">
+              <button
+                onClick={() => handlSocialSignup()}
+                className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6"
               >
-                <div className="w-full">
-                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6">
-                    <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
-                  </button>
-                </div>
+                <Image src={Google} alt="Google" /> <span>Sign up with Google</span>
+              </button>
+            </div>
 
-                <div className="w-full">
-                  <button className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap">
-                    <Image src={Facebook} alt="Facebook" />
-                    <span> Sign up with Facebook</span>
-                  </button>
-                </div>
-              </div>
+            {/* <div className="w-full">
+              <button
+                onClick={() => handlSocialSignup('facebook')}
+                className="flex w-full items-center justify-center gap-4 border border-neutral-700 rounded-sm py-2 px-6 whitespace-nowrap"
+              >
+                <Image src={Facebook} alt="Facebook" />
+                <span> Sign up with Facebook</span>
+              </button>
             </div> */}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
 
 import Orders from '@/components/Navbar/assets/cart.svg';

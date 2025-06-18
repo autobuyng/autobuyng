@@ -1,5 +1,7 @@
-import Navbar from '@/components/Navbar/Navbar';
 import type { Metadata } from 'next';
+import BuyerLayout from '../layout';
+import { Suspense } from 'react';
+import Loader from '@/LoadingSkeleton/loader';
 
 export const metadata: Metadata = {
   title: 'Autobuy',
@@ -17,9 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <Navbar />
-      <main>{children}</main>
-    </main>
+    <Suspense fallback={<Loader />}>
+      <BuyerLayout>{children}</BuyerLayout>
+    </Suspense>
   );
 }

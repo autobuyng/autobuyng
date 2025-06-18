@@ -59,6 +59,32 @@ export function useLikeVehicle() {
     [mutateAsync, data, isPending, error, isError],
   );
 }
+export function useLikeMultipleVehicle() {
+  const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, error, isError } = useMutation<
+    ApiResponse,
+    any,
+    { vehicles: string[] }
+  >({
+    mutationFn: ({ vehicles }: { vehicles: string[] }) =>
+      mutator({ method: 'PUT', url: endpoints.search.likeMultipleVehicle(vehicles) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.getFavoriteVehicle });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      likeMultipleVehicle: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
 export function useGetVehicle() {
   const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, error, isError } = useMutation<

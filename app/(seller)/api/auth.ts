@@ -1,24 +1,27 @@
-import { endpoints, mutator } from '@/axios';
+import { endpoints, mutator, queryKeys } from '@/axios';
 import {
   IRegistrationPayload,
   ISellerRegistrationPayload,
   ISellerRegistrationPayloadDealer,
 } from '@/Schema/authSchema';
 import {
+  CacDataResponse,
   EmailverificationResponse,
   ILoginPayload,
   ISellerRegistrationResponse,
+  NinDataResponse,
 } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 export function useLogin() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, error, isError } = useMutation<any, any, ILoginPayload>({
     mutationFn: (values: ILoginPayload) =>
       mutator({ method: 'POST', data: values, url: endpoints.auth.login }),
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
     },
   });
 
@@ -140,9 +143,9 @@ export function useResetPassword() {
   const { mutateAsync, data, isPending, isError, error } = useMutation<
     any,
     any,
-    { email: string; password: string }
+    { token: string; password: string }
   >({
-    mutationFn: (values: { email: string; password: string }) =>
+    mutationFn: (values: { token: string; password: string }) =>
       mutator({ method: 'POST', data: values, url: endpoints.auth.resetPassword }),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
@@ -161,20 +164,38 @@ export function useResetPassword() {
   );
 }
 export function useResendEmail() {
-  // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { email: string }>(
     {
       mutationFn: (values: { email: string }) =>
         mutator({ method: 'POST', data: values, url: endpoints.auth.resendEmail }),
-      onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
-      },
     },
   );
 
   return useMemo(
     () => ({
       resendEmail: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useVerifyIdentity() {
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    NinDataResponse | CacDataResponse,
+    AxiosError,
+    { nin?: string; cac?: string }
+  >({
+    mutationFn: (values: { nin?: string; cac?: string }) =>
+      mutator({ method: 'POST', data: values, url: endpoints.auth.verifyIdentity }),
+  });
+
+  return useMemo(
+    () => ({
+      verifyIdentity: mutateAsync,
       data,
       isPending,
       error,

@@ -15,7 +15,7 @@ const Upload = () => {
 
   return (
     <main className="mx-4 ">
-      {vehicle && vehicle.vehicles.length < 1 ? (
+      {vehicle && vehicle.vehicles?.length < 1 ? (
         <VehicleQuantity />
       ) : (
         <div>

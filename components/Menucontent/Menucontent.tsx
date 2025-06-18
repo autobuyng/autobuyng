@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
 
 import Profile from '@/components/Navbar/assets/Profile.svg';
@@ -9,7 +10,7 @@ import Orders from '@/components/Navbar/assets/cart.svg';
 import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
-import { clearSessionStorage } from '@/lib/Sessionstorage';
+import { clearLocalStorage } from '@/lib/localStorage';
 
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,30 +55,29 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
     }
     setUser(null);
     window.location.reload();
-    clearSessionStorage();
+    clearLocalStorage();
   };
 
   return (
     <div className="mt-8 md:mt-0">
-      <div>
-        <h1 className="font-semibold text-lg text-primary-700">Hi {user?.firstName}</h1>
-      </div>
-
       <div className="flex flex-col gap-3 mt-4">
         {user && (
-          <div className="flex flex-col gap-3  pb-2">
-            {MENU_ITEMS.map((item) => (
-              <div key={item.id} className="w-full">
-                <button
-                  onClick={() => handleMenuClick(item.path)}
-                  className="flex items-center justify-center gap-2"
-                >
-                  <Image src={item.Icon} alt={item.text} />
-                  <span> {item.text}</span>
-                </button>
-              </div>
-            ))}
-          </div>
+          <>
+            <h1 className="font-semibold text-lg text-primary-700">Hi {user?.firstName}</h1>
+            <div className="flex flex-col gap-3  pb-2">
+              {MENU_ITEMS.map((item) => (
+                <div key={item.id} className="w-full">
+                  <button
+                    onClick={() => handleMenuClick(item.path)}
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <Image src={item.Icon} alt={item.text} />
+                    <span> {item.text}</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {user && (
@@ -101,6 +101,31 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
           >
             Log out
           </button>
+        )}
+
+        {!user && (
+          <div className="flex flex-col gap-8">
+            <button
+              onClick={() => {
+                setType('signin');
+                setIsOpen(true);
+                // setShowPopover(false)
+              }}
+              className="text-primary-700 text-[14px]"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => {
+                setType('signup');
+                setIsOpen(true);
+                // setShowPopover(false)
+              }}
+              className=" h-[42px] text-white bg-primary-900 rounded-[8px] text-[14px]"
+            >
+              Create Account
+            </button>
+          </div>
         )}
       </div>
 

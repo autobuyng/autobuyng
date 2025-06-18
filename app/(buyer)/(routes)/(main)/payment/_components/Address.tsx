@@ -26,7 +26,6 @@ const Address = () => {
   const [isActiveAddress, setIsActiveAddress] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(-1);
 
-  console.log(loading, isLoading, 'loading');
   const [addressFields, setAddressFields] = useState<Address>({
     city: '',
     region: '',
@@ -53,10 +52,9 @@ const Address = () => {
 
   const handleSubmitForm = async (data: Address) => {
     try {
-      const response = await addAddress(data);
+      await addAddress(data);
       await updateUserData();
       reset();
-      console.log(response, 'add address');
     } catch (error) {
       console.log(error);
     }
@@ -72,9 +70,8 @@ const Address = () => {
     e.preventDefault();
 
     try {
-      const response = await updateAddress({ values: addressFields, id: addressFields._id! });
+      await updateAddress({ values: addressFields, id: addressFields._id! });
       await updateUserData();
-      console.log(response, 'update address');
       setEditingIndex(-1);
     } catch (error) {
       console.error(error);
@@ -83,9 +80,8 @@ const Address = () => {
   const handleDeleteAddress = async (e: React.MouseEvent<HTMLElement>, data: { id: string }) => {
     e.preventDefault();
     try {
-      const response = await deleteAddress({ id: data.id });
+      await deleteAddress({ id: data.id });
       await updateUserData();
-      console.log(response, 'update address');
       setEditingIndex(-1);
     } catch (error) {
       console.error(error);
@@ -100,9 +96,8 @@ const Address = () => {
     address.isActive = true;
 
     try {
-      const response = await setActiveAddress({ id: addressFields._id! });
+      await setActiveAddress({ id: addressFields._id! });
       await updateUserData();
-      console.log(response, 'update address');
     } catch (error) {
       console.error(error);
       address.isActive = false;

@@ -10,7 +10,6 @@ type ApppraisalFormProps = {
 };
 
 const AppraisalForm = ({ isOpen, setIsOpen }: ApppraisalFormProps) => {
-  console.log(isOpen, 'open appraisal');
   const [step, setStep] = useState(1);
 
   const stepToRender = (key: number) => {

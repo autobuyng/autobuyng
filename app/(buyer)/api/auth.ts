@@ -1,5 +1,5 @@
 import { endpoints, fetcher, mutator, queryKeys } from '@/axios';
-import { getSessionItem } from '@/lib/Sessionstorage';
+// import { getLocalItem } from '@/lib/localStorage';
 import { IRegistrationPayload } from '@/Schema/authSchema';
 import {
   EmailverificationResponse,
@@ -61,6 +61,52 @@ export function useRegister() {
     [mutateAsync, data, isPending, error, isError],
   );
 }
+export function useRegisterWithGoogle() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    IAccountCreationResponse,
+    any
+  >({
+    mutationFn: () => mutator({ method: 'GET', url: endpoints.auth.registerWithGoogle }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      googleSignup: mutateAsync,
+      data,
+      isRegistering: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useRegisterWithFaceBook() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<
+    IAccountCreationResponse,
+    any
+  >({
+    mutationFn: () => mutator({ method: 'GET', url: endpoints.auth.registerWithFacebook }),
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+    },
+  });
+
+  return useMemo(
+    () => ({
+      faceBookSignup: mutateAsync,
+      data,
+      isRegistering: isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
 export function useGetUser() {
   // const queryClient = useQueryClient();
   const { mutateAsync, data, isPending, isError, error } = useMutation<UserResponse, any>({
@@ -83,21 +129,19 @@ export function useGetUser() {
 }
 
 export function useGetAuthenticatedUser() {
-  const accessToken = getSessionItem('accessToken');
-  const { data, isLoading, refetch } = useQuery<any>({
+  const { data, isLoading, isError, error, refetch } = useQuery<any>({
     queryKey: queryKeys.user.root,
-    enabled: !!accessToken,
     queryFn: () => fetcher(endpoints.auth.currentUser),
   });
-  console.log(data, 'datra');
-
   return useMemo(
     () => ({
-      data: data?.user,
+      data: data,
+      isError,
+      error,
       userRefetch: refetch,
       isLoading,
     }),
-    [data, isLoading, refetch],
+    [data, isLoading, error, isError, refetch],
   );
 }
 
@@ -191,6 +235,29 @@ export function useResendEmail() {
   return useMemo(
     () => ({
       resendEmail: mutateAsync,
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useWaitlist() {
+  // const queryClient = useQueryClient();
+  const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { email: string }>(
+    {
+      mutationFn: (values: { email: string }) =>
+        mutator({ method: 'POST', data: values, url: endpoints.waitlist }),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      },
+    },
+  );
+
+  return useMemo(
+    () => ({
+      waitlist: mutateAsync,
       data,
       isPending,
       error,

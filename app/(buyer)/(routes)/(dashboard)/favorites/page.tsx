@@ -5,28 +5,31 @@ import React, { useEffect, useState } from 'react';
 import { ProductCard } from '@/app/(buyer)/_components/ProductCard/ProductCard';
 import { Vehicle } from '@/types/types';
 import { useGetFavoriteVehicle } from '@/app/(buyer)/api/user';
+import { getLocalItem } from '@/lib/localStorage';
 
 const Saved = () => {
   const [isClient, setIsClient] = useState(false);
   const [likedVehicle, setLikedVehicle] = useState<Set<string>>(new Set());
+  const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
+  const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>(localLikedVehicles);
   const { data, isLoading, isError } = useGetFavoriteVehicle();
 
   useEffect(() => {
     setIsClient(true);
-    if (data) {
-      console.log(data, 'favorite vehicles');
-    }
   }, [data]);
 
   useEffect(() => {
     if (data) {
       const likedCars = new Set(data?.likedVehicles.map(({ _id }) => _id));
       setLikedVehicle(likedCars);
+    } else {
+      // const likedCars = new Set(localLikedVehicles?.map((id: string) => id));
+      setLocalLikedVehicle(localLikedVehicles || []);
     }
   }, [data]);
 
   if (!isClient) {
-    return null; // or a loading spinner
+    return null;
   }
 
   if (isLoading) {
@@ -52,23 +55,7 @@ const Saved = () => {
               key={vehicle._id}
               vehicle={vehicle}
               likedVehicle={likedVehicle}
-              // key={vehicle._id}
-              // make={vehicle.make}
-              // images={vehicle.images}
-              // vehicleModel={vehicle.vehicleModel}
-              // mileage={vehicle.mileage}
-              // vehicleType={vehicle.vehicleType}
-              // price={vehicle.price}
-              // engine={vehicle.engine}
-              // transmission={vehicle.transmission}
-              // vin={vehicle.vin}
-              // fuelConsumption={vehicle.fuelConsumption}
-              // exteriorColor={vehicle.exteriorColor}
-              // interiorColor={vehicle.interiorColor}
-              // fuelType={vehicle.fuelType}
-              // vehicleYear={vehicle.vehicleYear}
-              // condition={vehicle.condition}
-              // _id={vehicle._id}
+              localLikedVehicle={localLikedVehicle}
             />
           );
         })}
