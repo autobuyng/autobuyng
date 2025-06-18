@@ -195,7 +195,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                         height={150}
                         className="mx-auto"
                       />
-                      <h1>COMMING SOON</h1>
+                      <h1>COMING SOON</h1>
                     </div>
                   </div>
 
@@ -292,9 +292,9 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     Proceed with your purchase
                   </h1>
                   <div className="w-full space-y-2  px-3 py-2 ">
-                    <div className="flex  gap-2 text-sm">
-                      <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} />
-                      <p className="text-[10px] leading-3">
+                    <div className="flex items-start  gap-2 text-sm">
+                      <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} className='flex items-start' />
+                      <p className="text-xs">
                         I acknowledge that have read through the details on the appraisal report and
                         I am satisfied to proceed with payment
                       </p>

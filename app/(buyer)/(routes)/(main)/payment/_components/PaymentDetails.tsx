@@ -12,7 +12,7 @@ const PaymentDetails = () => {
         <ShipmentDetails />
       </div>
 
-      <div className="mt-4 bg-white rounded-sm px-4 py-4 mb-14">
+      {/* <div className="mt-4 bg-white rounded-sm px-4 py-4 mb-14">
         <h1 className="uppercase font-[600]">Payment</h1>
 
         <div className="mt-4">
@@ -28,7 +28,7 @@ const PaymentDetails = () => {
             <option value="flutterwave">Flutterwave</option>
           </select>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };

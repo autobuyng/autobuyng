@@ -5,12 +5,24 @@ import { removeSessionItem } from '@/lib/Sessionstorage';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
 interface CountdownTimerProps {
   hours: number;
 }
 
 export default function CountdownTimer({ hours }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter();
 
   useEffect(() => {
@@ -78,7 +90,7 @@ export default function CountdownTimer({ hours }: CountdownTimerProps) {
             Cancel
           </button>
           <button
-            onClick={() => router.push('/orders')}
+            onClick={() => setIsOpen(true)}
             className="px-6 py-2 rounded-lg bg-primary-900 text-white "
           >
             {' '}
@@ -86,6 +98,22 @@ export default function CountdownTimer({ hours }: CountdownTimerProps) {
           </button>
         </div>
       </div>
+
+      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+        <AlertDialogContent className='max-w-md'>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your account
+              and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
