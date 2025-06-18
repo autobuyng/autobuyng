@@ -26,10 +26,7 @@ const Payment = () => {
             </div>
 
             <p className="mb-8">
-              <Link
-                href="/results/keyword="
-                className="flex items-center  gap-2 text-primary-700"
-              >
+              <Link href="/results/keyword=" className="flex items-center  gap-2 text-primary-700">
                 <ArrowLeft /> <span>Go back and continue shopping</span>
               </Link>
             </p>

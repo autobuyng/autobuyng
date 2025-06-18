@@ -85,7 +85,7 @@ const BusinessInfo = () => {
       <div className="  w-full grid place-items-center ">
         <form onSubmit={handleSubmit(handleRegister)} className="w-full space-y-4 mt-4">
           <div className="w-full space-y-4">
-            <div className="w-full">
+            {/* <div className="w-full">
               <label htmlFor="ninorcac" className="block text-xs font-medium text-gray-700">
                 National Identification Number (NIN)
               </label>
@@ -99,10 +99,10 @@ const BusinessInfo = () => {
                 />
                 {errors.nin && <p className="text-red-500">{errors.nin.message}</p>}
               </div>
-            </div>
+            </div> */}
 
             <section className="flex items-center gap-4 w-full">
-              <div className="w-full  ">
+              <div className="w-full">
                 <label htmlFor="firstname" className="block  text-xs font-medium text-gray-700">
                   Firstname
                 </label>

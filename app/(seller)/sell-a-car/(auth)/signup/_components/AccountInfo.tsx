@@ -79,7 +79,7 @@ const AccountInfo = () => {
         <form onSubmit={handleSubmit(handleRegister)} className="w-full space-y-4 mt-4">
           <div className="w-full space-y-4">
             <section className="flex flex-col items-center gap-4 w-full">
-              <div className="w-full">
+              {/* <div className="w-full">
                 <label htmlFor="cacNumber" className="block text-xs font-medium text-gray-700">
                   CAC Number
                 </label>
@@ -92,7 +92,7 @@ const AccountInfo = () => {
                   className="mt-1 w-full rounded-sm outline-none px-2 py-2  border border-neutral-900  sm:text-sm"
                 />
                 {errors.cac && <p className="text-red-500 text-sm pt-1">{errors.cac.message}</p>}
-              </div>
+              </div> */}
 
               <div className="w-full  ">
                 <label htmlFor="firstname" className="block  text-xs font-medium text-gray-700">

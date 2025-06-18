@@ -293,7 +293,11 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                   </h1>
                   <div className="w-full space-y-2  px-3 py-2 ">
                     <div className="flex items-start  gap-2 text-sm">
-                      <input type="checkbox" onChange={(e) => setAcceptTerms(e.target.checked)} className='flex items-start' />
+                      <input
+                        type="checkbox"
+                        onChange={(e) => setAcceptTerms(e.target.checked)}
+                        className="flex items-start"
+                      />
                       <p className="text-xs">
                         I acknowledge that have read through the details on the appraisal report and
                         I am satisfied to proceed with payment
