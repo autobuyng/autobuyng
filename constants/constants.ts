@@ -270,7 +270,7 @@ export const VEHICLE_TYPE = [
   { id: '3', name: 'Coupes', Img: Coupes },
   { id: '4', name: 'Micos', Img: Micros },
   { id: '5', name: 'Minivans', Img: Minivans },
-  { id: '6', name: 'Suvs', Img: Suv },
+  { id: '6', name: 'SUV', Img: Suv },
   { id: '7', name: 'Hatchback', Img: Hatchback },
   { id: '8', name: 'Pickups', Img: Pickups },
 ];
