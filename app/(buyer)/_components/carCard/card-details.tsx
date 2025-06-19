@@ -10,7 +10,6 @@ interface PurchaseDetailsProps {
 }
 
 export default function PurchaseDetailsDialog({ isOpen, onOpenChange, car }: PurchaseDetailsProps) {
-  console.log(isOpen, 'open');
   const purchase = {
     carName: 'Mercedes Benz CLA300',
     orderNumber: '#292360137091',
