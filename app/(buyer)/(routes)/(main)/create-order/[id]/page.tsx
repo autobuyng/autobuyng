@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Copy } from 'lucide-react';
 import { useGetVehicle } from '@/app/(buyer)/api/search';
-import { usePathname, useRouter } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 import { VehicleData } from '@/types/types';
 import { useCreateOrder } from '@/app/(buyer)/api/payment';
 // import { endpoints } from '@/axios';
@@ -27,7 +27,7 @@ export default function CreateOrder() {
   const router = useRouter();
   const { toast } = useToast();
   const { getVehicle } = useGetVehicle();
-  const { createOrder, isPending } = useCreateOrder();
+  const { createOrder, isError, isPending } = useCreateOrder();
   const paymentDetails = getSessionItem('paymetDetails');
 
   const handleGetVehicle = async () => {
@@ -60,6 +60,7 @@ export default function CreateOrder() {
         title: 'Failed',
         description: error.message,
       });
+      redirect("/results/keyword=")
     }
   };
 
@@ -358,8 +359,7 @@ export default function CreateOrder() {
             </div>
           </div>
         </div>
-        {/* {!isPending && !isError && <CountdownTimer hours={orderDetails.duration ?? 24} />} */}
-        <CountdownTimer hours={orderDetails.duration ?? 24} />
+        {!isPending && !isError && <CountdownTimer hours={orderDetails.duration ?? 24} />}
       </div>
     );
   };

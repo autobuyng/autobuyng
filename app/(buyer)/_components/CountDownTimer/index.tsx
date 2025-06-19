@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -15,6 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import Link from 'next/link';
 
 interface CountdownTimerProps {
   hours: number;
@@ -102,15 +102,16 @@ export default function CountdownTimer({ hours }: CountdownTimerProps) {
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogContent className="max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle className='font-bold text-2xl'>Thank You for Testing AutoBuy!</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your account and remove
-              your data from our servers.
+              <p>This was a <strong>simulated purchase</strong> — no payment was charged.</p>
+              <p className=''>We&apos;d really appreciate it if you could share your experience, takes less than 10mins of your time.Thank you. <Link className='text-blue-500' href="https://tally.so/r/n9gxp4" target="_blank" >
+                Share Feedback </Link></p>
+
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
