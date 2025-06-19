@@ -17,7 +17,6 @@ const SearchInput = ({ search, setSearch }: SearchInputProps) => {
   const lastSegment = segments[segments.length - 1];
   const [, value] = lastSegment.split('=');
   console.log(search);
-
   return (
     <div className="flex w-full items-center border border-gray-300  rounded-md ">
       <div className="w-full">

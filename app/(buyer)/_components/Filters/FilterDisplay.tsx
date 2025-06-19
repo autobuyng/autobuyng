@@ -87,8 +87,6 @@ const FilterDisplay = ({
     }));
   };
 
-  console.log(filterQuery, 'filterQuery');
-
   return (
     <main className="flex items-start justify-between md:gap-8 lg:gap-6">
       <div className="flex items-start gap-8">

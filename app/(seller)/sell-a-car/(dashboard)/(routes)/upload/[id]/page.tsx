@@ -13,7 +13,6 @@ const SingleVehiclePage = () => {
   const { vehicle, refetch, isLoading } = useGetVehicle(
     pathname.split('/')[pathname.split('/').length - 1],
   );
-  console.log(vehicle, 'vehicle');
 
   refetch();
 

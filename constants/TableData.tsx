@@ -118,7 +118,6 @@ export const dashboardcolumns: ColumnDef<Payment>[] = [
     header: () => <div className="whitespace-nowrap text-center">IMAGE </div>,
     cell: ({ row }) => {
       const imageUrl = row.getValue('image');
-      console.log(row.getValue('image'));
       return (
         <div className="text-center font-medium">
           <Image src={imageUrl as string} width={70} height={70} alt="image" className="mx-auto" />
