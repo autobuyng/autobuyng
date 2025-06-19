@@ -145,7 +145,6 @@ const EditBankInfo = ({
 
     try {
       await setActiveBank({ id });
-
     } catch (error) {
       console.error(error);
       bankTosetActive.isActive = false;

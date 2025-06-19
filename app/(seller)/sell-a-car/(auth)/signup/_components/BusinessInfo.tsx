@@ -50,7 +50,7 @@ const BusinessInfo = () => {
         title: 'Success',
         description: response.data.message,
       });
-      reset()
+      reset();
     } catch (error: any) {
       toast({
         variant: 'destructive',

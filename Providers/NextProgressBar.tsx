@@ -8,7 +8,12 @@ const NextProgressBar = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
-      <ProgressBar height="4px" color={isSeller ? "bg-secondary-900" : "#66a3f"} options={{ showSpinner: false }} shallowRouting />
+      <ProgressBar
+        height="4px"
+        color={isSeller ? 'bg-secondary-900' : '#66a3f'}
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
     </>
   );
 };

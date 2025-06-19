@@ -95,7 +95,12 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
   return (
     <div className="rounded-[12px] shadow-md">
       <div className="relative max-w-full md:max-w-full w-full h-[230px]">
-        <Image src={images?.[0]} alt={make} fill className=" rounded-tl-[12px] rounded-tr-[12px] object-cover" />
+        <Image
+          src={images?.[0]}
+          alt={make}
+          fill
+          className=" rounded-tl-[12px] rounded-tr-[12px] object-cover"
+        />
 
         <button
           onClick={() => handleLikeVehhicle(_id)}
