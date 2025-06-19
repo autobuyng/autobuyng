@@ -16,7 +16,7 @@ export const RegistrationSchema = z.object({
 
 export const SellerRegistrationSchema = z.object({
   firstName: z.string().min(1, { message: 'First name is required' }),
-  nin: z.string().min(3, { message: 'ninorcac is required' }),
+  // nin: z.string().min(3, { message: 'ninorcac is required' }),
   lastName: z.string().min(1, { message: 'Last name is required' }),
   email: z.string().email({ message: 'Invalid email address' }),
   phoneNumber: z.string().regex(/^\d{11}$/, { message: 'Phone number must be 11 digits' }),
@@ -32,7 +32,7 @@ export const SellerRegistrationSchema = z.object({
 export const SellerRegistrationSchemaDealer = z.object({
   companyName: z.string().min(1, { message: 'company name is required' }),
   firstName: z.string().min(1, { message: 'First name is required' }),
-  cac: z.string().min(3, { message: 'ninorcac is required' }),
+  // cac: z.string().min(3, { message: 'ninorcac is required' }),
   lastName: z.string().min(1, { message: 'Last name is required' }),
   email: z.string().email({ message: 'Invalid email address' }),
   phoneNumber: z.string().regex(/^\d{11}$/, { message: 'Phone number must be 11 digits' }),

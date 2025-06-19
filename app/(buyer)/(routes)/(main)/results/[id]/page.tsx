@@ -38,7 +38,6 @@ const Results = () => {
   // const keyword = searchParams.get('keyword');
 
   const handleSearch = async (data: SearchQuery) => {
-    console.log(data, 'params data');
     try {
       const response = await search(data);
       setSearchResult(response.data);

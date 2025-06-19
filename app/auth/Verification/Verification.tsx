@@ -6,17 +6,15 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const Verification = ({ signupData }: { signupData: IRegistrationPayload | null }) => {
-  const [resendResponse, setResendResponse] = useState();
+  const [, setResendResponse] = useState();
   const { handleSubmit } = useForm<{ email: string }>();
 
-  console.log(resendResponse);
 
   const { resendEmail, isPending } = useResendEmail();
   const handleResedEmail = async () => {
     try {
       const response = await resendEmail({ email: signupData?.email as string });
       setResendResponse(response);
-      console.log(response);
     } catch (error) {
       console.log(error, 'error');
     }

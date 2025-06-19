@@ -1,10 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-
-// import Uploads from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardupload.svg';
-// import Sales from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardsales.svg';
-// import Pending from '@/app/(seller)/sell-a-car/(dashboard)/assets/totalpendings.svg';
-// import Amount from '@/app/(seller)/sell-a-car/(dashboard)/assets/dashboardtraded.svg';
 import StartCard from '../../_components/StartCard';
 import LineChart from '@/app/(seller)/_components/Charts/LineChart';
 import BarChart from '@/app/(seller)/_components/Charts/BarChart';
@@ -12,20 +7,10 @@ import DonoughtChart from '@/app/(seller)/_components/Charts/DonoughtChart';
 import { DataTable } from '../../_components/DataTable';
 import { useGetDashboardAnalytics } from '@/app/(seller)/api/dashboard';
 import StatsSkeletonLoader from '@/components/Loader/analyticesloader';
-// import { dashboardcolumns, payments } from '@/constants/TableData';
 
 const Dashboard = () => {
   const [selectedChart, setSelectedChart] = useState('bar');
   const { data, isLoading } = useGetDashboardAnalytics();
-  console.log(data, 'data');
-
-  // const STATS = [
-  //   { id: '1', value: '500', text: 'Total Upload', percent: '0%', icon: Uploads },
-  //   { id: '2', value: '500', text: 'Total Sale', percent: '0%', icon: Sales },
-  //   { id: '3', value: '500', text: 'Total Approved', percent: '0%', icon: Pending },
-  //   { id: '4', value: '500', text: 'Total Amount Traded', percent: '0%', icon: Amount },
-  // ];
-
   const chartToRender = (key: string) => {
     switch (key) {
       case 'line':

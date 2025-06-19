@@ -29,7 +29,6 @@ const BrandNew = ({
 }: BrandNewVehicleProps) => {
   // const [purchaseReceipts, setPurchaseReceipts] = useState<File[]>([]);
   // const [otherDocuments, setOtherDocuments] = useState<File[]>([]);
-  console.log(purchaseReceipts, 'purchasereceipt');
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     fileType: 'purchaseReceipts' | 'otherSupportingDocuments',

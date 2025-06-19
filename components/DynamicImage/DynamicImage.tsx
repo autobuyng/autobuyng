@@ -15,7 +15,6 @@ const DynamicImage = ({
 }) => {
   const { isMobile } = useIsMobile();
 
-  console.log(isMobile ? 'mobile' : 'desktop');
   return <Image src={isMobile ? mobileImg : desktopImg} alt="image" className={className} />;
 };
 

@@ -21,6 +21,7 @@ const BusinessInfo = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ISellerRegistrationPayload>({
     resolver: zodResolver(SellerRegistrationSchema),
@@ -49,8 +50,10 @@ const BusinessInfo = () => {
         title: 'Success',
         description: response.data.message,
       });
+      reset()
     } catch (error: any) {
       toast({
+        variant: 'destructive',
         title: 'Failed',
         description: error.message,
       });

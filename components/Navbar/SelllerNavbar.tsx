@@ -38,7 +38,6 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
         setSellerProfile(response.data.profile);
         setSellerAddress(response.data.addresses);
       }
-      console.log(response.data.user);
     } catch (error) {
       console.log(error);
     } finally {
