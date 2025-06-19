@@ -60,7 +60,7 @@ export default function CreateOrder() {
         title: 'Failed',
         description: error.message,
       });
-      redirect("/results/keyword=")
+      redirect('/results/keyword=');
     }
   };
 
