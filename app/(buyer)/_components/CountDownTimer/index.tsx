@@ -102,12 +102,20 @@ export default function CountdownTimer({ hours }: CountdownTimerProps) {
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogContent className="max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle className='font-bold text-2xl'>Thank You for Testing AutoBuy!</AlertDialogTitle>
+            <AlertDialogTitle className="font-bold text-2xl">
+              Thank You for Testing AutoBuy!
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              <p>This was a <strong>simulated purchase</strong> — no payment was charged.</p>
-              <p className=''>We&apos;d really appreciate it if you could share your experience, takes less than 10mins of your time.Thank you. <Link className='text-blue-500' href="https://tally.so/r/n9gxp4" target="_blank" >
-                Share Feedback </Link></p>
-
+              <p>
+                This was a <strong>simulated purchase</strong> — no payment was charged.
+              </p>
+              <p className="">
+                We&apos;d really appreciate it if you could share your experience, takes less than
+                10mins of your time.Thank you.{' '}
+                <Link className="text-blue-500" href="https://tally.so/r/n9gxp4" target="_blank">
+                  Share Feedback{' '}
+                </Link>
+              </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
