@@ -11,19 +11,19 @@ import FilterDisplay from '@/app/(buyer)/_components/Filters/FilterDisplay';
 
 import Filters from '@/app/(buyer)/_components/Filters';
 import Result from '@/app/(buyer)/_components/Result/Result';
-// import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import { useSearchVehicle } from '@/app/(buyer)/api/search';
 import { usePathname } from 'next/navigation';
-// import { getSessionItem } from '@/lib/Sessionstorage';
 import { setLocalItem } from '@/lib/localStorage';
 import { useStore } from '@/store/useStore';
 import useIsMobile from '@/hooks/useIsMobile';
 import { useDebounce } from 'use-debounce';
+import Pagination from '@/app/(buyer)/_components/pagination';
 
 const Results = () => {
   const pathname = usePathname();
   const { filters, homePageSearchResult } = useStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [page, setPage] = useState(1)
 
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [debouncedSearch] = useDebounce(searchQuery, 1000);
@@ -48,6 +48,8 @@ const Results = () => {
 
   useEffect(() => {
     const searchParams: Partial<SearchQuery> = {
+      page,
+      limit: 12,
       ...(debouncedSearch && { keyword: debouncedSearch }),
       ...(filters.mileage ? { mileage: filters.mileage } : {}),
       ...(filters.vehicle_condition ? { condition: filters.vehicle_condition } : {}),
@@ -74,7 +76,7 @@ const Results = () => {
 
     setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, debouncedSearch]);
+  }, [filters, debouncedSearch, page]);
 
   return (
     <main className="mb-24">
@@ -164,6 +166,7 @@ const Results = () => {
               />
             </div>
           </div>
+          <Pagination lastPage={searchResult?.lastPage as number} page={page} setPage={setPage} />
         </section>
       </MaxWidthWrapper>
     </main>

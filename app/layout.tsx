@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: 'Autobuy',
-      url: 'https://autobuyng.netlify.app/',
+      name: 'Autobuy Africa',
+      url: 'https://autobuyng.com/',
     },
   ],
   alternates: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       'en-US': '/en-US',
     },
   },
-  creator: 'Autobuy',
+  creator: 'Autobuy Africa',
   openGraph: {
     type: 'website',
     locale: 'en_US',
