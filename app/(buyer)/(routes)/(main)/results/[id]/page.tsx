@@ -23,7 +23,7 @@ const Results = () => {
   const pathname = usePathname();
   const { filters, homePageSearchResult } = useStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
 
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [debouncedSearch] = useDebounce(searchQuery, 1000);
