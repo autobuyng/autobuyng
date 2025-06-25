@@ -66,13 +66,13 @@ const Filters = () => {
             setSelectedInput={(input) => {
               // router.push(pathname + '?' + createQueryString('mileage', input as string));
               if (input) {
-                const rangeArray = (input as string).split("-").map(Number)
-                console.log(rangeArray, "raneg")
+                const rangeArray = (input as string).split('-').map(Number);
+                console.log(rangeArray, 'raneg');
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
                     mileageMax: rangeArray[1],
-                    mileageMin: rangeArray[0] 
+                    mileageMin: rangeArray[0],
                   }),
                 );
               }
