@@ -73,4 +73,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-//box-shadow: 1px 1px 16px 4px #1F1F1F1A;

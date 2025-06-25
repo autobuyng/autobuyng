@@ -53,6 +53,8 @@ export type FilterProps = {
   entertainment?: string;
   exterior?: string;
   sortParameter?: string;
+  mileageMin?: string | number;
+  mileageMax?: string | number;
   sortOrder?: 'asc' | 'desc';
   sort?: string;
   page?: number; // Corresponds to page in the query
@@ -161,6 +163,8 @@ export type SearchQuery = {
   sortOrder?: 'asc' | 'desc';
   page?: number;
   limit?: number;
+  mileageMax?: number | string;
+  mileageMin?: number | string;
 };
 
 interface VehicleReliabilityScore {

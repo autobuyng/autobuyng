@@ -66,10 +66,13 @@ const Filters = () => {
             setSelectedInput={(input) => {
               // router.push(pathname + '?' + createQueryString('mileage', input as string));
               if (input) {
+                const rangeArray = (input as string).split("-").map(Number)
+                console.log(rangeArray, "raneg")
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
-                    mileage: input as string,
+                    mileageMax: rangeArray[1],
+                    mileageMin: rangeArray[0] 
                   }),
                 );
               }
@@ -135,8 +138,19 @@ const Filters = () => {
 
           <input
             type="text"
-            value={filters.price.max_price}
-            onChange={() => {}}
+            value={100000000}
+            onChange={(e) => {
+              const newPrice = e.target.value;
+              // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
+              setFilters(
+                (prev: FilterProps): FilterProps => ({
+                  ...prev,
+                  price: {
+                    max_price: Number(newPrice),
+                  },
+                }),
+              );
+            }}
             id="UserEmail"
             placeholder="NGN 10,000,000"
             className="mt-1 w-full rounded-sm px-3 border border-neutral-700 outline-none text-base py-3 shadow-sm sm:text-sm"
@@ -156,9 +170,9 @@ const Filters = () => {
                   }),
                 );
               }}
-              defaultValue={[70000000]}
+              defaultValue={[100000000]}
               max={100000000}
-              min={5000000}
+              min={0}
               step={1000000}
             />
           </div>
