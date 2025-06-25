@@ -561,7 +561,7 @@ export const MILEAGE = [
   { id: '3', name: '60000 - 90000 ' },
   { id: '4', name: '90000 - 120000 ' },
   { id: '5', name: '12000 - 150000' },
-  { id: '6', name: 'Above 150000' },
+  { id: '6', name: '1500000 - above' },
   // { id: '7', name: '70000 ' },
   // { id: '8', name: '2016' },
   // { id: '9', name: '2017' },
@@ -576,7 +576,7 @@ export const MILEAGE = [
 
 export const BODY_STYLE = [
   { id: '2', name: 'Convertible' },
-  { id: '3', name: 'Coupe ' },
+  { id: '3', name: 'Coupe' },
   { id: '4', name: 'Hatchback' },
   { id: '5', name: 'Minivan' },
   { id: '6', name: 'Pickup' },

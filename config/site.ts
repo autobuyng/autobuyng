@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: 'Autobuy',
-  title: 'Autobuy',
+  name: 'Autobuy Africa',
+  title: 'Autobuy Africa',
   url: 'https://autobuyng.netlify.app/',
   ogImage: 'https://ik.imagekit.io/0xy9wqmrh/Autobuy/autobuy.png',
   description:
