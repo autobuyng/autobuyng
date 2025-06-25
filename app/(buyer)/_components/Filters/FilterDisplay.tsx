@@ -84,8 +84,8 @@ const FilterDisplay = ({
       body_type: '',
       cylinders: '',
       engine: '',
-      mileageMax: "",
-      mileageMin: ""
+      mileageMax: '',
+      mileageMin: '',
     }));
   };
 
