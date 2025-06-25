@@ -11,6 +11,7 @@ import Save from '@/components/Navbar/assets/save.svg';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
 import { clearLocalStorage } from '@/lib/localStorage';
+import Link from 'next/link';
 
 type MenucontentProps = {
   setShowPopover: React.Dispatch<React.SetStateAction<boolean>>;
@@ -47,6 +48,24 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
     { id: '1', text: 'orders', path: 'orders', Icon: Orders },
     { id: '2', text: 'favorites', path: 'favorites', Icon: Save },
     // { id: '3', text: 'My Account', path: 'accounts', Icon: Profile },
+  ];
+
+  const NAV_ITEMS = [
+    {
+      id: '1',
+      text: 'Buy a vehicle',
+      path: '/',
+    },
+    {
+      id: '2',
+      text: 'Sell a Vehicle',
+      path: '/sell-a-car',
+    },
+    {
+      id: '3',
+      text: 'About Us',
+      path: '/about-us',
+    },
   ];
 
   const handleLogOut = () => {
@@ -105,6 +124,24 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
 
         {!user && (
           <div className="flex flex-col gap-8">
+            <div className="md:hidden flex flex-col items-center gap-8">
+              {NAV_ITEMS.map(({ id, text, path }) => {
+                const isSellPath = path === '/sell-a-car';
+
+                return (
+                  <span key={id}>
+                    <Link
+                      className="text-[14px]"
+                      target={isSellPath ? '_blank' : '_self'}
+                      href={path}
+                    >
+                      {text}
+                    </Link>
+                  </span>
+                );
+              })}
+            </div>
+
             <button
               onClick={() => {
                 setType('signin');
