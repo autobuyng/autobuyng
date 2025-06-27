@@ -7,13 +7,14 @@ import { useRouter } from 'next-nprogress-bar';
 import { Menu } from 'lucide-react';
 
 import Autobuy from '@/app/assets/Autobuy.svg';
-
+import MobileLogo from '../../public/icons/buyer.svg';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import useClickOutside from '@/hooks/useClickOutside';
-import Menucontent from '@/app/(seller)/_components/MenuContent/MenuContent';
+import MenucontentG from '../Menucontent/Menucontent';
+// import Menucontent from '@/app/(seller)/_components/MenuContent/MenuContent';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
 import { useGetUser } from '@/app/(seller)/api/user';
@@ -21,6 +22,7 @@ import { useGetUser } from '@/app/(seller)/api/user';
 const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
   const { isMobile } = useIsMobile();
   const [, setIsOpen] = useState(false);
+  const [showPopover, setShowPopover] = useState(false);
   const router = useRouter();
   const divRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -85,12 +87,12 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
         <nav className="flex items-center mt-4  justify-between w-full ">
           <div className="flex items-center gap-8">
             <Image
-              src={Autobuy}
+              src={isMobile ? MobileLogo : Autobuy}
               alt="Autobuy"
               width={168}
               height={56}
               priority
-              className="cursor-pointer"
+              className="cursor-pointer w-full h-full"
               onClick={() => router.push('/sell-a-car')}
             />
           </div>
@@ -123,7 +125,9 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
                             </p>
                           </SheetTrigger>
                           <SheetContent>
-                            <Menucontent />
+                            {/* {isLogin ? <Menucontent /> :  */}
+                            <MenucontentG setShowPopover={setShowPopover} />
+                            {/* } */}
                           </SheetContent>
                         </Sheet>
                       )}
@@ -139,24 +143,47 @@ const Navbar = ({ isFullWidth }: { isFullWidth?: boolean }) => {
                             onMouseLeave={() => setIsOpen(false)}
                             className="max-w-[250px] mr-4 "
                           >
-                            <Menucontent />
+                            {/* {isLogin ? <Menucontent /> :  */}
+                            <MenucontentG setShowPopover={setShowPopover} />
+                            {/* } */}
                           </PopoverContent>
                         </Popover>
                       )}
                     </div>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-8">
-                    <Link href="/sell-a-car/login" className=" text-[14px]">
-                      Login
-                    </Link>
-                    <Link
-                      href="/sell-a-car/signup"
-                      className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
-                    >
-                      Create Account
-                    </Link>
-                  </div>
+                  <>
+                    {isMobile && (
+                      <Sheet open={showPopover} onOpenChange={setShowPopover}>
+                        <SheetTrigger>
+                          <p className="flex items-center gap-1.5 rounded-[80px] border border-primary-700 px-1 py-1 ">
+                            <Menu
+                              onClick={() => setShowPopover(true)}
+                              className="text-primary-900"
+                            />
+                          </p>
+                        </SheetTrigger>
+                        <SheetContent>
+                          {/* {isLogin ? <Menucontent /> :  */}
+                          <MenucontentG setShowPopover={setShowPopover} />
+                          {/* } */}
+                        </SheetContent>
+                      </Sheet>
+                    )}
+                    {!isMobile && (
+                      <div className="flex items-center gap-8">
+                        <Link href="/sell-a-car/login" className=" text-[14px]">
+                          Login
+                        </Link>
+                        <Link
+                          href="/sell-a-car/signup"
+                          className="w-[140px] h-[42px] text-white flex items-center justify-center bg-secondary-500 rounded-[8px] text-[14px]"
+                        >
+                          Create Account
+                        </Link>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ) : (
