@@ -134,6 +134,10 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
                       className="text-[14px]"
                       target={isSellPath ? '_blank' : '_self'}
                       href={path}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setShowPopover(false);
+                      }}
                     >
                       {text}
                     </Link>
@@ -146,7 +150,7 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
               onClick={() => {
                 setType('signin');
                 setIsOpen(true);
-                // setShowPopover(false)
+                // setShowPopover(false);
               }}
               className="text-primary-700 text-[14px]"
             >
