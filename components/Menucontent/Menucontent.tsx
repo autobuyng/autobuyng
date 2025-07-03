@@ -144,6 +144,7 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
                       className="text-[14px]"
                       target={isSellPath ? '_blank' : '_self'}
                       href={path}
+
                     >
                       {text}
                     </Link>
