@@ -19,7 +19,7 @@ type MenucontentProps = {
 const Menucontent = ({ setShowPopover }: MenucontentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
-  const [active, setActive] = useState("signup")
+  const [active, setActive] = useState('signup');
   const router = useRouter();
   const pathName = usePathname();
   const { user, setUser } = useStore();
@@ -59,19 +59,19 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
   const NAV_ITEMS = [
     {
       id: '1',
-      label: "buy",
+      label: 'buy',
       text: 'Buy a vehicle',
       path: '/',
     },
     {
       id: '2',
-      label: "sell",
+      label: 'sell',
       text: 'Sell a Vehicle',
       path: '/sell-a-car',
     },
     {
       id: '3',
-      label: "about",
+      label: 'about',
       text: 'About Us',
       path: '/about-us',
     },
@@ -140,11 +140,13 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
                 return (
                   <span key={id}>
                     <Link
-                      onClick={() => { setShowPopover(false); setActive(`${text}`) }}
+                      onClick={() => {
+                        setShowPopover(false);
+                        setActive(`${text}`);
+                      }}
                       className="text-[14px]"
                       target={isSellPath ? '_blank' : '_self'}
                       href={path}
-
                     >
                       {text}
                     </Link>
@@ -153,40 +155,43 @@ const Menucontent = ({ setShowPopover }: MenucontentProps) => {
               })}
             </div>
 
-            {!user && <>
+            {!user && (
+              <>
+                <button
+                  onClick={() => {
+                    setType('signin');
+                    setIsOpen(true);
+                    setActive('signin');
+                    // setShowPopover(false)
+                  }}
+                  className={`text-black h-[42px] text-[14px] ${active === 'signin' && 'text-white bg-primary-900  rounded-[8px]'}`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => {
+                    setType('signup');
+                    setIsOpen(true);
+                    setActive('signup');
+                    // setShowPopover(false)
+                  }}
+                  className={` h-[42px] text-black  rounded-[8px] text-[14px] ${active === 'signup' && 'text-white bg-primary-900'}`}
+                >
+                  Create Account
+                </button>
+              </>
+            )}
+            {user && (
               <button
                 onClick={() => {
-                  setType('signin');
-                  setIsOpen(true);
-                  setActive("signin")
-                  // setShowPopover(false)
+                  setActive('logout');
+                  setShowPopover(false);
                 }}
-                className={`text-black h-[42px] text-[14px] ${active === "signin" && "text-white bg-primary-900  rounded-[8px]"}`}
+                className={` h-[42px] text-black  rounded-[8px] text-[14px] ${active === 'logout' && 'text-white bg-primary-900'}`}
               >
-                Login
+                Log out
               </button>
-              <button
-                onClick={() => {
-                  setType('signup');
-                  setIsOpen(true);
-                  setActive("signup")
-                  // setShowPopover(false)
-                }}
-                className={` h-[42px] text-black  rounded-[8px] text-[14px] ${active === "signup" && "text-white bg-primary-900"}`}
-              >
-                Create Account
-              </button>
-            </>
-            }
-            {user && <button
-              onClick={() => {
-                setActive("logout")
-                setShowPopover(false)
-              }}
-              className={` h-[42px] text-black  rounded-[8px] text-[14px] ${active === "logout" && "text-white bg-primary-900"}`}
-            >
-              Log out
-            </button>}
+            )}
           </div>
         )}
       </div>
