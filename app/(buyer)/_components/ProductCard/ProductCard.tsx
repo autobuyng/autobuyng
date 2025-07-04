@@ -21,7 +21,7 @@ type ProductCardProps = {
 };
 export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
   const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>([]);
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   useEffect(() => {
     const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
@@ -99,14 +99,14 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
       toast({
         title: 'You can only compare 4 Maximum vehicles at a time',
         variant: 'destructive',
-      })
-      return
+      });
+      return;
     }
     const isExisting = compareVehicles.find((vehicle) => vehicle._id === _id);
-    isExisting ? setCompareVehicles((prev: Vehicle[]) => [...prev.filter(vehicle => vehicle._id !== _id)])
-      :
-      setCompareVehicles(prev => [...prev, vehicle]);
-  }
+    isExisting
+      ? setCompareVehicles((prev: Vehicle[]) => [...prev.filter((vehicle) => vehicle._id !== _id)])
+      : setCompareVehicles((prev) => [...prev, vehicle]);
+  };
 
   return (
     <div className="rounded-[12px] shadow-md">
@@ -143,7 +143,9 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
           <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
-            <span className="capitalize text-primary-900 font-[500] leading-6 text-sm">{condition}</span>
+            <span className="capitalize text-primary-900 font-[500] leading-6 text-sm">
+              {condition}
+            </span>
           </p>
           <p className="flex text-center items-center justify-start gap-2">
             <span className="capitalize text-primary-900 text-sm  pl-2  font-[500] leading-6">
@@ -163,8 +165,13 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
           </button>
         </div>
       </div>
-      <div className='border-t border-neutral-300 px-2 py-2'>
-        <input type="checkbox" className="w-4 h-4 accent-primary-700" checked={compareVehicles.find((vehicle) => vehicle._id === _id) ? true : false} onChange={() => handleSelecetedVehicle(_id)} />
+      <div className="border-t border-neutral-300 px-2 py-2">
+        <input
+          type="checkbox"
+          className="w-4 h-4 accent-primary-700"
+          checked={compareVehicles.find((vehicle) => vehicle._id === _id) ? true : false}
+          onChange={() => handleSelecetedVehicle(_id)}
+        />
       </div>
 
       <AuthDialog

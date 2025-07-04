@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
-
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
@@ -25,7 +24,7 @@ import { useRouter } from 'next-nprogress-bar';
 
 const Results = () => {
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
   const { filters, homePageSearchResult, compareVehicles, setCompareVehicles } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(1);
@@ -36,7 +35,6 @@ const Results = () => {
   const { isTablet } = useIsMobile();
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
   const { search, isPending, isError, error } = useSearchVehicle();
-
 
   const handleSearch = async (data: SearchQuery) => {
     try {
@@ -50,9 +48,9 @@ const Results = () => {
   useEffect(() => {
     window.scrollTo({
       top: 150,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
-  }, [searchResult])
+  }, [searchResult]);
 
   useEffect(() => {
     const searchParams: Partial<SearchQuery> = {
@@ -92,7 +90,7 @@ const Results = () => {
     setCompareVehicles(compareVehicles.filter((vehicle) => vehicle._id !== id));
   };
 
-  console.log(["1", "2", "3"].join("-"));
+  console.log(['1', '2', '3'].join('-'));
 
   return (
     <main className="mb-24">
@@ -128,8 +126,7 @@ const Results = () => {
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <h1 className="font-bold   border-b-2 mb-4 border-b-neutral-100">Filters</h1>
-                  <div className="flex items-center gap-2 flex-wrap">
-                  </div>
+                  <div className="flex items-center gap-2 flex-wrap"></div>
                   <Filters />
                 </SheetContent>
               </Sheet>
@@ -148,13 +145,12 @@ const Results = () => {
           <Pagination lastPage={searchResult?.lastPage as number} page={page} setPage={setPage} />
         </section>
 
-
-        {compareVehicles.length > 0 &&
-          <div className='fixed max-[420px]:right-0 max-w[420px]:left-0 bottom-0 h-fit w-full pb-4 '>
-            <div className='w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-tl-xl rounded-tr-xl'>
-              <div className='flex-1 flex items-center  gap-4'>
+        {compareVehicles.length > 0 && (
+          <div className="fixed max-[420px]:right-0 max-w[420px]:left-0 bottom-0 h-fit w-full pb-4 ">
+            <div className="w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-tl-xl rounded-tr-xl">
+              <div className="flex-1 flex items-center  gap-4">
                 {compareVehicles.map((vehicle) => (
-                  <div key={vehicle._id} className='relative'>
+                  <div key={vehicle._id} className="relative">
                     <div className="relative w-20 h-20 sm:w-28 sm:h-28">
                       <Image
                         src={vehicle.images[0]}
@@ -163,18 +159,39 @@ const Results = () => {
                         className="rounded-lg object-cover"
                       />
                     </div>
-                    <button><X size={15} onClick={() => removeFromCompare(vehicle._id)} className='text-white bg-black rounded-full h-4 w-4 absolute -top-2 -right-2' /></button>
+                    <button>
+                      <X
+                        size={15}
+                        onClick={() => removeFromCompare(vehicle._id)}
+                        className="text-white bg-black rounded-full h-4 w-4 absolute -top-2 -right-2"
+                      />
+                    </button>
                   </div>
                 ))}
               </div>
 
-              <div className='flex items-center gap-2'>
-                <button onClick={() => setCompareVehicles([])} className='text-gray-500 text-sm flex items-center gap-2 hover:text-gray-900 border border-gray-200 py-2 px-4 rounded-md transition-colors'><X />Clear All</button>
-                <button onClick={() => router.push(`/compare?ids=${[...compareVehicles.map((vehicle) => vehicle._id)].join("-")}`)} className='bg-primary-700 text-white py-2 px-4 rounded-md'>Compare</button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCompareVehicles([])}
+                  className="text-gray-500 text-sm flex items-center gap-2 hover:text-gray-900 border border-gray-200 py-2 px-4 rounded-md transition-colors"
+                >
+                  <X />
+                  Clear All
+                </button>
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/compare?ids=${[...compareVehicles.map((vehicle) => vehicle._id)].join('-')}`,
+                    )
+                  }
+                  className="bg-primary-700 text-white py-2 px-4 rounded-md"
+                >
+                  Compare
+                </button>
               </div>
             </div>
           </div>
-        }
+        )}
       </MaxWidthWrapper>
     </main>
   );

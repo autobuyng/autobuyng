@@ -28,7 +28,7 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
 
   if (isPending) {
     return (
-      <div className='grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8'>
+      <div className="grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, index) => (
           <SkeletonCard key={index} />
         ))}
@@ -58,18 +58,18 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
 
   return (
     <main className="mb-8">
-        <div
-          className={cn(
-            'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
-          )}
-        >
-          {searchResult?.vehicles.map((result) => {
-            return (
-              <div key={result._id}>
-                <ProductCard vehicle={result} likedVehicle={likedVehicle} />
-              </div>
-            );
-          })}
+      <div
+        className={cn(
+          'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
+        )}
+      >
+        {searchResult?.vehicles.map((result) => {
+          return (
+            <div key={result._id}>
+              <ProductCard vehicle={result} likedVehicle={likedVehicle} />
+            </div>
+          );
+        })}
       </div>
     </main>
   );

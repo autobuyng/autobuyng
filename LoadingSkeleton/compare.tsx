@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 export default function CarCardSkeleton() {
   return (
@@ -37,7 +37,10 @@ export default function CarCardSkeleton() {
         <div className="space-y-3">
           {/* Overview Items */}
           {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded">
+            <div
+              key={item}
+              className="flex justify-between items-center bg-gray-100 px-3 py-2 rounded"
+            >
               <div className="h-3 bg-gray-300 rounded w-20"></div>
               <div className="h-3 bg-gray-300 rounded w-16"></div>
             </div>
@@ -45,5 +48,5 @@ export default function CarCardSkeleton() {
         </div>
       </div>
     </div>
-  )
+  );
 }

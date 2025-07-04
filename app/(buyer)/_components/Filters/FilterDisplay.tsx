@@ -107,7 +107,7 @@ const FilterDisplay = ({
             >
               <span>{value}</span>
               <button onClick={() => handleDelete(index)} className="text-xl">
-                <X className='text-primary-900' size={15} />
+                <X className="text-primary-900" size={15} />
               </button>
             </div>
           ))}

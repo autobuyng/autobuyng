@@ -1,21 +1,18 @@
-"use client"
+'use client';
 
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image';
+import Link from 'next/link';
 
 import link from '@/app/(buyer)/_components/VehicleInformation/assets/link.svg';
-import { Vehicle } from "@/types/types";
-import { formatCurrency, formatNumbertoK } from "@/lib/utils";
-
+import { Vehicle } from '@/types/types';
+import { formatCurrency, formatNumbertoK } from '@/lib/utils';
 
 interface CarCardProps {
-  vehicle: Vehicle
-  onRemove: (id: string) => void
+  vehicle: Vehicle;
+  onRemove: (id: string) => void;
 }
 
 export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
-
-
   return (
     <div className="bg-white rounded-xl shadow-sm min-w-[272px] border border-gray-200 overflow-x-auto ">
       <div className="flex justify-between items-start mb-3 px-2 pt-4">
@@ -34,7 +31,7 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
 
       <div className="mb-4 bg-gray-50 rounded-lg overflow-hidden">
         <Image
-          src={vehicle.exteriorImages?.[0] || "/placeholder.svg?height=180&width=280"}
+          src={vehicle.exteriorImages?.[0] || '/placeholder.svg?height=180&width=280'}
           alt={vehicle.make}
           width={280}
           height={180}
@@ -96,7 +93,7 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
             </div>
             <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">MPG</span>
-              <span className="text-gray-900 text-sm">{vehicle.fuelConsumption ?? "N/A"}</span>
+              <span className="text-gray-900 text-sm">{vehicle.fuelConsumption ?? 'N/A'}</span>
             </div>
             <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Engine</span>
@@ -112,7 +109,13 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
         <div>
           <h4 className="text-lg font-semibold text-gray-900 mt-4 border-b px-2">Features</h4>
           <div>
-            {[...vehicle.tech, ...vehicle.mechanical, ...vehicle?.entertainment, ...vehicle?.convenience, ...vehicle.luxury].map((feature, index) => (
+            {[
+              ...vehicle.tech,
+              ...vehicle.mechanical,
+              ...vehicle?.entertainment,
+              ...vehicle?.convenience,
+              ...vehicle.luxury,
+            ].map((feature, index) => (
               <div key={index} className="flex  items-center  px-2 py-2 rounded">
                 <span className="text-xs font-medium">{feature}</span>
               </div>
@@ -121,5 +124,5 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

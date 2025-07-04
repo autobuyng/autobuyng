@@ -177,9 +177,12 @@ const Filters = () => {
       </section>
 
       <section
-        className={cn('mt-6 space-y-2 pt-8 bg-white  px-8 border border-[#1F1F1F26] rounded-[12px]', {
-          'px-0': isMobile,
-        })}
+        className={cn(
+          'mt-6 space-y-2 pt-8 bg-white  px-8 border border-[#1F1F1F26] rounded-[12px]',
+          {
+            'px-0': isMobile,
+          },
+        )}
       >
         <div>
           <p className="font-[600] text-lg border-b border-neutral-300 pb-4 ">Style</p>
