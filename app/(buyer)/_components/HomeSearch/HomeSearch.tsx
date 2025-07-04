@@ -143,7 +143,6 @@ const HomeSearch = () => {
                 }}
               />
             </div>
-            {/* </div> */}
           </div>
 
           <div className="w-full  flex items-end justify-end ">

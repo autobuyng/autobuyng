@@ -2,13 +2,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import Filter from './assets/filter.svg';
-import Cancel from '@/app/(buyer)/assets/cancel.svg';
+// import Filter from './assets/filter.svg';
+// import Cancel from '@/app/(buyer)/assets/cancel.svg';
 import Sort from '@/app/(buyer)/_components/Filters/assets/sort.svg';
-// import { useSearchParams } from 'next/navigation';
 import { useStore } from '@/store/useStore';
 import { FilterProps } from '@/types/types';
 import { removeSessionItem } from '@/lib/Sessionstorage';
+import { X } from 'lucide-react';
 
 type FilterDisplayProps = {
   isOpen: boolean;
@@ -91,24 +91,23 @@ const FilterDisplay = ({
 
   return (
     <main className="flex items-start justify-between md:gap-8 lg:gap-6">
-      <div className="flex items-start gap-8">
+      <div className="flex items-center gap-8">
         <div
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 w-fit cursor-pointer lg:cursor-default px-2 border border-neutral-700 rounded-sm"
+          className="flex items-center gap-2 w-fit cursor-pointer lg:cursor-default "
         >
-          <Image src={Filter} alt="filter" />
-          <h1 className="font-md text-sm md:text-xl">Filters</h1>
+          <h1 className="font-md ">Applied Filters:</h1>
         </div>
 
         <div className="hidden md:flex items-center gap-2 flex-wrap">
           {filterQuery.map((value, index) => (
             <div
               key={index}
-              className="bg-primary-700 text-white py-1 px-2 rounded-sm whitespace-nowrap flex items-center gap-2"
+              className="text-primary-900 border-[1.5px] border-primary-900 py-0.5 px-2 rounded-full whitespace-nowrap flex items-center gap-2"
             >
               <span>{value}</span>
               <button onClick={() => handleDelete(index)} className="text-xl">
-                <Image src={Cancel} alt="Cancel" />
+                <X className="text-primary-900" size={15} />
               </button>
             </div>
           ))}

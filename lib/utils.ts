@@ -38,3 +38,12 @@ export function capitalizeFirstLetter(word: string | undefined) {
   if (!word) return ''; // Handle empty or undefined strings
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+export const formatNumbertoK = (num: string | number): string | number => {
+  const numericNum = typeof num === 'string' ? parseFloat(num) : num;
+  return new Intl.NumberFormat('en', {
+    notation: 'compact',
+    compactDisplay: 'short',
+    maximumFractionDigits: 1,
+  }).format(numericNum);
+};
