@@ -87,6 +87,24 @@ export const fetcher = async <T>(url: string, config?: AxiosRequestConfig): Prom
     throw error;
   }
 };
+export const fetcherPostRequest = async <T>(
+  url: string,
+  body?: any,
+  config?: AxiosRequestConfig,
+): Promise<T> => {
+  try {
+    const res = await usermgtApi.post<T>(url, body, config);
+    return res.data;
+  } catch (error: AxiosError | any) {
+    console.error('Fetcher error:', {
+      status: error.response?.status,
+      message: error.message,
+      url: url,
+    });
+
+    throw error;
+  }
+};
 
 export const mutator = async <Data>(request: AxiosRequestConfig): Promise<Data> => {
   try {
@@ -150,6 +168,7 @@ export const endpoints = {
     getvehicle: (data: { vehicleId: string }) => `/vehicles/${data.vehicleId}`,
     getsimilarvehicle: (data: { vehicleId: string }) =>
       `/vehicles/${data.vehicleId}/similar-vehicles`,
+    compare: '/vehicles/compare',
   },
   dashboard: {
     getAnalytics: '/seller/analytics',

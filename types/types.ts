@@ -113,6 +113,7 @@ export type Vehicle = {
   interiorColor: string;
   price: number | string;
   fuelConsumption: string;
+  driveTrain: string;
   images: string[];
   engine: string;
   liked?: boolean;
@@ -121,6 +122,15 @@ export type Vehicle = {
   tyreImages?: string[];
   trunkImages?: string[];
   engineImages?: string[];
+  comfort?: string[];
+  entertainment: string[];
+  interior: string[];
+  exterior: string[];
+  convenience: string[];
+  luxury: string[];
+  tech: string[];
+  mechanical: string[];
+  advancedDriverAssistanceSystems: string[];
   vehicleType: VehicleType[];
 };
 
@@ -131,6 +141,11 @@ export type SearchResponseData = {
   nextPage: number | null;
   prevPage: number | null;
   lastPage: number;
+};
+export type CompareDataResponse = {
+  data: Vehicle[];
+  status: boolean;
+  message: string;
 };
 
 export type ApiResponse = {

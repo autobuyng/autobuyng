@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
+
 import '../result.css';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
 import SearchInput from '@/app/(buyer)/_components/SearchInput/SearchInput';
@@ -18,10 +19,14 @@ import { useStore } from '@/store/useStore';
 import useIsMobile from '@/hooks/useIsMobile';
 import { useDebounce } from 'use-debounce';
 import Pagination from '@/app/(buyer)/_components/pagination';
+import Image from 'next/image';
+import { X } from 'lucide-react';
+import { useRouter } from 'next-nprogress-bar';
 
 const Results = () => {
   const pathname = usePathname();
-  const { filters, homePageSearchResult } = useStore();
+  const router = useRouter()
+  const { filters, homePageSearchResult, compareVehicles, setCompareVehicles } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -29,13 +34,9 @@ const Results = () => {
   const [debouncedSearch] = useDebounce(searchQuery, 1000);
 
   const { isTablet } = useIsMobile();
-
   const [searchResult, setSearchResult] = useState<SearchResponseData | null>(null);
-
-  // const prevFilters = useRef(filters);
   const { search, isPending, isError, error } = useSearchVehicle();
-  // const searchParams = useSearchParams();
-  // const keyword = searchParams.get('keyword');
+
 
   const handleSearch = async (data: SearchQuery) => {
     try {
@@ -47,6 +48,13 @@ const Results = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 150,
+      behavior: 'smooth'
+    });
+  }, [searchResult])
+
+  useEffect(() => {
     const searchParams: Partial<SearchQuery> = {
       page,
       limit: 12,
@@ -56,7 +64,7 @@ const Results = () => {
       ...(filters.year.min_year ? { yearMin: filters.year.min_year } : {}),
       ...(filters.mileageMax ? { mileageMax: filters.mileageMax } : {}),
       ...(filters.mileageMin ? { mileageMin: filters.mileageMin } : {}),
-      // ...(filters.year?.max_year ? { yearMax: filters?.year?.max_year } : {}),
+      ...(filters.year?.max_year ? { yearMax: filters?.year?.max_year } : {}),
       ...(filters.price.min_price ? { priceMin: filters.price.min_price } : {}),
       ...(filters.price.max_price ? { priceMax: filters.price.max_price } : {}),
       ...(filters.body_type ? { vehicleType: filters.body_type.toLowerCase() } : {}),
@@ -79,6 +87,12 @@ const Results = () => {
     setLocalItem('previousPage', pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, debouncedSearch, page]);
+
+  const removeFromCompare = (id: string) => {
+    setCompareVehicles(compareVehicles.filter((vehicle) => vehicle._id !== id));
+  };
+
+  console.log(["1", "2", "3"].join("-"));
 
   return (
     <main className="mb-24">
@@ -108,54 +122,17 @@ const Results = () => {
           </div>
 
           <div className="flex w-full mt-8 gap-8">
-            <div className=" hidden lg:block w-full max-w-[296px]">
+            <div className=" hidden lg:block w-full max-w-[260px]">
               <Filters />
 
               <Sheet open={isTablet && isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="max-w-full h-screen overflow-y-auto">
                   <h1 className="font-bold   border-b-2 mb-4 border-b-neutral-100">Filters</h1>
                   <div className="flex items-center gap-2 flex-wrap">
-                    {/* {filterQuery.map((query) => (
-                      <div
-                        key={query}
-                        className="bg-primary-700 text-white py-1 px-2 rounded-sm whitespace-nowrap flex items-center gap-2"
-                      >
-                        <span className="text-sm">{query}</span>
-                        <button onClick={() => handleQuery(query)} className="text-xl">
-                          <Image src={Cancel} alt="Cancel" />
-                        </button>
-                      </div>
-                    ))} */}
                   </div>
                   <Filters />
                 </SheetContent>
               </Sheet>
-
-              {/* <Sheet open={isMobile && isSortOpen} onOpenChange={setIsSortOpen}>
-                <SheetContent className="max-w-full h-screen overflow-y-auto">
-                  <div>
-                    <SelectInput
-                      list={SORT_LIST}
-                      title="Sort by"
-                      setSelectedInput={(input) => {
-                        if (typeof input != 'string') return;
-                        const parameter = input.split(' ');
-                        setFilters((prev: FilterProps) => ({
-                          ...prev,
-                          sortParameter: parameter[1] as string,
-                          sortOrder: parameter[0] === 'Highest' ? 'desc' : 'asc',
-                          sort: input,
-                        }));
-                      }}
-                      selectedInput={filters?.sort as string}
-                      // selectedInput={filters?.sortParameter as string}
-                      defaultValue={filters.sort}
-                      width="w-full md:w-[155px]"
-                      height="h-10"
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet> */}
             </div>
 
             <div className="w-full">
@@ -170,6 +147,34 @@ const Results = () => {
           </div>
           <Pagination lastPage={searchResult?.lastPage as number} page={page} setPage={setPage} />
         </section>
+
+
+        {compareVehicles.length > 0 &&
+          <div className='fixed max-[420px]:right-0 max-w[420px]:left-0 bottom-0 h-fit w-full pb-4 '>
+            <div className='w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-tl-xl rounded-tr-xl'>
+              <div className='flex-1 flex items-center  gap-4'>
+                {compareVehicles.map((vehicle) => (
+                  <div key={vehicle._id} className='relative'>
+                    <div className="relative w-20 h-20 sm:w-28 sm:h-28">
+                      <Image
+                        src={vehicle.images[0]}
+                        alt={vehicle.make}
+                        fill
+                        className="rounded-lg object-cover"
+                      />
+                    </div>
+                    <button><X size={15} onClick={() => removeFromCompare(vehicle._id)} className='text-white bg-black rounded-full h-4 w-4 absolute -top-2 -right-2' /></button>
+                  </div>
+                ))}
+              </div>
+
+              <div className='flex items-center gap-2'>
+                <button onClick={() => setCompareVehicles([])} className='text-gray-500 text-sm flex items-center gap-2 hover:text-gray-900 border border-gray-200 py-2 px-4 rounded-md transition-colors'><X />Clear All</button>
+                <button onClick={() => router.push(`/compare?ids=${[...compareVehicles.map((vehicle) => vehicle._id)].join("-")}`)} className='bg-primary-700 text-white py-2 px-4 rounded-md'>Compare</button>
+              </div>
+            </div>
+          </div>
+        }
       </MaxWidthWrapper>
     </main>
   );

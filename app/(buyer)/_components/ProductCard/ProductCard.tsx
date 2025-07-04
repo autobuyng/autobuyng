@@ -12,6 +12,7 @@ import { useLikeVehicle } from '../../api/search';
 import AuthDialog from '@/app/auth';
 import { useStore } from '@/store/useStore';
 import { getLocalItem, setLocalItem } from '@/lib/localStorage';
+import { useToast } from '@/hooks/use-toast';
 
 type ProductCardProps = {
   vehicle: Vehicle;
@@ -20,6 +21,7 @@ type ProductCardProps = {
 };
 export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
   const [localLikedVehicle, setLocalLikedVehicle] = useState<string[]>([]);
+  const { toast } = useToast()
 
   useEffect(() => {
     const localLikedVehicles: string[] = getLocalItem('localLikedVehicles');
@@ -45,7 +47,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     // fuelConsumption
   } = vehicle;
   const router = useRouter();
-  const { user } = useStore();
+  const { user, compareVehicles, setCompareVehicles } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState('signin');
 
@@ -91,6 +93,20 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
       console.log(error, 'error');
     }
   };
+  const handleSelecetedVehicle = (_id: string) => {
+    console.log(compareVehicles, 'compareVehicles');
+    if (compareVehicles.length > 3) {
+      toast({
+        title: 'You can only compare 4 Maximum vehicles at a time',
+        variant: 'destructive',
+      })
+      return
+    }
+    const isExisting = compareVehicles.find((vehicle) => vehicle._id === _id);
+    isExisting ? setCompareVehicles((prev: Vehicle[]) => [...prev.filter(vehicle => vehicle._id !== _id)])
+      :
+      setCompareVehicles(prev => [...prev, vehicle]);
+  }
 
   return (
     <div className="rounded-[12px] shadow-md">
@@ -112,7 +128,6 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
                 likedVehicle?.has(_id) || localLikedVehicle?.includes(_id),
             })}
           />
-          {/* <Image src={Save} alt="Save" /> */}
         </button>
 
         <button className="absolute bottom-2 right-2  text-white rounded-[30px] bg-black/55 p-1 flex items-center text-sm justify-center">
@@ -121,17 +136,17 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
         </button>
       </div>
 
-      <div className=" px-2">
+      <div className="px-2">
         <div className="flex items-center gap-2   border-neutral-300">
-          <p className="font-[600] text-[20px] py-1">{`${make} ${vehicleModel}`}</p>
+          <p className="font-[600] text-lg py-1">{`${make} ${vehicleModel}`}</p>
         </div>
 
         <div className="grid grid-cols-2 w-full  border-b border-neutral-300 my-1 ">
           <p className="border-r border-neutral-300 text-center items-center justify-start gap-2 flex ">
-            <span className="capitalize text-primary-900 font-[500] leading-6">{condition}</span>
+            <span className="capitalize text-primary-900 font-[500] leading-6 text-sm">{condition}</span>
           </p>
           <p className="flex text-center items-center justify-start gap-2">
-            <span className="capitalize text-primary-900  pl-2  font-[500] leading-6">
+            <span className="capitalize text-primary-900 text-sm  pl-2  font-[500] leading-6">
               {`${Number(mileage) / 1000}${mileage ? 'k Miles' : ''}`}
             </span>
           </p>
@@ -147,6 +162,9 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
             View Details
           </button>
         </div>
+      </div>
+      <div className='border-t border-neutral-300 px-2 py-2'>
+        <input type="checkbox" className="w-4 h-4 accent-primary-700" checked={compareVehicles.find((vehicle) => vehicle._id === _id) ? true : false} onChange={() => handleSelecetedVehicle(_id)} />
       </div>
 
       <AuthDialog

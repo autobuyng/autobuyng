@@ -159,7 +159,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
                     </span>
                   </div>
 
-                  <div className="   min-[480px]:flex space-y-2 items-center justify-between">
+                  <div className="min-[480px]:flex space-y-2 items-center justify-between">
                     <p className="flex items-center justify-center gap-2 border border-[#CCE0FF] px-2 w-fit h-[29px] rounded-[50px] text-sm">
                       <span className="text-primary-900">VIN</span>
                       <span>{vehicleData?.vin}</span>

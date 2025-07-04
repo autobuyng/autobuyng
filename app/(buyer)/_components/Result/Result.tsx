@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ColProductCard, ProductCard } from '../ProductCard/ProductCard';
-import useIsMobile from '@/hooks/useIsMobile';
+import { ProductCard } from '../ProductCard/ProductCard';
 import { cn } from '@/lib/utils';
 import { SkeletonCard } from '@/components/Loader/SkeletonCard';
 import { SearchResponseData } from '@/types/types';
@@ -16,8 +15,6 @@ type ResultProps = {
   error: any;
 };
 const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
-  const { isMobile } = useIsMobile();
-  const displayFormat = true;
   const [likedVehicle, setLikedVehicle] = useState<Set<string>>(new Set());
 
   const { data: favoriteVehicle } = useGetFavoriteVehicle();
@@ -31,7 +28,7 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
 
   if (isPending) {
     return (
-      <div className="grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8">
+      <div className='grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8'>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((_, index) => (
           <SkeletonCard key={index} />
         ))}
@@ -61,10 +58,9 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
 
   return (
     <main className="mb-8">
-      {displayFormat || isMobile ? (
         <div
           className={cn(
-            'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
+            'grid grid-cols-1 min-[564px]:grid-cols-2 min-[830px]:grid-cols-3 lg:grid-cols-2 min-[1117px]:grid-cols-3  xl:grid-cols-3 gap-8 sm:gap-x-4 sm:gap-y-8',
           )}
         >
           {searchResult?.vehicles.map((result) => {
@@ -74,34 +70,7 @@ const Result = ({ searchResult, isPending, isError, error }: ResultProps) => {
               </div>
             );
           })}
-        </div>
-      ) : (
-        <div className="space-y-4 ">
-          {searchResult?.vehicles.map((result) => {
-            return (
-              <ColProductCard
-                key={result._id}
-                make={result.make}
-                images={result.images}
-                vehicleModel={result.vehicleModel}
-                mileage={result.mileage}
-                vehicleType={result.vehicleType}
-                price={result.price}
-                engine={result.engine}
-                transmission={result.transmission}
-                vin={result.vin}
-                fuelConsumption={result.fuelConsumption}
-                exteriorColor={result.exteriorColor}
-                interiorColor={result.interiorColor}
-                fuelType={result.fuelType}
-                vehicleYear={result.vehicleYear}
-                condition={result.condition}
-                _id={result._id}
-              />
-            );
-          })}
-        </div>
-      )}
+      </div>
     </main>
   );
 };
