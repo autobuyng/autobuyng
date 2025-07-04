@@ -1,11 +1,12 @@
-import { endpoints, mutator, queryKeys } from '@/axios';
+import { endpoints, fetcherPostRequest, mutator, queryKeys } from '@/axios';
 import {
   ApiResponse,
+  CompareDataResponse,
   SearchQuery,
   SimilarVehicleApiResponse,
   SingleVehicleResponse,
 } from '@/types/types';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useSearchVehicle() {
@@ -138,5 +139,24 @@ export function useGetSimilarVehicle() {
       isError,
     }),
     [mutateAsync, data, isPending, error, isError],
+  );
+}
+
+export function useCompareVehicles(vehicleIds: string[]) {
+  const { data, isLoading, isError, error } = useQuery<CompareDataResponse>({
+    queryKey: ['compare', vehicleIds],
+    queryFn: () => fetcherPostRequest(endpoints.search.compare, { vehicleIds }),
+    enabled: !!vehicleIds?.length,
+  });
+
+  return useMemo(
+    () => ({
+      compareVehicles: data,
+      data,
+      isLoading,
+      error,
+      isError,
+    }),
+    [data, isLoading, error, isError],
   );
 }

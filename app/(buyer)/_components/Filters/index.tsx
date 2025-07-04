@@ -28,11 +28,11 @@ const Filters = () => {
   return (
     <main className=" w-full  ">
       <section
-        className={cn('w-full  p-8 space-y-4  bg-white md:shadow-[0px_2px_14px_0px_#0000001A]', {
+        className={cn('w-full  p-4 space-y-4  bg-white border border-[#1F1F1F26] rounded-[12px]', {
           'pt-4 px-2': isMobile,
         })}
       >
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2  ">
+        <div className="w-full mt-4 border border-neutral-300 rounded-sm h-fit pt-2  ">
           <p className="text-xs text-neutral-400 pl-3">Vehicle Condition</p>
 
           <SelectInput
@@ -56,7 +56,7 @@ const Filters = () => {
           />
         </div>
 
-        <div className="w-full mt-4 border border-neutral-700 rounded-sm h-fit pt-2   ">
+        <div className="w-full mt-4 border border-neutral-300 rounded-sm h-fit pt-2   ">
           <p className="text-xs text-neutral-400 pl-3">Mileage</p>
 
           <SelectInput
@@ -83,15 +83,14 @@ const Filters = () => {
         </div>
 
         <div className="flex w-full gap-4 ">
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-2  ">
+          <div className=" w-full border border-neutral-300 rounded-sm h-fit pt-2  ">
             <p className="text-xs text-neutral-400 pl-3">Min year</p>
 
             <SelectInput
               list={MAX_YEAR}
               title="Oldest"
-              defaultValue={filters.year.max_year}
+              defaultValue={filters.year.min_year}
               setSelectedInput={(input) => {
-                // router.push(pathname + '?' + createQueryString('max_year', input as string));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -107,13 +106,13 @@ const Filters = () => {
             />
           </div>
 
-          <div className=" w-full border border-neutral-700 rounded-sm h-fit pt-2 ">
+          <div className=" w-full border border-neutral-300 rounded-sm h-fit pt-2 ">
             <p className="text-xs text-neutral-400 pl-3">Max year</p>
 
             <SelectInput
               list={MAX_YEAR}
               title="Highest"
-              defaultValue={filters.year.min_year}
+              defaultValue={filters.year.max_year}
               setSelectedInput={(input) => {
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
@@ -138,10 +137,9 @@ const Filters = () => {
 
           <input
             type="text"
-            value={100000000}
+            value={filters.price.max_price}
             onChange={(e) => {
               const newPrice = e.target.value;
-              // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
               setFilters(
                 (prev: FilterProps): FilterProps => ({
                   ...prev,
@@ -153,14 +151,13 @@ const Filters = () => {
             }}
             id="UserEmail"
             placeholder="NGN 10,000,000"
-            className="mt-1 w-full rounded-sm px-3 border border-neutral-700 outline-none text-base py-3 shadow-sm sm:text-sm"
+            className="mt-1 w-full rounded-sm px-3 border border-neutral-300 outline-none text-base py-3 shadow-sm sm:text-sm"
           />
 
           <div className="mt-4">
             <Slider
               onValueChange={(input) => {
                 const [newPrice] = input;
-                // router.push(pathname + '?' + createQueryString('price', newPrice.toString()));
                 setFilters(
                   (prev: FilterProps): FilterProps => ({
                     ...prev,
@@ -170,7 +167,7 @@ const Filters = () => {
                   }),
                 );
               }}
-              defaultValue={[100000000]}
+              defaultValue={[filters.price.max_price ?? 100000000]}
               max={100000000}
               min={0}
               step={1000000}
@@ -180,16 +177,19 @@ const Filters = () => {
       </section>
 
       <section
-        className={cn('mt-6 space-y-2 pt-8 bg-white  px-8 md:shadow-[0px_2px_14px_0px_#0000001A]', {
-          'px-0': isMobile,
-        })}
+        className={cn(
+          'mt-6 space-y-2 pt-8 bg-white  px-8 border border-[#1F1F1F26] rounded-[12px]',
+          {
+            'px-0': isMobile,
+          },
+        )}
       >
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 ">Style</p>
+          <p className="font-[600] text-lg border-b border-neutral-300 pb-4 ">Style</p>
           <StyleType />
         </div>
         <div>
-          <p className="font-[600] text-lg border-b border-neurtral-100 pb-4 "> Performance</p>
+          <p className="font-[600] text-lg border-b border-neutral-300 pb-4 "> Performance</p>
           <Performance />
         </div>
         {/* <div>

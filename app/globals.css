@@ -167,3 +167,10 @@
 [cmdk-empty] {
   @apply px-3 py-2 text-gray-500;
 }
+
+.compare-img {
+  background-image: url('https://ik.imagekit.io/0xy9wqmrh/Autobuy/compare.png');
+  background-position: center;
+  background-size: cover;
+  height: 210px;
+}

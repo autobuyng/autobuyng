@@ -5,6 +5,7 @@ import {
   Profile,
   SearchResponseData,
   User,
+  Vehicle,
   VehicleData,
 } from '@/types/types';
 import { create } from 'zustand';
@@ -42,6 +43,8 @@ type State = {
   setHomePageSearchResult: (homePageSearchResult: SearchResponseData | null) => void;
   vehicleDetails: VehicleData | null;
   setVehicleDetails: (vehicleData: VehicleData | null) => void;
+  compareVehicles: Vehicle[];
+  setCompareVehicles: (vehicles: Vehicle[] | ((prev: Vehicle[]) => Vehicle[])) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -79,5 +82,11 @@ export const useStore = create<State>((set) => ({
     set((state) => ({
       filters:
         typeof update === 'function' ? update(state.filters) : { ...state.filters, ...update },
+    })),
+
+  compareVehicles: [],
+  setCompareVehicles: (vehicles) =>
+    set((state) => ({
+      compareVehicles: typeof vehicles === 'function' ? vehicles(state.compareVehicles) : vehicles,
     })),
 }));
