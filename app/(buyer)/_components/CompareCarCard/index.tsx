@@ -68,6 +68,10 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
         <div className="mt-3">
           <h4 className="text-lg font-semibold text-gray-900 mb-4">Overview</h4>
           <div className="space-y-3">
+            <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded">
+              <span className="text-blue-600 text-sm font-medium">Vehicle Year</span>
+              <span className="text-gray-900 text-sm">{vehicle.vehicleYear}</span>
+            </div>
             <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Interior Color</span>
               <span className="text-gray-900 text-sm">{vehicle.interiorColor}</span>
@@ -99,10 +103,6 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
               <span className="text-blue-600 text-sm font-medium">Engine</span>
               <span className="text-gray-900 text-sm">{vehicle.engine}</span>
             </div>
-            {/* <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded">
-              <span className="text-blue-600 text-sm font-medium">Body Type</span>
-              <span className="text-gray-900 text-sm">{vehicle.bo}</span>
-            </div> */}
           </div>
         </div>
 

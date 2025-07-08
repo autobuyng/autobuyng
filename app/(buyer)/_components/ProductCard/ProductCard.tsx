@@ -94,18 +94,20 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     }
   };
   const handleSelecetedVehicle = (_id: string) => {
-    console.log(compareVehicles, 'compareVehicles');
-    if (compareVehicles.length > 3) {
-      toast({
-        title: 'You can only compare 4 Maximum vehicles at a time',
-        variant: 'destructive',
-      });
-      return;
-    }
+
     const isExisting = compareVehicles.find((vehicle) => vehicle._id === _id);
-    isExisting
-      ? setCompareVehicles((prev: Vehicle[]) => [...prev.filter((vehicle) => vehicle._id !== _id)])
-      : setCompareVehicles((prev) => [...prev, vehicle]);
+    if (isExisting) {
+      setCompareVehicles((prev: Vehicle[]) => [...prev.filter((vehicle) => vehicle._id !== _id)])
+    } else {
+      if (compareVehicles.length > 3) {
+        toast({
+          title: 'You can only compare 4 Maximum vehicles at a time',
+          variant: 'destructive',
+        });
+        return;
+      }
+      setCompareVehicles((prev) => [...prev, vehicle]);
+    }
   };
 
   return (
@@ -165,13 +167,14 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
           </button>
         </div>
       </div>
-      <div className="border-t border-neutral-300 px-2 py-2">
+      <div className="border-t flex items-center space-x-2 border-neutral-300 px-2 py-2">
         <input
           type="checkbox"
           className="w-4 h-4 accent-primary-700"
           checked={compareVehicles.find((vehicle) => vehicle._id === _id) ? true : false}
           onChange={() => handleSelecetedVehicle(_id)}
         />
+        <span className='text-sm'>Compare</span>
       </div>
 
       <AuthDialog
