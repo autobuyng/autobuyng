@@ -5,9 +5,10 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronDown, X, Check } from 'lucide-react';
 
 interface Option {
-  id: number;
+  id?: number | string;
   name: string;
   label: string;
+  make_id?: string | number;
 }
 
 interface EnhancedSearchableDropdownProps {

@@ -136,7 +136,7 @@ export function useGetVehicleMake() {
 }
 export function useGetVehicleModel({ make }: { make: string }) {
   const { data, isLoading, refetch } = useQuery<Model[]>({
-    queryKey: queryKeys.vehicle.getAllVehicleModel,
+    queryKey: [queryKeys.vehicle.getAllVehicleModel, make],
     queryFn: () => fetcher(endpoints.upload.getVehicleModel({ make })),
   });
 

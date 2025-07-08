@@ -41,6 +41,8 @@ type State = {
   setFilters: (filters: FilterProps | ((prev: FilterProps) => FilterProps)) => void;
   homePageSearchResult: SearchResponseData | null;
   setHomePageSearchResult: (homePageSearchResult: SearchResponseData | null) => void;
+  compareSearchResult: Vehicle | null;
+  setCompareSearchResult: (compareSearchResult: Vehicle | null) => void;
   vehicleDetails: VehicleData | null;
   setVehicleDetails: (vehicleData: VehicleData | null) => void;
   compareVehicles: Vehicle[];
@@ -73,6 +75,8 @@ export const useStore = create<State>((set) => ({
 
   homePageSearchResult: null,
   setHomePageSearchResult: (homePageSearchResult) => set({ homePageSearchResult }),
+  compareSearchResult: null,
+  setCompareSearchResult: (compareSearchResult) => set({ compareSearchResult }),
 
   vehicleDetails: null,
   setVehicleDetails: (vehicleDetails) => set({ vehicleDetails }),

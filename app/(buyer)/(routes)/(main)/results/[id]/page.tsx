@@ -90,8 +90,6 @@ const Results = () => {
     setCompareVehicles(compareVehicles.filter((vehicle) => vehicle._id !== id));
   };
 
-  console.log(['1', '2', '3'].join('-'));
-
   return (
     <main className="mb-24">
       <div className="bg-img">
@@ -146,9 +144,9 @@ const Results = () => {
         </section>
 
         {compareVehicles.length > 0 && (
-          <div className="fixed max-[420px]:right-0 max-w[420px]:left-0 bottom-0 h-fit w-full pb-4 ">
+          <div className="fixed max-[420px]:right-0 max-[420px]:left-0 bottom-0 h-fit w-full pb-4 bg-white ">
             <div className="w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-tl-xl rounded-tr-xl">
-              <div className="flex-1 flex items-center  gap-4">
+              <div className="flex-1 flex items-center h-full  gap-4">
                 {compareVehicles.map((vehicle) => (
                   <div key={vehicle._id} className="relative">
                     <div className="relative w-20 h-20 sm:w-28 sm:h-28">
@@ -170,7 +168,7 @@ const Results = () => {
                 ))}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 h-full">
                 <button
                   onClick={() => setCompareVehicles([])}
                   className="text-gray-500 text-sm flex items-center gap-2 hover:text-gray-900 border border-gray-200 py-2 px-4 rounded-md transition-colors"
