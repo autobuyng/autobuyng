@@ -161,6 +161,7 @@ export type SearchQuery = {
   userId?: string;
   make?: string;
   vehicleModel?: string;
+  vehicleType?: string;
   condition?: string;
   yearMin?: number | string;
   yearMax?: number | string;

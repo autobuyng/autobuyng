@@ -262,6 +262,11 @@ export const YEAR = [
     name: '2024',
     label: '2024',
   },
+  {
+    id: 16,
+    name: '2025',
+    label: '2025',
+  },
 ];
 
 export const VEHICLE_TYPE = [
@@ -575,15 +580,15 @@ export const MILEAGE = [
 ];
 
 export const BODY_STYLE = [
-  { id: '2', name: 'Convertible' },
-  { id: '3', name: 'Coupe' },
-  { id: '4', name: 'Hatchback' },
-  { id: '5', name: 'Minivan' },
-  { id: '6', name: 'Pickup' },
-  { id: '7', name: 'SUV' },
-  { id: '8', name: 'Sedan' },
-  { id: '9', name: 'Van' },
-  { id: '10', name: 'Wagon' },
+  { id: '2', name: 'Convertible', label: 'Convertible' },
+  { id: '3', name: 'Coupe', label: 'Coupe' },
+  { id: '4', name: 'Hatchback', label: 'Hatchback' },
+  { id: '5', name: 'Minivan', label: 'Minivan' },
+  { id: '6', name: 'Pickup', label: 'Pickup' },
+  { id: '7', name: 'SUV', label: 'SUV' },
+  { id: '8', name: 'Sedan', label: 'Sedan' },
+  { id: '9', name: 'Van', label: 'Van' },
+  { id: '10', name: 'Wagon', label: 'Wagon' },
 ];
 
 export const COLORS = [

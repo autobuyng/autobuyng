@@ -1,27 +1,52 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
+import AddVehicleModal from '@/app/(buyer)/_components/AddVehicleModal';
 import CompareCarCard from '@/app/(buyer)/_components/CompareCarCard';
 import { useCompareVehicles } from '@/app/(buyer)/api/search';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper/MaxWidthWrapper';
+import { useToast } from '@/hooks/use-toast';
 import CarCardSkeleton from '@/LoadingSkeleton/compare';
+import { useStore } from '@/store/useStore';
 import { ChevronLeftIcon } from 'lucide-react';
 import { useRouter } from 'next-nprogress-bar';
 import { useSearchParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Compare = () => {
+  const { toast } = useToast();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { compareSearchResult } = useStore();
   const query = searchParams.get('ids');
+  const [isOpen, setIsOpen] = useState(false);
   const [ids, setIds] = useState(query?.split('-') || []);
   const { data, isLoading } = useCompareVehicles(ids);
 
+  console.log(compareSearchResult, 'compareSearchResult');
   const removeVehicle = (id: string) => {
     const newIds = ids.filter((i) => i !== id);
     setIds(newIds);
     router.push(`/compare?ids=${newIds.join('-')}`);
   };
 
+  useEffect(() => {
+    if (compareSearchResult) {
+      const isExistiong = ids.find((id) => id === compareSearchResult._id);
+      if (isExistiong) {
+        toast({
+          title: 'Vehicle Aready exist in comparison',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Vehicle Added to comparison',
+          variant: 'success',
+        });
+        setIds([...ids, compareSearchResult._id]);
+        router.push(`/compare?ids=${[...ids, compareSearchResult._id].join('-')}`);
+      }
+    }
+  }, [compareSearchResult]);
   const addVehicle = () => {
     console.log('Add vehicle clicked');
   };
@@ -85,10 +110,13 @@ const Compare = () => {
                   .map((_, index) => (
                     <div
                       key={index}
-                      className="bg-white rounded-xl p-5 shadow-sm border border-gray-300 justify-center min-h-[400px] cursor-pointer hover:bg-blue-50 transition-colors"
+                      className="bg-white rounded-xl p-5 shadow-sm border border-gray-300 justify-center min-w-[260px] min-h-[400px] cursor-pointer hover:bg-blue-50 transition-colors"
                       onClick={addVehicle}
                     >
-                      <div className="w-full h-[128px] rounded-[16px] border border-primary-300  flex flex-col items-center justify-center mb-4">
+                      <div
+                        onClick={() => setIsOpen(true)}
+                        className="w-full h-[128px] rounded-[16px] border border-primary-300  flex flex-col items-center justify-center mb-4"
+                      >
                         <p className="h-10 w-10 rounded-[50%] border border-primary-500 flex items-center justify-center">
                           <span className=" text-2xl font-light text-primary-700">+</span>
                         </p>
@@ -103,7 +131,7 @@ const Compare = () => {
         </div>
       </div>
 
-      {/* <AddVehicleModal/> */}
+      <AddVehicleModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </main>
   );
 };
