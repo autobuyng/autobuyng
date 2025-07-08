@@ -8,7 +8,7 @@ interface Option {
   id?: number | string;
   name: string;
   label: string;
-  make_id?: string | number
+  make_id?: string | number;
 }
 
 interface EnhancedSearchableDropdownProps {

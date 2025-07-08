@@ -90,7 +90,6 @@ const Results = () => {
     setCompareVehicles(compareVehicles.filter((vehicle) => vehicle._id !== id));
   };
 
-
   return (
     <main className="mb-24">
       <div className="bg-img">

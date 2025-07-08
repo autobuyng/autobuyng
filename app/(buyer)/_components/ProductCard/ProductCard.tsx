@@ -94,10 +94,9 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
     }
   };
   const handleSelecetedVehicle = (_id: string) => {
-
     const isExisting = compareVehicles.find((vehicle) => vehicle._id === _id);
     if (isExisting) {
-      setCompareVehicles((prev: Vehicle[]) => [...prev.filter((vehicle) => vehicle._id !== _id)])
+      setCompareVehicles((prev: Vehicle[]) => [...prev.filter((vehicle) => vehicle._id !== _id)]);
     } else {
       if (compareVehicles.length > 3) {
         toast({
@@ -174,7 +173,7 @@ export const ProductCard = ({ vehicle, likedVehicle }: ProductCardProps) => {
           checked={compareVehicles.find((vehicle) => vehicle._id === _id) ? true : false}
           onChange={() => handleSelecetedVehicle(_id)}
         />
-        <span className='text-sm'>Compare</span>
+        <span className="text-sm">Compare</span>
       </div>
 
       <AuthDialog
