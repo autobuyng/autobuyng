@@ -22,7 +22,6 @@ const Compare = () => {
   const [ids, setIds] = useState(query?.split('-') || []);
   const { data, isLoading } = useCompareVehicles(ids);
 
-  console.log(compareSearchResult, 'compareSearchResult');
   const removeVehicle = (id: string) => {
     const newIds = ids.filter((i) => i !== id);
     setIds(newIds);

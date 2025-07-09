@@ -144,8 +144,8 @@ const Results = () => {
         </section>
 
         {compareVehicles.length > 0 && (
-          <div className="fixed max-[420px]:right-0 max-[420px]:left-0 bottom-0 h-fit w-full pb-4 bg-white ">
-            <div className="w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-tl-xl rounded-tr-xl">
+          <div className="fixed max-[420px]:right-0 max-[420px]:left-0 bottom-0 h-48 w-full pb-4 z-50 ">
+            <div className="w-full md:max-w-4xl pt-2 p-2 md:p-4 h-full  mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 bg-white shadow-lg rounded-xl">
               <div className="flex-1 flex items-center h-full  gap-4">
                 {compareVehicles.map((vehicle) => (
                   <div key={vehicle._id} className="relative">
