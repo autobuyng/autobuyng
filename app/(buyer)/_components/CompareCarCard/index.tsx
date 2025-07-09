@@ -31,7 +31,7 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
 
       <div className="mb-4 bg-gray-50 rounded-lg overflow-hidden">
         <Image
-          src={vehicle.exteriorImages?.[0] || '/placeholder.svg?height=180&width=280'}
+          src={vehicle.images?.[0] || '/placeholder.svg?height=180&width=280'}
           alt={vehicle.make}
           width={280}
           height={180}
