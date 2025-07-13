@@ -3,6 +3,7 @@
 import type React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { ChevronDown, X, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface Option {
   id?: number | string;
@@ -26,11 +27,14 @@ export function EnhancedSearchableDropdown({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [openDirection, setOpenDirection] = useState<'up' | 'down'>('down');
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,12 +50,25 @@ export function EnhancedSearchableDropdown({
   }, []);
 
   const handleToggleDropdown = () => {
+    if (!isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      if (spaceBelow < 200 && spaceAbove > spaceBelow) {
+        setOpenDirection('up');
+      } else {
+        setOpenDirection('down');
+      }
+    }
+
     setIsOpen(!isOpen);
     if (!isOpen) {
       setSearchTerm('');
       setHighlightedIndex(-1);
     }
   };
+
 
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
@@ -120,7 +137,12 @@ export function EnhancedSearchableDropdown({
         />
       </div>
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ease-in-out">
+        <div
+          className={cn(
+            'absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ease-in-out',
+            openDirection === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
+          )}
+        >
           <div className="p-2 border-b border-gray-200">
             <input
               type="text"

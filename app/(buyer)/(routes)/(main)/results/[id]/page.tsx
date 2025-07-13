@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
@@ -28,7 +28,7 @@ const Results = () => {
   const { filters, homePageSearchResult, compareVehicles, setCompareVehicles } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(1);
-
+  const prevFilters = useRef(filters);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const [debouncedSearch] = useDebounce(searchQuery, 1000);
 
@@ -51,6 +51,10 @@ const Results = () => {
       behavior: 'smooth',
     });
   }, [searchResult]);
+
+  useEffect(() => {
+    setCompareVehicles([])
+  }, [])
 
   useEffect(() => {
     const searchParams: Partial<SearchQuery> = {
@@ -78,17 +82,22 @@ const Results = () => {
       ...(filters.vehicle_type ? { vehicleType: filters.vehicle_type.toLowerCase() } : {}),
     };
 
-    // if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
-    handleSearch(searchParams);
-    // }
+    if (!homePageSearchResult || JSON.stringify(prevFilters.current) !== JSON.stringify(filters)) {
+      handleSearch(searchParams);
+    }
 
     setLocalItem('previousPage', pathname);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, debouncedSearch, page]);
 
   const removeFromCompare = (id: string) => {
     setCompareVehicles(compareVehicles.filter((vehicle) => vehicle._id !== id));
   };
+
+  useEffect(() => {
+    if (homePageSearchResult) {
+      setSearchResult(homePageSearchResult);
+    }
+  }, [homePageSearchResult]);
 
   return (
     <main className="mb-24">

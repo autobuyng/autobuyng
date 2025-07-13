@@ -39,7 +39,6 @@ export default function AddVehicleModal({
   >([]);
   const { search, isPending } = useSearchVehicle();
   const { model } = useGetVehicleModel({ make: make });
-  console.log(updateModelList, 'model');
 
   useEffect(() => {
     if (model) {

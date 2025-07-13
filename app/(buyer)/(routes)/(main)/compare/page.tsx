@@ -44,6 +44,11 @@ const Compare = () => {
         setIds([...ids, compareSearchResult._id]);
         router.push(`/compare?ids=${[...ids, compareSearchResult._id].join('-')}`);
       }
+    } else {
+      toast({
+        title: 'No result match your search',
+        variant: 'destructive',
+      });
     }
   }, [compareSearchResult]);
   const addVehicle = () => {
