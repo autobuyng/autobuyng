@@ -53,8 +53,8 @@ const Results = () => {
   }, [searchResult]);
 
   useEffect(() => {
-    setCompareVehicles([])
-  }, [])
+    setCompareVehicles([]);
+  }, []);
 
   useEffect(() => {
     const searchParams: Partial<SearchQuery> = {

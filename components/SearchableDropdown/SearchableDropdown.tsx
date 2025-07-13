@@ -35,7 +35,6 @@ export function EnhancedSearchableDropdown({
     option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -68,7 +67,6 @@ export function EnhancedSearchableDropdown({
       setHighlightedIndex(-1);
     }
   };
-
 
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
@@ -140,7 +138,7 @@ export function EnhancedSearchableDropdown({
         <div
           className={cn(
             'absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ease-in-out',
-            openDirection === 'up' ? 'bottom-full mb-1' : 'top-full mt-1'
+            openDirection === 'up' ? 'bottom-full mb-1' : 'top-full mt-1',
           )}
         >
           <div className="p-2 border-b border-gray-200">
