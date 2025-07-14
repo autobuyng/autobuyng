@@ -28,6 +28,7 @@ const HomeSearch = () => {
         ...(filters.make && { make: filters.make }),
         ...(filters.model && { model: filters.model }),
         ...(filters.year.max_year && { yearMax: filters.year.max_year }),
+        ...(filters.year.min_year && { yearMax: filters.year.min_year }),
       };
 
       const response = await search(updatedData);
@@ -35,15 +36,29 @@ const HomeSearch = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      router.push(`/results/keyword=${filters.make ? filters.make : ''}`);
+      router.push(`/results/keyword=${filters.keyword ? filters.keyword : ''}`);
     }
   };
-
+  console.log(
+    !filters.price.max_price,
+    !filters.year.max_year,
+    !filters.year.min_year,
+    !filters.make,
+    'from search',
+  );
   const CAR_CATEGORY = [
     { id: 1, text: 'All', key: 'all' },
     { id: 2, text: 'New', key: 'new' },
     { id: 3, text: 'Used', key: 'used' },
   ];
+
+  const hasAnyFilter =
+    filters.price.max_price ||
+    filters.year.max_year ||
+    filters.year.min_year ||
+    filters.make ||
+    filters.keyword;
+
   return (
     <main className={cn('w-[90%] sm:w-[340px] mx-auto px-4 py-4  h-fit  bg-white relative z-10')}>
       <form onSubmit={handleSubmit(handleSearch)} className="px-4 pt-4 pb-4">
@@ -80,6 +95,9 @@ const HomeSearch = () => {
         <div className="w-full py-1">
           <input
             {...register('keyword')}
+            onChange={(e) =>
+              setFilters((prev: FilterProps): FilterProps => ({ ...prev, keyword: e.target.value }))
+            }
             type="text"
             placeholder="Search by make or model"
             className="block w-full h-[40px] px-5 border border-neutral-700 outline-none rounded-md placeholder:text-xs"
@@ -137,6 +155,7 @@ const HomeSearch = () => {
                       year: {
                         ...prev.year,
                         max_year: input,
+                        min_year: input,
                       },
                     }),
                   );
@@ -147,8 +166,12 @@ const HomeSearch = () => {
 
           <div className="w-full  flex items-end justify-end ">
             <button
+              disabled={isPending || !hasAnyFilter}
               className={cn(
                 'bg-primary-700 text-white font-semibold h-12 w-full rounded-[10px] flex items-center justify-center',
+                {
+                  'opacity-50': isPending || !hasAnyFilter,
+                },
               )}
             >
               {isPending ? 'Searching...' : 'Search inventory'}
