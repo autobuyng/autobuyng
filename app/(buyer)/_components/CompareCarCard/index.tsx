@@ -16,7 +16,7 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm min-w-[272px] border border-gray-200 overflow-x-auto ">
       <div className="flex justify-between items-start mb-3 px-2 pt-4">
-        <h3 className="text-base font-semibold text-primary-900 leading-tight flex-1 pr-2">{`${vehicle.make} ${vehicle.vehicleModel}`}</h3>
+        <h3 className="text-base font-semibold text-primary-900 leading-tight flex-1 pr-2">{` ${vehicle.vehicleYear} ${vehicle.make} ${vehicle.vehicleModel}`}</h3>
         <button
           onClick={() => onRemove(vehicle._id)}
           className="text-gray-400 hover:text-gray-600 text-xl leading-none p-0 bg-transparent border-none cursor-pointer"
@@ -68,19 +68,16 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
         <div className="mt-3">
           <h4 className="text-lg font-semibold text-gray-900 mb-4">Overview</h4>
           <div className="space-y-3">
-            <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded">
+            {/* <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded">
               <span className="text-blue-600 text-sm font-medium">Vehicle Year</span>
               <span className="text-gray-900 text-sm">{vehicle.vehicleYear}</span>
-            </div>
-            <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
-              <span className="text-blue-600 text-sm font-medium">Interior Color</span>
-              <span className="text-gray-900 text-sm">{vehicle.interiorColor}</span>
-            </div>
+            </div> */}
 
-            <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
+
+            {/* <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Exterior Color</span>
               <span className="text-gray-900 text-sm">{vehicle.exteriorColor}</span>
-            </div>
+            </div> */}
 
             <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Drive Train</span>
@@ -102,6 +99,10 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
             <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Engine</span>
               <span className="text-gray-900 text-sm">{vehicle.engine}</span>
+            </div>
+            <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
+              <span className="text-blue-600 text-sm font-medium">Interior Color</span>
+              <span className="text-gray-900 text-sm">{vehicle.interiorColor}</span>
             </div>
           </div>
         </div>

@@ -207,11 +207,19 @@ type Features = {
   luxury: string[];
 };
 
+export type LoanRequest = {
+  vehicleId: string;
+  downPayment: number;
+  loanTermMonths: number;
+  annualInterestRate: number;
+};
+
 export type VehicleData = {
   _id: string;
   sellerId: string;
   make: string;
   vehicleModel: string;
+  vehicleTrim: string;
   condition: string;
   vehicleYear: number;
   vehicleType: string;

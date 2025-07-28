@@ -21,6 +21,7 @@ import {
 import { X } from 'lucide-react';
 import { VehicleData } from '@/types/types';
 import { capitalizeFirstLetter } from '@/lib/utils';
+import LoanCalculator from '../loancalculator';
 
 const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }) => {
   return (
@@ -178,6 +179,8 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
             </AlertDialogContent>
           </AlertDialog>
         </div>
+
+        <LoanCalculator />
       </div>
     </div>
   );

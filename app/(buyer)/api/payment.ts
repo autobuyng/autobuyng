@@ -1,13 +1,13 @@
 import { endpoints, fetcher, mutator } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { AccountOrder, OrderListResponse } from '@/types/types';
+import { AccountOrder, LoanRequest, OrderListResponse } from '@/types/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 export function useCreateOrder() {
   const { mutateAsync, data, isPending, isSuccess, isError, error } = useMutation<
-    AccountOrder, //PaymentResponse
-    any, //
+    AccountOrder,
+    any,
     any
   >({
     mutationFn: (values) =>
@@ -17,6 +17,28 @@ export function useCreateOrder() {
   return useMemo(
     () => ({
       createOrder: mutateAsync,
+      data,
+      isSuccess,
+      isPending,
+      error,
+      isError,
+    }),
+    [mutateAsync, data, isPending, error, isError],
+  );
+}
+export function useGetLoanEstimate() {
+  const { mutateAsync, data, isPending, isSuccess, isError, error } = useMutation<
+    any,
+    any,
+    LoanRequest
+  >({
+    mutationFn: (values) =>
+      mutator({ method: 'POST', data: values, url: endpoints.loan.getEstimate }),
+  });
+
+  return useMemo(
+    () => ({
+      getLoanEstimate: mutateAsync,
       data,
       isSuccess,
       isPending,
