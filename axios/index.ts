@@ -179,6 +179,9 @@ export const endpoints = {
       `order/transaction/notifications/${data.merchantId}`,
     orderList: '/order/vehicle',
   },
+  loan: {
+    getEstimate: `/loan/calculate`,
+  },
   waitlist: '/waitlist',
 };
 

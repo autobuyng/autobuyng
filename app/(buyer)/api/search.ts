@@ -1,10 +1,11 @@
-import { endpoints, fetcherPostRequest, mutator, queryKeys } from '@/axios';
+import { endpoints, fetcher, fetcherPostRequest, mutator, queryKeys } from '@/axios';
 import {
   ApiResponse,
   CompareDataResponse,
   SearchQuery,
   SimilarVehicleApiResponse,
   SingleVehicleResponse,
+  VehicleData,
 } from '@/types/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -96,7 +97,7 @@ export function useGetVehicle() {
     mutationFn: (values: { vehicleId: string }) =>
       mutator({ method: 'GET', data: values, url: endpoints.search.getvehicle(values) }),
     onSuccess: (data, variables) => {
-      queryClient.setQueryData(['vehicle', variables.vehicleId], data); // Cache result
+      queryClient.setQueryData(['vehicle', variables.vehicleId], data);
     },
   });
 
@@ -146,7 +147,7 @@ export function useCompareVehicles(vehicleIds: string[]) {
   const { data, isLoading, isError, error } = useQuery<CompareDataResponse>({
     queryKey: ['compare', vehicleIds],
     queryFn: () => fetcherPostRequest(endpoints.search.compare, { vehicleIds }),
-    enabled: !!vehicleIds?.length,
+    enabled: !!vehicleIds.length,
   });
 
   return useMemo(
@@ -158,5 +159,22 @@ export function useCompareVehicles(vehicleIds: string[]) {
       isError,
     }),
     [data, isLoading, error, isError],
+  );
+}
+
+export function useGetSingleVehicle({ vehicleId }: { vehicleId: string }) {
+  const { data, isPending, error, isError } = useQuery<VehicleData>({
+    queryKey: ['vehicle', vehicleId],
+    queryFn: () => fetcher(endpoints.search.getvehicle({ vehicleId })),
+    enabled: !!vehicleId,
+  });
+  return useMemo(
+    () => ({
+      data,
+      isPending,
+      error,
+      isError,
+    }),
+    [data, isPending, error, isError],
   );
 }
