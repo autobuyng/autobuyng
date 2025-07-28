@@ -28,7 +28,7 @@ const Compare = () => {
     router.push(`/compare?ids=${newIds.join('-')}`);
   };
 
-  console.log(compareSearchResult, "compareSearchResult");
+  console.log(compareSearchResult, 'compareSearchResult');
   useEffect(() => {
     if (compareSearchResult) {
       const isExistiong = ids.find((id) => id === compareSearchResult._id);

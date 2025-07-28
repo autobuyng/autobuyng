@@ -1,7 +1,8 @@
 import { endpoints, fetcher, mutator } from '@/axios';
 import { getSessionItem } from '@/lib/Sessionstorage';
-import { AccountOrder, LoanRequest, OrderListResponse } from '@/types/types';
+import { AccountOrder, LoanRequest, LoanResponse, OrderListResponse } from '@/types/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useMemo } from 'react';
 
 export function useCreateOrder() {
@@ -28,8 +29,8 @@ export function useCreateOrder() {
 }
 export function useGetLoanEstimate() {
   const { mutateAsync, data, isPending, isSuccess, isError, error } = useMutation<
-    any,
-    any,
+    LoanResponse,
+    AxiosError,
     LoanRequest
   >({
     mutationFn: (values) =>

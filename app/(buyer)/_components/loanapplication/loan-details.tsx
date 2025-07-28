@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import { useFormStore, type LoanDetails } from "@/store/loanStore"
-import { useForm } from "react-hook-form"
+import { useFormStore, type LoanDetails } from '@/store/loanStore';
+import { useForm } from 'react-hook-form';
 // import { useFormStore, type LoanDetails } from "@/store/form-store"
 
 export default function LoanDetailsForm() {
-  const { formData, updateLoanDetails, setCurrentStep } = useFormStore()
+  const { formData, updateLoanDetails, setCurrentStep } = useFormStore();
 
   const {
     register,
@@ -13,19 +13,19 @@ export default function LoanDetailsForm() {
     formState: { errors },
   } = useForm<LoanDetails>({
     defaultValues: formData.loanDetails,
-  })
+  });
 
   // const desiredEquityContribution = watch("desiredEquityContribution")
   // const desiredInterestRate = watch("desiredInterestRate")
 
   const onNext = (data: LoanDetails) => {
-    updateLoanDetails(data)
-    setCurrentStep(4)
-  }
+    updateLoanDetails(data);
+    setCurrentStep(4);
+  };
 
   const goBack = () => {
-    setCurrentStep(3)
-  }
+    setCurrentStep(3);
+  };
 
   return (
     <div className="max-w-5xl mx-auto p-8">
@@ -38,7 +38,10 @@ export default function LoanDetailsForm() {
         {/* Main Loan Preferences */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col">
-            <label htmlFor="desiredEquityContribution" className="font-medium text-gray-700 mb-2 text-sm">
+            <label
+              htmlFor="desiredEquityContribution"
+              className="font-medium text-gray-700 mb-2 text-sm"
+            >
               Desired Equity Contribution (₦)
             </label>
             <input
@@ -46,27 +49,36 @@ export default function LoanDetailsForm() {
               type="number"
               min="0"
               step="1000"
-              {...register("desiredEquityContribution", {
-                min: { value: 0, message: "Amount must be positive" },
+              {...register('desiredEquityContribution', {
+                min: { value: 0, message: 'Amount must be positive' },
               })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.desiredEquityContribution ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.desiredEquityContribution ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
               placeholder="Enter amount"
             />
             {errors.desiredEquityContribution && (
-              <span className="text-red-500 text-xs mt-1">{errors.desiredEquityContribution.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {errors.desiredEquityContribution.message}
+              </span>
             )}
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="desiredMonthlyPayment" className="font-medium text-gray-700 mb-2 text-sm">
+            <label
+              htmlFor="desiredMonthlyPayment"
+              className="font-medium text-gray-700 mb-2 text-sm"
+            >
               Desired Monthly Payment (₦)
             </label>
             <select
               id="desiredMonthlyPayment"
-              {...register("desiredMonthlyPayment", { required: "Please select desired monthly payment" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.desiredMonthlyPayment ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('desiredMonthlyPayment', {
+                required: 'Please select desired monthly payment',
+              })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.desiredMonthlyPayment ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             >
               <option value="">Select Payment Range</option>
               <option value="50000-100000">₦50,000 - ₦100,000</option>
@@ -76,7 +88,9 @@ export default function LoanDetailsForm() {
               <option value="500000+">₦500,000+</option>
             </select>
             {errors.desiredMonthlyPayment && (
-              <span className="text-red-500 text-xs mt-1">{errors.desiredMonthlyPayment.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {errors.desiredMonthlyPayment.message}
+              </span>
             )}
           </div>
 
@@ -86,9 +100,10 @@ export default function LoanDetailsForm() {
             </label>
             <select
               id="interestRateType"
-              {...register("interestRateType", { required: "Please select interest rate type" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.interestRateType ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('interestRateType', { required: 'Please select interest rate type' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.interestRateType ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             >
               <option value="">Select Rate Type</option>
               <option value="Fixed">Fixed Rate</option>
@@ -110,17 +125,20 @@ export default function LoanDetailsForm() {
               min="1"
               max="50"
               step="0.1"
-              {...register("desiredInterestRate", {
-                required: "Interest rate is required",
-                min: { value: 1, message: "Minimum rate is 1%" },
-                max: { value: 50, message: "Maximum rate is 50%" },
+              {...register('desiredInterestRate', {
+                required: 'Interest rate is required',
+                min: { value: 1, message: 'Minimum rate is 1%' },
+                max: { value: 50, message: 'Maximum rate is 50%' },
               })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.desiredInterestRate ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.desiredInterestRate ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
               placeholder="30"
             />
             {errors.desiredInterestRate && (
-              <span className="text-red-500 text-xs mt-1">{errors.desiredInterestRate.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {errors.desiredInterestRate.message}
+              </span>
             )}
           </div>
 
@@ -130,9 +148,10 @@ export default function LoanDetailsForm() {
             </label>
             <select
               id="desiredLoanTerm"
-              {...register("desiredLoanTerm", { required: "Please select loan term" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.desiredLoanTerm ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('desiredLoanTerm', { required: 'Please select loan term' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.desiredLoanTerm ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             >
               <option value="">Select Term</option>
               <option value="12 months">12 months</option>
@@ -153,9 +172,10 @@ export default function LoanDetailsForm() {
             </label>
             <select
               id="desiredRepayment"
-              {...register("desiredRepayment", { required: "Please select repayment method" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.desiredRepayment ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('desiredRepayment', { required: 'Please select repayment method' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.desiredRepayment ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             >
               <option value="">Select Repayment</option>
               <option value="Monthly">Monthly</option>
@@ -180,7 +200,7 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="true"
-                  {...register("subscribeRoadworthiness", { required: "Please select an option" })}
+                  {...register('subscribeRoadworthiness', { required: 'Please select an option' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">Yes</span>
@@ -189,14 +209,16 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="false"
-                  {...register("subscribeRoadworthiness", { required: "Please select an option" })}
+                  {...register('subscribeRoadworthiness', { required: 'Please select an option' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">No</span>
               </label>
             </div>
             {errors.subscribeRoadworthiness && (
-              <span className="text-red-500 text-xs mt-1">{errors.subscribeRoadworthiness.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {errors.subscribeRoadworthiness.message}
+              </span>
             )}
           </div>
 
@@ -209,7 +231,7 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="true"
-                  {...register("subscribeLicenceRenewal", { required: "Please select an option" })}
+                  {...register('subscribeLicenceRenewal', { required: 'Please select an option' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">Yes</span>
@@ -218,14 +240,16 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="false"
-                  {...register("subscribeLicenceRenewal", { required: "Please select an option" })}
+                  {...register('subscribeLicenceRenewal', { required: 'Please select an option' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">No</span>
               </label>
             </div>
             {errors.subscribeLicenceRenewal && (
-              <span className="text-red-500 text-xs mt-1">{errors.subscribeLicenceRenewal.message}</span>
+              <span className="text-red-500 text-xs mt-1">
+                {errors.subscribeLicenceRenewal.message}
+              </span>
             )}
           </div>
 
@@ -238,7 +262,7 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="UPFRONT"
-                  {...register("feePaymentType", { required: "Please select payment type" })}
+                  {...register('feePaymentType', { required: 'Please select payment type' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">Upfront</span>
@@ -247,7 +271,7 @@ export default function LoanDetailsForm() {
                 <input
                   type="radio"
                   value="MONTHLY"
-                  {...register("feePaymentType", { required: "Please select payment type" })}
+                  {...register('feePaymentType', { required: 'Please select payment type' })}
                   className="w-4 h-4 text-blue-600 accent-blue-500"
                 />
                 <span className="text-sm">Monthly</span>
@@ -262,13 +286,14 @@ export default function LoanDetailsForm() {
         {/* Upfront Payment Options */}
         <div>
           <label className="block font-medium text-gray-700 mb-4">
-            Do you want to pay for any of the following items upfront instead of financing it as part of the loan?
+            Do you want to pay for any of the following items upfront instead of financing it as
+            part of the loan?
           </label>
           <div className="space-y-3">
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                {...register("upfrontPayments.vehicleRegistration")}
+                {...register('upfrontPayments.vehicleRegistration')}
                 className="w-4 h-4 text-blue-600 rounded accent-blue-500"
               />
               <span className="text-sm">Vehicle Registration</span>
@@ -276,7 +301,7 @@ export default function LoanDetailsForm() {
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                {...register("upfrontPayments.vehicleTracking")}
+                {...register('upfrontPayments.vehicleTracking')}
                 className="w-4 h-4 text-blue-600 rounded accent-blue-500"
               />
               <span className="text-sm">Vehicle Tracking</span>
@@ -284,7 +309,7 @@ export default function LoanDetailsForm() {
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                {...register("upfrontPayments.creditLifeInsurance")}
+                {...register('upfrontPayments.creditLifeInsurance')}
                 className="w-4 h-4 text-blue-600 rounded accent-blue-500"
               />
               <span className="text-sm">Credit Life Insurance</span>
@@ -292,7 +317,7 @@ export default function LoanDetailsForm() {
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                {...register("upfrontPayments.insuranceFirst12Months")}
+                {...register('upfrontPayments.insuranceFirst12Months')}
                 className="w-4 h-4 text-blue-600 rounded accent-blue-500"
               />
               <span className="text-sm">Insurance (First 12 months)</span>
@@ -300,7 +325,7 @@ export default function LoanDetailsForm() {
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                {...register("upfrontPayments.warranty")}
+                {...register('upfrontPayments.warranty')}
                 className="w-4 h-4 text-blue-600 rounded accent-blue-500"
               />
               <span className="text-sm">Warranty</span>
@@ -325,5 +350,5 @@ export default function LoanDetailsForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }

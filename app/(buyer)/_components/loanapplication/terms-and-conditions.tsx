@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import { useToast } from "@/hooks/use-toast"
-import { useFormStore, type TermsAndConditions } from "@/store/loanStore"
-import { useForm } from "react-hook-form"
+import { useToast } from '@/hooks/use-toast';
+import { useFormStore, type TermsAndConditions } from '@/store/loanStore';
+import { useForm } from 'react-hook-form';
 // import { useFormStore, type TermsAndConditions } from "@/store/form-store"
 
 export default function TermsAndConditionsForm() {
-  const { toast } = useToast()
-  const { formData, updateTermsAndConditions, setCurrentStep } = useFormStore()
+  const { toast } = useToast();
+  const { formData, updateTermsAndConditions, setCurrentStep } = useFormStore();
 
   const {
     register,
@@ -15,10 +15,10 @@ export default function TermsAndConditionsForm() {
     formState: { errors },
   } = useForm<TermsAndConditions>({
     defaultValues: formData.termsAndConditions,
-  })
+  });
 
   const onSubmit = (data: TermsAndConditions) => {
-    updateTermsAndConditions(data)
+    updateTermsAndConditions(data);
 
     // Combine all data in the final structure (excluding financial information)
     const finalData = {
@@ -69,19 +69,19 @@ export default function TermsAndConditionsForm() {
         acknowledgeFinanceApproval: data.acknowledgeFinanceApproval,
         agreeTermsAndPrivacy: data.agreeTermsAndPrivacy,
       },
-    }
+    };
 
-    console.log("Final Form Data for Backend:", finalData)
+    console.log('Final Form Data for Backend:', finalData);
     toast({
-      title: "Success",
-      description: "Loan application submitted successfully! Check console for data.",
-    })
+      title: 'Success',
+      description: 'Loan application submitted successfully! Check console for data.',
+    });
     // alert("Loan application submitted successfully! Check console for data.")
-  }
+  };
 
   const goBack = () => {
-    setCurrentStep(3)
-  }
+    setCurrentStep(3);
+  };
 
   return (
     <div className="max-w-5xl mx-auto p-8">
@@ -94,18 +94,20 @@ export default function TermsAndConditionsForm() {
         {/* Credit Enquiry Consent */}
         <div className="space-y-4">
           <p className="text-gray-700 text-sm leading-relaxed">
-            I hereby consent that Autobuy is allowed to make enquiries and access my credit information regarding my
-            credit history with any credit bureau. I also consent to Autobuy sharing my credit information with their
-            banking partners as required by law in order to finalize or fulfill my loan agreement as part of this
-            application. I consent that Autobuy reports the conclusion of any credit agreement with me to the relevant
-            credit reporting regulator. I hereby declare that the information provided by me is true and correct.
+            I hereby consent that Autobuy is allowed to make enquiries and access my credit
+            information regarding my credit history with any credit bureau. I also consent to
+            Autobuy sharing my credit information with their banking partners as required by law in
+            order to finalize or fulfill my loan agreement as part of this application. I consent
+            that Autobuy reports the conclusion of any credit agreement with me to the relevant
+            credit reporting regulator. I hereby declare that the information provided by me is true
+            and correct.
           </p>
           <div className="flex gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 value="true"
-                {...register("consentCreditEnquiry", { required: "Please provide your consent" })}
+                {...register('consentCreditEnquiry', { required: 'Please provide your consent' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Yes</span>
@@ -114,7 +116,7 @@ export default function TermsAndConditionsForm() {
               <input
                 type="radio"
                 value="false"
-                {...register("consentCreditEnquiry", { required: "Please provide your consent" })}
+                {...register('consentCreditEnquiry', { required: 'Please provide your consent' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">No</span>
@@ -128,16 +130,19 @@ export default function TermsAndConditionsForm() {
         {/* Finance Approval Acknowledgment */}
         <div className="space-y-4">
           <p className="text-gray-700 text-sm leading-relaxed">
-            Finance is subject to an approval based on your credit profile and affordability of the vehicle. The
-            submission of this finance application will not result in the immediate reservation of this vehicle, nor
-            will it guarantee the availability of this vehicle in the future.
+            Finance is subject to an approval based on your credit profile and affordability of the
+            vehicle. The submission of this finance application will not result in the immediate
+            reservation of this vehicle, nor will it guarantee the availability of this vehicle in
+            the future.
           </p>
           <div className="flex gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 value="true"
-                {...register("acknowledgeFinanceApproval", { required: "Please acknowledge this statement" })}
+                {...register('acknowledgeFinanceApproval', {
+                  required: 'Please acknowledge this statement',
+                })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Yes</span>
@@ -146,14 +151,18 @@ export default function TermsAndConditionsForm() {
               <input
                 type="radio"
                 value="false"
-                {...register("acknowledgeFinanceApproval", { required: "Please acknowledge this statement" })}
+                {...register('acknowledgeFinanceApproval', {
+                  required: 'Please acknowledge this statement',
+                })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">No</span>
             </label>
           </div>
           {errors.acknowledgeFinanceApproval && (
-            <span className="text-red-500 text-xs">{errors.acknowledgeFinanceApproval.message}</span>
+            <span className="text-red-500 text-xs">
+              {errors.acknowledgeFinanceApproval.message}
+            </span>
           )}
         </div>
 
@@ -162,7 +171,7 @@ export default function TermsAndConditionsForm() {
           <div className="text-gray-700 text-sm leading-relaxed">
             <p className="mb-2">I agree to the:</p>
             <p className="mb-1">
-              (a) Terms and Conditions of the platform{" "}
+              (a) Terms and Conditions of the platform{' '}
               <a
                 href="https://autobuyng.com/terms-of-service"
                 target="_blank"
@@ -173,7 +182,7 @@ export default function TermsAndConditionsForm() {
               </a>
             </p>
             <p>
-              (b) Privacy Policy of the platform{" "}
+              (b) Privacy Policy of the platform{' '}
               <a
                 href="https://autobuyng.com/privacy-policy"
                 target="_blank"
@@ -189,7 +198,9 @@ export default function TermsAndConditionsForm() {
               <input
                 type="radio"
                 value="true"
-                {...register("agreeTermsAndPrivacy", { required: "Please agree to the terms and privacy policy" })}
+                {...register('agreeTermsAndPrivacy', {
+                  required: 'Please agree to the terms and privacy policy',
+                })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Yes</span>
@@ -198,7 +209,9 @@ export default function TermsAndConditionsForm() {
               <input
                 type="radio"
                 value="false"
-                {...register("agreeTermsAndPrivacy", { required: "Please agree to the terms and privacy policy" })}
+                {...register('agreeTermsAndPrivacy', {
+                  required: 'Please agree to the terms and privacy policy',
+                })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">No</span>
@@ -226,5 +239,5 @@ export default function TermsAndConditionsForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }

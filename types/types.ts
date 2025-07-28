@@ -214,6 +214,17 @@ export type LoanRequest = {
   annualInterestRate: number;
 };
 
+export type LoanResponse = {
+  status: boolean;
+  message: string;
+  data: {
+    emi: number;
+    principal: number;
+    vehiclePrice: number;
+  };
+};
+
+
 export type VehicleData = {
   _id: string;
   sellerId: string;

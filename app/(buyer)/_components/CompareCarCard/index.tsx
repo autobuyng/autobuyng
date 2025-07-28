@@ -73,7 +73,6 @@ export default function CompareCarCard({ vehicle, onRemove }: CarCardProps) {
               <span className="text-gray-900 text-sm">{vehicle.vehicleYear}</span>
             </div> */}
 
-
             {/* <div className="flex justify-between items-center bg-blue-50 px-3 py-2 rounded-[8px]">
               <span className="text-blue-600 text-sm font-medium">Exterior Color</span>
               <span className="text-gray-900 text-sm">{vehicle.exteriorColor}</span>

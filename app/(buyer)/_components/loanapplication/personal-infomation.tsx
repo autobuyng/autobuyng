@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import { useFormStore, type PersonalInformation } from "@/store/loanStore"
-import { useForm } from "react-hook-form"
+import { useFormStore, type PersonalInformation } from '@/store/loanStore';
+import { useForm } from 'react-hook-form';
 // import { useFormStore, type PersonalInformation } from "@/store/form-store"
 
 export default function PersonalInformationForm() {
-  const { formData, updatePersonalInformation, setCurrentStep } = useFormStore()
+  const { formData, updatePersonalInformation, setCurrentStep } = useFormStore();
 
   const {
     register,
@@ -13,12 +13,12 @@ export default function PersonalInformationForm() {
     formState: { errors },
   } = useForm<PersonalInformation>({
     defaultValues: formData.personalInformation,
-  })
+  });
 
   const onNext = (data: PersonalInformation) => {
-    updatePersonalInformation(data)
-    setCurrentStep(2)
-  }
+    updatePersonalInformation(data);
+    setCurrentStep(2);
+  };
 
   return (
     <div className="max-w-5xl mx-auto p-8">
@@ -38,11 +38,14 @@ export default function PersonalInformationForm() {
             <input
               id="firstName"
               type="text"
-              {...register("firstName", { required: "First name is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.firstName ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('firstName', { required: 'First name is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.firstName ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.firstName && <span className="text-red-500 text-xs mt-1">{errors.firstName.message}</span>}
+            {errors.firstName && (
+              <span className="text-red-500 text-xs mt-1">{errors.firstName.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -52,11 +55,14 @@ export default function PersonalInformationForm() {
             <input
               id="lastName"
               type="text"
-              {...register("lastName", { required: "Last name is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.lastName ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('lastName', { required: 'Last name is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.lastName ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.lastName && <span className="text-red-500 text-xs mt-1">{errors.lastName.message}</span>}
+            {errors.lastName && (
+              <span className="text-red-500 text-xs mt-1">{errors.lastName.message}</span>
+            )}
           </div>
         </div>
 
@@ -68,17 +74,20 @@ export default function PersonalInformationForm() {
             <input
               id="email"
               type="email"
-              {...register("email", {
-                required: "Email is required",
+              {...register('email', {
+                required: 'Email is required',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
+                  message: 'Invalid email address',
                 },
               })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.email ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.email ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
+            {errors.email && (
+              <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -88,11 +97,14 @@ export default function PersonalInformationForm() {
             <input
               id="phoneNumber"
               type="tel"
-              {...register("phoneNumber", { required: "Phone number is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.phoneNumber ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('phoneNumber', { required: 'Phone number is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.phoneNumber ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.phoneNumber && <span className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</span>}
+            {errors.phoneNumber && (
+              <span className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</span>
+            )}
           </div>
         </div>
 
@@ -104,11 +116,14 @@ export default function PersonalInformationForm() {
             <input
               id="dateOfBirth"
               type="date"
-              {...register("dateOfBirth", { required: "Date of birth is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.dateOfBirth ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('dateOfBirth', { required: 'Date of birth is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.dateOfBirth && <span className="text-red-500 text-xs mt-1">{errors.dateOfBirth.message}</span>}
+            {errors.dateOfBirth && (
+              <span className="text-red-500 text-xs mt-1">{errors.dateOfBirth.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -118,11 +133,14 @@ export default function PersonalInformationForm() {
             <input
               id="nationalId"
               type="text"
-              {...register("nationalId", { required: "National ID is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.nationalId ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('nationalId', { required: 'National ID is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.nationalId ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.nationalId && <span className="text-red-500 text-xs mt-1">{errors.nationalId.message}</span>}
+            {errors.nationalId && (
+              <span className="text-red-500 text-xs mt-1">{errors.nationalId.message}</span>
+            )}
           </div>
         </div>
 
@@ -134,11 +152,14 @@ export default function PersonalInformationForm() {
             <input
               id="address"
               type="text"
-              {...register("address", { required: "Address is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.address ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('address', { required: 'Address is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.address ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.address && <span className="text-red-500 text-xs mt-1">{errors.address.message}</span>}
+            {errors.address && (
+              <span className="text-red-500 text-xs mt-1">{errors.address.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -148,11 +169,14 @@ export default function PersonalInformationForm() {
             <input
               id="city"
               type="text"
-              {...register("city", { required: "City is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.city ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('city', { required: 'City is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.city ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.city && <span className="text-red-500 text-xs mt-1">{errors.city.message}</span>}
+            {errors.city && (
+              <span className="text-red-500 text-xs mt-1">{errors.city.message}</span>
+            )}
           </div>
         </div>
 
@@ -164,11 +188,14 @@ export default function PersonalInformationForm() {
             <input
               id="state"
               type="text"
-              {...register("state", { required: "State is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.state ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('state', { required: 'State is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.state ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.state && <span className="text-red-500 text-xs mt-1">{errors.state.message}</span>}
+            {errors.state && (
+              <span className="text-red-500 text-xs mt-1">{errors.state.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -178,11 +205,14 @@ export default function PersonalInformationForm() {
             <input
               id="postalCode"
               type="text"
-              {...register("postalCode", { required: "Postal code is required" })}
-              className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.postalCode ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+              {...register('postalCode', { required: 'Postal code is required' })}
+              className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                errors.postalCode ? 'border-red-500' : 'border-gray-300'
+              } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
             />
-            {errors.postalCode && <span className="text-red-500 text-xs mt-1">{errors.postalCode.message}</span>}
+            {errors.postalCode && (
+              <span className="text-red-500 text-xs mt-1">{errors.postalCode.message}</span>
+            )}
           </div>
         </div>
 
@@ -196,5 +226,5 @@ export default function PersonalInformationForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }
