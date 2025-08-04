@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   AlertDialog,
@@ -8,19 +8,24 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { X } from "lucide-react"
-import { formatCurrency } from "@/lib/utils"
-import { VehicleData } from "@/types/types"
-import { useRouter } from "next-nprogress-bar"
+} from '@/components/ui/alert-dialog';
+import { X } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
+import { VehicleData } from '@/types/types';
+import { useRouter } from 'next-nprogress-bar';
 
-export default function LoanPaymentDialog({ data, isOpen, setIsOpen, vehicleData }: {
+export default function LoanPaymentDialog({
+  data,
+  isOpen,
+  setIsOpen,
+  vehicleData,
+}: {
   data: any;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  vehicleData: VehicleData | null
+  vehicleData: VehicleData | null;
 }) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
@@ -46,17 +51,23 @@ export default function LoanPaymentDialog({ data, isOpen, setIsOpen, vehicleData
             <div className="space-y-4 mt-6">
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
                 <span className="text-sm font-medium text-gray-700">Car Value</span>
-                <span className="text-sm font-semibold text-gray-900">{formatCurrency(vehicleData?.price)}</span>
+                <span className="text-sm font-semibold text-gray-900">
+                  {formatCurrency(vehicleData?.price)}
+                </span>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
                 <span className="text-sm font-medium text-gray-700">Down Payment</span>
-                <span className="text-sm font-semibold text-gray-900">{formatCurrency(data?.downPayment)}</span>
+                <span className="text-sm font-semibold text-gray-900">
+                  {formatCurrency(data?.downPayment)}
+                </span>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
                 <span className="text-sm font-medium text-gray-700">Loan Tenure</span>
-                <span className="text-sm font-semibold text-gray-900">{data?.loanTermMonths} Months</span>
+                <span className="text-sm font-semibold text-gray-900">
+                  {data?.loanTermMonths} Months
+                </span>
               </div>
             </div>
 
@@ -65,8 +76,8 @@ export default function LoanPaymentDialog({ data, isOpen, setIsOpen, vehicleData
                 Monthly Installment Includes
               </h3>
               <AlertDialogDescription className="text-xs text-gray-600 leading-relaxed">
-                Vehicle Registration, Comprehensive Insurance, Annual Maintenance Cost, Tracker, Credit Life Insurance,
-                Roadworthiness, Vehicle Licence Renewal.
+                Vehicle Registration, Comprehensive Insurance, Annual Maintenance Cost, Tracker,
+                Credit Life Insurance, Roadworthiness, Vehicle Licence Renewal.
               </AlertDialogDescription>
             </div>
 
@@ -74,8 +85,8 @@ export default function LoanPaymentDialog({ data, isOpen, setIsOpen, vehicleData
               <AlertDialogAction
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg"
                 onClick={() => {
-                  router.push(`/loan-vehicle/${vehicleData?._id}`)
-                  setIsOpen(false)
+                  router.push(`/loan-vehicle/${vehicleData?._id}`);
+                  setIsOpen(false);
                 }}
               >
                 Apply for loan
@@ -85,5 +96,5 @@ export default function LoanPaymentDialog({ data, isOpen, setIsOpen, vehicleData
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }

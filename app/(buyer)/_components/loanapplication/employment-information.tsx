@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import { useFormStore, type EmploymentInformation } from "@/store/loanStore"
-import { useForm } from "react-hook-form"
+import { useFormStore, type EmploymentInformation } from '@/store/loanStore';
+import { useForm } from 'react-hook-form';
 // import { useFormStore, type EmploymentInformation } from "@/store/form-store"
 
 export default function EmploymentInformationForm() {
-  const { formData, updateEmploymentInformation, setCurrentStep } = useFormStore()
+  const { formData, updateEmploymentInformation, setCurrentStep } = useFormStore();
 
   const {
     register,
@@ -14,21 +14,21 @@ export default function EmploymentInformationForm() {
     formState: { errors },
   } = useForm<EmploymentInformation>({
     defaultValues: formData.employmentInformation,
-  })
+  });
 
-  const profession = watch("profession")
-  const hasSideBusiness = watch("hasSideBusiness") === "true"
-  const hasBusinessBankAccount = watch("hasBusinessBankAccount") === "true"
-  const isDirector = watch("isDirector") === "true"
+  const profession = watch('profession');
+  const hasSideBusiness = watch('hasSideBusiness') === 'true';
+  const hasBusinessBankAccount = watch('hasBusinessBankAccount') === 'true';
+  const isDirector = watch('isDirector') === 'true';
 
   const onNext = (data: EmploymentInformation) => {
-    updateEmploymentInformation(data)
-    setCurrentStep(3)
-  }
+    updateEmploymentInformation(data);
+    setCurrentStep(3);
+  };
 
   const goBack = () => {
-    setCurrentStep(1)
-  }
+    setCurrentStep(1);
+  };
 
   return (
     <div className="max-w-5xl mx-auto p-8">
@@ -45,7 +45,7 @@ export default function EmploymentInformationForm() {
               <input
                 type="radio"
                 value="SALARY_EARNER"
-                {...register("profession", { required: "Please select your profession" })}
+                {...register('profession', { required: 'Please select your profession' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Salary Earner</span>
@@ -54,7 +54,7 @@ export default function EmploymentInformationForm() {
               <input
                 type="radio"
                 value="BUSINESS_OWNER"
-                {...register("profession", { required: "Please select your profession" })}
+                {...register('profession', { required: 'Please select your profession' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Business Owner</span>
@@ -63,33 +63,40 @@ export default function EmploymentInformationForm() {
               <input
                 type="radio"
                 value="SELF_EMPLOYED"
-                {...register("profession", { required: "Please select your profession" })}
+                {...register('profession', { required: 'Please select your profession' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Self Employed</span>
             </label>
           </div>
-          {errors.profession && <span className="text-red-500 text-xs mt-1">{errors.profession.message}</span>}
+          {errors.profession && (
+            <span className="text-red-500 text-xs mt-1">{errors.profession.message}</span>
+          )}
         </div>
 
         {/* Salary Earner Form */}
-        {profession === "SALARY_EARNER" && (
+        {profession === 'SALARY_EARNER' && (
           <>
             {/* Employment Details */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Employment Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label htmlFor="employmentType" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="employmentType"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Employment Type *
                   </label>
                   <select
                     id="employmentType"
-                    {...register("employmentType", {
-                      required: profession === "SALARY_EARNER" ? "Employment type is required" : false,
+                    {...register('employmentType', {
+                      required:
+                        profession === 'SALARY_EARNER' ? 'Employment type is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.employmentType ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.employmentType ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   >
                     <option value="">Select Employment Type</option>
                     <option value="Full Time">Full Time</option>
@@ -98,7 +105,9 @@ export default function EmploymentInformationForm() {
                     <option value="Freelance">Freelance</option>
                   </select>
                   {errors.employmentType && (
-                    <span className="text-red-500 text-xs mt-1">{errors.employmentType.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.employmentType.message}
+                    </span>
                   )}
                 </div>
 
@@ -108,11 +117,12 @@ export default function EmploymentInformationForm() {
                   </label>
                   <select
                     id="industry"
-                    {...register("industry", {
-                      required: profession === "SALARY_EARNER" ? "Industry is required" : false,
+                    {...register('industry', {
+                      required: profession === 'SALARY_EARNER' ? 'Industry is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.industry ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.industry ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   >
                     <option value="">Select Industry</option>
                     <option value="Technology">Technology</option>
@@ -123,7 +133,9 @@ export default function EmploymentInformationForm() {
                     <option value="Retail">Retail</option>
                     <option value="Other">Other</option>
                   </select>
-                  {errors.industry && <span className="text-red-500 text-xs mt-1">{errors.industry.message}</span>}
+                  {errors.industry && (
+                    <span className="text-red-500 text-xs mt-1">{errors.industry.message}</span>
+                  )}
                 </div>
 
                 <div className="flex flex-col">
@@ -133,11 +145,13 @@ export default function EmploymentInformationForm() {
                   <input
                     id="employerName"
                     type="text"
-                    {...register("employerName", {
-                      required: profession === "SALARY_EARNER" ? "Employer name is required" : false,
+                    {...register('employerName', {
+                      required:
+                        profession === 'SALARY_EARNER' ? 'Employer name is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.employerName ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.employerName ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   />
                   {errors.employerName && (
                     <span className="text-red-500 text-xs mt-1">{errors.employerName.message}</span>
@@ -145,38 +159,52 @@ export default function EmploymentInformationForm() {
                 </div>
 
                 <div className="flex flex-col">
-                  <label htmlFor="employerAddress" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="employerAddress"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Employers Address *
                   </label>
                   <input
                     id="employerAddress"
                     type="text"
-                    {...register("employerAddress", {
-                      required: profession === "SALARY_EARNER" ? "Employer address is required" : false,
+                    {...register('employerAddress', {
+                      required:
+                        profession === 'SALARY_EARNER' ? 'Employer address is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.employerAddress ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.employerAddress ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   />
                   {errors.employerAddress && (
-                    <span className="text-red-500 text-xs mt-1">{errors.employerAddress.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.employerAddress.message}
+                    </span>
                   )}
                 </div>
 
                 <div className="flex flex-col ">
-                  <label htmlFor="yearsWithEmployer" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="yearsWithEmployer"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Years With Employer *
                   </label>
                   <input
                     id="yearsWithEmployer"
                     type="text"
-                    {...register("yearsWithEmployer", {
-                      required: profession === "SALARY_EARNER" ? "Years with employer is required" : false,
+                    {...register('yearsWithEmployer', {
+                      required:
+                        profession === 'SALARY_EARNER' ? 'Years with employer is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.yearsWithEmployer ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.yearsWithEmployer ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   />
                   {errors.yearsWithEmployer && (
-                    <span className="text-red-500 text-xs mt-1">{errors.yearsWithEmployer.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.yearsWithEmployer.message}
+                    </span>
                   )}
                 </div>
               </div>
@@ -184,14 +212,16 @@ export default function EmploymentInformationForm() {
 
             {/* Side Business Question */}
             <div>
-              <label className="block font-medium text-gray-700 mb-4">Do you have a Side Business? *</label>
+              <label className="block font-medium text-gray-700 mb-4">
+                Do you have a Side Business? *
+              </label>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     value="true"
-                    {...register("hasSideBusiness", {
-                      required: profession === "SALARY_EARNER" ? "Please select an option" : false,
+                    {...register('hasSideBusiness', {
+                      required: profession === 'SALARY_EARNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
@@ -201,8 +231,8 @@ export default function EmploymentInformationForm() {
                   <input
                     type="radio"
                     value="false"
-                    {...register("hasSideBusiness", {
-                      required: profession === "SALARY_EARNER" ? "Please select an option" : false,
+                    {...register('hasSideBusiness', {
+                      required: profession === 'SALARY_EARNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
@@ -219,52 +249,72 @@ export default function EmploymentInformationForm() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Details</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.businessName" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.businessName"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Name Of Business *
                     </label>
                     <input
                       id="sideBusiness.businessName"
                       type="text"
-                      {...register("sideBusiness.businessName", {
-                        required: hasSideBusiness ? "Business name is required" : false,
+                      {...register('sideBusiness.businessName', {
+                        required: hasSideBusiness ? 'Business name is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.businessName ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.businessName ? 'border-red-500' : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.sideBusiness?.businessName && (
-                      <span className="text-red-500 text-xs mt-1">{errors.sideBusiness.businessName.message}</span>
+                      <span className="text-red-500 text-xs mt-1">
+                        {errors.sideBusiness.businessName.message}
+                      </span>
                     )}
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.businessRegNumber" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.businessRegNumber"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Business Reg. Number *
                     </label>
                     <input
                       id="sideBusiness.businessRegNumber"
                       type="text"
-                      {...register("sideBusiness.businessRegNumber", {
-                        required: hasSideBusiness ? "Business registration number is required" : false,
+                      {...register('sideBusiness.businessRegNumber', {
+                        required: hasSideBusiness
+                          ? 'Business registration number is required'
+                          : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.businessRegNumber ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.businessRegNumber
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.sideBusiness?.businessRegNumber && (
-                      <span className="text-red-500 text-xs mt-1">{errors.sideBusiness.businessRegNumber.message}</span>
+                      <span className="text-red-500 text-xs mt-1">
+                        {errors.sideBusiness.businessRegNumber.message}
+                      </span>
                     )}
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.businessType" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.businessType"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Business Type *
                     </label>
                     <select
                       id="sideBusiness.businessType"
-                      {...register("sideBusiness.businessType", {
-                        required: hasSideBusiness ? "Business type is required" : false,
+                      {...register('sideBusiness.businessType', {
+                        required: hasSideBusiness ? 'Business type is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.businessType ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.businessType ? 'border-red-500' : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     >
                       <option value="">Select Business Type</option>
                       <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -273,40 +323,54 @@ export default function EmploymentInformationForm() {
                       <option value="Corporation">Corporation</option>
                     </select>
                     {errors.sideBusiness?.businessType && (
-                      <span className="text-red-500 text-xs mt-1">{errors.sideBusiness.businessType.message}</span>
+                      <span className="text-red-500 text-xs mt-1">
+                        {errors.sideBusiness.businessType.message}
+                      </span>
                     )}
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.directorsBVN" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.directorsBVN"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Directors BVN *
                     </label>
                     <input
                       id="sideBusiness.directorsBVN"
                       type="text"
-                      {...register("sideBusiness.directorsBVN", {
-                        required: hasSideBusiness ? "Directors BVN is required" : false,
+                      {...register('sideBusiness.directorsBVN', {
+                        required: hasSideBusiness ? 'Directors BVN is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.directorsBVN ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.directorsBVN ? 'border-red-500' : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.sideBusiness?.directorsBVN && (
-                      <span className="text-red-500 text-xs mt-1">{errors.sideBusiness.directorsBVN.message}</span>
+                      <span className="text-red-500 text-xs mt-1">
+                        {errors.sideBusiness.directorsBVN.message}
+                      </span>
                     )}
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.directorsFirstName" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.directorsFirstName"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Directors First Name *
                     </label>
                     <input
                       id="sideBusiness.directorsFirstName"
                       type="text"
-                      {...register("sideBusiness.directorsFirstName", {
-                        required: hasSideBusiness ? "Directors first name is required" : false,
+                      {...register('sideBusiness.directorsFirstName', {
+                        required: hasSideBusiness ? 'Directors first name is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.directorsFirstName ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.directorsFirstName
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.sideBusiness?.directorsFirstName && (
                       <span className="text-red-500 text-xs mt-1">
@@ -316,20 +380,28 @@ export default function EmploymentInformationForm() {
                   </div>
 
                   <div className="flex flex-col">
-                    <label htmlFor="sideBusiness.directorsLastName" className="font-medium text-gray-700 mb-2 text-sm">
+                    <label
+                      htmlFor="sideBusiness.directorsLastName"
+                      className="font-medium text-gray-700 mb-2 text-sm"
+                    >
                       Directors Last Name *
                     </label>
                     <input
                       id="sideBusiness.directorsLastName"
                       type="text"
-                      {...register("sideBusiness.directorsLastName", {
-                        required: hasSideBusiness ? "Directors last name is required" : false,
+                      {...register('sideBusiness.directorsLastName', {
+                        required: hasSideBusiness ? 'Directors last name is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.sideBusiness?.directorsLastName ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.sideBusiness?.directorsLastName
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.sideBusiness?.directorsLastName && (
-                      <span className="text-red-500 text-xs mt-1">{errors.sideBusiness.directorsLastName.message}</span>
+                      <span className="text-red-500 text-xs mt-1">
+                        {errors.sideBusiness.directorsLastName.message}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -339,23 +411,27 @@ export default function EmploymentInformationForm() {
         )}
 
         {/* Business Owner Form */}
-        {profession === "BUSINESS_OWNER" && (
+        {profession === 'BUSINESS_OWNER' && (
           <>
             {/* Business Details */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label htmlFor="businessIndustry" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="businessIndustry"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Industry *
                   </label>
                   <select
                     id="businessIndustry"
-                    {...register("businessIndustry", {
-                      required: profession === "BUSINESS_OWNER" ? "Industry is required" : false,
+                    {...register('businessIndustry', {
+                      required: profession === 'BUSINESS_OWNER' ? 'Industry is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessIndustry ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.businessIndustry ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   >
                     <option value="">Select Industry</option>
                     <option value="Technology">Technology</option>
@@ -367,7 +443,9 @@ export default function EmploymentInformationForm() {
                     <option value="Other">Other</option>
                   </select>
                   {errors.businessIndustry && (
-                    <span className="text-red-500 text-xs mt-1">{errors.businessIndustry.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.businessIndustry.message}
+                    </span>
                   )}
                 </div>
 
@@ -378,11 +456,13 @@ export default function EmploymentInformationForm() {
                   <input
                     id="businessName"
                     type="text"
-                    {...register("businessName", {
-                      required: profession === "BUSINESS_OWNER" ? "Business name is required" : false,
+                    {...register('businessName', {
+                      required:
+                        profession === 'BUSINESS_OWNER' ? 'Business name is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessName ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.businessName ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   />
                   {errors.businessName && (
                     <span className="text-red-500 text-xs mt-1">{errors.businessName.message}</span>
@@ -395,11 +475,13 @@ export default function EmploymentInformationForm() {
                   </label>
                   <select
                     id="businessType"
-                    {...register("businessType", {
-                      required: profession === "BUSINESS_OWNER" ? "Business type is required" : false,
+                    {...register('businessType', {
+                      required:
+                        profession === 'BUSINESS_OWNER' ? 'Business type is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessType ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.businessType ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   >
                     <option value="">Select Business Type</option>
                     <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -413,34 +495,48 @@ export default function EmploymentInformationForm() {
                 </div>
 
                 <div className="flex flex-col">
-                  <label htmlFor="businessRegNumber" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="businessRegNumber"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Business Reg. Number *
                   </label>
                   <input
                     id="businessRegNumber"
                     type="text"
-                    {...register("businessRegNumber", {
-                      required: profession === "BUSINESS_OWNER" ? "Business registration number is required" : false,
+                    {...register('businessRegNumber', {
+                      required:
+                        profession === 'BUSINESS_OWNER'
+                          ? 'Business registration number is required'
+                          : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessRegNumber ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.businessRegNumber ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   />
                   {errors.businessRegNumber && (
-                    <span className="text-red-500 text-xs mt-1">{errors.businessRegNumber.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.businessRegNumber.message}
+                    </span>
                   )}
                 </div>
 
                 <div className="flex flex-col md:col-span-2">
-                  <label htmlFor="yearsOfOperation" className="font-medium text-gray-700 mb-2 text-sm">
+                  <label
+                    htmlFor="yearsOfOperation"
+                    className="font-medium text-gray-700 mb-2 text-sm"
+                  >
                     Years Of Operation *
                   </label>
                   <select
                     id="yearsOfOperation"
-                    {...register("yearsOfOperation", {
-                      required: profession === "BUSINESS_OWNER" ? "Years of operation is required" : false,
+                    {...register('yearsOfOperation', {
+                      required:
+                        profession === 'BUSINESS_OWNER' ? 'Years of operation is required' : false,
                     })}
-                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.yearsOfOperation ? "border-red-500" : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                    className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                      errors.yearsOfOperation ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                   >
                     <option value="">Select Years</option>
                     <option value="Less than 1 year">Less than 1 year</option>
@@ -450,7 +546,9 @@ export default function EmploymentInformationForm() {
                     <option value="More than 10 years">More than 10 years</option>
                   </select>
                   {errors.yearsOfOperation && (
-                    <span className="text-red-500 text-xs mt-1">{errors.yearsOfOperation.message}</span>
+                    <span className="text-red-500 text-xs mt-1">
+                      {errors.yearsOfOperation.message}
+                    </span>
                   )}
                 </div>
               </div>
@@ -458,14 +556,16 @@ export default function EmploymentInformationForm() {
 
             {/* Business Bank Account */}
             <div>
-              <label className="block font-medium text-gray-700 mb-4">Do you have a business bank account? *</label>
+              <label className="block font-medium text-gray-700 mb-4">
+                Do you have a business bank account? *
+              </label>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     value="true"
-                    {...register("hasBusinessBankAccount", {
-                      required: profession === "BUSINESS_OWNER" ? "Please select an option" : false,
+                    {...register('hasBusinessBankAccount', {
+                      required: profession === 'BUSINESS_OWNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
@@ -475,8 +575,8 @@ export default function EmploymentInformationForm() {
                   <input
                     type="radio"
                     value="false"
-                    {...register("hasBusinessBankAccount", {
-                      required: profession === "BUSINESS_OWNER" ? "Please select an option" : false,
+                    {...register('hasBusinessBankAccount', {
+                      required: profession === 'BUSINESS_OWNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
@@ -484,7 +584,9 @@ export default function EmploymentInformationForm() {
                 </label>
               </div>
               {errors.hasBusinessBankAccount && (
-                <span className="text-red-500 text-xs mt-1">{errors.hasBusinessBankAccount.message}</span>
+                <span className="text-red-500 text-xs mt-1">
+                  {errors.hasBusinessBankAccount.message}
+                </span>
               )}
             </div>
 
@@ -496,11 +598,12 @@ export default function EmploymentInformationForm() {
                 </label>
                 <select
                   id="businessBank"
-                  {...register("businessBank", {
-                    required: hasBusinessBankAccount ? "Business bank is required" : false,
+                  {...register('businessBank', {
+                    required: hasBusinessBankAccount ? 'Business bank is required' : false,
                   })}
-                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessBank ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                    errors.businessBank ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                 >
                   <option value="">Select Bank</option>
                   <option value="Access Bank">Access Bank</option>
@@ -518,14 +621,16 @@ export default function EmploymentInformationForm() {
 
             {/* Director Questions */}
             <div>
-              <label className="block font-medium text-gray-700 mb-4">Are you a director of the business? *</label>
+              <label className="block font-medium text-gray-700 mb-4">
+                Are you a director of the business? *
+              </label>
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     value="true"
-                    {...register("isDirector", {
-                      required: profession === "BUSINESS_OWNER" ? "Please select an option" : false,
+                    {...register('isDirector', {
+                      required: profession === 'BUSINESS_OWNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
@@ -535,30 +640,36 @@ export default function EmploymentInformationForm() {
                   <input
                     type="radio"
                     value="false"
-                    {...register("isDirector", {
-                      required: profession === "BUSINESS_OWNER" ? "Please select an option" : false,
+                    {...register('isDirector', {
+                      required: profession === 'BUSINESS_OWNER' ? 'Please select an option' : false,
                     })}
                     className="w-4 h-4 text-blue-600 accent-blue-500"
                   />
                   <span className="text-sm">No</span>
                 </label>
               </div>
-              {errors.isDirector && <span className="text-red-500 text-xs mt-1">{errors.isDirector.message}</span>}
+              {errors.isDirector && (
+                <span className="text-red-500 text-xs mt-1">{errors.isDirector.message}</span>
+              )}
             </div>
 
             {/* Number of Directors - Show only if is director is TRUE */}
             {isDirector && (
               <div className="flex flex-col">
-                <label htmlFor="numberOfDirectors" className="font-medium text-gray-700 mb-2 text-sm">
+                <label
+                  htmlFor="numberOfDirectors"
+                  className="font-medium text-gray-700 mb-2 text-sm"
+                >
                   How many directors does your Business have? *
                 </label>
                 <select
                   id="numberOfDirectors"
-                  {...register("numberOfDirectors", {
-                    required: isDirector ? "Number of directors is required" : false,
+                  {...register('numberOfDirectors', {
+                    required: isDirector ? 'Number of directors is required' : false,
                   })}
-                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.numberOfDirectors ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                    errors.numberOfDirectors ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                 >
                   <option value="">Select Number</option>
                   <option value="1">1</option>
@@ -568,7 +679,9 @@ export default function EmploymentInformationForm() {
                   <option value="5+">5+</option>
                 </select>
                 {errors.numberOfDirectors && (
-                  <span className="text-red-500 text-xs mt-1">{errors.numberOfDirectors.message}</span>
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.numberOfDirectors.message}
+                  </span>
                 )}
               </div>
             )}
@@ -588,11 +701,14 @@ export default function EmploymentInformationForm() {
                     <input
                       id="directorsInformation.directorsBVN"
                       type="text"
-                      {...register("directorsInformation.directorsBVN", {
-                        required: isDirector ? "Directors BVN is required" : false,
+                      {...register('directorsInformation.directorsBVN', {
+                        required: isDirector ? 'Directors BVN is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.directorsInformation?.directorsBVN ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.directorsInformation?.directorsBVN
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.directorsInformation?.directorsBVN && (
                       <span className="text-red-500 text-xs mt-1">
@@ -611,11 +727,14 @@ export default function EmploymentInformationForm() {
                     <input
                       id="directorsInformation.directorsFirstName"
                       type="text"
-                      {...register("directorsInformation.directorsFirstName", {
-                        required: isDirector ? "Directors first name is required" : false,
+                      {...register('directorsInformation.directorsFirstName', {
+                        required: isDirector ? 'Directors first name is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.directorsInformation?.directorsFirstName ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.directorsInformation?.directorsFirstName
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.directorsInformation?.directorsFirstName && (
                       <span className="text-red-500 text-xs mt-1">
@@ -634,11 +753,14 @@ export default function EmploymentInformationForm() {
                     <input
                       id="directorsInformation.directorsLastName"
                       type="text"
-                      {...register("directorsInformation.directorsLastName", {
-                        required: isDirector ? "Directors last name is required" : false,
+                      {...register('directorsInformation.directorsLastName', {
+                        required: isDirector ? 'Directors last name is required' : false,
                       })}
-                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.directorsInformation?.directorsLastName ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                      className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                        errors.directorsInformation?.directorsLastName
+                          ? 'border-red-500'
+                          : 'border-gray-300'
+                      } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                     />
                     {errors.directorsInformation?.directorsLastName && (
                       <span className="text-red-500 text-xs mt-1">
@@ -653,21 +775,25 @@ export default function EmploymentInformationForm() {
         )}
 
         {/* Self Employed Form - Similar to Business Owner but with different fields */}
-        {profession === "SELF_EMPLOYED" && (
+        {profession === 'SELF_EMPLOYED' && (
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Self Employment Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col">
-                <label htmlFor="businessIndustry" className="font-medium text-gray-700 mb-2 text-sm">
+                <label
+                  htmlFor="businessIndustry"
+                  className="font-medium text-gray-700 mb-2 text-sm"
+                >
                   Industry *
                 </label>
                 <select
                   id="businessIndustry"
-                  {...register("businessIndustry", {
-                    required: profession === "SELF_EMPLOYED" ? "Industry is required" : false,
+                  {...register('businessIndustry', {
+                    required: profession === 'SELF_EMPLOYED' ? 'Industry is required' : false,
                   })}
-                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.businessIndustry ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                    errors.businessIndustry ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                 >
                   <option value="">Select Industry</option>
                   <option value="Technology">Technology</option>
@@ -679,21 +805,28 @@ export default function EmploymentInformationForm() {
                   <option value="Other">Other</option>
                 </select>
                 {errors.businessIndustry && (
-                  <span className="text-red-500 text-xs mt-1">{errors.businessIndustry.message}</span>
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.businessIndustry.message}
+                  </span>
                 )}
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="yearsOfOperation" className="font-medium text-gray-700 mb-2 text-sm">
+                <label
+                  htmlFor="yearsOfOperation"
+                  className="font-medium text-gray-700 mb-2 text-sm"
+                >
                   Years Of Operation *
                 </label>
                 <select
                   id="yearsOfOperation"
-                  {...register("yearsOfOperation", {
-                    required: profession === "SELF_EMPLOYED" ? "Years of operation is required" : false,
+                  {...register('yearsOfOperation', {
+                    required:
+                      profession === 'SELF_EMPLOYED' ? 'Years of operation is required' : false,
                   })}
-                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.yearsOfOperation ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                    errors.yearsOfOperation ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                 >
                   <option value="">Select Years</option>
                   <option value="Less than 1 year">Less than 1 year</option>
@@ -703,7 +836,9 @@ export default function EmploymentInformationForm() {
                   <option value="More than 10 years">More than 10 years</option>
                 </select>
                 {errors.yearsOfOperation && (
-                  <span className="text-red-500 text-xs mt-1">{errors.yearsOfOperation.message}</span>
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.yearsOfOperation.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -714,9 +849,12 @@ export default function EmploymentInformationForm() {
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Expenses Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {profession === "BUSINESS_OWNER" && (
+            {profession === 'BUSINESS_OWNER' && (
               <div className="flex flex-col">
-                <label htmlFor="monthlyGrossIncome" className="font-medium text-gray-700 mb-2 text-sm">
+                <label
+                  htmlFor="monthlyGrossIncome"
+                  className="font-medium text-gray-700 mb-2 text-sm"
+                >
                   Monthly Gross Income (₦) *
                 </label>
                 <input
@@ -724,21 +862,28 @@ export default function EmploymentInformationForm() {
                   type="number"
                   min="0"
                   step="0.01"
-                  {...register("monthlyGrossIncome", {
-                    required: profession === "BUSINESS_OWNER" ? "Monthly gross income is required" : false,
-                    min: { value: 0, message: "Amount must be positive" },
+                  {...register('monthlyGrossIncome', {
+                    required:
+                      profession === 'BUSINESS_OWNER' ? 'Monthly gross income is required' : false,
+                    min: { value: 0, message: 'Amount must be positive' },
                   })}
-                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.monthlyGrossIncome ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                    errors.monthlyGrossIncome ? 'border-red-500' : 'border-gray-300'
+                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
                 />
                 {errors.monthlyGrossIncome && (
-                  <span className="text-red-500 text-xs mt-1">{errors.monthlyGrossIncome.message}</span>
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.monthlyGrossIncome.message}
+                  </span>
                 )}
               </div>
             )}
 
             <div className="flex flex-col">
-              <label htmlFor="totalMonthlyExpenses" className="font-medium text-gray-700 mb-2 text-sm">
+              <label
+                htmlFor="totalMonthlyExpenses"
+                className="font-medium text-gray-700 mb-2 text-sm"
+              >
                 Total Monthly Expenses (₦) *
               </label>
               <input
@@ -746,15 +891,18 @@ export default function EmploymentInformationForm() {
                 type="number"
                 min="0"
                 step="0.01"
-                {...register("totalMonthlyExpenses", {
-                  required: "Total monthly expenses is required",
-                  min: { value: 0, message: "Amount must be positive" },
+                {...register('totalMonthlyExpenses', {
+                  required: 'Total monthly expenses is required',
+                  min: { value: 0, message: 'Amount must be positive' },
                 })}
-                className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.totalMonthlyExpenses ? "border-red-500" : "border-gray-300"
-                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                  errors.totalMonthlyExpenses ? 'border-red-500' : 'border-gray-300'
+                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
               />
               {errors.totalMonthlyExpenses && (
-                <span className="text-red-500 text-xs mt-1">{errors.totalMonthlyExpenses.message}</span>
+                <span className="text-red-500 text-xs mt-1">
+                  {errors.totalMonthlyExpenses.message}
+                </span>
               )}
             </div>
 
@@ -767,12 +915,13 @@ export default function EmploymentInformationForm() {
                 type="number"
                 min="0"
                 step="0.01"
-                {...register("totalTakeHomePay", {
-                  required: "Total take-home pay is required",
-                  min: { value: 0, message: "Amount must be positive" },
+                {...register('totalTakeHomePay', {
+                  required: 'Total take-home pay is required',
+                  min: { value: 0, message: 'Amount must be positive' },
                 })}
-                className={`px-3 py-2 border rounded-md text-sm transition-colors ${errors.totalTakeHomePay ? "border-red-500" : "border-gray-300"
-                  } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
+                className={`px-3 py-2 border rounded-md text-sm transition-colors ${
+                  errors.totalTakeHomePay ? 'border-red-500' : 'border-gray-300'
+                } focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500`}
               />
               {errors.totalTakeHomePay && (
                 <span className="text-red-500 text-xs mt-1">{errors.totalTakeHomePay.message}</span>
@@ -784,13 +933,15 @@ export default function EmploymentInformationForm() {
         {/* Vehicle Purpose - Common for all professions */}
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Vehicle Purpose</h3>
-          <label className="block font-medium text-gray-700 mb-4">What will the vehicle be used for? *</label>
+          <label className="block font-medium text-gray-700 mb-4">
+            What will the vehicle be used for? *
+          </label>
           <div className="flex gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 value="PERSONAL"
-                {...register("vehiclePurpose", { required: "Please select vehicle purpose" })}
+                {...register('vehiclePurpose', { required: 'Please select vehicle purpose' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Personal</span>
@@ -799,13 +950,15 @@ export default function EmploymentInformationForm() {
               <input
                 type="radio"
                 value="BUSINESS"
-                {...register("vehiclePurpose", { required: "Please select vehicle purpose" })}
+                {...register('vehiclePurpose', { required: 'Please select vehicle purpose' })}
                 className="w-4 h-4 text-blue-600 accent-blue-500"
               />
               <span className="text-sm">Business</span>
             </label>
           </div>
-          {errors.vehiclePurpose && <span className="text-red-500 text-xs mt-1">{errors.vehiclePurpose.message}</span>}
+          {errors.vehiclePurpose && (
+            <span className="text-red-500 text-xs mt-1">{errors.vehiclePurpose.message}</span>
+          )}
         </div>
 
         <div className="flex justify-between mt-8">
@@ -825,5 +978,5 @@ export default function EmploymentInformationForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }

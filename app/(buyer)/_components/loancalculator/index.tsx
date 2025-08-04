@@ -19,7 +19,7 @@ export default function LoanCalculator({ vehicleData }: { vehicleData: VehicleDa
   const vehicleId = pathname.split('/').at(-1)!;
   const [monthlyPayment, setMonthlyPayment] = useState<any | null>(null);
   null;
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -55,7 +55,7 @@ export default function LoanCalculator({ vehicleData }: { vehicleData: VehicleDa
         annualInterestRate: 0.4,
       });
       setMonthlyPayment(res.data);
-      setIsOpen(true)
+      setIsOpen(true);
       console.log(res, 'res');
     } catch (error) {
       console.log(error, 'error');
@@ -183,7 +183,12 @@ export default function LoanCalculator({ vehicleData }: { vehicleData: VehicleDa
           </div>
         )}
       </div>
-      <LoanPaymentDialog data={monthlyPayment} isOpen={isOpen} setIsOpen={setIsOpen} vehicleData={vehicleData} />
+      <LoanPaymentDialog
+        data={monthlyPayment}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        vehicleData={vehicleData}
+      />
     </div>
   );
 }

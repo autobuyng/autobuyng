@@ -62,10 +62,8 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
       //   setVehicleData(response1.data);
       // }
 
-
       const response = await getVehicle({ vehicleId: params.id });
       setVehicleData(response.data);
-
     } catch (error) {
       console.log(error, 'error');
     }
