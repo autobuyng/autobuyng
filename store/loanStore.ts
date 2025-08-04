@@ -15,20 +15,42 @@ export interface PersonalInformation {
 
 export interface EmploymentInformation {
   profession: 'SALARY_EARNER' | 'BUSINESS_OWNER' | 'SELF_EMPLOYED';
-  employmentType: string;
-  industry: string;
-  employerName: string;
-  employerAddress: string;
-  yearsWithEmployer: string;
-  hasSideBusiness: boolean;
+
+  employmentType?: string;
+  industry?: string;
+  employerName?: string;
+  employerAddress?: string;
+  yearsWithEmployer?: string;
+  hasSideBusiness?: string | boolean;
+
+  businessIndustry?: string;
   businessName?: string;
-  businessRegNumber?: string;
   businessType?: string;
-  directorsBVN?: string;
-  directorsFirstName?: string;
-  directorsLastName?: string;
+  businessRegNumber?: string;
+  yearsOfOperation?: string;
+  hasBusinessBankAccount?: string | boolean;
+  businessBank?: string;
+  isDirector?: string | boolean;
+  numberOfDirectors?: string;
+
+  sideBusiness?: {
+    businessName?: string;
+    businessRegNumber?: string;
+    businessType?: string;
+    directorsBVN?: string;
+    directorsFirstName?: string;
+    directorsLastName?: string;
+  };
+
+  directorsInformation?: {
+    directorsBVN?: string;
+    directorsFirstName?: string;
+    directorsLastName?: string;
+  };
+
   totalMonthlyExpenses: number;
   totalTakeHomePay: number;
+  monthlyGrossIncome?: number;
   vehiclePurpose: 'PERSONAL' | 'BUSINESS';
 }
 
@@ -57,20 +79,11 @@ export interface TermsAndConditions {
   agreeTermsAndPrivacy: boolean;
 }
 
-export interface FinancialInformation {
-  monthlyExpenses: number;
-  existingLoans?: number;
-  bankName: string;
-  accountNumber: string;
-  accountType: string;
-}
-
 export interface FormData {
   personalInformation: PersonalInformation;
   employmentInformation: EmploymentInformation;
   loanDetails: LoanDetails;
   termsAndConditions: TermsAndConditions;
-  financialInformation: FinancialInformation;
 }
 
 interface FormStore {
@@ -81,7 +94,6 @@ interface FormStore {
   updateEmploymentInformation: (data: EmploymentInformation) => void;
   updateLoanDetails: (data: LoanDetails) => void;
   updateTermsAndConditions: (data: TermsAndConditions) => void;
-  updateFinancialInformation: (data: FinancialInformation) => void;
   resetForm: () => void;
 }
 
@@ -106,14 +118,31 @@ const initialFormData: FormData = {
     employerAddress: '',
     yearsWithEmployer: '',
     hasSideBusiness: false,
+    businessIndustry: '',
     businessName: '',
-    businessRegNumber: '',
     businessType: '',
-    directorsBVN: '',
-    directorsFirstName: '',
-    directorsLastName: '',
+    businessRegNumber: '',
+    yearsOfOperation: '',
+    hasBusinessBankAccount: false,
+    businessBank: '',
+    isDirector: false,
+    numberOfDirectors: '',
+    sideBusiness: {
+      businessName: '',
+      businessRegNumber: '',
+      businessType: '',
+      directorsBVN: '',
+      directorsFirstName: '',
+      directorsLastName: '',
+    },
+    directorsInformation: {
+      directorsBVN: '',
+      directorsFirstName: '',
+      directorsLastName: '',
+    },
     totalMonthlyExpenses: 0,
     totalTakeHomePay: 0,
+    monthlyGrossIncome: 0,
     vehiclePurpose: 'PERSONAL',
   },
   loanDetails: {
@@ -139,13 +168,12 @@ const initialFormData: FormData = {
     acknowledgeFinanceApproval: false,
     agreeTermsAndPrivacy: false,
   },
-  financialInformation: {
-    monthlyExpenses: 0,
-    existingLoans: 0,
-    bankName: '',
-    accountNumber: '',
-    accountType: '',
-  },
+};
+
+const convertToBoolean = (value: string | boolean | undefined): boolean => {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'string') return value === 'true';
+  return false;
 };
 
 export const useFormStore = create<FormStore>((set) => ({
@@ -158,7 +186,15 @@ export const useFormStore = create<FormStore>((set) => ({
     })),
   updateEmploymentInformation: (data) =>
     set((state) => ({
-      formData: { ...state.formData, employmentInformation: data },
+      formData: {
+        ...state.formData,
+        employmentInformation: {
+          ...data,
+          hasSideBusiness: convertToBoolean(data.hasSideBusiness),
+          hasBusinessBankAccount: convertToBoolean(data.hasBusinessBankAccount),
+          isDirector: convertToBoolean(data.isDirector),
+        },
+      },
     })),
   updateLoanDetails: (data) =>
     set((state) => ({
@@ -167,10 +203,6 @@ export const useFormStore = create<FormStore>((set) => ({
   updateTermsAndConditions: (data) =>
     set((state) => ({
       formData: { ...state.formData, termsAndConditions: data },
-    })),
-  updateFinancialInformation: (data) =>
-    set((state) => ({
-      formData: { ...state.formData, financialInformation: data },
     })),
   resetForm: () => set({ formData: initialFormData, currentStep: 1 }),
 }));

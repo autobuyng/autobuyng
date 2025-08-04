@@ -330,7 +330,7 @@ const ImageSliderModal = ({
                 </div>
                 <div className="text-white text-center max-w-[100px] mx-auto mt-4 bg-black rounded-sm px-2 py-2">
                   {' '}
-                  {currentIndex + 1}/{ImageUrls.length}
+                  {currentIndex + 1}/{ImageUrls?.length}
                 </div>
               </div>
             </div>
