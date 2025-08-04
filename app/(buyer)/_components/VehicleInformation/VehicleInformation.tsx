@@ -180,7 +180,7 @@ const VehicleInformation = ({ vehicleData }: { vehicleData: VehicleData | null }
           </AlertDialog>
         </div>
 
-        <LoanCalculator />
+        <LoanCalculator vehicleData={vehicleData} />
       </div>
     </div>
   );

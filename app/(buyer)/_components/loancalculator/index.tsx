@@ -6,8 +6,10 @@ import { useGetLoanEstimate } from '../../api/payment';
 import { usePathname } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next-nprogress-bar';
+import { VehicleData } from '@/types/types';
+import LoanPaymentDialog from '../loanModal';
 
-export default function LoanCalculator() {
+export default function LoanCalculator({ vehicleData }: { vehicleData: VehicleData | null }) {
   const [carValue, setCarValue] = useState(13000000);
   const pathname = usePathname();
   const router = useRouter();
@@ -15,7 +17,9 @@ export default function LoanCalculator() {
   const [depositPercentage, setDepositPercentage] = useState(50);
   const { getLoanEstimate, isPending } = useGetLoanEstimate();
   const vehicleId = pathname.split('/').at(-1)!;
-  const [monthlyPayment, setMonthlyPayment] = useState<number | null>(null); (null);
+  const [monthlyPayment, setMonthlyPayment] = useState<any | null>(null);
+  null;
+  const [isOpen, setIsOpen] = useState(false)
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -50,7 +54,8 @@ export default function LoanCalculator() {
         loanTermMonths: loanTerm,
         annualInterestRate: 0.4,
       });
-      setMonthlyPayment(res.data.emi)
+      setMonthlyPayment(res.data);
+      setIsOpen(true)
       console.log(res, 'res');
     } catch (error) {
       console.log(error, 'error');
@@ -68,7 +73,7 @@ export default function LoanCalculator() {
               <label className="block text-sm font-medium text-gray-600 mb-2">Car Value</label>
               <input
                 type="text"
-                value={formatCurrency(carValue)}
+                value={formatCurrency(vehicleData?.price || 0)}
                 onChange={(e) => {
                   const value = e.target.value.replace(/[₦,\s]/g, '');
                   const numValue = Number.parseInt(value) || 0;
@@ -144,7 +149,7 @@ export default function LoanCalculator() {
             onClick={handleGetEstimate}
             className="w-fit bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            {isPending ? <Loader2 className="animate-spin mx-auto w-full " /> : 'Calculatte'}
+            {isPending ? <Loader2 className="animate-spin mx-auto w-full " /> : 'Calculate'}
           </button>
         </div>
 
@@ -156,13 +161,13 @@ export default function LoanCalculator() {
           requirements.
         </div>
 
-        {monthlyPayment && 
+        {monthlyPayment && (
           <div className="bg-white rounded-2xl p-6">
             <div className="flex justify-between items-center">
               <div>
                 <p className="text-sm text-blue-600 font-medium mb-1">Estimated Monthly Payment</p>
                 <p className="text-2xl font-bold text-gray-800">
-                  {monthlyPayment?.toLocaleString('en-NG', {
+                  {monthlyPayment.emi?.toLocaleString('en-NG', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -176,8 +181,9 @@ export default function LoanCalculator() {
               </button>
             </div>
           </div>
-        }
+        )}
       </div>
+      <LoanPaymentDialog data={monthlyPayment} isOpen={isOpen} setIsOpen={setIsOpen} vehicleData={vehicleData} />
     </div>
   );
 }

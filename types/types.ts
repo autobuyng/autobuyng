@@ -224,7 +224,6 @@ export type LoanResponse = {
   };
 };
 
-
 export type VehicleData = {
   _id: string;
   sellerId: string;

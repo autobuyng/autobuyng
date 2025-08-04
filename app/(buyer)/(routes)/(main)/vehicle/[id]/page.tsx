@@ -47,7 +47,7 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
   const [similarVehicle, setSimilarVehicle] = useState<Vehicle[] | null>(null);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const { getVehicle, getCachedVehicle, isPending, isError, error } = useGetVehicle();
+  const { getVehicle, isPending, isError, error } = useGetVehicle();
   const { getSimilarVehicle, isPending: similarVehicleLoading } = useGetSimilarVehicle();
 
   useEffect(() => {
@@ -56,14 +56,16 @@ const VehicledetailsPage = ({ params }: { params: { id: string } }) => {
 
   const handleGetVehicle = async () => {
     try {
-      const response1 = getCachedVehicle(params.id);
+      // const response1 = getCachedVehicle(params.id);
 
-      if (response1) {
-        setVehicleData(response1.data);
-      } else {
-        const response = await getVehicle({ vehicleId: params.id });
-        setVehicleData(response.data);
-      }
+      // if (response1) {
+      //   setVehicleData(response1.data);
+      // }
+
+
+      const response = await getVehicle({ vehicleId: params.id });
+      setVehicleData(response.data);
+
     } catch (error) {
       console.log(error, 'error');
     }
