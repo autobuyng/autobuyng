@@ -35,23 +35,16 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
                 </div>
 
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-bold text-gray-900">{`${data?.make} ${data?.vehicleModel} ${data?.vehicleTrim ?? ''} ${data?.vehicleYear}`}</h2>
-
+                    <h2 className="text-2xl font-bold text-gray-900">{`${data?.make} ${data?.vehicleModel} ${data?.vehicleTrim ?? ''} ${data?.vehicleYear}`}</h2>
                   <div className="text-4xl font-bold text-gray-900">
                     {formatCurrency(data?.price)}
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
-                    <div className="text-gray-600">
-                      <span className="text-sm">Down payment:</span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
                       <div className="text-xl font-semibold text-gray-900">
+                        <p className="text-sm">Down payment:</p>
                         {formatCurrency(data?.price)}
                       </div>
-                    </div>
-
-                    <div className="text-blue-600">
-                      <div className="text-2xl font-bold">{formatCurrency(data?.price)}</div>
-                    </div>
+                      <div className="text-2xl font-bold text-primary-700">{formatCurrency(data?.price)}/Month</div>
                   </div>
                 </div>
               </>

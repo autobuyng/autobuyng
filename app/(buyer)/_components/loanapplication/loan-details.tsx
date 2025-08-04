@@ -24,7 +24,8 @@ export default function LoanDetailsForm() {
   };
 
   const goBack = () => {
-    setCurrentStep(3);
+    setCurrentStep(2);
+    console.log("clicked")
   };
 
   return (
@@ -48,7 +49,7 @@ export default function LoanDetailsForm() {
               id="desiredEquityContribution"
               type="number"
               min="0"
-              step="1000"
+              // step="1000"
               {...register('desiredEquityContribution', {
                 min: { value: 0, message: 'Amount must be positive' },
               })}
