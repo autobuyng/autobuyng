@@ -44,9 +44,7 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
                         <p className="text-sm">Down payment:</p>
                         {formatCurrency(data?.price)}
                       </div>
-                      <div className="text-2xl font-bold text-primary-700">
-                        {formatCurrency(data?.price)}/Month
-                      </div>
+                      <div className="text-2xl font-bold text-primary-700">{formatCurrency(data?.price)}/Month</div>
                   </div>
                 </div>
               </>
