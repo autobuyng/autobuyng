@@ -128,7 +128,7 @@ export default function PersonalInformationForm() {
 
           <div className="flex flex-col">
             <label htmlFor="nationalId" className="font-medium text-gray-700 mb-2 text-sm">
-              National ID *
+              NIN *
             </label>
             <input
               id="nationalId"
