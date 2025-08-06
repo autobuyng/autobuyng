@@ -25,7 +25,6 @@ export default function LoanDetailsForm() {
 
   const goBack = () => {
     setCurrentStep(2);
-    console.log('clicked');
   };
 
   return (

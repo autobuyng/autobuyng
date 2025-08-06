@@ -17,7 +17,6 @@ const steps = [
 
 export default function LoanApplicationForm() {
   const { currentStep } = useFormStore();
-  console.log(currentStep, 'from steppper');
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 1:
