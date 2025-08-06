@@ -25,7 +25,7 @@ export default function LoanDetailsForm() {
 
   const goBack = () => {
     setCurrentStep(2);
-    console.log("clicked")
+    console.log('clicked');
   };
 
   return (
@@ -43,7 +43,7 @@ export default function LoanDetailsForm() {
               htmlFor="desiredEquityContribution"
               className="font-medium text-gray-700 mb-2 text-sm"
             >
-              Desired Equity Contribution (₦)
+              Desired Down Payment (₦)
             </label>
             <input
               id="desiredEquityContribution"

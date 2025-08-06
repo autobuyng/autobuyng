@@ -14,9 +14,9 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen  p-6">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-2xl mb-2 font-bold text-gray-900">Your Selected Car</h1>
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div className="space-y-6">
+            <h1 className="text-2xl mb-2 font-bold text-gray-900">Your Selected Car</h1>
             {isPending ? (
               <LoanVehicleSkeleton />
             ) : (
@@ -44,45 +44,95 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
                         <p className="text-sm">Down payment:</p>
                         {formatCurrency(data?.price)}
                       </div>
-                      <div className="text-2xl font-bold text-primary-700">{formatCurrency(data?.price)}/Month</div>
+                      <div className="text-2xl font-bold text-primary-700">
+                        {formatCurrency(data?.price)}/Month
+                      </div>
                   </div>
                 </div>
               </>
             )}
           </div>
 
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold text-blue-600 underline">
+          <div className="">
+            <h1 className="text-2xl font-semibold  underline text-blue-600 mb-2">
               How Autobuy Loan Application Works
-            </h2>
+            </h1>
 
-            <div className="">
-              <div className="space-y-1">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Detailed Vehicle Information Collection
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  We gather comprehensive details on your vehicle, including make, model, year, and
-                  condition to assess its true market value.
-                </p>
+            <div className="mb-2">
+              <h2 className=" font-semibold text-gray-900 mb-3">
+                Submit Your Loan Application
+              </h2>
+              <p className="text-gray-600 mb-2">
+                We&apos;ll guide you through a simple step-by-step application:
+              </p>
+
+              <div className="space-y-3 mb-2">
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">Fill in your personal details.</p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    Upload necessary documents for KYC (Know Your Customer) and income verification.
+                  </p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    Our finance partners will assess your request based on the information you provide.
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Advanced Valuation Algorithms
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Our system uses cutting-edge algorithms and real-time market data to give you the
-                  most precise and up-to-date valuation.
-                </p>
-              </div>
+              <p className="text-gray-600 text-sm">
+                Your data is securely handled and only shared with licensed lenders.
+              </p>
+            </div>
+
+            {/* Get Response and Finalize Payment Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Get Response and Finalize Payment
+              </h2>
 
               <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-gray-900">Expert Review</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Our experienced appraisers finalize the evaluation, ensuring all unique features
-                  and conditions are factored into the final value.
-                </p>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    After submission, the application is reviewed by our loan partners.
+                  </p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    You&apos;ll receive a decision within 24-48 hours.
+                  </p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    Once approved, the lender pays the seller directly.
+                  </p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    You handle your agreed deposit, and the car is officially yours!
+                  </p>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <p className="text-gray-700">
+                    Drive away once payment is confirmed. Loan repayment begins as scheduled.
+                  </p>
+                </div>
               </div>
             </div>
 
