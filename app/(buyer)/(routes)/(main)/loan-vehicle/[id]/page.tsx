@@ -35,16 +35,18 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
                 </div>
 
                 <div className="space-y-4">
-                    <h2 className="text-2xl font-bold text-gray-900">{`${data?.make} ${data?.vehicleModel} ${data?.vehicleTrim ?? ''} ${data?.vehicleYear}`}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">{`${data?.make} ${data?.vehicleModel} ${data?.vehicleTrim ?? ''} ${data?.vehicleYear}`}</h2>
                   <div className="text-4xl font-bold text-gray-900">
                     {formatCurrency(data?.price)}
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
+                    <div className="text-xl font-semibold text-gray-900">
+                      <p className="text-sm">Down payment:</p>
+                      {formatCurrency(data?.price)}
                     </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4">
-                      <div className="text-xl font-semibold text-gray-900">
-                        <p className="text-sm">Down payment:</p>
-                        {formatCurrency(data?.price)}
-                      </div>
-                      <div className="text-2xl font-bold text-primary-700">{formatCurrency(data?.price)}/Month</div>
+                    <div className="text-2xl font-bold text-primary-700">
+                      {formatCurrency(data?.price)}/Month
+                    </div>
                   </div>
                 </div>
               </>
@@ -57,9 +59,7 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
             </h1>
 
             <div className="mb-2">
-              <h2 className=" font-semibold text-gray-900 mb-3">
-                Submit Your Loan Application
-              </h2>
+              <h2 className=" font-semibold text-gray-900 mb-3">Submit Your Loan Application</h2>
               <p className="text-gray-600 mb-2">
                 We&apos;ll guide you through a simple step-by-step application:
               </p>
@@ -80,7 +80,8 @@ export default function LoanVehicle({ params }: { params: { id: string } }) {
                 <div className="flex items-start">
                   <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <p className="text-gray-700">
-                    Our finance partners will assess your request based on the information you provide.
+                    Our finance partners will assess your request based on the information you
+                    provide.
                   </p>
                 </div>
               </div>

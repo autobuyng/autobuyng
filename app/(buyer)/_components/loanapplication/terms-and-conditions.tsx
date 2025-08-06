@@ -2,11 +2,13 @@
 
 import { useToast } from '@/hooks/use-toast';
 import { useFormStore, type TermsAndConditions } from '@/store/loanStore';
+import { useRouter } from 'next-nprogress-bar';
 import { useForm } from 'react-hook-form';
 // import { useFormStore, type TermsAndConditions } from "@/store/form-store"
 
 export default function TermsAndConditionsForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const { formData, updateTermsAndConditions, setCurrentStep } = useFormStore();
 
   const {
@@ -76,6 +78,8 @@ export default function TermsAndConditionsForm() {
       title: 'Success',
       description: 'Loan application submitted successfully! Check console for data.',
     });
+
+    router.push("/success")
     // alert("Loan application submitted successfully! Check console for data.")
   };
 
